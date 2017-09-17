@@ -24,17 +24,17 @@ The Controls define the UI Controls.
 
 | Name            | Type              | Optional?  | Default         |
 |-----------------|-------------------|------------|-----------------|
-| type | "toggle" &#124; "dropDown" &#124; "slider" | No | /         |
-| text            | string            | No         | /               |
-| topic           | string            | No         | /               |
+| type | "toggle" &#124; "dropDown" &#124; "slider" | No |           |
+| text            | string            | No         |                 |
+| topic           | string            | No         |                 |
 | enableCondition | string => boolean | Yes        | () => true      |
-| *Toggle Options*                                                   |
+| **Toggle Options**                                                 |
 | on              | string            | Yes        | "on"            |
 | off             | string            | Yes        | "off"           |
 | toggled         | string => boolean | Yes        | x => x == "off" |
-| *DropDown Options*                                                 |
+| **DropDown Options**                                               |
 | options         | Map<string,*>     | Yes        | {}              |
-| *Slider Options*                                                   |
+| **Slider Options**                                                 |
 | min             | number            | Yes        | 0               |
 | max             | number            | Yes        | 1               |
 | step            | number            | Yes        | 1               |
