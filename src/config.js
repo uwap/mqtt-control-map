@@ -45,7 +45,7 @@ const config : Config = {
     led_stahltrager: {
       name: "LED Stahlträger",
       position: [360, 80],
-      icon: "",
+      icon: "wb_incandescent",
       ui: [
         {
           type: "toggle",
@@ -57,7 +57,7 @@ const config : Config = {
     snackbar: {
       name: "Snackbar",
       position: [550, 200],
-      icon: "",
+      icon: "kitchen",
       ui: [
         {
           type: "toggle",
@@ -69,7 +69,7 @@ const config : Config = {
     twinkle: {
       name: "Twinkle",
       position: [500, 280],
-      icon: "",
+      icon: "wb_incandescent",
       ui: [
         {
           type: "toggle",
@@ -81,7 +81,7 @@ const config : Config = {
     flyfry: {
       name: "Fliegenbratgerät",
       position: [450, 320],
-      icon: "",
+      icon: "whatshot",
       ui: [
         {
           type: "toggle",
@@ -93,7 +93,7 @@ const config : Config = {
     artnet: {
       name: "Artnet",
       position: [550,150],
-      icon: "",
+      icon: "wb_incandescent",
       ui: [
         {
           type: "toggle",
@@ -120,7 +120,7 @@ const config : Config = {
     onkyo: {
       name: "Onkyo",
       position: [350, 350],
-      icon: "",
+      icon: "volume_up",
       ui: [
         {
           type: "slider",
