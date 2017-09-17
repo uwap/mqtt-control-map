@@ -89,17 +89,24 @@ const config : Config = {
       icon: "",
       ui: [
         {
+          type: "toggle",
+          text: "An/Aus",
+          topic: "artnet",
+          on: "cycle",
+          toggled: val => val != "off"
+        },
+        {
           type: "dropDown",
           text: "Artnet",
           topic: "artnet",
           options: {
-            off: "Aus",
             yellow: "Gelb",
             red: "Rot",
             purple: "Pink",
             green: "Grün",
             cycle: "Cycle Random"
-          }
+          },
+          enableCondition: val => val != "off"
         }
       ]
     }

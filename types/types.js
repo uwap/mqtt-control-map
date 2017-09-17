@@ -13,8 +13,15 @@ declare type ControlUI = {
   type: "toggle" | "dropDown",
   text: string,
   topic: string,
+
+  enableCondition?: (val: any) => boolean,
+  
+  // TOGGLE optional properties
   on?: string, // on override for toggle
   off?: string, // off override for toggle
+  toggled?: (val: any) => boolean,
+
+  // DROPDOWN optional properties
   options?: Map<string,any> //options for dropDown
 };
 

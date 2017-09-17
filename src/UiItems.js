@@ -6,6 +6,20 @@ import MenuItem from 'material-ui/MenuItem';
 import Config from "./config";
 import R from "ramda";
 
+const keyOf = (map: Map<any,any>, value: any) : ?any =>
+  ((keys) => keys[R.findIndex(k => map[k] == value, keys)])
+    (R.keys(map));
+
+const enabled = (props: ControlUI, state: State) => {
+  const key = keyOf(Config.topics[props.topic].values,
+    state.values[props.topic]);
+  if (props.enableCondition == null) return true;
+  if (key == null) return false;
+  else {
+    return props.enableCondition(key);
+  }
+};
+
 const getValue = (topic: string, val: string) =>
   Config.topics[topic].values[val];
 
@@ -18,15 +32,27 @@ const onToggle = (topic: string, props: ControlUI, state: State) =>
     }
   };
 
-export const toggle = (state: State, props: ControlUI) => (
-  <Toggle label={props.text}
-          toggled={
-            state.values[props.topic] ===
-              getValue(props.topic, R.propOr("on", "on", props))
-          }
+export const toggle = (state: State, props: ControlUI) => {
+  const toggled = (() => {
+    if (props.toggled != null) {
+      console.log(state.values[props.topic]);
+      console.log(Config.topics[props.topic].values);
+      const key = keyOf(Config.topics[props.topic].values,
+        state.values[props.topic]);
+      if (key == null) return true;
+      console.log(key);
+      if (props.toggled != null) return props.toggled(key); //only for flow </3
+    } else {
+      return state.values[props.topic] ===
+        getValue(props.topic, R.propOr("on", "on", props));
+    }
+  })();
+  return (<Toggle label={props.text}
+          toggled={toggled}
           onToggle={onToggle(props.topic, props, state)}
-  />
-);
+          disabled={!(enabled(props, state))} />
+  );
+}
 
 const onDropDownChange = (topic: string, props: ControlUI, state: State) =>
   (event, index, value) => {
@@ -41,7 +67,8 @@ const dropDownItem = (topic: string) => (text: string, key: string) => (
 
 export const dropDown = (state: State, props: ControlUI) => (
   <SelectField value={state.values[props.topic]}
-                onChange={onDropDownChange(props.topic, props, state)}>
+               onChange={onDropDownChange(props.topic, props, state)}
+               disabled={!(enabled(props, state))}>
     {R.values(R.mapObjIndexed(dropDownItem(props.topic), props.options))}
   </SelectField>
 );
