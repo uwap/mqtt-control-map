@@ -39,6 +39,12 @@ const config : Config = {
       value: 0,
       values: {},
       parseState: msg => JSON.parse(msg.toString()).val
+    },
+    rundumleuchte: {
+      state: "/service/openhab/out/pca301_rundumleuchte/state",
+      command: "/service/openhab/in/pca301_rundumleuchte/command",
+      value: "ON",
+      values: { on: "ON", off: "OFF" }
     }
   },
   controls: {
@@ -128,6 +134,18 @@ const config : Config = {
           topic: "onkyo_volume",
           min: 0,
           max: 100
+        }
+      ]
+    },
+    rundumleuchte: {
+      name: "Rundumleuchte",
+      position: [240,210],
+      icon: "wb_sunny",
+      ui: [
+        {
+          type: "toggle",
+          text: "Rundumleuchte",
+          topic: "rundumleuchte"
         }
       ]
     }
