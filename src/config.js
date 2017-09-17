@@ -56,7 +56,7 @@ const config : Config = {
     },
     snackbar: {
       name: "Snackbar",
-      position: [550, 200],
+      position: [560, 200],
       icon: "kitchen",
       ui: [
         {
@@ -92,7 +92,7 @@ const config : Config = {
     },
     artnet: {
       name: "Artnet",
-      position: [550,150],
+      position: [560,165],
       icon: "wb_incandescent",
       ui: [
         {
@@ -119,7 +119,7 @@ const config : Config = {
     },
     onkyo: {
       name: "Onkyo",
-      position: [350, 350],
+      position: [350, 380],
       icon: "volume_up",
       ui: [
         {
