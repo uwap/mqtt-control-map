@@ -45,6 +45,12 @@ const config : Config = {
       command: "/service/openhab/in/pca301_rundumleuchte/command",
       value: "OFF",
       values: { on: "ON", off: "OFF" }
+    },
+    door_status: {
+      state: "/service/status",
+      command: "",
+      value: "\"closed\"",
+      values: { on: "\"open\"", off: "\"closed\"" }
     }
   },
   controls: {
@@ -162,6 +168,13 @@ const config : Config = {
           topic: "rundumleuchte"
         }
       ]
+    },
+    door: {
+      name: "Tür",
+      position: [480,20],
+      icon: "swap_vert",
+      iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
+      ui: []
     }
   }
 };
