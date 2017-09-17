@@ -32,6 +32,13 @@ const config : Config = {
       values: { off: "blackout", yellow: "yellow", purple: "purple",
                 blue: "blue", green: "green", red: "red", random: "random",
                 cycle: "cycle-random" }
+    },
+    onkyo_volume: {
+      state: "/service/onkyo/status/volume",
+      command: "/service/onkyo/set/volume",
+      value: 0,
+      values: {},
+      parseState: msg => JSON.parse(msg.toString()).val
     }
   },
   controls: {
@@ -107,6 +114,20 @@ const config : Config = {
             cycle: "Cycle Random"
           },
           enableCondition: val => val != "off"
+        }
+      ]
+    },
+    onkyo: {
+      name: "Onkyo",
+      position: [350, 350],
+      icon: "",
+      ui: [
+        {
+          type: "slider",
+          text: "Volume",
+          topic: "onkyo_volume",
+          min: 0,
+          max: 100
         }
       ]
     }

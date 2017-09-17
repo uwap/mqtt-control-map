@@ -3,6 +3,7 @@ import React from "react";
 import Toggle from "material-ui/Toggle";
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Slider from 'material-ui/Slider';
 import Config from "./config";
 import R from "ramda";
 
@@ -71,4 +72,20 @@ export const dropDown = (state: State, props: ControlUI) => (
                disabled={!(enabled(props, state))}>
     {R.values(R.mapObjIndexed(dropDownItem(props.topic), props.options))}
   </SelectField>
+);
+
+const onSliderChange = (state: State, props: ControlUI) =>
+  (event, value) => {
+    if (state.mqtt != null) {
+      state.mqtt.publish(Config.topics[props.topic].command, value.toString());
+    }
+  };
+
+export const slider = (state: State, props: ControlUI) => (
+  <Slider value={state.values[props.topic]}
+          min={props.min == null ? 0 : props.min}
+          max={props.max == null ? 1 : props.max}
+          step={props.step == null ? 1 : props.step}
+          onChange={onSliderChange(state, props)}
+  />
 );
