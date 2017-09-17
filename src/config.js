@@ -4,7 +4,7 @@ const config : Config = {
     led_stahltraeger: {
       state: "/service/openhab/out/pca301_ledstrips/state",
       command: "/service/openhab/in/pca301_ledstrips/command",
-      value: "OFF", # defaultValue
+      value: "OFF", // defaultValue
       values: { on: "ON", off: "OFF" }
     },
     snackbar: {
@@ -89,34 +89,17 @@ const config : Config = {
       icon: "",
       ui: [
         {
-          type: "toggle",
-          text: "Gelb",
+          type: "dropDown",
+          text: "Artnet",
           topic: "artnet",
-          on: "yellow"
-        },
-        {
-          type: "toggle",
-          text: "Rot",
-          topic: "artnet",
-          on: "red"
-        },
-        {
-          type: "toggle",
-          text: "Pink",
-          topic: "artnet",
-          on: "purple"
-        },
-        {
-          type: "toggle",
-          text: "Grün",
-          topic: "artnet",
-          on: "green"
-        },
-        {
-          type: "toggle",
-          text: "Cycle Random",
-          topic: "artnet",
-          on: "cycle"
+          options: {
+            off: "Aus",
+            yellow: "Gelb",
+            red: "Rot",
+            purple: "Pink",
+            green: "Grün",
+            cycle: "Cycle Random"
+          }
         }
       ]
     }

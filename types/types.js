@@ -10,9 +10,12 @@ declare type Topic = {
 declare type Topics = Map<string,Topic>;
 
 declare type ControlUI = {
-  type: "toggle",
+  type: "toggle" | "dropDown",
   text: string,
-  topic: string
+  topic: string,
+  on?: string, // on override for toggle
+  off?: string, // off override for toggle
+  options?: Map<string,any> //options for dropDown
 };
 
 declare type Control = {

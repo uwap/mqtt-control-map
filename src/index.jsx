@@ -54,8 +54,8 @@ const handleEvent = (state = appState, action) => {
 
 const store = createStore(handleEvent);
 
-const UiItem = (state) => (props) =>
-  UiItems[props.type](R.merge(props, {state:state}));
+const UiItem = (state) => (props : ControlUI) =>
+  UiItems[props.type](state, props);
 
 const renderUi = (state, key) => key != null && Config.controls[key] != null ?
     R.map(UiItem(state), Config.controls[key].ui) : null;
