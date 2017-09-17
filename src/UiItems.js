@@ -82,10 +82,13 @@ const onSliderChange = (state: State, props: ControlUI) =>
   };
 
 export const slider = (state: State, props: ControlUI) => (
+  <div>
+  <span>{props.text}</span>
   <Slider value={state.values[props.topic]}
           min={props.min == null ? 0 : props.min}
           max={props.max == null ? 1 : props.max}
           step={props.step == null ? 1 : props.step}
           onChange={onSliderChange(state, props)}
   />
+  </div>
 );
