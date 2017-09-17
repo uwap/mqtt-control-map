@@ -11,11 +11,28 @@ import ReactDOM from "react-dom";
 // convert width/height coordinates to -height/width coordinates
 const c = (p) => [-p[1], p[0]]
 
+const keyOf = (map: Map<any,any>, value: any) : ?any =>
+  ((keys) => keys[R.findIndex(k => map[k] == value, keys)])
+    (R.keys(map));
+
+const color = (iconColor, state: State) => {
+  console.log(
+      R.mapObjIndexed((x,k) => keyOf(Config.topics[k].values, x), state.values)
+  ); return iconColor == null ? "#000000" :
+    iconColor(
+      R.mapObjIndexed((x,k) => keyOf(Config.topics[k].values, x), state.values)
+    );
+}
+const iconHtml = (el, state: State) =>
+  "<i class=\"material-icons\" style=\""
+    + "color:" + color(el.iconColor, state) + ";\">"
+    + el.icon + "</i>"
+
 const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
   <Marker position={c(el.position)} key={el.name}
     icon={Leaflet.divIcon(
       {
-        html: "<i class=\"material-icons\">" + el.icon + "</i>",
+        html: iconHtml(el, props.state),
         iconSize: Leaflet.point(32,32)
       })}>
     <Popup onOpen={() => props.store.dispatch({type: "uiopen", ui: key})}

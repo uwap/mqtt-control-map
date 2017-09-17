@@ -43,7 +43,7 @@ const config : Config = {
     rundumleuchte: {
       state: "/service/openhab/out/pca301_rundumleuchte/state",
       command: "/service/openhab/in/pca301_rundumleuchte/command",
-      value: "ON",
+      value: "OFF",
       values: { on: "ON", off: "OFF" }
     }
   },
@@ -52,6 +52,7 @@ const config : Config = {
       name: "LED Stahlträger",
       position: [360, 80],
       icon: "wb_incandescent",
+      iconColor: state => state.led_stahltraeger == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -64,6 +65,7 @@ const config : Config = {
       name: "Snackbar",
       position: [560, 200],
       icon: "kitchen",
+      iconColor: state => state.snackbar == "on" ? "#E20074" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -76,6 +78,7 @@ const config : Config = {
       name: "Twinkle",
       position: [500, 280],
       icon: "wb_incandescent",
+      iconColor: state => state.twinkle == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -88,6 +91,7 @@ const config : Config = {
       name: "Fliegenbratgerät",
       position: [450, 320],
       icon: "whatshot",
+      iconColor: state => state.flyfry == "on" ? "#6666FF" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -100,6 +104,15 @@ const config : Config = {
       name: "Artnet",
       position: [560,165],
       icon: "wb_incandescent",
+      iconColor: state => 
+        ({
+          off: "#000000",
+          yellow: "#CCCC00",
+          red: "#FF0000",
+          purple: "#FF00FF",
+          green: "#00FF00",
+          cycle: "#CCCC00"
+        })[state.artnet],
       ui: [
         {
           type: "toggle",
@@ -141,6 +154,7 @@ const config : Config = {
       name: "Rundumleuchte",
       position: [240,210],
       icon: "wb_sunny",
+      iconColor: state => state.rundumleuchte == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",

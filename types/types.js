@@ -34,6 +34,7 @@ declare type Control = {
   name: string,
   position: Array<number>,
   icon: string,
+  iconColor?: (state: Map<string,any>) => string,
   ui: Array<ControlUI>
 };
 declare type Controls = Map<string,Control>;
