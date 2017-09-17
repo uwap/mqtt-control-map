@@ -2,7 +2,7 @@
 import React from "react";
 import AppBar from "material-ui/AppBar";
 import CircularProgress from "material-ui/CircularProgress";
-import DoneIcon from "material-ui/svg-icons/action/done";
+import MapIcon from "material-ui/svg-icons/maps/map";
 import IconMenu from "material-ui/IconMenu";
 import IconButton from "material-ui/IconButton";
 import MenuItem from "material-ui/MenuItem";
@@ -14,7 +14,7 @@ const TopBarIndicatorMenu = (props: Object) => (
       <IconButton style={{width:48, height:48, padding: 0}}
           iconStyle={{width:48, height: 48}}
           tooltip="Connected!">
-        <DoneIcon color={grey50} />
+        <MapIcon color={grey50} />
       </IconButton>}
     style={{width:48, height:48}}>
     <MenuItem primaryText="Reconnect" />
