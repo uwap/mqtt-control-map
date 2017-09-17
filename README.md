@@ -1,5 +1,13 @@
 # RZL Map
 
-Die Config ist in src/config.js erreichbar.
+## How to set up
 
-Doku folgt. Bald™
+1. run `yarn` to install all dependencies.
+2. run `yarn build` to compile everything
+3. open the `index.html`
+4. ???
+5. profit
+
+## Config
+
+See `src/config.js`
