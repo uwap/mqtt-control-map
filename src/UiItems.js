@@ -5,19 +5,15 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Slider from 'material-ui/Slider';
 import Config from "./config";
+import { keyOf } from "./util";
 import R from "ramda";
 
-const keyOf = (map: Map<any,any>, value: any) : ?any =>
-  ((keys) => keys[R.findIndex(k => map[k] == value, keys)])
-    (R.keys(map));
-
 const enabled = (props: ControlUI, state: State) => {
-  const key = keyOf(Config.topics[props.topic].values,
-    state.values[props.topic]);
   if (props.enableCondition == null) return true;
-  if (key == null) return false;
   else {
-    return props.enableCondition(key);
+    const val = state.values[props.topic];
+    return props.enableCondition(
+      val.internal == null ? val.actual : val.internal, val.actual);
   }
 };
 
@@ -35,17 +31,12 @@ const onToggle = (topic: string, props: ControlUI, state: State) =>
 
 export const toggle = (state: State, props: ControlUI) => {
   const toggled = (() => {
+    const val = state.values[props.topic];
     if (props.toggled != null) {
-      console.log(state.values[props.topic]);
-      console.log(Config.topics[props.topic].values);
-      const key = keyOf(Config.topics[props.topic].values,
-        state.values[props.topic]);
-      if (key == null) return true;
-      console.log(key);
-      if (props.toggled != null) return props.toggled(key); //only for flow </3
+      return props.toggled(val.internal == null ? val.actual : val.internal,
+            val.actual);
     } else {
-      return state.values[props.topic] ===
-        getValue(props.topic, R.propOr("on", "on", props));
+      return val.internal === R.propOr("on", "on", props);
     }
   })();
   return (<Toggle label={props.text}
@@ -67,7 +58,7 @@ const dropDownItem = (topic: string) => (text: string, key: string) => (
 );
 
 export const dropDown = (state: State, props: ControlUI) => (
-  <SelectField value={state.values[props.topic]}
+  <SelectField value={state.values[props.topic].actual}
                onChange={onDropDownChange(props.topic, props, state)}
                disabled={!(enabled(props, state))}>
     {R.values(R.mapObjIndexed(dropDownItem(props.topic), props.options))}
@@ -84,7 +75,7 @@ const onSliderChange = (state: State, props: ControlUI) =>
 export const slider = (state: State, props: ControlUI) => (
   <div>
   <span>{props.text}</span>
-  <Slider value={state.values[props.topic]}
+  <Slider value={state.values[props.topic].actual}
           min={props.min == null ? 0 : props.min}
           max={props.max == null ? 1 : props.max}
           step={props.step == null ? 1 : props.step}

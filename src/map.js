@@ -4,6 +4,8 @@ import { Map, ImageOverlay, Marker, Popup } from "react-leaflet";
 import Leaflet from "leaflet";
 import R from "ramda";
 import Config from "./config";
+import { Actions } from "./state";
+import { keyOf } from "./util";
 
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ReactDOM from "react-dom";
@@ -11,16 +13,12 @@ import ReactDOM from "react-dom";
 // convert width/height coordinates to -height/width coordinates
 const c = (p) => [-p[1], p[0]]
 
-const keyOf = (map: Map<any,any>, value: any) : ?any =>
-  ((keys) => keys[R.findIndex(k => map[k] == value, keys)])
-    (R.keys(map));
-
 const color = (iconColor, state: State) => {
-  console.log(
-      R.mapObjIndexed((x,k) => keyOf(Config.topics[k].values, x), state.values)
-  ); return iconColor == null ? "#000000" :
+  // TODO: give iconColor not only internal but also actual values
+  return iconColor == null ? "#000000" :
     iconColor(
-      R.mapObjIndexed((x,k) => keyOf(Config.topics[k].values, x), state.values)
+      R.map(x => x.internal == null ?
+        x.actual : x.internal, state.values)
     );
 }
 const iconHtml = (el, state: State) =>
@@ -35,9 +33,10 @@ const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
         html: iconHtml(el, props.state),
         iconSize: Leaflet.point(32,32)
       })}>
-    <Popup onOpen={() => props.store.dispatch({type: "uiopen", ui: key})}
-          onClose={() => props.store.dispatch({type: "uiclose"})}>
-      <span>{el.name}</span>
+    <Popup
+      onOpen={() => props.store.dispatch({type: Actions.CHANGE_UI, payload: key})}
+      onClose={() => props.store.dispatch({type: Actions.CHANGE_UI})}>
+        <span>{el.name}</span>
     </Popup>
   </Marker>
 ), R.propOr({}, "controls", Config)));

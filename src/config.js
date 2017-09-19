@@ -4,31 +4,31 @@ const config : Config = {
     led_stahltraeger: {
       state: "/service/openhab/out/pca301_ledstrips/state",
       command: "/service/openhab/in/pca301_ledstrips/command",
-      value: "OFF", // defaultValue
+      defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
     },
     snackbar: {
       state: "/service/openhab/out/pca301_snackbar/state",
       command: "/service/openhab/in/pca301_snackbar/command",
-      value: "OFF",
+      defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
     },
     twinkle: {
       state: "/service/openhab/out/pca301_twinkle/state",
       command: "/service/openhab/in/pca301_twinkle/command",
-      value: "OFF",
+      defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
     },
     flyfry: {
       state: "/service/openhab/out/wifi_flyfry/state",
       command: "/service/openhab/in/wifi_flyfry/command",
-      value: "OFF",
+      defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
     },
     artnet: {
       state: "/artnet/state",
       command: "/artnet/push",
-      value: "blackout",
+      defaultValue: "blackout",
       values: { off: "blackout", yellow: "yellow", purple: "purple",
                 blue: "blue", green: "green", red: "red", random: "random",
                 cycle: "cycle-random" }
@@ -36,21 +36,34 @@ const config : Config = {
     onkyo_volume: {
       state: "/service/onkyo/status/volume",
       command: "/service/onkyo/set/volume",
-      value: 0,
+      defaultValue: 0,
       values: {},
+      parseState: msg => JSON.parse(msg.toString()).val
+    },
+    onkyo_inputs: {
+      state: "/service/onkyo/status/input-selector",
+      command: "/service/onkyo/command",
+      defaultValue: "SLI00",
+      values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10" },
       parseState: msg => JSON.parse(msg.toString()).val
     },
     rundumleuchte: {
       state: "/service/openhab/out/pca301_rundumleuchte/state",
       command: "/service/openhab/in/pca301_rundumleuchte/command",
-      value: "OFF",
+      defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
     },
     door_status: {
       state: "/service/status",
       command: "",
-      value: "\"closed\"",
+      defaultValue: "\"closed\"",
       values: { on: "\"open\"", off: "\"closed\"" }
+    },
+    infoscreen: {
+      state: "/service/openhab/out/pca301_infoscreen/state",
+      command: "/service/openhab/in/pca301_infoscreen/command",
+      defaultValue: "OFF",
+      values: { on: "ON", off: "OFF" }
     }
   },
   controls: {
@@ -153,12 +166,22 @@ const config : Config = {
           topic: "onkyo_volume",
           min: 0,
           max: 100
+        },
+        {
+          type: "dropDown",
+          text: "Inputs",
+          topic: "onkyo_inputs",
+          options: {
+            tisch: "Tisch",
+            chromecast: "Chromecast",
+            pult: "Pult"
+          }
         }
       ]
     },
     rundumleuchte: {
       name: "Rundumleuchte",
-      position: [240,210],
+      position: [225,220],
       icon: "wb_sunny",
       iconColor: state => state.rundumleuchte == "on" ? "#CCCC00" : "#000000",
       ui: [
@@ -175,6 +198,19 @@ const config : Config = {
       icon: "swap_vert",
       iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
       ui: []
+    },
+    infoscreen: {
+      name: "Infoscreen",
+      position: [255, 195],
+      icon: "developer_board",
+      iconColor: state => state.infoscreen == "on" ? "#4444FF" : "#000000",
+      ui: [
+        {
+          type: "toggle",
+          text: "Infoscreen",
+          topic: "infoscreen"
+        }
+      ]
     }
   }
 };
