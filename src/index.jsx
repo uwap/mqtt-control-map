@@ -16,43 +16,6 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 
 injectTapEventPlugin();
 
-// const appState : State = {
-//   mqtt: null,
-//   ui: null,
-//   values: R.map(R.prop("value"), Config.topics)
-// };
-// 
-// console.log(appState.values);
-// 
-// const handleEvent = (state = appState, action) => {
-//   switch (action.type) {
-//     case "CONNECT":
-//       return R.merge(state, { mqtt: action.mqtt });
-//     case "uiopen":
-//       return R.merge(state, { ui: action.ui });
-//     case "uiclose":
-//       return R.merge(state, { ui: null });
-//     case "mqtt_message":
-//       console.log(action.topic + ": " + action.message.toString());
-//       const val = (topic: string) =>
-//         Config.topics[topic].parseState == null ?
-//           action.message.toString() :
-//           Config.topics[topic].parseState(action.message);
-//       const keysToUpdate = R.keys(R.pickBy(val => val.state == action.topic,
-//                                   Config.topics));
-//       return R.mergeDeepRight(state, R.objOf("values", R.mergeAll(R.map(
-//         k => R.objOf(k, val(k)), keysToUpdate))));
-//       /*
-//       return R.merge(state, R.objOf("topics", R.merge(state.topics,
-//         R.map(R.merge(R.__, { value: val }),
-//           R.pickBy(val => val.state == action.topic, Config.topics)))));
-//           */
-//   }
-//   return state;
-// };
-// 
-// const store = createStore(handleEvent);
-
 const UiItem = (state) => (props : ControlUI) =>
   UiItems[props.type](state, props);
 
