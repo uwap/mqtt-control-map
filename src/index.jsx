@@ -23,7 +23,9 @@ const renderUi = (state: State, key: ?string) =>
   key != null && Config.controls[key] != null ?
     R.map(UiItem(state), Config.controls[key].ui) : null;
 
-const App = (state: State) => (
+const App = (state: State) => {
+  if (state == null) return (<div></div>);
+return (
   <div>
     <MuiThemeProvider>
       <div>
@@ -43,14 +45,15 @@ const App = (state: State) => (
         </Drawer>
       </div>
     </MuiThemeProvider>
-    <SpaceMap width={640} height={400} image="rzl.svg" zoom={0.1}
+    <SpaceMap width={640} height={640} image="rzl.svg" zoom={0.1}
         store={store} state={state} />
   </div>
-);
+);}
 
-store.dispatch({type: null});
 
 store.subscribe(() => ReactDOM.render(<App {...store.getState()} />, document.getElementById("content")));
 
+store.dispatch({type:null});
+
 // 192.168.178.6
-connectMqtt("ws:192.168.178.6:1884", store); // "ws://172.22.36.207:1884", store); // wss://mqtt.starletp9.de/mqtt", store); 
+connectMqtt("ws://172.22.36.207:1884", store); // wss://mqtt.starletp9.de/mqtt", store); 

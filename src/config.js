@@ -45,7 +45,7 @@ const config : Config = {
       command: "/service/onkyo/command",
       defaultValue: "SLI00",
       values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10" },
-      parseState: msg => JSON.parse(msg.toString()).val
+      parseState: msg => JSON.parse(msg.toString()).onkyo_raw
     },
     rundumleuchte: {
       state: "/service/openhab/out/pca301_rundumleuchte/state",
@@ -69,7 +69,7 @@ const config : Config = {
   controls: {
     led_stahltrager: {
       name: "LED Stahlträger",
-      position: [360, 80],
+      position: [390, 100],
       icon: "wb_incandescent",
       iconColor: state => state.led_stahltraeger == "on" ? "#CCCC00" : "#000000",
       ui: [
@@ -82,7 +82,7 @@ const config : Config = {
     },
     snackbar: {
       name: "Snackbar",
-      position: [560, 200],
+      position: [560, 465],
       icon: "kitchen",
       iconColor: state => state.snackbar == "on" ? "#E20074" : "#000000",
       ui: [
@@ -95,7 +95,7 @@ const config : Config = {
     },
     twinkle: {
       name: "Twinkle",
-      position: [500, 280],
+      position: [500, 540],
       icon: "wb_incandescent",
       iconColor: state => state.twinkle == "on" ? "#CCCC00" : "#000000",
       ui: [
@@ -108,7 +108,7 @@ const config : Config = {
     },
     flyfry: {
       name: "Fliegenbratgerät",
-      position: [450, 320],
+      position: [450, 560],
       icon: "whatshot",
       iconColor: state => state.flyfry == "on" ? "#6666FF" : "#000000",
       ui: [
@@ -121,7 +121,7 @@ const config : Config = {
     },
     artnet: {
       name: "Artnet",
-      position: [560,165],
+      position: [560,430],
       icon: "wb_incandescent",
       iconColor: state => 
         ({
@@ -157,7 +157,7 @@ const config : Config = {
     },
     onkyo: {
       name: "Onkyo",
-      position: [350, 380],
+      position: [350, 620],
       icon: "volume_up",
       ui: [
         {
@@ -181,7 +181,7 @@ const config : Config = {
     },
     rundumleuchte: {
       name: "Rundumleuchte",
-      position: [225,220],
+      position: [310,220],
       icon: "wb_sunny",
       iconColor: state => state.rundumleuchte == "on" ? "#CCCC00" : "#000000",
       ui: [
@@ -194,14 +194,14 @@ const config : Config = {
     },
     door: {
       name: "Tür",
-      position: [480,20],
+      position: [480,300],
       icon: "swap_vert",
       iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
       ui: []
     },
     infoscreen: {
       name: "Infoscreen",
-      position: [255, 195],
+      position: [255, 455],
       icon: "developer_board",
       iconColor: state => state.infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [

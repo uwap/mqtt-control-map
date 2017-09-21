@@ -18,7 +18,7 @@ const color = (iconColor, state: State) => {
   return iconColor == null ? "#000000" :
     iconColor(
       R.map(x => x.internal == null ?
-        x.actual : x.internal, state.values)
+        x.actual : x.internal, state.values == null ? {} : state.values)
     );
 }
 const iconHtml = (el, state: State) =>
