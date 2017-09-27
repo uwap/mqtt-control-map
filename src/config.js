@@ -19,6 +19,12 @@ const config : Config = {
       defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
     },
+    fan: {
+      state: "/service/openhab/out/pca301_fan/state",
+      command: "/service/openhab/in/pca301_fan/command",
+      defaultValue: "OFF",
+      values: { on: "ON", off: "OFF" }
+    },
     flyfry: {
       state: "/service/openhab/out/wifi_flyfry/state",
       command: "/service/openhab/in/wifi_flyfry/command",
@@ -103,6 +109,19 @@ const config : Config = {
           type: "toggle",
           text: "Twinkle",
           topic: "twinkle"
+        }
+      ]
+    },
+    fan: {
+      name: "Ventilator",
+      position: [530, 450],
+      icon: "toys",
+      iconColor: state => state.fan == "on" ? "#00FF00" : "#000000",
+      ui: [
+        {
+          type: "toggle",
+          text: "Ventilator",
+          topic: "fan"
         }
       ]
     },
