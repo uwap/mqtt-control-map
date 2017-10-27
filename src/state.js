@@ -17,7 +17,8 @@ const initState : State = {
     topic => { return {
       internal: keyOf(topic.values, topic.defaultValue),
       actual: topic.defaultValue
-    }}, Config.topics)
+    }}, Config.topics),
+  visibleLayers: []
 };
 
 const onMessage = (state: State, action: StateAction) => {

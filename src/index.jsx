@@ -45,8 +45,7 @@ return (
         </Drawer>
       </div>
     </MuiThemeProvider>
-    <SpaceMap width={640} height={640} image="rzl.svg" zoom={0.1}
-        store={store} state={state} />
+    <SpaceMap width={950} height={640} image="rzl.png" zoom={0.1} state={state} />
   </div>
 );}
 

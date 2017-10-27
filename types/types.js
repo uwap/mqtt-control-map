@@ -41,7 +41,8 @@ declare type Controls = Map<string,Control>;
 
 declare type Config = {
   topics: Topics,
-  controls: Controls
+  controls: Controls,
+  layers: Array<Layer>
 };
 
 declare type State = {
@@ -53,10 +54,17 @@ declare type State = {
   // topic, for example given by:
   // values: { off: "OFF", on: "ON" }
   // and actual is the value of that or whatever is given by mqtt.
-  values: Map<string, { internal: ?string, actual: any }>
+  values: Map<string, { internal: ?string, actual: any }>,
+  visibleLayers: Array<string>
+};
+
+declare type Layer = {
+  image: string,
+  name: string,
+  forceVisibility?: "on"|"off"
 };
 
 declare type StateAction = {
   type: "DISCONNECT" | "CONNECT" | "MESSAGE" | "UI_POPUP",
   payload?: any
-}
+};

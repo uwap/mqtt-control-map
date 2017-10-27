@@ -6,6 +6,7 @@ import R from "ramda";
 import Config from "./config";
 import { Actions } from "./state";
 import { keyOf } from "./util";
+import { store } from "./state";
 
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ReactDOM from "react-dom";
@@ -34,18 +35,26 @@ const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
         iconSize: Leaflet.point(32,32)
       })}>
     <Popup
-      onOpen={() => props.store.dispatch({type: Actions.CHANGE_UI, payload: key})}
-      onClose={() => props.store.dispatch({type: Actions.CHANGE_UI})}>
+      onOpen={() => store.dispatch({type: Actions.CHANGE_UI, payload: key})}
+      onClose={() => store.dispatch({type: Actions.CHANGE_UI})}>
         <span>{el.name}</span>
     </Popup>
   </Marker>
 ), R.propOr({}, "controls", Config)));
 
-const SpaceMap = (props: Object) => (
+const Layer = (layer: Layer, bounds: Array<Array<number>>) => (
+  <ImageOverlay url={layer.image} bounds={bounds} />
+);
+
+const visibleLayers = (state: State) => R.filter(
+  x => (x.forceVisibility == null && R.contains(state.visibleLayers, x.image))
+      || x.forceVisibility == "on", Config.layers)
+
+const SpaceMap = (props: { state: State, width: number, height: number,
+    zoom: number, image: string}) => (
   <Map center={c([props.width / 2, props.height / 2])} zoom={props.zoom}
       crs={Leaflet.CRS.Simple}>
-    <ImageOverlay url={props.image}
-        bounds={[c([0,0]), c([props.width, props.height])]} />
+    {R.map(x => Layer(x, [c([0,0]), c([props.width, props.height])]), visibleLayers(props.state))}
     {Markers(props)}
   </Map>
 );
