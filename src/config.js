@@ -262,7 +262,7 @@ const config : Config = {
           text: "Volume",
           topic: "onkyo_volume",
           min: 0,
-          max: 100,
+          max: 50,
           icon: "volume_up"
         },
         {
