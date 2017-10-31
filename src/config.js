@@ -245,6 +245,7 @@ const config : Config = {
     onkyo: {
       name: "Onkyo",
       position: [350, 650],
+      iconColor: state => state.onkyo_power == "on" ? "#00FF00" : "#000000",
       icon: "volume_up",
       ui: [
         {

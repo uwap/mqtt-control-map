@@ -32,12 +32,8 @@ const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
       {
         html: iconHtml(el, props.state),
         iconSize: Leaflet.point(32,32)
-      })}>
-    <Popup
-      onOpen={() => store.dispatch({type: Actions.CHANGE_UI, payload: key})}
-      onClose={() => store.dispatch({type: Actions.CHANGE_UI})}>
-        <span>{el.name}</span>
-    </Popup>
+      })}
+    onClick={() => store.dispatch({type: Actions.CHANGE_UI, payload: key})}>
   </Marker>
 ), R.propOr({}, "controls", Config)));
 
