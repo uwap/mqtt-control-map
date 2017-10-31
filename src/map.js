@@ -8,7 +8,6 @@ import { Actions } from "./state";
 import { keyOf } from "./util";
 import { store } from "./state";
 
-import ActionInfo from 'material-ui/svg-icons/action/info';
 import ReactDOM from "react-dom";
 
 // convert width/height coordinates to -height/width coordinates

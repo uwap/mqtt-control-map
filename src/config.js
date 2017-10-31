@@ -51,6 +51,20 @@ const config : Config = {
                 blue: "blue", green: "green", red: "red", random: "random",
                 cycle: "cycle-random" }
     },
+    onkyo_power: {
+      state: "/service/onkyo/status/system-power",
+      command: "/service/onkyo/command",
+      defaultValue: "PWR00",
+      values: { off: "PWR00", on: "PWR01" },
+      parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+    },
+    onkyo_mute: {
+      state: "/service/onkyo/status/audio-muting",
+      command: "/service/onkyo/command",
+      defaultValue: "AMT00",
+      values: { off: "AMT00", on: "AMT01" },
+      parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+    },
     onkyo_volume: {
       state: "/service/onkyo/status/volume",
       command: "/service/onkyo/set/volume",
@@ -62,8 +76,15 @@ const config : Config = {
       state: "/service/onkyo/status/input-selector",
       command: "/service/onkyo/command",
       defaultValue: "SLI00",
-      values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10" },
+      values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B" },
       parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+    },
+    onkyo_radios: {
+      state: "/service/onkyo/status/latest-NPR",
+      command: "/service/onkyo/command",
+      defaultValue: "",
+      values: { mpd: "NPR01", kohina: "NPR02", somafm_dronezone: "NPR03", somafm_thetrip: "NPR04",
+                querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08"}
     },
     rundumleuchte: {
       state: "/service/openhab/out/pca301_rundumleuchte/state",
@@ -87,98 +108,105 @@ const config : Config = {
   controls: {
     led_stahltrager: {
       name: "LED Stahlträger",
-      position: [390, 100],
+      position: [380, 300],
       icon: "wb_incandescent",
       iconColor: state => state.led_stahltraeger == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Stahlträger LED",
-          topic: "led_stahltraeger"
+          topic: "led_stahltraeger",
+          icon: "power_settings_new"
         },
       ]
     },
     snackbar: {
       name: "Snackbar",
-      position: [560, 465],
+      position: [510, 500],
       icon: "kitchen",
       iconColor: state => state.snackbar == "on" ? "#E20074" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Snackbar",
-          topic: "snackbar"
+          topic: "snackbar",
+          icon: "power_settings_new"
         }
       ]
     },
     twinkle: {
       name: "Twinkle",
-      position: [500, 540],
+      position: [530, 560],
       icon: "wb_incandescent",
       iconColor: state => state.twinkle == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Twinkle",
-          topic: "twinkle"
+          topic: "twinkle",
+          icon: "power_settings_new"
         }
       ]
     },
     fan: {
       name: "Ventilator",
-      position: [530, 450],
+      position: [510, 460],
       icon: "toys",
       iconColor: state => state.fan == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Ventilator",
-          topic: "fan"
+          topic: "fan",
+          icon: "power_settings_new"
         }
       ]
     },
     videogames: {
       name: "Videospiele",
-      position: [79, 50],
+      position: [100, 100],
       icon: "videogame_asset",
       iconColor: state => state.videogames == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Videospiele",
-          topic: "videogames"
+          topic: "videogames",
+          icon: "power_settings_new"
         }
       ]
     },
     olymp_pc: {
       name: "Rechner und Drucker",
-      position: [298, 20],
+      position: [297, 90],
       icon: "desktop_windows",
       iconColor: state => state.olymp_pc == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Rechner und Drucker",
-          topic: "olymp_pc"
+          topic: "olymp_pc",
+          icon: "power_settings_new"
         }
       ]
     },
     flyfry: {
       name: "Fliegenbratgerät",
-      position: [450, 560],
+      position: [450, 590],
       icon: "whatshot",
       iconColor: state => state.flyfry == "on" ? "#6666FF" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Fliegenbratgerät",
-          topic: "flyfry"
+          topic: "flyfry",
+          icon: "power_settings_new"
         }
       ]
     },
     artnet: {
       name: "Artnet",
-      position: [560,430],
+      position: [535,475],
       icon: "wb_incandescent",
       iconColor: state => 
         ({
@@ -195,77 +223,121 @@ const config : Config = {
           text: "An/Aus",
           topic: "artnet",
           on: "cycle",
-          toggled: val => val != "off"
+          toggled: val => val != "off",
+          icon: "power_settings_new"
         },
         {
           type: "dropDown",
-          text: "Artnet",
+          text: "Farbe",
           topic: "artnet",
           options: {
             yellow: "Gelb",
             red: "Rot",
             purple: "Pink",
             green: "Grün",
-            cycle: "Cycle Random"
+            cycle: "Farbwechsel"
           },
-          enableCondition: val => val != "off"
+          enableCondition: val => val != "off",
+          icon: "color_lens"
         }
       ]
     },
     onkyo: {
       name: "Onkyo",
-      position: [350, 620],
+      position: [350, 650],
       icon: "volume_up",
       ui: [
+        {
+          type: "toggle",
+          text: "Power",
+          icon: "power_settings_new",
+          topic: "onkyo_power"
+        },
+        {
+          type: "section",
+          text: "Lautstärkeregelung"
+        },
         {
           type: "slider",
           text: "Volume",
           topic: "onkyo_volume",
           min: 0,
-          max: 100
+          max: 100,
+          icon: "volume_up"
+        },
+        {
+          type: "toggle",
+          text: "Mute",
+          topic: "onkyo_mute",
+          icon: "volume_off"
+        },
+        {
+          type: "section",
+          text: "Eingänge"
         },
         {
           type: "dropDown",
-          text: "Inputs",
+          text: "Eingang",
           topic: "onkyo_inputs",
           options: {
+            netzwerk: "Netzwerk",
             tisch: "Tisch",
             chromecast: "Chromecast",
             pult: "Pult"
-          }
+          },
+          icon: "settings_input_component"
+        },
+        {
+          type: "dropDown",
+          text: "Netzwerksender",
+          topic: "onkyo_radios",
+          options: {
+            mpd: "MPD",
+            kohina: "Kohina",
+            somafm_dronezone: "Drone Zone (SomaFM)",
+            somafm_thetrip: "The Trip (SomaFM)",
+            querfunk: "Querfunk",
+            somafm_defconradio: "Defcon Radio (SomaFM)",
+            somafm_secretagent: "Secret Agent (SomaFM)",
+            somafm_lush: "Lush (SomaFM)"
+          },
+          icon: "radio",
+          enableCondition: (a, b, state) => state.onkyo_inputs == "netzwerk"
         }
       ]
     },
     rundumleuchte: {
       name: "Rundumleuchte",
-      position: [310,220],
+      position: [310,275],
       icon: "wb_sunny",
       iconColor: state => state.rundumleuchte == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Rundumleuchte",
-          topic: "rundumleuchte"
+          topic: "rundumleuchte",
+          icon: "power_settings_new"
         }
       ]
     },
     door: {
       name: "Tür",
-      position: [480,300],
+      position: [455,350],
       icon: "swap_vert",
       iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
       ui: []
     },
     infoscreen: {
       name: "Infoscreen",
-      position: [255, 455],
+      position: [255, 495],
       icon: "developer_board",
       iconColor: state => state.infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Infoscreen",
-          topic: "infoscreen"
+          topic: "infoscreen",
+          icon: "power_settings_new"
         }
       ]
     }

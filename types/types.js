@@ -10,9 +10,10 @@ declare type Topic = {
 declare type Topics = Map<string,Topic>;
 
 declare type ControlUI = {
-  type: "toggle" | "dropDown" | "slider",
+  type: "toggle" | "dropDown" | "slider" | "section",
   text: string,
-  topic: string,
+  topic?: string,
+  icon?: string,
 
   enableCondition?: (internal: string, actual: any) => boolean,
   
@@ -23,6 +24,7 @@ declare type ControlUI = {
 
   // DROPDOWN optional properties
   options?: Map<string,any>, //options for dropDown
+  renderValue?: (value: string) => string
 
   // SLIDER optional properties
   min?: number,

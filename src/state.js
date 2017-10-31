@@ -55,7 +55,8 @@ const handleEvent = (state: State = initState, action: StateAction) => {
   return match(action.type, {
     [Actions.MQTT_CONNECT   ]: R.merge(state, { mqtt: action.payload }),
     [Actions.MQTT_MESSAGE   ]: onMessage(state, action),
-    [Actions.CHANGE_UI      ]: R.merge(state, { uiOpened: action.payload })
+    [Actions.CHANGE_UI      ]: R.merge(state, { uiOpened: action.payload }),
+    [null]: state
   });
 }
 

@@ -1,57 +1,44 @@
 // @flow
 import React from "react";
 import AppBar from "material-ui/AppBar";
-import CircularProgress from "material-ui/CircularProgress";
-import MapIcon from "material-ui/svg-icons/maps/map";
-import PhonelinkOffIcon from "material-ui/svg-icons/hardware/phonelink-off";
-import LayersIcon from "material-ui/svg-icons/maps/layers";
-import IconMenu from "material-ui/IconMenu";
+import Toolbar from 'material-ui/Toolbar';
+import { CircularProgress } from "material-ui/Progress";
+import Icon from 'material-ui/Icon';
 import IconButton from "material-ui/IconButton";
-import MenuItem from "material-ui/MenuItem";
-import { orange400, grey50 } from "material-ui/styles/colors";
+import Menu, { MenuItem } from "material-ui/Menu";
+import Typography from 'material-ui/Typography';
 
 const TopBarLayerSelector = (props: Object) => (
-  <IconMenu
-    iconButtonElement={
-      <IconButton style={{width: 48, height: 48, padding: 0}}
-          iconStyle={{width: 48, height: 48}}>
-        <LayersIcon color={grey50} />
-      </IconButton>}
-    style={{width:48, height:48}}>
-    <MenuItem primaryText="Layer1" />
-  </IconMenu>
+  <IconButton>
+    <Icon>layers</Icon>
+  </IconButton>
 )
 
 const TopBarIndicatorMenu = (props: Object) => (
-  <IconMenu
-    iconButtonElement={
-      <IconButton style={{width:48, height:48, padding: 0}}
-          iconStyle={{width:48, height: 48}}
-          tooltip={props.mqtt.connected ? "Connected!" : "Disconnected!"}>
+  <IconButton>
       {props.mqtt.connected ?
-        (<MapIcon color={grey50} />) :
-        (<PhonelinkOffIcon color={grey50} />)}
-      </IconButton>}
-    style={{width:48, height:48}}>
-    <MenuItem primaryText="Reconnect (Not yet implemented)" />
-  </IconMenu>
+        (<Icon style={{fontSize: 48}}>map</Icon>) :
+        (<Icon style={{fontSize: 48}}>phonelink_off</Icon>)}
+  </IconButton>
 );
     
 
 const TopBarIndicator = (props: Object) => {
   if (props.mqtt == null || props.mqtt.reconnecting) {
-    return (<CircularProgress size={48} color={grey50} />);
+    return (<CircularProgress size={48} style={{color: "rgba(0, 0, 0, 0.54)"}} />);
   } else {
     return (<TopBarIndicatorMenu {...props} />);
   }
 };
 
 const TopBar = (props: Object) => (
-  <AppBar title={props.title}
-          style={{background:orange400}}
-          iconElementLeft={<TopBarIndicator {...props} />}
-          iconElementRight={<TopBarLayerSelector {...props} />}
-          className="nav"
-  />);
+  <AppBar position="static">
+    <Toolbar>
+      <TopBarIndicator {...props} />
+      <Typography type="title">{props.title}</Typography>
+      {false && <TopBarLayerSelector {...props} />}
+    </Toolbar>
+  </AppBar>
+);
 
 export default TopBar;
