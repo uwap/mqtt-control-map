@@ -112,7 +112,7 @@ const config : Config = {
       name: "LED Stahlträger",
       position: [380, 300],
       icon: "wb_incandescent",
-      iconColor: state => state.led_stahltraeger == "on" ? "#CCCC00" : "#000000",
+      iconColor: state => state.led_stahltraeger == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
@@ -140,7 +140,7 @@ const config : Config = {
       name: "Twinkle",
       position: [530, 560],
       icon: "wb_incandescent",
-      iconColor: state => state.twinkle == "on" ? "#CCCC00" : "#000000",
+      iconColor: state => state.twinkle == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
