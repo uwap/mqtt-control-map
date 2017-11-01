@@ -215,7 +215,7 @@ const config : Config = {
           red: "#FF0000",
           purple: "#FF00FF",
           green: "#00FF00",
-          cycle: "transparent; background: linear-gradient(40deg, #FF0000 0%, #00FF00 50%, #0000FF 70%, #FFFF00 100%); background-clip: text; -webkit-background-clip: text;"
+          cycle: "rgba(200,120,120,0.5); background: linear-gradient(40deg, #FF0000 0%, #00FF00 50%, #0000FF 70%, #FFFF00 100%); background-clip: text; -webkit-background-clip: text;"
         })[state.artnet],
       ui: [
         {
