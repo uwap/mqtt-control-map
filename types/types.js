@@ -16,7 +16,10 @@ declare type ControlUI = {
   icon?: string,
 
   enableCondition?: (internal: string, actual: any) => boolean,
-  
+
+  // LINK optiona properties
+  link?: string,
+
   // TOGGLE optional properties
   on?: string, // on override for toggle
   off?: string, // off override for toggle

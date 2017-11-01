@@ -18,6 +18,8 @@ import List, {
   ListItemText,
   ListSubheader,
 } from 'material-ui/List';
+import Button from 'material-ui/Button';
+import withStyles from 'material-ui/styles/withStyles';
 
 const enabled = (props: ControlUI, state: State) => {
   if (props.enableCondition == null) return true;
@@ -122,3 +124,11 @@ export const slider = (state: State, props: ControlUI) => (
 export const section = (state: State, props: ControlUI) => (
   <ListSubheader>{props.text}</ListSubheader>
 );
+
+export const link = (state: State, props: ControlUI) => (
+  <ListItem>
+    <Button raised onClick={() => window.open(props.link, '_blank')} color="primary">
+      {props.text}
+    </Button>
+  </ListItem>
+)

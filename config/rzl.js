@@ -306,6 +306,15 @@ const config : Config = {
           },
           icon: "radio",
           enableCondition: (a, b, state) => state.onkyo_inputs == "netzwerk"
+        },
+        {
+          type: "section",
+          text: "External"
+        },
+        {
+          type: "link",
+          link: "http://mpd.rzl/mpd/player/index.php",
+          text: "Open MPD Interface"
         }
       ]
     },
@@ -328,7 +337,13 @@ const config : Config = {
       position: [455,350],
       icon: "swap_vert",
       iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
-      ui: []
+      ui: [
+        {
+          type: "link",
+          link: "http://s.rzl.so",
+          text: "Open Status Page"
+        }
+      ]
     },
     infoscreen: {
       name: "Infoscreen",
@@ -341,6 +356,11 @@ const config : Config = {
           text: "Infoscreen",
           topic: "infoscreen",
           icon: "power_settings_new"
+        },
+        {
+          type: "link",
+          link: "http://cashdesk.rzl:3030/rzl",
+          text: "Open Infoscreen"
         }
       ]
     }
