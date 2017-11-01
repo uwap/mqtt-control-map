@@ -2,6 +2,10 @@
 import * as utils from './utils';
 
 const config : Config = {
+  space: {
+    name: "RZL",
+    color: "orange"
+  },
   topics: {
     led_stahltraeger: {
       state: "/service/openhab/out/pca301_ledstrips/state",

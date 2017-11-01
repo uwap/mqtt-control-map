@@ -15,7 +15,7 @@ import SpaceMap from "./map.js";
 import R from "ramda";
 import Config from "./config";
 import Toolbar from "material-ui/Toolbar";
-import orange from 'material-ui/colors/orange';
+import * as colors from 'material-ui/colors';
 import Typography from 'material-ui/Typography';
 import List, { ListSubheader } from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
@@ -23,6 +23,8 @@ import Icon from 'material-ui/Icon';
 import AppBar from 'material-ui/AppBar';
 
 injectTapEventPlugin();
+
+document.title = `${Config.space.name} Map`;
 
 const UiItem = (state) => (props : ControlUI) =>
   UiItems[props.type](state, props);
@@ -33,7 +35,7 @@ const renderUi = (state: State, key: ?string) =>
 
 const theme = createMuiTheme({
   palette: {
-    primary: orange
+    primary: colors[Config.space.color]
   }
 });
 
@@ -52,7 +54,7 @@ class app extends React.Component<{state: State, classes: Object}> {
       <div>
         <MuiThemeProvider theme={theme}>
           <div>
-            <SpaceMapBar title="RZL Map" {...state} />
+            <SpaceMapBar title={`${Config.space.name} Map`} {...state} />
             <Drawer open={state.uiOpened != null}
               anchor="right"
               onRequestClose={() => store.dispatch({type: Actions.CHANGE_UI})}

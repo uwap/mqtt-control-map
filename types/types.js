@@ -45,9 +45,16 @@ declare type Control = {
 declare type Controls = Map<string,Control>;
 
 declare type Config = {
+  space: Space,
   topics: Topics,
   controls: Controls,
   layers: Array<Layer>
+};
+
+declare type Space = {
+  name: string,
+  color: "red"|"pink"|"purple"|"deepPurple"|"indigo"|"blue"|"lightBlue"|"cyan"|"teal"|
+          "green"|"lightgreen"|"lime"|"yellow"|"amber"|"orange"|"deepOrange"|"brown"|"grey"|"blueGrey"
 };
 
 declare type State = {
