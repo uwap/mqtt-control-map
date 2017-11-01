@@ -63,7 +63,8 @@ declare type State = {
 declare type Layer = {
   image: string,
   name: string,
-  forceVisibility?: "on"|"off"
+  baseLayer: boolean,
+  defaultVisibility: "visible" | "hidden",
 };
 
 declare type StateAction = {

@@ -348,18 +348,19 @@ const config : Config = {
   layers: [
     {
       image: "img/layers/rzl/rooms.png",
-      forceVisibility: "on",
-      name: "RaumZeitLabor"
+      baseLayer: true,
+      name: "RaumZeitLabor",
+      defaultVisibility: "visible"
     },
     {
       image: "img/layers/rzl/details.png",
-      forceVisibility: "on",
-      name: "Details"
+      name: "Details",
+      defaultVisibility: "visible"
     },
     {
       image: "img/layers/rzl/labels.png",
-      forceVisibility: "on",
-      name: "Labels"
+      name: "Labels",
+      defaultVisibility: "visible"
     }
   ]
 };

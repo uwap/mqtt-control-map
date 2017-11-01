@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import { Map, ImageOverlay, Marker, Popup } from "react-leaflet";
+import { Map, ImageOverlay, Marker, Popup, LayersControl } from "react-leaflet";
 import Leaflet from "leaflet";
 import R from "ramda";
 import Config from "./config";
@@ -37,21 +37,35 @@ const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
   </Marker>
 ), R.propOr({}, "controls", Config)));
 
-const Layer = (layer: Layer, bounds: Array<Array<number>>) => (
-  <ImageOverlay url={layer.image} bounds={bounds} />
-);
+class SpaceMap extends React.Component<{state: State, width: number, height: number,
+    zoom: number, image: string}> {
 
-const visibleLayers = (state: State) => R.filter(
-  x => (x.forceVisibility == null && R.contains(state.visibleLayers, x.image))
-      || x.forceVisibility == "on", Config.layers)
+  constructor(props) {
+    super(props);
+  }
 
-const SpaceMap = (props: { state: State, width: number, height: number,
-    zoom: number, image: string}) => (
-  <Map center={c([props.width / 2, props.height / 2])} zoom={props.zoom}
-      crs={Leaflet.CRS.Simple}>
-    {R.map(x => Layer(x, [c([0,0]), c([props.width, props.height])]), visibleLayers(props.state))}
-    {Markers(props)}
-  </Map>
-);
+  render() {
+    const props = this.props;
+    return (
+      <Map center={c([props.width / 2, props.height / 2])} zoom={props.zoom}
+          crs={Leaflet.CRS.Simple}> 
+        {Markers(props)}
+        <LayersControl position='topright'>
+          {Config.layers.map(x => this.renderLayer(x, [c([0,0]), c([props.width, props.height])]))}
+        </LayersControl>
+      </Map>
+    );
+  }
+
+  renderLayer(layer, bounds) {
+    const LayersControlType = layer.baseLayer ? LayersControl.BaseLayer : LayersControl.Overlay;
+    return (
+      <LayersControlType name={layer.name}
+            checked={layer.defaultVisibility == "visible"}>
+        <ImageOverlay url={layer.image} bounds={bounds} />
+      </LayersControlType>
+    );
+  }
+}
 
 export default SpaceMap;
