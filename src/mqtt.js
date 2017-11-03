@@ -23,4 +23,13 @@ export default function connectMqtt(url: string, store: Store<*,*>) {
       }
     });
   });
+  client.on("offline", () => {
+    store.dispatch({ type: null });
+  });
+  client.on("close", () => {
+    store.dispatch({ type: null });
+  });
+  client.on("reconnect", () => {
+    store.dispatch({ type: null });
+  });
 }

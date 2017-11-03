@@ -27,7 +27,7 @@ declare type ControlUI = {
 
   // DROPDOWN optional properties
   options?: Map<string,any>, //options for dropDown
-  renderValue?: (value: string) => string
+  renderValue?: (value: string) => string,
 
   // SLIDER optional properties
   min?: number,

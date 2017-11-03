@@ -4,7 +4,8 @@ import * as utils from './utils';
 const config : Config = {
   space: {
     name: "RZL",
-    color: "orange"
+    color: "orange",
+    mqtt: "ws://map.rzl:1884"
   },
   topics: {
     led_stahltraeger: {

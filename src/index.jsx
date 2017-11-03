@@ -89,4 +89,4 @@ store.subscribe(() => ReactDOM.render(<App state={store.getState()} />, document
 
 store.dispatch({type:null});
 
-connectMqtt("ws://172.22.36.207:1884", store);
+connectMqtt(Config.space.mqtt, store);
