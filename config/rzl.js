@@ -58,6 +58,12 @@ const config : Config = {
                 blue: "blue", green: "green", red: "red", random: "random",
                 cycle: "cycle-random" }
     },
+    onkyo_connection: {
+      state: "/service/onkyo/connected",
+      command: "",
+      defaultValue: 0,
+      values: { disconnected: 0, connecting: 1, connected: 2 },
+    },
     onkyo_power: {
       state: "/service/onkyo/status/system-power",
       command: "/service/onkyo/command",
@@ -264,14 +270,16 @@ const config : Config = {
     onkyo: {
       name: "Onkyo",
       position: [350, 650],
-      iconColor: state => state.onkyo_power == "on" ? "#00FF00" : "#000000",
+      iconColor: state =>
+        state.onkyo_connection != "connected" ? "#888888" : (state.onkyo_power == "on" ? "#00FF00" : "#000000"),
       icon: "volume_up",
       ui: [
         {
           type: "toggle",
           text: "Power",
           icon: "power_settings_new",
-          topic: "onkyo_power"
+          topic: "onkyo_power",
+          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
         {
           type: "section",
@@ -283,13 +291,15 @@ const config : Config = {
           topic: "onkyo_volume",
           min: 0,
           max: 50,
-          icon: "volume_up"
+          icon: "volume_up",
+          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
         {
           type: "toggle",
           text: "Mute",
           topic: "onkyo_mute",
-          icon: "volume_off"
+          icon: "volume_off",
+          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
         {
           type: "section",
@@ -305,7 +315,8 @@ const config : Config = {
             chromecast: "Chromecast",
             pult: "Pult"
           },
-          icon: "settings_input_component"
+          icon: "settings_input_component",
+          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
         {
           type: "dropDown",
@@ -322,7 +333,7 @@ const config : Config = {
             somafm_lush: "Lush (SomaFM)"
           },
           icon: "radio",
-          enableCondition: (a, b, state) => state.onkyo_inputs == "netzwerk"
+          enableCondition: (a, b, state) => state.onkyo_connection == "connected" && state.onkyo_inputs == "netzwerk"
         },
         {
           type: "section",
