@@ -31,9 +31,10 @@ const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
     icon={Leaflet.divIcon(
       {
         html: iconHtml(el, props.state),
-        iconSize: Leaflet.point(32,32)
+        iconSize: Leaflet.point(32,32),
+        iconAnchor: Leaflet.point(16,16)
       })}
-    onClick={() => store.dispatch({type: Actions.CHANGE_UI, payload: key})}>
+    onClick={(e) => store.dispatch({type: Actions.CHANGE_UI, payload: key, toggle: e.originalEvent.ctrlKey})}>
   </Marker>
 ), R.propOr({}, "controls", Config)));
 

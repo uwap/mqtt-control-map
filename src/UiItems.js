@@ -34,7 +34,7 @@ const enabled = (props: ControlUI, state: State) => {
 const getValue = (topic: string, val: string) =>
   Config.topics[topic].values[val];
 
-const onSwitch = (topic: string, props: ControlUI, state: State) =>
+export const onSwitch = (topic: string, props: ControlUI, state: State) =>
   (x, toggled: boolean) => {
     if (state.mqtt != null) {
       state.mqtt.publish(Config.topics[topic].command,
@@ -43,23 +43,24 @@ const onSwitch = (topic: string, props: ControlUI, state: State) =>
     }
   };
 
-export const toggle = (state: State, props: ControlUI) => {
-  const toggled = (() => {
-    const val = state.values[props.topic];
-    if (props.toggled != null) {
-      return props.toggled(val.internal == null ? val.actual : val.internal,
+export const isToggled = (state: State, props: ControlUI) => {
+  const val = state.values[props.topic];
+  if (props.toggled != null) {
+    return props.toggled(val.internal == null ? val.actual : val.internal,
             val.actual);
-    } else {
-      return val.internal === R.propOr("on", "on", props);
-    }
-  })();
+  } else {
+    return val.internal === R.propOr("on", "on", props);
+  }
+}
+
+export const toggle = (state: State, props: ControlUI) => {
   return (
     <ListItem>
       {props.icon && <ListItemIcon><Icon>{props.icon}</Icon></ListItemIcon>}
       <ListItemText primary={props.text} />
       <ListItemSecondaryAction>
         <Switch label={props.text}
-          checked={toggled}
+          checked={isToggled(state,props)}
           onChange={onSwitch(props.topic, props, state)}
           disabled={!(enabled(props, state))} />
       </ListItemSecondaryAction>

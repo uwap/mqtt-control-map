@@ -77,7 +77,7 @@ class app extends React.Component<{state: State, classes: Object}> {
             </Drawer>
           </div>
         </MuiThemeProvider>
-        <SpaceMap width={1000} height={700} image="rzl.png" zoom={0.1} state={state} />
+        <SpaceMap width={1000} height={700} image="rzl.png" zoom={0} state={state} />
       </div>
     );
   }

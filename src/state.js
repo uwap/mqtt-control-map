@@ -3,6 +3,7 @@ import R from "ramda";
 import { createStore } from "redux";
 import Config from "./config";
 import { keyOf } from "./util";
+import { onSwitch, isToggled } from "./UiItems";
 
 export const Actions = Object.freeze({
   MQTT_CONNECT: "CONNECT",
@@ -55,7 +56,16 @@ const handleEvent = (state: State = initState, action: StateAction) => {
   return match(action.type, {
     [Actions.MQTT_CONNECT   ]: R.merge(state, { mqtt: action.payload }),
     [Actions.MQTT_MESSAGE   ]: onMessage(state, action),
-    [Actions.CHANGE_UI      ]: R.merge(state, { uiOpened: action.payload }),
+    [Actions.CHANGE_UI      ]: (() => {
+      const control = Config.controls[action.payload];
+      if (action.toggle && control.ui.length > 0 && control.ui[0].type == "toggle") {
+        const props = control.ui[0];
+        onSwitch(props.topic, props, state)(null, !isToggled(state, props));
+        return state;
+      } else {
+        return R.merge(state, { uiOpened: action.payload });
+      }
+    })(),
     [null]: state
   });
 }
