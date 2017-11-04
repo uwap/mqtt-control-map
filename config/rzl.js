@@ -157,7 +157,7 @@ const config : Config = {
     },
     fan: {
       name: "Ventilator",
-      position: [510, 460],
+      position: [520, 450],
       icon: "toys",
       iconColor: state => state.fan == "on" ? "#00FF00" : "#000000",
       ui: [
@@ -166,6 +166,18 @@ const config : Config = {
           text: "Ventilator",
           topic: "fan",
           icon: "power_settings_new"
+        }
+      ]
+    },
+    cashdesk: {
+      name: "Cashdesk",
+      position: [500, 470],
+      icon: "monetization_on",
+      ui: [
+        {
+          type: "link",
+          link: "http://cashdesk.rzl:8081/",
+          text: "Open Cashdesk"
         }
       ]
     },
@@ -213,7 +225,7 @@ const config : Config = {
     },
     artnet: {
       name: "Artnet",
-      position: [535,475],
+      position: [535,480],
       icon: "wb_incandescent",
       iconColor: state => 
         ({
