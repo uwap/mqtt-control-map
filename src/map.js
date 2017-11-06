@@ -63,7 +63,7 @@ class SpaceMap extends React.Component<{state: State, width: number, height: num
     return (
       <LayersControlType name={layer.name}
             checked={layer.defaultVisibility == "visible"}>
-        <ImageOverlay url={layer.image} bounds={bounds} />
+        <ImageOverlay url={layer.image} bounds={bounds} opacity={layer.opacity} />
       </LayersControlType>
     );
   }

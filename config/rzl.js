@@ -398,12 +398,14 @@ const config : Config = {
       image: require("../img/layers/rzl/rooms.svg"),
       baseLayer: true,
       name: "RaumZeitLabor",
-      defaultVisibility: "visible"
+      defaultVisibility: "visible",
+      opacity: 0.7
     },
     {
       image: require("../img/layers/rzl/details.svg"),
       name: "Details",
-      defaultVisibility: "visible"
+      defaultVisibility: "visible",
+      opacity: 0.4
     },
     {
       image: require("../img/layers/rzl/labels.svg"),

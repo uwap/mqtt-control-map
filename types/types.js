@@ -75,6 +75,7 @@ declare type Layer = {
   name: string,
   baseLayer: boolean,
   defaultVisibility: "visible" | "hidden",
+  opacity: number
 };
 
 declare type StateAction = {
