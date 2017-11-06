@@ -1,19 +1,13 @@
-// webpack.config.js:
-
 const path = require('path');
 const webpack = require('webpack');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const preBuildScripts = process.env.NO_FLOW == undefined ?
   process.env.FLOW_PATH != undefined ? [process.env.FLOW_PATH] : ['flow']
   : [];
-
-const extractTextCSSLoader = ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        });
 
 module.exports = {
   resolve: {
@@ -24,23 +18,20 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
-    publicPath: './'
+    filename: 'main.js'
   },
   module: {
     loaders: [
-      { test: /\.(woff2?|eot|ttf|svg)$/, loader: "file-loader" },
-      { test: /\.css$/, use: extractTextCSSLoader },
-      { test: /\.js(x)?$/, exclude: /node_modules/, loader: "babel-loader" }
+      { test: /\.(woff2?|eot|ttf|svg)$/, loader: "file-loader" }
     ]
   },
   plugins: [
-    new WebpackShellPlugin({onBuildStart:preBuildScripts}),
+    new CleanWebpackPlugin(["dist"]),
+    // new WebpackShellPlugin({onBuildStart:preBuildScripts}),
     new HtmlWebpackPlugin({
       title: 'Space Map',
       template: 'index.ejs'
     }),
     new ExtractTextPlugin("styles.css")
-  ],
-  devtool: 'source-map'
+  ]
 };
