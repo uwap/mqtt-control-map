@@ -1,23 +1,22 @@
 // @flow
 import React from "react";
 import AppBar from "material-ui/AppBar";
-import Toolbar from 'material-ui/Toolbar';
+import Toolbar from "material-ui/Toolbar";
 import { CircularProgress } from "material-ui/Progress";
 import IconButton from "material-ui/IconButton";
-import Menu, { MenuItem } from "material-ui/Menu";
-import Typography from 'material-ui/Typography';
+import Typography from "material-ui/Typography";
 
-const TopBarLayerSelector = (props: Object) => (
+const TopBarLayerSelector = (_props: Object) => (
   <IconButton>
     <Icon>layers</Icon>
   </IconButton>
-)
+);
 
 const TopBarIndicatorMenu = (props: Object) => (
   <IconButton>
-      {props.mqtt.connected ?
-        (<i style={{fontSize: 48}} className="mdi mdi-map"></i>) :
-        (<i style={{fontSize: 48}} className="mdi mdi-lan-disconnect"></i>)}
+    {props.mqtt.connected ?
+      (<i style={{fontSize: 48}} className="mdi mdi-map"></i>) :
+      (<i style={{fontSize: 48}} className="mdi mdi-lan-disconnect"></i>)}
   </IconButton>
 );
     

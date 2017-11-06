@@ -18,7 +18,7 @@ const initState : State = {
     topic => { return {
       internal: keyOf(topic.values, topic.defaultValue),
       actual: topic.defaultValue
-    }}, Config.topics),
+    };}, Config.topics),
   visibleLayers: []
 };
 
@@ -28,7 +28,7 @@ const onMessage = (state: State, action: StateAction) => {
   // topics is the list of all internal topic references
   // that have their state topic set to action.payload.topic
   const payload = action.payload == undefined ? { topic: "", message: {} }
-                : action.payload; // thx flow </3
+    : action.payload; // thx flow </3
   const topics = R.keys(R.pickBy(
     val => val.state == payload.topic, Config.topics));
   const message = payload.message;
@@ -39,17 +39,17 @@ const onMessage = (state: State, action: StateAction) => {
     } else {
       return parseFunction(message);
     }
-  }
+  };
   const newValue = (topic: string) => {
     return {
       actual: parsedMessage(topic),
       internal: keyOf(Config.topics[topic].values,parsedMessage(topic))
     };
-  }
+  };
   return R.mergeDeepRight(state, R.objOf("values", R.mergeAll(
     R.map(topic => R.objOf(topic, newValue(topic)), topics)
   )));
-}
+};
 
 const match = (value: any, array: Map<any,any>) => array[value];
 const handleEvent = (state: State = initState, action: StateAction) => {
@@ -68,6 +68,6 @@ const handleEvent = (state: State = initState, action: StateAction) => {
     })(),
     [null]: state
   });
-}
+};
 
 export const store = createStore(handleEvent, initState);

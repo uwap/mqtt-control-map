@@ -1,25 +1,22 @@
 // @flow
 import React from "react";
 import Switch from "material-ui/Switch";
-import Select from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
-import Slider from 'material-ui-old/Slider';
-import MuiThemeProvider from 'material-ui-old/styles/MuiThemeProvider';
-import Icon from 'material-ui/Icon';
+import Select from "material-ui/Select";
+import { MenuItem } from "material-ui/Menu";
+import Slider from "material-ui-old/Slider";
+import MuiThemeProvider from "material-ui-old/styles/MuiThemeProvider";
 import Config from "./config";
-import { keyOf } from "./util";
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
+import Input, { InputLabel } from "material-ui/Input";
+import { FormControl } from "material-ui/Form";
 import R from "ramda";
-import List, {
+import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
   ListSubheader,
-} from 'material-ui/List';
-import Button from 'material-ui/Button';
-import withStyles from 'material-ui/styles/withStyles';
+} from "material-ui/List";
+import Button from "material-ui/Button";
 
 const enabled = (props: ControlUI, state: State) => {
   if (props.enableCondition == null) return true;
@@ -47,11 +44,11 @@ export const isToggled = (state: State, props: ControlUI) => {
   const val = state.values[props.topic];
   if (props.toggled != null) {
     return props.toggled(val.internal == null ? val.actual : val.internal,
-            val.actual);
+      val.actual);
   } else {
     return val.internal === R.propOr("on", "on", props);
   }
-}
+};
 
 export const toggle = (state: State, props: ControlUI) => {
   return (
@@ -66,7 +63,7 @@ export const toggle = (state: State, props: ControlUI) => {
       </ListItemSecondaryAction>
     </ListItem>
   );
-}
+};
 
 const onDropDownChange = (topic: string, props: ControlUI, state: State) =>
   (event) => {
@@ -87,9 +84,9 @@ export const dropDown = (state: State, props: ControlUI) => {
       <FormControl>
         <InputLabel htmlFor={id}>{props.text}</InputLabel>
         <Select value={state.values[props.topic].actual}
-              onChange={onDropDownChange(props.topic, props, state)}
-              disabled={!(enabled(props, state))}
-              input={<Input id={id} />}
+          onChange={onDropDownChange(props.topic, props, state)}
+          disabled={!(enabled(props, state))}
+          input={<Input id={id} />}
         >
           {R.values(R.mapObjIndexed(dropDownItem(props.topic), props.options))}
         </Select>
@@ -111,13 +108,13 @@ export const slider = (state: State, props: ControlUI) => (
     <ListItemText primary={props.text} />
     <ListItemSecondaryAction>
       <MuiThemeProvider>
-      <Slider value={state.values[props.topic].actual}
-            min={props.min == null ? 0 : props.min}
-            max={props.max == null ? 1 : props.max}
-            step={props.step == null ? 1 : props.step}
-            onChange={onSliderChange(state, props)}
-            style={{width: 100}}
-      /></MuiThemeProvider>
+        <Slider value={state.values[props.topic].actual}
+          min={props.min == null ? 0 : props.min}
+          max={props.max == null ? 1 : props.max}
+          step={props.step == null ? 1 : props.step}
+          onChange={onSliderChange(state, props)}
+          style={{width: 100}}
+        /></MuiThemeProvider>
     </ListItemSecondaryAction>
   </ListItem>
 );
@@ -128,8 +125,8 @@ export const section = (state: State, props: ControlUI) => (
 
 export const link = (state: State, props: ControlUI) => (
   <ListItem>
-    <Button raised onClick={() => window.open(props.link, '_blank')} color="primary">
+    <Button raised onClick={() => window.open(props.link, "_blank")} color="primary">
       {props.text}
     </Button>
   </ListItem>
-)
+);
