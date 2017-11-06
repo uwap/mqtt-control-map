@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --bail --config webpack.dev.js",
     "production-build": "webpack --bail --config webpack.prod.js",
-    "watch": "webpack-dev-server --open --config webpack.dev.js"
+    "watch": "webpack-dev-server --open --config webpack.dev.js",
+    "travis": "npm run build && npm run production-build"
   },
   "dependencies": {
     "babel-preset-env": "^1.6.0",
