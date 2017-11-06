@@ -22,6 +22,9 @@ import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import AppBar from 'material-ui/AppBar';
 
+import '../node_modules/mdi/css/materialdesignicons.min.css';
+import '../css/styles.css';
+
 injectTapEventPlugin();
 
 document.title = `${Config.space.name} Map`;
@@ -64,7 +67,7 @@ class app extends React.Component<{state: State, classes: Object}> {
               <AppBar position="static">
                 <Toolbar>
                   <IconButton onClick={() => store.dispatch({type: Actions.CHANGE_UI})}>
-                    <Icon>keyboard_tab</Icon>
+                    <i className="mdi mdi-format-horizontal-align-right mdi-36px"></i>
                   </IconButton>
                   <Typography type="title">
                     {state.uiOpened == null ? "" : Config.controls[state.uiOpened].name}

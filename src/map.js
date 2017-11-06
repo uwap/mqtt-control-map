@@ -22,17 +22,17 @@ const color = (iconColor, state: State) => {
     );
 }
 const iconHtml = (el, state: State) =>
-  "<i class=\"material-icons\" style=\""
+  "<i class=\"mdi mdi-" + el.icon + " mdi-36px\" style=\""
     + "color:" + color(el.iconColor, state) + ";\">"
-    + el.icon + "</i>"
+    + "</i>"
 
 const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
   <Marker position={c(el.position)} key={el.name}
     icon={Leaflet.divIcon(
       {
         html: iconHtml(el, props.state),
-        iconSize: Leaflet.point(32,32),
-        iconAnchor: Leaflet.point(16,16)
+        iconSize: Leaflet.point(36,36),
+        iconAnchor: Leaflet.point(18,18)
       })}
     onClick={(e) => store.dispatch({type: Actions.CHANGE_UI, payload: key, toggle: e.originalEvent.ctrlKey})}>
   </Marker>

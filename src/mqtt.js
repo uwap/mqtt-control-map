@@ -30,6 +30,7 @@ export default function connectMqtt(url: string, store: Store<*,*>) {
     store.dispatch({ type: null });
   });
   client.on("reconnect", () => {
+    client.end();
     store.dispatch({ type: null });
   });
 }

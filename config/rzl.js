@@ -122,63 +122,63 @@ const config : Config = {
     led_stahltrager: {
       name: "LED Stahlträger",
       position: [380, 300],
-      icon: "wb_incandescent",
+      icon: "white-balance-iridescent mdi-rotate-90",
       iconColor: state => state.led_stahltraeger == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Stahlträger LED",
           topic: "led_stahltraeger",
-          icon: "power_settings_new"
+          icon: "power"
         },
       ]
     },
     snackbar: {
       name: "Snackbar",
       position: [510, 500],
-      icon: "kitchen",
+      icon: "fridge",
       iconColor: state => state.snackbar == "on" ? "#E20074" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Snackbar",
           topic: "snackbar",
-          icon: "power_settings_new"
+          icon: "power"
         }
       ]
     },
     twinkle: {
       name: "Twinkle",
       position: [530, 560],
-      icon: "wb_incandescent",
+      icon: "led-off mdi-flip-v",
       iconColor: state => state.twinkle == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Twinkle",
           topic: "twinkle",
-          icon: "power_settings_new"
+          icon: "power"
         }
       ]
     },
     fan: {
       name: "Ventilator",
       position: [520, 450],
-      icon: "toys",
+      icon: "fan",
       iconColor: state => state.fan == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Ventilator",
           topic: "fan",
-          icon: "power_settings_new"
+          icon: "power"
         }
       ]
     },
     cashdesk: {
       name: "Cashdesk",
       position: [500, 470],
-      icon: "monetization_on",
+      icon: "coin",
       ui: [
         {
           type: "link",
@@ -190,49 +190,49 @@ const config : Config = {
     videogames: {
       name: "Videospiele",
       position: [100, 100],
-      icon: "videogame_asset",
+      icon: "gamepad-variant",
       iconColor: state => state.videogames == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Videospiele",
           topic: "videogames",
-          icon: "power_settings_new"
+          icon: "power"
         }
       ]
     },
     olymp_pc: {
       name: "Rechner und Drucker",
       position: [297, 90],
-      icon: "desktop_windows",
+      icon: "desktop-classic",
       iconColor: state => state.olymp_pc == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Rechner und Drucker",
           topic: "olymp_pc",
-          icon: "power_settings_new"
+          icon: "power"
         }
       ]
     },
     flyfry: {
       name: "Fliegenbratgerät",
       position: [450, 590],
-      icon: "whatshot",
+      icon: "fire",
       iconColor: state => state.flyfry == "on" ? "#6666FF" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Fliegenbratgerät",
           topic: "flyfry",
-          icon: "power_settings_new"
+          icon: "power"
         }
       ]
     },
     artnet: {
       name: "Artnet",
       position: [535,480],
-      icon: "wb_incandescent",
+      icon: "spotlight",
       iconColor: state => 
         ({
           off: "#000000",
@@ -249,7 +249,7 @@ const config : Config = {
           topic: "artnet",
           on: "cycle",
           toggled: val => val != "off",
-          icon: "power_settings_new"
+          icon: "power"
         },
         {
           type: "dropDown",
@@ -263,7 +263,7 @@ const config : Config = {
             cycle: "Farbwechsel"
           },
           enableCondition: val => val != "off",
-          icon: "color_lens"
+          icon: "palette"
         }
       ]
     },
@@ -272,12 +272,12 @@ const config : Config = {
       position: [350, 650],
       iconColor: state =>
         state.onkyo_connection != "connected" ? "#888888" : (state.onkyo_power == "on" ? "#00FF00" : "#000000"),
-      icon: "volume_up",
+      icon: "volume-high",
       ui: [
         {
           type: "toggle",
           text: "Power",
-          icon: "power_settings_new",
+          icon: "power",
           topic: "onkyo_power",
           enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
@@ -291,14 +291,14 @@ const config : Config = {
           topic: "onkyo_volume",
           min: 0,
           max: 50,
-          icon: "volume_up",
+          icon: "volume-high",
           enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
         {
           type: "toggle",
           text: "Mute",
           topic: "onkyo_mute",
-          icon: "volume_off",
+          icon: "volume-off",
           enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
         {
@@ -315,7 +315,7 @@ const config : Config = {
             chromecast: "Chromecast",
             pult: "Pult"
           },
-          icon: "settings_input_component",
+          icon: "usb",
           enableCondition: (a, b, state) => state.onkyo_connection == "connected"
         },
         {
@@ -349,21 +349,21 @@ const config : Config = {
     rundumleuchte: {
       name: "Rundumleuchte",
       position: [310,275],
-      icon: "wb_sunny",
+      icon: "alarm-light",
       iconColor: state => state.rundumleuchte == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Rundumleuchte",
           topic: "rundumleuchte",
-          icon: "power_settings_new"
+          icon: "power"
         }
       ]
     },
     door: {
       name: "Tür",
       position: [455,350],
-      icon: "swap_vert",
+      icon: "swap-vertical",
       iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
       ui: [
         {
@@ -376,14 +376,14 @@ const config : Config = {
     infoscreen: {
       name: "Infoscreen",
       position: [255, 495],
-      icon: "developer_board",
+      icon: "developer-board",
       iconColor: state => state.infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [
         {
           type: "toggle",
           text: "Infoscreen",
           topic: "infoscreen",
-          icon: "power_settings_new"
+          icon: "power"
         },
         {
           type: "link",
@@ -395,18 +395,18 @@ const config : Config = {
   },
   layers: [
     {
-      image: "img/layers/rzl/rooms.svg",
+      image: require("../img/layers/rzl/rooms.svg"),
       baseLayer: true,
       name: "RaumZeitLabor",
       defaultVisibility: "visible"
     },
     {
-      image: "img/layers/rzl/details.svg",
+      image: require("../img/layers/rzl/details.svg"),
       name: "Details",
       defaultVisibility: "visible"
     },
     {
-      image: "img/layers/rzl/labels.svg",
+      image: require("../img/layers/rzl/labels.svg"),
       name: "Labels",
       defaultVisibility: "visible"
     }

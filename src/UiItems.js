@@ -56,7 +56,7 @@ export const isToggled = (state: State, props: ControlUI) => {
 export const toggle = (state: State, props: ControlUI) => {
   return (
     <ListItem>
-      {props.icon && <ListItemIcon><Icon>{props.icon}</Icon></ListItemIcon>}
+      {props.icon && <ListItemIcon><i className={`mdi mdi-${props.icon} mdi-24px`}></i></ListItemIcon>}
       <ListItemText primary={props.text} />
       <ListItemSecondaryAction>
         <Switch label={props.text}
@@ -83,7 +83,7 @@ export const dropDown = (state: State, props: ControlUI) => {
   const id = `${props.topic}.${Object.keys(props.options).reduce((v,r) => v + "." + r)}`;
   return (
     <ListItem>
-      {props.icon && <ListItemIcon><Icon>{props.icon}</Icon></ListItemIcon>}
+      {props.icon && <ListItemIcon><i className={`mdi mdi-${props.icon} mdi-24px`}></i></ListItemIcon>}
       <FormControl>
         <InputLabel htmlFor={id}>{props.text}</InputLabel>
         <Select value={state.values[props.topic].actual}
@@ -107,7 +107,7 @@ const onSliderChange = (state: State, props: ControlUI) =>
 
 export const slider = (state: State, props: ControlUI) => (
   <ListItem>
-    {props.icon && <ListItemIcon><Icon>{props.icon}</Icon></ListItemIcon>}
+    {props.icon && <ListItemIcon><i className={`mdi mdi-${props.icon} mdi-24px`}></i></ListItemIcon>}
     <ListItemText primary={props.text} />
     <ListItemSecondaryAction>
       <MuiThemeProvider>

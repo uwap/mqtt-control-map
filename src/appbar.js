@@ -3,7 +3,6 @@ import React from "react";
 import AppBar from "material-ui/AppBar";
 import Toolbar from 'material-ui/Toolbar';
 import { CircularProgress } from "material-ui/Progress";
-import Icon from 'material-ui/Icon';
 import IconButton from "material-ui/IconButton";
 import Menu, { MenuItem } from "material-ui/Menu";
 import Typography from 'material-ui/Typography';
@@ -17,8 +16,8 @@ const TopBarLayerSelector = (props: Object) => (
 const TopBarIndicatorMenu = (props: Object) => (
   <IconButton>
       {props.mqtt.connected ?
-        (<Icon style={{fontSize: 48}}>map</Icon>) :
-        (<Icon style={{fontSize: 48}}>phonelink_off</Icon>)}
+        (<i style={{fontSize: 48}} className="mdi mdi-map"></i>) :
+        (<i style={{fontSize: 48}} className="mdi mdi-lan-disconnect"></i>)}
   </IconButton>
 );
     
