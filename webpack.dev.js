@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const path = require('path');
 const common = require('./webpack.common.js');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -10,6 +11,9 @@ const extractCSS = ExtractTextPlugin.extract({
         });
 
 module.exports = merge(common, {
+  entry: {
+    main: path.resolve(__dirname, 'src/index.jsx')
+  },
   module: {
     loaders: [
       { test: /\.css$/, use: extractCSS },

@@ -13,12 +13,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  entry:  [
-    path.resolve(__dirname, 'src/index.jsx')
-  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js'
+    filename: '[name]-[chunkhash].js'
   },
   module: {
     loaders: [

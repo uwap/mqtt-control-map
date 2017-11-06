@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -15,6 +16,10 @@ const extractCSS = ExtractTextPlugin.extract({
         });
 
 module.exports = merge(common, {
+  entry: {
+    main: path.resolve(__dirname, 'src/index.jsx'),
+    vendor: ['react', 'material-ui', 'mqtt', 'ramda']
+  },
   module: {
     loaders: [
       { test: /\.css$/, use: extractCSS },
@@ -28,6 +33,13 @@ module.exports = merge(common, {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    })
+    }),
+    new webpack.HashedModuleIdsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime'
+    }),
   ]
 });
