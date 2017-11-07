@@ -122,7 +122,7 @@ const config : Config = {
     led_stahltrager: {
       name: "LED Stahlträger",
       position: [380, 300],
-      icon: "white-balance-iridescent mdi-rotate-90",
+      icon: "white-balance-iridescent rotate-90",
       iconColor: state => state.led_stahltraeger == "on" ? utils.rainbow : "#000000",
       ui: [
         {
@@ -150,7 +150,7 @@ const config : Config = {
     twinkle: {
       name: "Twinkle",
       position: [530, 560],
-      icon: "led-off mdi-flip-v",
+      icon: "led-off flip-v",
       iconColor: state => state.twinkle == "on" ? utils.rainbow : "#000000",
       ui: [
         {
@@ -399,18 +399,30 @@ const config : Config = {
       baseLayer: true,
       name: "RaumZeitLabor",
       defaultVisibility: "visible",
-      opacity: 0.7
+      opacity: 0.7,
+      bounds: {
+        topLeft: [0, 0],
+        bottomRight: [1000, 700]
+      }
     },
     {
       image: require("../img/layers/rzl/details.svg"),
       name: "Details",
       defaultVisibility: "visible",
-      opacity: 0.4
+      opacity: 0.4,
+      bounds: {
+        topLeft: [0, 0],
+        bottomRight: [1000, 700]
+      }
     },
     {
       image: require("../img/layers/rzl/labels.svg"),
       name: "Labels",
-      defaultVisibility: "visible"
+      defaultVisibility: "visible",
+      bounds: {
+        topLeft: [0, 0],
+        bottomRight: [1000, 700]
+      }
     }
   ]
 };

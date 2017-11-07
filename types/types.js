@@ -1,5 +1,9 @@
 declare type Map<K,V> = { [K]: V };
 
+declare type Classes = {
+  classes: Map<string, string>
+};
+
 declare type Topic = {
   state: string,
   command: string,
@@ -23,7 +27,7 @@ declare type ControlUI = {
   // TOGGLE optional properties
   on?: string, // on override for toggle
   off?: string, // off override for toggle
-  toggled?: (internal: string, actual: any) => boolean,
+  toggled?: (internal: string, actual: any, state: Map<string, any>) => boolean,
 
   // DROPDOWN optional properties
   options?: Map<string,any>, //options for dropDown
@@ -70,12 +74,18 @@ declare type State = {
   visibleLayers: Array<string>
 };
 
+declare type Point = [number, number];
+
 declare type Layer = {
   image: string,
   name: string,
   baseLayer: boolean,
   defaultVisibility: "visible" | "hidden",
-  opacity: number
+  opacity: number,
+  bounds: {
+    topLeft: Point,
+    bottomRight: Point
+  }
 };
 
 declare type StateAction = {
