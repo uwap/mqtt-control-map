@@ -8,6 +8,7 @@ import * as Colors from "material-ui/colors";
 
 import SideBar from "components/SideBar";
 import ControlMap from "components/ControlMap";
+import TopBar from "components/TopBar";
 
 export type AppProps = {
   config: Config
@@ -42,12 +43,13 @@ class App extends React.Component<AppProps & Classes> {
     return this.props.config.controls[this.state.selectedControl];
   }
 
-  // <SpaceMapBar title={`${this.props.config.space.name} Map`} />
   render() {
     return (
       <div>
         <MuiThemeProvider theme={this.theme}>
           <div>
+            <TopBar title={`${this.props.config.space.name} Map`}
+              connected={false} />
             {false && <SideBar />}
           </div>
         </MuiThemeProvider>
