@@ -3,6 +3,7 @@ import React from "react";
 import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
 import Leaflet from "leaflet";
 import _ from "lodash";
+import parseIconName from "utils/parseIconName";
 
 export type Point = [number, number];
 
@@ -44,10 +45,9 @@ export default class ControlMap extends React.Component<ControlMapProps> {
     return _.map(this.props.controls, this.renderMarker.bind(this));
   }
 
-  createLeafletIcon(iconRaw: string) {
-    const icon = iconRaw.split(" ").map(name => "mdi-".concat(name)).join(" ");
+  createLeafletIcon(icon: string) {
     return Leaflet.divIcon({
-      className: `mdi mdi-36px ${icon}`,
+      className: parseIconName(`${icon} 36px`),
       iconSize: Leaflet.point(36, 36),
       iconAnchor: Leaflet.point(18, 18)
     });
