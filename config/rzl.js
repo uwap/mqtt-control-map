@@ -61,8 +61,8 @@ const config : Config = {
     onkyo_connection: {
       state: "/service/onkyo/connected",
       command: "",
-      defaultValue: 0,
-      values: { disconnected: 0, connecting: 1, connected: 2 },
+      defaultValue: "0",
+      values: { disconnected: "0", connecting: "1", connected: "2" },
     },
     onkyo_power: {
       state: "/service/onkyo/status/system-power",
