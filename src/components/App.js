@@ -15,12 +15,17 @@ export type AppProps = {
 };
 
 export type AppState = {
-  selectedControl: string
+  selectedControl: ?Control,
+  drawerOpened: boolean
 };
 
-class App extends React.Component<AppProps & Classes> {
+class App extends React.Component<AppProps & Classes, AppState> {
   constructor(props: AppProps & Classes) {
     super(props);
+    this.state = {
+      selectedControl: null,
+      drawerOpened: false
+    };
   }
 
   static styles(_theme: Object) {
@@ -39,8 +44,12 @@ class App extends React.Component<AppProps & Classes> {
     });
   }
 
-  get selectedControl(): Control {
-    return this.props.config.controls[this.state.selectedControl];
+  changeControl(control: ?Control = null) {
+    this.setState({selectedControl: control, drawerOpened: control != null});
+  }
+
+  closeDrawer() {
+    this.setState({drawerOpened: false});
   }
 
   render() {
@@ -50,12 +59,15 @@ class App extends React.Component<AppProps & Classes> {
           <div>
             <TopBar title={`${this.props.config.space.name} Map`}
               connected={false} />
-            {false && <SideBar />}
+            <SideBar open={this.state.drawerOpened}
+              control={this.state.selectedControl}
+              onCloseRequest={this.closeDrawer.bind(this)} />
           </div>
         </MuiThemeProvider>
         <ControlMap width={1000} height={700} zoom={0}
           layers={this.props.config.layers}
           controls={this.props.config.controls}
+          onChangeControl={this.changeControl.bind(this)}
         />
       </div>
     );

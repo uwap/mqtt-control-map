@@ -10,7 +10,8 @@ import Toolbar from "material-ui/Toolbar";
 import List from "material-ui/List";
 
 export type SideBarProps = {
-  control: Control,
+  control: ?Control,
+  open: boolean,
   onCloseRequest: () => void
 };
 
@@ -36,7 +37,7 @@ class SideBar extends React.Component<SideBarProps & Classes, SideBarState> {
 
   render() {
     return (
-      <Drawer open={true}
+      <Drawer open={this.props.open}
         anchor="right"
         onRequestClose={this.close}
         classes={{paper: this.props.classes.drawerPaper}}
@@ -44,11 +45,11 @@ class SideBar extends React.Component<SideBarProps & Classes, SideBarState> {
       >
         <AppBar position="static">
           <Toolbar>
-            <IconButton onClick={this.close}>
+            <IconButton onClick={this.close.bind(this)}>
               <i className="mdi mdi-format-horizontal-align-right mdi-36px"></i>
             </IconButton>
             <Typography type="title">
-              {this.props.control.name}
+              {this.props.control == null || this.props.control.name}
             </Typography>
           </Toolbar>
         </AppBar>

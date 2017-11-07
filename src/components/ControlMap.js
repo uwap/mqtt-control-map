@@ -2,6 +2,7 @@
 import React from "react";
 import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
 import Leaflet from "leaflet";
+import _ from "lodash";
 
 export type Point = [number, number];
 
@@ -12,7 +13,8 @@ export type ControlMapProps = {
   height: number,
   zoom: number,
   layers: Array<Layer>,
-  controls: Controls
+  controls: Controls,
+  onChangeControl: (control: Control) => void
 };
 
 export default class ControlMap extends React.Component<ControlMapProps> {
@@ -39,7 +41,7 @@ export default class ControlMap extends React.Component<ControlMapProps> {
   }
 
   renderMarkers() {
-    return Object.values(this.props.controls).map(this.renderMarker.bind(this));
+    return _.map(this.props.controls, this.renderMarker.bind(this));
   }
 
   createLeafletIcon(iconRaw: string) {
@@ -51,11 +53,12 @@ export default class ControlMap extends React.Component<ControlMapProps> {
     });
   }
 
-  renderMarker(control: Control) {
+  renderMarker(control: Control, key: string) {
     return (
       <Marker position={convertPoint(control.position)}
-        key={control.name}
+        key={key}
         icon={this.createLeafletIcon(control.icon)}
+        onClick={() => this.props.onChangeControl(control)}
       >
       </Marker>
     );
