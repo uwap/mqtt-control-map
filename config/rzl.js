@@ -123,7 +123,7 @@ const config : Config = {
       name: "LED Stahlträger",
       position: [380, 300],
       icon: "white-balance-iridescent rotate-90",
-      iconColor: state => state.led_stahltraeger == "on" ? utils.rainbow : "#000000",
+      iconColor: ({led_stahltraeger}) => led_stahltraeger == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
@@ -137,7 +137,7 @@ const config : Config = {
       name: "Snackbar",
       position: [510, 500],
       icon: "fridge",
-      iconColor: state => state.snackbar == "on" ? "#E20074" : "#000000",
+      iconColor: ({snackbar}) => snackbar == "on" ? "#E20074" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -151,7 +151,7 @@ const config : Config = {
       name: "Twinkle",
       position: [530, 560],
       icon: "led-off flip-v",
-      iconColor: state => state.twinkle == "on" ? utils.rainbow : "#000000",
+      iconColor: ({twinkle}) => twinkle == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
@@ -165,7 +165,7 @@ const config : Config = {
       name: "Ventilator",
       position: [520, 450],
       icon: "fan",
-      iconColor: state => state.fan == "on" ? "#00FF00" : "#000000",
+      iconColor: ({fan}) => fan == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -191,7 +191,7 @@ const config : Config = {
       name: "Videospiele",
       position: [100, 100],
       icon: "gamepad-variant",
-      iconColor: state => state.videogames == "on" ? "#00FF00" : "#000000",
+      iconColor: ({videogames}) => videogames == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -205,7 +205,7 @@ const config : Config = {
       name: "Rechner und Drucker",
       position: [297, 90],
       icon: "desktop-classic",
-      iconColor: state => state.olymp_pc == "on" ? "#00FF00" : "#000000",
+      iconColor: ({olymp_pc}) => olymp_pc == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -219,7 +219,7 @@ const config : Config = {
       name: "Fliegenbratgerät",
       position: [450, 590],
       icon: "fire",
-      iconColor: state => state.flyfry == "on" ? "#6666FF" : "#000000",
+      iconColor: ({flyfry}) => flyfry == "on" ? "#6666FF" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -233,7 +233,7 @@ const config : Config = {
       name: "Artnet",
       position: [535,480],
       icon: "spotlight",
-      iconColor: state => 
+      iconColor: ({artnet}) => 
         ({
           off: "#000000",
           yellow: "#CCCC00",
@@ -241,7 +241,7 @@ const config : Config = {
           purple: "#FF00FF",
           green: "#00FF00",
           cycle: utils.rainbow
-        })[state.artnet],
+        })[artnet],
       ui: [
         {
           type: "toggle",
@@ -270,8 +270,8 @@ const config : Config = {
     onkyo: {
       name: "Onkyo",
       position: [350, 650],
-      iconColor: state =>
-        state.onkyo_connection != "connected" ? "#888888" : (state.onkyo_power == "on" ? "#00FF00" : "#000000"),
+      iconColor: ({onkyo_connection, onkyo_power}) =>
+        onkyo_connection != "connected" ? "#888888" : (onkyo_power == "on" ? "#00FF00" : "#000000"),
       icon: "volume-high",
       ui: [
         {
@@ -350,7 +350,7 @@ const config : Config = {
       name: "Rundumleuchte",
       position: [310,275],
       icon: "alarm-light",
-      iconColor: state => state.rundumleuchte == "on" ? "#CCCC00" : "#000000",
+      iconColor: ({runumleuchte}) => rundumleuchte == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -364,7 +364,7 @@ const config : Config = {
       name: "Tür",
       position: [455,350],
       icon: "swap-vertical",
-      iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
+      iconColor: ({door_status}) => door_status == "on" ? "#00FF00" : "#FF0000",
       ui: [
         {
           type: "link",
@@ -377,7 +377,7 @@ const config : Config = {
       name: "Infoscreen",
       position: [255, 495],
       icon: "developer-board",
-      iconColor: state => state.infoscreen == "on" ? "#4444FF" : "#000000",
+      iconColor: ({infoscreen}) => infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [
         {
           type: "toggle",

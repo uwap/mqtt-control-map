@@ -1,5 +1,6 @@
 // @flow
 import React from "react";
+import _ from "lodash";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import createMuiTheme from "material-ui/styles/createMuiTheme";
@@ -16,7 +17,8 @@ export type AppProps = {
 
 export type AppState = {
   selectedControl: ?Control,
-  drawerOpened: boolean
+  drawerOpened: boolean,
+  mqttState: State
 };
 
 class App extends React.Component<AppProps & Classes, AppState> {
@@ -24,7 +26,8 @@ class App extends React.Component<AppProps & Classes, AppState> {
     super(props);
     this.state = {
       selectedControl: null,
-      drawerOpened: false
+      drawerOpened: false,
+      mqttState: _.map(props.topics, ({defaultValue}) => defaultValue)
     };
   }
 
@@ -68,6 +71,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
           layers={this.props.config.layers}
           controls={this.props.config.controls}
           onChangeControl={this.changeControl.bind(this)}
+          state={this.state.mqttState}
         />
       </div>
     );

@@ -15,7 +15,8 @@ export type ControlMapProps = {
   zoom: number,
   layers: Array<Layer>,
   controls: Controls,
-  onChangeControl: (control: Control) => void
+  onChangeControl: (control: Control) => void,
+  state: State
 };
 
 export default class ControlMap extends React.Component<ControlMapProps> {
@@ -45,19 +46,28 @@ export default class ControlMap extends React.Component<ControlMapProps> {
     return _.map(this.props.controls, this.renderMarker.bind(this));
   }
 
-  createLeafletIcon(icon: string) {
+  createLeafletIcon(control: Control) {
+    const iconClass = parseIconName(`${control.icon} 36px`);
     return Leaflet.divIcon({
-      className: parseIconName(`${icon} 36px`),
       iconSize: Leaflet.point(36, 36),
-      iconAnchor: Leaflet.point(18, 18)
+      iconAnchor: Leaflet.point(18, 18),
+      html: `<i class="${iconClass}"
+          style="line-height: 1; color: ${this.iconColor(control)}"></i>`
     });
+  }
+
+  iconColor(control: Control) {
+    if (control.iconColor == null) {
+      return "#000";
+    }
+    return control.iconColor(this.props.state);
   }
 
   renderMarker(control: Control, key: string) {
     return (
       <Marker position={convertPoint(control.position)}
         key={key}
-        icon={this.createLeafletIcon(control.icon)}
+        icon={this.createLeafletIcon(control)}
         onClick={() => this.props.onChangeControl(control)}
       >
       </Marker>

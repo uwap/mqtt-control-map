@@ -19,7 +19,7 @@ declare type ControlUI = {
   topic?: string,
   icon?: string,
 
-  enableCondition?: (internal: string, actual: any) => boolean,
+  enableCondition?: (internal: string, actual: any, state: State) => boolean,
 
   // LINK optiona properties
   link?: string,
@@ -27,7 +27,7 @@ declare type ControlUI = {
   // TOGGLE optional properties
   on?: string, // on override for toggle
   off?: string, // off override for toggle
-  toggled?: (internal: string, actual: any, state: Map<string, any>) => boolean,
+  toggled?: (internal: string, actual: any, state: State) => boolean,
 
   // DROPDOWN optional properties
   options?: Map<string,any>, //options for dropDown
@@ -43,7 +43,7 @@ declare type Control = {
   name: string,
   position: Array<number>,
   icon: string,
-  iconColor?: (state: Map<string,any>) => string,
+  iconColor?: (state: State) => string,
   ui: Array<ControlUI>
 };
 declare type Controls = Map<string,Control>;
@@ -61,18 +61,20 @@ declare type Space = {
           "green"|"lightgreen"|"lime"|"yellow"|"amber"|"orange"|"deepOrange"|"brown"|"grey"|"blueGrey"
 };
 
-declare type State = {
-  mqtt: ?any,
-  uiOpened: ?string,
+declare type State = Map<string,any>;
+
+//declare type State = {
+//  mqtt: ?any,
+//  uiOpened: ?string,
   // A map of the actual state values for each topic.
   // internal is the internal term for the value,
   // that is equal to the key in the values section of that
   // topic, for example given by:
   // values: { off: "OFF", on: "ON" }
   // and actual is the value of that or whatever is given by mqtt.
-  values: Map<string, { internal: ?string, actual: any }>,
-  visibleLayers: Array<string>
-};
+//  values: Map<string, { internal: ?string, actual: any }>,
+//  visibleLayers: Array<string>
+//};
 
 declare type Point = [number, number];
 

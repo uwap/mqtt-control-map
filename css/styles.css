@@ -16,9 +16,6 @@ body .leaflet-div-icon {
   border: 0;
   background: transparent;
 }
-.leaflet-marker-icon.mdi {
-  line-height: 1;
-}
 #drawer_uiComponents .mdi {
   width: auto;
   height: auto;
