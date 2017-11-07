@@ -8,7 +8,7 @@ import Typography from "material-ui/Typography";
 
 const TopBarLayerSelector = (_props: Object) => (
   <IconButton>
-    <Icon>layers</Icon>
+    <i className="mdi mdi-layers"></i>
   </IconButton>
 );
 
@@ -19,11 +19,12 @@ const TopBarIndicatorMenu = (props: Object) => (
       (<i style={{fontSize: 48}} className="mdi mdi-lan-disconnect"></i>)}
   </IconButton>
 );
-    
+
 
 const TopBarIndicator = (props: Object) => {
   if (props.mqtt == null || props.mqtt.reconnecting) {
-    return (<CircularProgress size={48} style={{color: "rgba(0, 0, 0, 0.54)"}} />);
+    return (<CircularProgress size={48}
+      style={{color: "rgba(0, 0, 0, 0.54)"}} />);
   } else {
     return (<TopBarIndicatorMenu {...props} />);
   }

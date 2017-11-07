@@ -14,22 +14,35 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-  ListSubheader,
+  ListSubheader
 } from "material-ui/List";
 import Button from "material-ui/Button";
 
 const enabled = (props: ControlUI, state: State) => {
-  if (props.enableCondition == null) return true;
-  else {
+  if (props.enableCondition == null) {
+    return true;
+  } else {
     const val = state.values[props.topic];
     return props.enableCondition(
-      val.internal == null ? val.actual : val.internal, val.actual, R.map(x => x.internal == null ?
-        x.actual : x.internal, state.values == null ? {} : state.values));
+      val.internal == null ? val.actual : val.internal, val.actual,
+      R.map(x => x.internal == null ? x.actual
+        : x.internal, state.values == null ? {} : state.values));
   }
 };
 
 const getValue = (topic: string, val: string) =>
   Config.topics[topic].values[val];
+
+const renderIcon = (icon: string) => {
+  if (icon != null) {
+    return (
+      <ListItemIcon>
+        <i className={`mdi mdi-${icon} mdi-24px`}></i>
+      </ListItemIcon>
+    );
+  }
+  return null;
+};
 
 export const onSwitch = (topic: string, props: ControlUI, state: State) =>
   (x, toggled: boolean) => {
@@ -53,11 +66,11 @@ export const isToggled = (state: State, props: ControlUI) => {
 export const toggle = (state: State, props: ControlUI) => {
   return (
     <ListItem>
-      {props.icon && <ListItemIcon><i className={`mdi mdi-${props.icon} mdi-24px`}></i></ListItemIcon>}
+      {renderIcon(props.icon)}
       <ListItemText primary={props.text} />
       <ListItemSecondaryAction>
         <Switch label={props.text}
-          checked={isToggled(state,props)}
+          checked={isToggled(state, props)}
           onChange={onSwitch(props.topic, props, state)}
           disabled={!(enabled(props, state))} />
       </ListItemSecondaryAction>
@@ -77,10 +90,11 @@ const dropDownItem = (topic: string) => (text: string, key: string) => (
 );
 
 export const dropDown = (state: State, props: ControlUI) => {
-  const id = `${props.topic}.${Object.keys(props.options).reduce((v,r) => v + "." + r)}`;
+  const id = `${props.topic}.${Object.keys(props.options)
+    .reduce((v, r) => v + "." + r)}`;
   return (
     <ListItem>
-      {props.icon && <ListItemIcon><i className={`mdi mdi-${props.icon} mdi-24px`}></i></ListItemIcon>}
+      {renderIcon(props.icon)}
       <FormControl>
         <InputLabel htmlFor={id}>{props.text}</InputLabel>
         <Select value={state.values[props.topic].actual}
@@ -104,7 +118,7 @@ const onSliderChange = (state: State, props: ControlUI) =>
 
 export const slider = (state: State, props: ControlUI) => (
   <ListItem>
-    {props.icon && <ListItemIcon><i className={`mdi mdi-${props.icon} mdi-24px`}></i></ListItemIcon>}
+    {renderIcon(props.icon)}
     <ListItemText primary={props.text} />
     <ListItemSecondaryAction>
       <MuiThemeProvider>
@@ -125,7 +139,10 @@ export const section = (state: State, props: ControlUI) => (
 
 export const link = (state: State, props: ControlUI) => (
   <ListItem>
-    <Button raised onClick={() => window.open(props.link, "_blank")} color="primary">
+    <Button raised
+      onClick={() => window.open(props.link, "_blank")}
+      color="primary"
+    >
       {props.text}
     </Button>
   </ListItem>

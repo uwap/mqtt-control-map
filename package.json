@@ -8,7 +8,7 @@
     "production-build": "webpack --bail --config webpack.prod.js",
     "watch": "webpack-dev-server --open --config webpack.dev.js",
     "travis": "yarn lint && yarn build && yarn production-build",
-    "lint": "yarn eslint -- --ext js --ext jsx src/",
+    "lint": "eslint -- --ext js --ext jsx src/",
     "precommit": "yarn lint"
   },
   "dependencies": {

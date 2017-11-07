@@ -5,7 +5,7 @@ import { Store } from "redux";
 import Config from "./config";
 import R from "ramda";
 
-export default function connectMqtt(url: string, store: Store<*,*>) {
+export default function connectMqtt(url: string, store: Store<*, *>) {
   const client = mqtt.connect(url);
   client.on("connect", () => {
     store.dispatch({

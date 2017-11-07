@@ -23,22 +23,32 @@ const iconHtml = (el, state: State) =>
     + "color:" + color(el.iconColor, state) + ";\">"
     + "</i>";
 
-const Markers = (props) => R.values(R.mapObjIndexed((el,key) => (
+const Markers = (props) => R.values(R.mapObjIndexed((el, key) => (
   <Marker position={c(el.position)} key={el.name}
     icon={Leaflet.divIcon(
       {
         html: iconHtml(el, props.state),
-        iconSize: Leaflet.point(36,36),
-        iconAnchor: Leaflet.point(18,18)
+        iconSize: Leaflet.point(36, 36),
+        iconAnchor: Leaflet.point(18, 18)
       })}
-    onClick={(e) => store.dispatch({type: Actions.CHANGE_UI, payload: key, toggle: e.originalEvent.ctrlKey})}>
+    onClick={(e) => store.dispatch({
+      type: Actions.CHANGE_UI,
+      payload: key,
+      toggle: e.originalEvent.ctrlKey})}>
   </Marker>
 ), R.propOr({}, "controls", Config)));
 
-class SpaceMap extends React.Component<{state: State, width: number, height: number,
-    zoom: number, image: string}> {
+type SpaceMapProps = {
+  state: State,
+  width: number,
+  height: number,
+  zoom: number,
+  image: string
+};
 
-  constructor(props) {
+class SpaceMap extends React.Component<SpaceMapProps> {
+
+  constructor(props: SpaceMapProps) {
     super(props);
   }
 
@@ -46,21 +56,25 @@ class SpaceMap extends React.Component<{state: State, width: number, height: num
     const props = this.props;
     return (
       <Map center={c([props.width / 2, props.height / 2])} zoom={props.zoom}
-        crs={Leaflet.CRS.Simple}> 
+        crs={Leaflet.CRS.Simple}>
         {Markers(props)}
-        <LayersControl position='topright'>
-          {Config.layers.map(x => this.renderLayer(x, [c([0,0]), c([props.width, props.height])]))}
+        <LayersControl position="topright">
+          {Config.layers.map(x =>
+            this.renderLayer(x, [c([0, 0]), c([props.width, props.height])]))}
         </LayersControl>
       </Map>
     );
   }
 
   renderLayer(layer, bounds) {
-    const LayersControlType = layer.baseLayer ? LayersControl.BaseLayer : LayersControl.Overlay;
+    const LayersControlType =
+      layer.baseLayer ? LayersControl.BaseLayer : LayersControl.Overlay;
     return (
       <LayersControlType name={layer.name}
-        checked={layer.defaultVisibility == "visible"}>
-        <ImageOverlay url={layer.image} bounds={bounds} opacity={layer.opacity} />
+        checked={layer.defaultVisibility === "visible"}>
+        <ImageOverlay url={layer.image}
+          bounds={bounds}
+          opacity={layer.opacity} />
       </LayersControlType>
     );
   }
