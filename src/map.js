@@ -14,8 +14,8 @@ const color = (iconColor, state: State) => {
   // TODO: give iconColor not only internal but also actual values
   return iconColor == null ? "#000000" :
     iconColor(
-      R.map(x => x.internal == null ?
-        x.actual : x.internal, state.values == null ? {} : state.values)
+      R.map((x) => (x.internal == null ?
+        x.actual : x.internal), state.values == null ? {} : state.values)
     );
 };
 const iconHtml = (el, state: State) =>
@@ -59,7 +59,7 @@ class SpaceMap extends React.Component<SpaceMapProps> {
         crs={Leaflet.CRS.Simple}>
         {Markers(props)}
         <LayersControl position="topright">
-          {Config.layers.map(x =>
+          {Config.layers.map((x) =>
             this.renderLayer(x, [c([0, 0]), c([props.width, props.height])]))}
         </LayersControl>
       </Map>

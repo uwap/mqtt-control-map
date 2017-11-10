@@ -15,7 +15,7 @@ const initState : State = {
   mqtt: null,
   uiOpened: null,
   values: R.map(
-    topic => {
+    (topic) => {
       return {
         internal: keyOf(topic.values, topic.defaultValue),
         actual: topic.defaultValue
@@ -37,7 +37,7 @@ const onMessage = (state: State, action: StateAction) => {
   const payload = action.payload == null ? { topic: "", message: {} }
     : action.payload; // thx flow </3
   const topics = R.keys(R.pickBy(
-    val => val.state === payload.topic, Config.topics));
+    (val) => val.state === payload.topic, Config.topics));
   const message = payload.message;
   const parsedMessage = (topic: string) => {
     let parseFunction = Config.topics[topic].parseState;
@@ -54,7 +54,7 @@ const onMessage = (state: State, action: StateAction) => {
     };
   };
   return R.mergeDeepRight(state, R.objOf("values", R.mergeAll(
-    R.map(topic => R.objOf(topic, newValue(topic)), topics)
+    R.map((topic) => R.objOf(topic, newValue(topic)), topics)
   )));
 };
 

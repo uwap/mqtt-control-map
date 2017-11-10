@@ -11,7 +11,7 @@ export default function connectMqtt(url: string, store: Store<*, *>) {
     store.dispatch({
       type: Actions.MQTT_CONNECT, payload: client
     });
-    R.forEachObjIndexed(v =>
+    R.forEachObjIndexed((v) =>
       client.subscribe(v.state), Config.topics);
   });
   client.on("message", (topic, message) => {

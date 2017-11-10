@@ -12,6 +12,8 @@ import ControlMap from "components/ControlMap";
 import TopBar from "components/TopBar";
 import UiItemList from "components/UiItemList";
 
+import { keyOf } from "../util";
+
 export type AppProps = {
   config: Config
 };
@@ -28,9 +30,9 @@ class App extends React.Component<AppProps & Classes, AppState> {
     this.state = {
       selectedControl: null,
       drawerOpened: false,
-      mqttState: _.map(props.topics, topic => ({
+      mqttState: _.mapValues(props.config.topics, (topic) => ({
         actual: topic.defaultValue,
-        internal: topic.values[topic.defaultValue]
+        internal: keyOf(topic.values, topic.defaultValue)
       }))
     };
   }
@@ -71,7 +73,8 @@ class App extends React.Component<AppProps & Classes, AppState> {
               onCloseRequest={this.closeDrawer.bind(this)}
             >
               {this.state.selectedControl == null
-                || <UiItemList state={this.state.mqttState} controls={this.state.selectedControl.ui} />}
+                || <UiItemList state={this.state.mqttState}
+                  controls={this.state.selectedControl.ui} />}
             </SideBar>
           </div>
         </MuiThemeProvider>

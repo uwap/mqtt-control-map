@@ -25,8 +25,8 @@ const enabled = (props: ControlUI, state: State) => {
     const val = state.values[props.topic];
     return props.enableCondition(
       val.internal == null ? val.actual : val.internal, val.actual,
-      R.map(x => x.internal == null ? x.actual
-        : x.internal, state.values == null ? {} : state.values));
+      R.map((x) => (x.internal == null ? x.actual
+        : x.internal), state.values == null ? {} : state.values));
   }
 };
 

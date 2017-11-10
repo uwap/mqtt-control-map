@@ -128,7 +128,7 @@ module.exports = {
 
     // ES6
     "arrow-spacing": "error",
-    "arrow-parens": "warning",
+    "arrow-parens": "warn",
     "no-confusing-arrow": ["error", {"allowParens": true}],
 
     // react
