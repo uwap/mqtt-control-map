@@ -126,6 +126,11 @@ module.exports = {
     "space-before-blocks": "error",
     "quotes": ["error", "double"],
 
+    // ES6
+    "arrow-spacing": "error",
+    "arrow-parens": "warning",
+    "no-confusing-arrow": ["error", {"allowParens": true}],
+
     // react
     "react/prop-types": "off",
     "react/display-name": "off",

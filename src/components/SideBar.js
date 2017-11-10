@@ -60,6 +60,7 @@ class SideBar extends React.Component<SideBarProps & Classes, SideBarState> {
           </Toolbar>
         </AppBar>
         <List id="drawer_uiComponents">
+          {this.props.children}
         </List>
       </Drawer>
     );

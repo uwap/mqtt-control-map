@@ -350,7 +350,7 @@ const config : Config = {
       name: "Rundumleuchte",
       position: [310,275],
       icon: "alarm-light",
-      iconColor: ({runumleuchte}) => rundumleuchte == "on" ? "#CCCC00" : "#000000",
+      iconColor: ({rundumleuchte}) => rundumleuchte == "on" ? "#CCCC00" : "#000000",
       ui: [
         {
           type: "toggle",
