@@ -150,7 +150,7 @@ const config : Config = {
     twinkle: {
       name: "Twinkle",
       position: [530, 560],
-      icon: "led-off flip-v",
+      icon: ({twinkle}) => twinkle == "on" ? "led-on flip-v" : "led-off flip-v",
       iconColor: ({twinkle}) => twinkle == "on" ? utils.rainbow : "#000000",
       ui: [
         {
@@ -236,7 +236,7 @@ const config : Config = {
       iconColor: ({artnet}) => 
         ({
           off: "#000000",
-          yellow: "#CCCC00",
+          yellow: "#F0DF10",
           red: "#FF0000",
           purple: "#FF00FF",
           green: "#00FF00",
@@ -350,7 +350,7 @@ const config : Config = {
       name: "Rundumleuchte",
       position: [310,275],
       icon: "alarm-light",
-      iconColor: ({rundumleuchte}) => rundumleuchte == "on" ? "#CCCC00" : "#000000",
+      iconColor: ({rundumleuchte}) => rundumleuchte == "on" ? "#F0DF10" : "#000000",
       ui: [
         {
           type: "toggle",

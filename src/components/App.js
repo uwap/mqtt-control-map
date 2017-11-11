@@ -13,6 +13,7 @@ import TopBar from "components/TopBar";
 import UiItemList from "components/UiItemList";
 
 import keyOf from "utils/keyOf";
+import { controlGetIcon } from "utils/parseIconName";
 
 export type AppProps = {
   config: Config
@@ -79,11 +80,15 @@ class App extends React.Component<AppProps & Classes, AppState> {
             <SideBar open={this.state.drawerOpened}
               control={this.state.selectedControl}
               onCloseRequest={this.closeDrawer.bind(this)}
+              icon={this.state.selectedControl == null ? null :
+                controlGetIcon(this.state.selectedControl,
+                  this.state.mqttState)}
             >
               {this.state.selectedControl == null
                 || <UiItemList state={this.state.mqttState}
                   controls={this.state.selectedControl.ui}
-                  onChangeState={this.changeState.bind(this)} />}
+                  onChangeState={this.changeState.bind(this)}
+                />}
             </SideBar>
           </div>
         </MuiThemeProvider>

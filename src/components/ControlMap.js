@@ -3,7 +3,7 @@ import React from "react";
 import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
 import Leaflet from "leaflet";
 import _ from "lodash";
-import parseIconName from "utils/parseIconName";
+import parseIconName, { controlGetIcon } from "utils/parseIconName";
 
 export type Point = [number, number];
 
@@ -47,7 +47,8 @@ export default class ControlMap extends React.Component<ControlMapProps> {
   }
 
   createLeafletIcon(control: Control) {
-    const iconClass = parseIconName(`${control.icon} 36px`);
+    const icon = controlGetIcon(control, this.props.state);
+    const iconClass = parseIconName(`${icon} 36px`);
     return Leaflet.divIcon({
       iconSize: Leaflet.point(36, 36),
       iconAnchor: Leaflet.point(18, 18),
@@ -60,7 +61,11 @@ export default class ControlMap extends React.Component<ControlMapProps> {
     if (control.iconColor == null) {
       return "#000";
     }
-    return control.iconColor(this.props.state);
+    return control.iconColor(
+      _.mapValues(this.props.state, (x) => x.internal || x.actual),
+      _.mapValues(this.props.state, (x) => x.actual),
+      this.props.state
+    );
   }
 
   renderMarker(control: Control, key: string) {

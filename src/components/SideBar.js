@@ -13,7 +13,8 @@ import { renderIcon } from "utils/parseIconName";
 export type SideBarProps = {
   control: ?Control,
   open: boolean,
-  onCloseRequest: () => void
+  onCloseRequest: () => void,
+  icon?: ?string
 };
 
 export type SideBarState = {
@@ -49,8 +50,8 @@ class SideBar extends React.Component<SideBarProps & Classes, SideBarState> {
       >
         <AppBar position="static">
           <Toolbar>
-            {this.props.control == null
-              || renderIcon(this.props.control.icon, "mdi-36px")}
+            {this.props.icon == null
+              || renderIcon(this.props.icon, "mdi-36px")}
             <Typography type="title" className={this.props.classes.flex}>
               {this.props.control == null || this.props.control.name}
             </Typography>
