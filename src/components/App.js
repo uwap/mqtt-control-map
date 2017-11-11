@@ -12,7 +12,7 @@ import ControlMap from "components/ControlMap";
 import TopBar from "components/TopBar";
 import UiItemList from "components/UiItemList";
 
-import { keyOf } from "../util";
+import keyOf from "utils/keyOf";
 
 export type AppProps = {
   config: Config
@@ -61,6 +61,14 @@ class App extends React.Component<AppProps & Classes, AppState> {
     this.setState({drawerOpened: false});
   }
 
+  changeState(topic: string, value: any) {
+    this.setState({mqttState: _.merge(this.state.mqttState,
+      { [topic]: {
+        actual: this.props.config.topics[topic].values[value],
+        internal: value
+      }})});
+  }
+
   render() {
     return (
       <div>
@@ -74,7 +82,8 @@ class App extends React.Component<AppProps & Classes, AppState> {
             >
               {this.state.selectedControl == null
                 || <UiItemList state={this.state.mqttState}
-                  controls={this.state.selectedControl.ui} />}
+                  controls={this.state.selectedControl.ui}
+                  onChangeState={this.changeState.bind(this)} />}
             </SideBar>
           </div>
         </MuiThemeProvider>

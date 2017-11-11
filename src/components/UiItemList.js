@@ -18,7 +18,8 @@ import Button from "material-ui/Button";
 
 export type UiItemListProps = {
   controls: Array<ControlUI>,
-  state: State
+  state: State,
+  onChangeState: (topic: string, nextState: any) => void
 };
 
 export default class UiItemList extends React.Component<UiItemListProps> {
@@ -89,13 +90,14 @@ export default class UiItemList extends React.Component<UiItemListProps> {
     return value;
   }
 
-  toggleSwitch(_control: ControlUI, _newState: boolean) {
-
+  toggleSwitch(control: ControlUI, newState: boolean) {
+    this.props.onChangeState(control.topic,
+      newState ? (control.on || "on") : (control.off || "off"));
   }
 
   renderToggle(control: ControlUI) {
     const value = this.getValue(control);
-    const isToggled = control.isToggled || ((i) => i === (control.on || "on"));
+    const isToggled = control.toggled || ((i) => i === (control.on || "on"));
     const checked = isToggled(
       value.internal || value.actual, value.actual, this.props.state);
     return [
@@ -103,14 +105,14 @@ export default class UiItemList extends React.Component<UiItemListProps> {
       <ListItemSecondaryAction key="action">
         <Switch label={control.text}
           checked={checked}
-          onChange={(state) => this.toggleSwitch(control, state)}
+          onChange={(_event, state) => this.toggleSwitch(control, state)}
           disabled={!this.isEnabled(control)} />
       </ListItemSecondaryAction>
     ];
   }
 
-  changeDropDown(_control: ControlUI, _newState: string) {
-
+  changeDropDown(control: ControlUI, newState: string) {
+    this.props.onChangeState(control.topic, newState);
   }
 
   renderDropDown(control: ControlUI) {
@@ -125,8 +127,8 @@ export default class UiItemList extends React.Component<UiItemListProps> {
     return (
       <FormControl>
         <InputLabel htmlFor={id}>{control.text}</InputLabel>
-        <Select value={value}
-          onChange={(state) => this.changeDropDown(control, state)}
+        <Select value={value.internal}
+          onChange={(event) => this.changeDropDown(control, event.target.value)}
           disabled={!this.isEnabled(control)}
           input={<Input id={id} />}
         >
