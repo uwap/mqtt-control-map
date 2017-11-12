@@ -16,6 +16,10 @@ import Select from "material-ui/Select";
 import { MenuItem } from "material-ui/Menu";
 import Button from "material-ui/Button";
 
+// TODO: Use something else
+import Slider from "material-ui-old/Slider";
+import MuiThemeProvider from "material-ui-old/styles/MuiThemeProvider";
+
 export type UiItemListProps = {
   controls: Array<ControlUI>,
   state: State,
@@ -60,6 +64,9 @@ export default class UiItemList extends React.Component<UiItemListProps> {
     }
     case "link": {
       return this.renderLink(control);
+    }
+    case "slider": {
+      return this.renderSlider(control);
     }
     default: {
       throw new Error(
@@ -127,7 +134,7 @@ export default class UiItemList extends React.Component<UiItemListProps> {
     return (
       <FormControl>
         <InputLabel htmlFor={id}>{control.text}</InputLabel>
-        <Select value={value.internal}
+        <Select value={value.internal || value.actual}
           onChange={(event) => this.changeDropDown(control, event.target.value)}
           disabled={!this.isEnabled(control)}
           input={<Input id={id} />}
@@ -158,5 +165,25 @@ export default class UiItemList extends React.Component<UiItemListProps> {
         {control.text}
       </Button>
     );
+  }
+
+  renderSlider(control: ControlUI) {
+    const value = this.getValue(control);
+    return [
+      <ListItemText primary={control.text} key="text" />,
+      <ListItemSecondaryAction key="action">
+        <MuiThemeProvider>
+          <Slider value={value.internal || value.actual}
+            min={control.min || 0}
+            max={control.max || 100}
+            step={control.step || 1}
+            onChange={
+              (_event, newvalue) =>
+                this.props.onChangeState(control.topic, newvalue)
+            }
+            style={{width: 100}}
+          /></MuiThemeProvider>
+      </ListItemSecondaryAction>
+    ];
   }
 }

@@ -61,8 +61,8 @@ const config : Config = {
     onkyo_connection: {
       state: "/service/onkyo/connected",
       command: "",
-      defaultValue: 0,
-      values: { disconnected: 0, connecting: 1, connected: 2 },
+      defaultValue: "0",
+      values: { disconnected: "0", connecting: "1", connected: "2" },
     },
     onkyo_power: {
       state: "/service/onkyo/status/system-power",
@@ -279,7 +279,7 @@ const config : Config = {
           text: "Power",
           icon: "power",
           topic: "onkyo_power",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "section",
@@ -292,14 +292,14 @@ const config : Config = {
           min: 0,
           max: 50,
           icon: "volume-high",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "toggle",
           text: "Mute",
           topic: "onkyo_mute",
           icon: "volume-off",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "section",
@@ -316,7 +316,7 @@ const config : Config = {
             pult: "Pult"
           },
           icon: "usb",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "dropDown",
@@ -333,7 +333,7 @@ const config : Config = {
             somafm_lush: "Lush (SomaFM)"
           },
           icon: "radio",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected" && state.onkyo_inputs == "netzwerk"
+          enableCondition: (a, b, state) => state.onkyo_connection.inernal == "connected" && state.onkyo_inputs.internal == "netzwerk"
         },
         {
           type: "section",

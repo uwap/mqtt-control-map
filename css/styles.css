@@ -20,3 +20,8 @@ body .leaflet-div-icon {
   width: auto;
   height: auto;
 }
+.mdi:before {
+  background-clip: text;
+  -webkit-background-clip: text;
+  background: var(--before-background, transparent);
+}

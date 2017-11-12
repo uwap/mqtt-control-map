@@ -15,6 +15,8 @@ import UiItemList from "components/UiItemList";
 import keyOf from "utils/keyOf";
 import { controlGetIcon } from "utils/parseIconName";
 
+import connectMqtt from "../connectMqtt";
+
 export type AppProps = {
   config: Config
 };
@@ -22,7 +24,8 @@ export type AppProps = {
 export type AppState = {
   selectedControl: ?Control,
   drawerOpened: boolean,
-  mqttState: State
+  mqttState: State,
+  mqttSend: (topic: string, value: any) => void
 };
 
 class App extends React.Component<AppProps & Classes, AppState> {
@@ -34,7 +37,11 @@ class App extends React.Component<AppProps & Classes, AppState> {
       mqttState: _.mapValues(props.config.topics, (topic) => ({
         actual: topic.defaultValue,
         internal: keyOf(topic.values, topic.defaultValue)
-      }))
+      })),
+      mqttSend: connectMqtt(props.config.space.mqtt, {
+        onMessage: this.receiveMessage.bind(this),
+        subscribe: _.map(props.config.topics, (x) => x.state)
+      })
     };
   }
 
@@ -54,6 +61,23 @@ class App extends React.Component<AppProps & Classes, AppState> {
     });
   }
 
+  receiveMessage(rawTopic: string, message: Object) {
+    const topic = _.findKey(
+      this.props.config.topics,
+      (v) => v.state === rawTopic
+    );
+    if (topic == null) {
+      return;
+    }
+    const parseValue = this.props.config.topics[topic].parseState;
+    const value = parseValue == null ? message.toString() : parseValue(message);
+    this.setState({mqttState: _.merge(this.state.mqttState,
+      { [topic]: {
+        actual: value,
+        internal: keyOf(this.props.config.topics[topic].values, value) || value
+      }})});
+  }
+
   changeControl(control: ?Control = null) {
     this.setState({selectedControl: control, drawerOpened: control != null});
   }
@@ -63,11 +87,14 @@ class App extends React.Component<AppProps & Classes, AppState> {
   }
 
   changeState(topic: string, value: any) {
-    this.setState({mqttState: _.merge(this.state.mqttState,
-      { [topic]: {
-        actual: this.props.config.topics[topic].values[value],
-        internal: value
-      }})});
+    const rawTopic = this.props.config.topics[topic].command;
+    if (rawTopic == null) {
+      return;
+    }
+    this.state.mqttSend(
+      rawTopic,
+      String(this.props.config.topics[topic].values[value] || value)
+    );
   }
 
   render() {

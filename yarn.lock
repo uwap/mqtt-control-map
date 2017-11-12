@@ -3815,7 +3815,7 @@ mqtt-packet@^5.4.0:
     process-nextick-args "^1.0.7"
     safe-buffer "^5.1.0"
 
-mqtt@^2.11.0:
+mqtt@^2.14.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/mqtt/-/mqtt-2.14.0.tgz#640b712e3c3c02ebe97882b109499bffc65f97a8"
   dependencies:
