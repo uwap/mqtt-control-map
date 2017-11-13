@@ -1,7 +1,7 @@
 {
-  "name": "spacemap",
+  "name": "mqtt-control-map",
   "version": "1.0.0",
-  "author": "uwap <me+spacemap.package.json@uwap.name>",
+  "author": "uwap <me+mqttmap.package.json@uwap.name>",
   "description": "control devices via mqtt on a beautiful map of your space",
   "scripts": {
     "build": "webpack --bail --config webpack.dev.js",
@@ -19,7 +19,6 @@
     "material-ui-old": "npm:material-ui@latest",
     "mdi": "^2.0.46",
     "mqtt": "^2.14.0",
-    "ramda": "^0.24.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-leaflet": "^1.5.0",
