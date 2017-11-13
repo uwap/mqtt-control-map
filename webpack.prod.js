@@ -18,7 +18,7 @@ const extractCSS = ExtractTextPlugin.extract({
 module.exports = merge(common, {
   entry: {
     main: path.resolve(__dirname, 'src/index.jsx'),
-    vendor: ['react', 'material-ui', 'mqtt', 'ramda']
+    vendor: ['react', 'material-ui', 'mqtt', 'lodash']
   },
   module: {
     loaders: [
