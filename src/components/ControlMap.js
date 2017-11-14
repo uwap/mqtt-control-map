@@ -7,7 +7,7 @@ import parseIconName, { controlGetIcon } from "utils/parseIconName";
 
 export type Point = [number, number];
 
-const convertPoint = (p: Point) => [-p[1], p[0]];
+const convertPoint = ([y,x]: Point): Point => [-x, y];
 
 export type ControlMapProps = {
   width: number,
@@ -20,7 +20,7 @@ export type ControlMapProps = {
 };
 
 export default class ControlMap extends React.Component<ControlMapProps> {
-  constructor(props: SpaceMapProps) {
+  constructor(props: ControlMapProps) {
     super(props);
   }
 
@@ -57,15 +57,15 @@ export default class ControlMap extends React.Component<ControlMapProps> {
     });
   }
 
-  iconColor(control: Control) {
-    if (control.iconColor == null) {
-      return "#000";
+  iconColor(control: Control): string {
+    if (control.iconColor != null) {
+      return control.iconColor(
+        _.mapValues(this.props.state, (x) => x.internal || x.actual),
+        _.mapValues(this.props.state, (x) => x.actual),
+        this.props.state
+      );
     }
-    return control.iconColor(
-      _.mapValues(this.props.state, (x) => x.internal || x.actual),
-      _.mapValues(this.props.state, (x) => x.actual),
-      this.props.state
-    );
+    return "#000";
   }
 
   renderMarker(control: Control, key: string) {
@@ -97,7 +97,7 @@ export default class ControlMap extends React.Component<ControlMapProps> {
         checked={layer.defaultVisibility === "visible"}>
         <ImageOverlay url={layer.image}
           bounds={Object.values(layer.bounds).map(convertPoint)}
-          opacity={layer.opacity} />
+          opacity={layer.opacity || 1} />
       </LayersControlType>
     );
   }

@@ -11,7 +11,7 @@ export const renderIcon = (name: string, extraClass?: string) => {
 };
 
 export const controlGetIcon = (control: Control, state: State): string => {
-  return !_.isFunction(control.icon) ? control.icon
+  return typeof control.icon !== "function" ? control.icon
     : control.icon(
       _.mapValues(state, (x) => x.internal || x.actual),
       _.mapValues(state, (x) => x.actual),

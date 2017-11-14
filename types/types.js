@@ -14,7 +14,7 @@ declare type Topic = {
 declare type Topics = Map<string,Topic>;
 
 declare type ControlUI = {
-  type: "toggle" | "dropDown" | "slider" | "section",
+  type: "toggle" | "dropDown" | "slider" | "section" | "link",
   text: string,
   topic?: string,
   icon?: string,
@@ -66,10 +66,15 @@ declare type Config = {
 declare type Space = {
   name: string,
   color: "red"|"pink"|"purple"|"deepPurple"|"indigo"|"blue"|"lightBlue"|"cyan"|"teal"|
-          "green"|"lightgreen"|"lime"|"yellow"|"amber"|"orange"|"deepOrange"|"brown"|"grey"|"blueGrey"
+          "green"|"lightGreen"|"lime"|"yellow"|"amber"|"orange"|"deepOrange"|"brown"|"grey"|"blueGrey",
+  mqtt: string
 };
 
-declare type State = Map<string,any>;
+declare type StateValue = {
+  internal: string,
+  actual: any
+};
+declare type State = Map<string,StateValue>;
 
 //declare type State = {
 //  mqtt: ?any,
@@ -89,16 +94,11 @@ declare type Point = [number, number];
 declare type Layer = {
   image: string,
   name: string,
-  baseLayer: boolean,
+  baseLayer?: boolean,
   defaultVisibility: "visible" | "hidden",
-  opacity: number,
+  opacity?: number,
   bounds: {
     topLeft: Point,
     bottomRight: Point
   }
-};
-
-declare type StateAction = {
-  type: "DISCONNECT" | "CONNECT" | "MESSAGE" | "UI_POPUP",
-  payload?: any
 };
