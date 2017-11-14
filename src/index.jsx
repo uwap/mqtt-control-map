@@ -14,4 +14,6 @@ injectTapEventPlugin();
 
 document.title = `${Config.space.name} Map`;
 
-ReactDOM.render(<App config={Config} />, document.getElementById("content"));
+// $FlowFixMe
+const contentElement: Element = document.getElementById("content");
+ReactDOM.render(<App config={Config} />, contentElement);

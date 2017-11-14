@@ -11,12 +11,10 @@ export const renderIcon = (name: string, extraClass?: string) => {
 };
 
 export const controlGetIcon = (control: Control, state: State): string => {
+  const internals = _.mapValues(state, (x) => x.internal || x.actual);
+  const actuals = _.mapValues(state, (x) => x.actual);
   return typeof control.icon !== "function" ? control.icon
-    : control.icon(
-      _.mapValues(state, (x) => x.internal || x.actual),
-      _.mapValues(state, (x) => x.actual),
-      state
-    );
+    : control.icon(internals, actuals, state);
 };
 
 export const renderControlIcon = (control: Control,
