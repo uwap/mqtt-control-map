@@ -333,7 +333,7 @@ const config : Config = {
             somafm_lush: "Lush (SomaFM)"
           },
           icon: "radio",
-          enableCondition: (a, b, state) => state.onkyo_connection.inernal == "connected" && state.onkyo_inputs.internal == "netzwerk"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected" && state.onkyo_inputs.internal == "netzwerk"
         },
         {
           type: "section",

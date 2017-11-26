@@ -20,6 +20,8 @@ import Button from "material-ui/Button";
 import Slider from "material-ui-old/Slider";
 import MuiThemeProvider from "material-ui-old/styles/MuiThemeProvider";
 
+import { Toggle, DropDown, Link, Section } from "./UiItem";
+
 export type UiItemListProps = {
   controls: Array<ControlUI>,
   state: State,
@@ -54,16 +56,24 @@ export default class UiItemList extends React.Component<UiItemListProps> {
   renderControl(control: ControlUI) {
     switch (control.type) {
     case "toggle": {
-      return this.renderToggle(control);
+      return <Toggle item={control}
+                state={this.props.state}
+                onChangeState={this.props.onChangeState} />;
     }
     case "dropDown": {
-      return this.renderDropDown(control);
+      return <DropDown item={control}
+                state={this.props.state}
+                onChangeState={this.props.onChangeState} />;
     }
     case "section": {
-      return this.renderSection(control);
+      return <Section item={control}
+                state={this.props.state}
+                onChangeState={this.props.onChangeState} />;
     }
     case "link": {
-      return this.renderLink(control);
+      return <Link item={control}
+                state={this.props.state}
+                onChangeState={this.props.onChangeState} />;
     }
     case "slider": {
       return this.renderSlider(control);

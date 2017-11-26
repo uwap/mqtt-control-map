@@ -87,6 +87,9 @@ class App extends React.Component<AppProps & Classes, AppState> {
   }
 
   changeState(topic: string, value: any) {
+    // this.receiveMessage(this.props.config.topics[topic].state, String(this.props.config.topics[topic].values[value] || value));
+    // return;
+    //
     const rawTopic = this.props.config.topics[topic].command;
     if (rawTopic == null) {
       return;

@@ -13,31 +13,49 @@ declare type Topic = {
 };
 declare type Topics = Map<string,Topic>;
 
-declare type ControlUI = {
-  type: "toggle" | "dropDown" | "slider" | "section" | "link",
+declare type UIBase = {
   text: string,
-  topic?: string,
-  icon?: string,
+  topic: string,
+  icon?: string, 
+  enableCondition?: (internal: string, actual: any, state: State) => boolean
+}
 
-  enableCondition?: (internal: string, actual: any, state: State) => boolean,
-
-  // LINK optiona properties
-  link?: string,
-
-  // TOGGLE optional properties
-  on?: string, // on override for toggle
-  off?: string, // off override for toggle
+declare type UIToggle = {
+  type: "toggle",
+  on?: string,
+  off?: string,
   toggled?: (internal: string, actual: any, state: State) => boolean,
+} & UIBase;
 
-  // DROPDOWN optional properties
-  options?: Map<string,any>, //options for dropDown
-  renderValue?: (value: string) => string,
+declare type UIDropDown = {
+  type: "dropDown",
+  options: Map<string, any>,
+  renderValue?: (value: string) => string
+} & UIBase;
 
-  // SLIDER optional properties
+declare type UISlider = {
+  type: "slider",
   min?: number,
   max?: number,
   step?: number
+} & UIBase;
+
+declare type UISection = {
+  type: "section",
+  text: string
 };
+
+declare type UILink = {
+  type: "link",
+  link: string
+} & UIBase;
+
+declare type ControlUI =
+    UIToggle
+  | UIDropDown
+  | UISlider
+  | UISection
+  | UILink
 
 declare type Control = {
   name: string,
