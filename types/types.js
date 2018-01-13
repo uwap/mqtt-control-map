@@ -15,7 +15,7 @@ declare type Topics = Map<string,Topic>;
 
 declare type UIBase = {
   text: string,
-  topic: string,
+  topic?: string,
   icon?: string, 
   enableCondition?: (internal: string, actual: any, state: State) => boolean
 }
