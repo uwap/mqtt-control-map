@@ -23,5 +23,5 @@ body .leaflet-div-icon {
 .mdi:before {
   background-clip: text;
   -webkit-background-clip: text;
-  background: var(--before-background, transparent);
+  background-image: var(--before-background, transparent);
 }
