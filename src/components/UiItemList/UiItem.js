@@ -2,14 +2,11 @@
 import React from "react";
 import _ from "lodash";
 import {
-  ListItem,
-  ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
   ListSubheader
 } from "material-ui/List";
 import Switch from "material-ui/Switch";
-import { renderIcon } from "utils/parseIconName";
 import Input, { InputLabel } from "material-ui/Input";
 import { FormControl } from "material-ui/Form";
 import Select from "material-ui/Select";
@@ -36,7 +33,7 @@ export default class UiItem<I> extends React.Component<UiItemProps<I>> {
   changeState(next: any) {
     if (this.props.item.topic == null) {
       throw new Error(
-        `Undefined topic in ${control.type} "${control.text}"`
+        `Undefined topic in ${this.props.item.type} "${this.props.item.text}"`
       );
     }
     this.props.onChangeState(this.props.item.topic, next);
@@ -46,6 +43,7 @@ export default class UiItem<I> extends React.Component<UiItemProps<I>> {
     const topic: string = this.props.item.topic || "";
     const value = this.props.state[topic];
     if (value == null) {
+      const control = this.props.item;
       throw new Error(
         `Unknown topic "${control.topic}" in ${control.type} "${control.text}"`
       );
