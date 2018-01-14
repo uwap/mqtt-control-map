@@ -50,12 +50,17 @@ declare type UILink = {
   link: string
 } & UIBase;
 
+declare type UIText = {
+  type: "text"
+} & UIBase;
+
 declare type ControlUI =
     UIToggle
   | UIDropDown
   | UISlider
   | UISection
   | UILink
+  | UIText
 
 declare type Control = {
   name: string,

@@ -172,3 +172,12 @@ export class Section extends UiItem<UISection> {
     );
   }
 }
+
+export class Text extends UiItem<UIText> {
+  render() {
+    return [
+      <ListItemText key="label" primary={this.props.item.text} />,
+      <ListItemText key="val" secondary={this.getValue().internal} />
+    ];
+  }
+}
