@@ -117,6 +117,33 @@ const config : Config = {
       command: "/service/openhab/in/pca301_infoscreen/command",
       defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
+    },
+    printer_3d_status: {
+      state: "/service/ultimaker/state",
+      command: "",
+      defaultValue: "unavailable",
+      parseState: msg => {
+        switch (msg.toString()) {
+          case "unreachable":
+          case "booting":
+            return "unavailable"
+
+          case "pausing":
+          case "paused":
+          case "resuming":
+          case "wait_cleanup":
+          case "maintenance":
+            return "action_needed"
+
+          case "pre_print":
+          case "post_print":
+          case "printing":
+            return "printing"
+
+          default:
+            return msg.toString()
+        }
+      },
     }
   },
   controls: {
@@ -391,6 +418,31 @@ const config : Config = {
           type: "link",
           link: "http://cashdesk.rzl:3030/rzl",
           text: "Open Infoscreen"
+        }
+      ]
+    },
+    printer_3d: {
+      name: "Ultimaker 3",
+      position: [754, 560],
+      icon: "printer-3d",
+      iconColor: ({printer_3d_status}) => {
+        if(printer_3d_status == "action_needed") {
+          return "#b3b300";
+        } else if(printer_3d_status == "printing") {
+          return "#00ff00";
+        } else if(printer_3d_status == "idle") {
+          return "#000000";
+        } else if(printer_3d_status == "unavailable") {
+          return "#888888";
+        } else {
+          return "#ff0000";
+        }
+      },
+      ui: [
+        {
+          type: "link",
+          link: "http://ultimaker.rzl/",
+          text: "Open Webinterface"
         }
       ]
     }
