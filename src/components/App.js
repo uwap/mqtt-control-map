@@ -25,7 +25,8 @@ export type AppState = {
   selectedControl: ?Control,
   drawerOpened: boolean,
   mqttState: State,
-  mqttSend: (topic: string, value: any) => void
+  mqttSend: (topic: string, value: any) => void,
+  mqttConnected: boolean,
 };
 
 class App extends React.Component<AppProps & Classes, AppState> {
@@ -40,8 +41,12 @@ class App extends React.Component<AppProps & Classes, AppState> {
       })),
       mqttSend: connectMqtt(props.config.space.mqtt, {
         onMessage: this.receiveMessage.bind(this),
+        onConnect: () => this.setState({ mqttConnected: true }),
+        onReconnect: () => this.setState({ mqttConnected: false }),
+        onDisconnect: () => this.setState({ mqttConnected: false }),
         subscribe: _.map(props.config.topics, (x) => x.state)
-      })
+      }),
+      mqttConnected: false
     };
   }
 
@@ -103,7 +108,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
         <MuiThemeProvider theme={this.theme}>
           <div>
             <TopBar title={`${this.props.config.space.name} Map`}
-              connected={false} />
+              connected={this.state.mqttConnected} />
             <SideBar open={this.state.drawerOpened}
               control={this.state.selectedControl}
               onCloseRequest={this.closeDrawer.bind(this)}

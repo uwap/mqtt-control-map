@@ -7,7 +7,7 @@ const config : Config = {
     color: "orange",
     mqtt: "ws://map.rzl:1884"
   },
-  topics: Object.assign({}, {
+  topics: {
     led_stahltraeger: {
       state: "/service/openhab/out/pca301_ledstrips/state",
       command: "/service/openhab/in/pca301_ledstrips/command",
@@ -116,14 +116,13 @@ const config : Config = {
       command: "/service/openhab/in/pca301_infoscreen/command",
       defaultValue: "OFF",
       values: { on: "ON", off: "OFF" }
-    }},
-    utils.esper_topics("afba40")
-  ),
+    }
+  },
   controls: {
     led_stahltrager: {
       name: "LED Stahlträger",
-      position: [380, 300],
-      icon: "white-balance-iridescent rotate-90",
+      position: [380, 590],
+      icon: "white-balance-iridescent",
       iconColor: ({led_stahltraeger}) => led_stahltraeger == "on" ? utils.rainbow : "#000000",
       ui: [
         {
@@ -221,14 +220,14 @@ const config : Config = {
       position: [450, 590],
       icon: "fire",
       iconColor: ({flyfry}) => flyfry == "on" ? "#6666FF" : "#000000",
-      ui: utils.esper_statistics("afba40", [
+      ui: [
         {
           type: "toggle",
           text: "Fliegenbratgerät",
           topic: "flyfry",
           icon: "power"
         }
-      ])
+      ]
     },
     artnet: {
       name: "Artnet",
