@@ -18,9 +18,10 @@ import keyOf from "utils/keyOf";
 type UiItemProps<I> = {
   item: I,
   state: State,
-  onChangeState: (topic: string, nextState: any) => void
+  onChangeState: (topic: string, nextState: Actual) => void
 };
 
+// eslint-disable-next-line flowtype/no-weak-types
 export default class UiItem<I:Object> extends React.Component<UiItemProps<I>> {
   constructor(props: UiItemProps<I>) {
     super(props);
@@ -58,7 +59,7 @@ export class UiControl<I: UIControl> extends UiItem<I> {
     super(props);
   }
 
-  changeState(next: any) {
+  changeState(next: Actual) {
     if (this.props.item.topic == null) {
       throw new Error(
         `Missing topic in ${this.props.item.type} "${this.props.item.text}"`
@@ -131,7 +132,7 @@ export class Toggle extends UiControl<UIToggle> {
 }
 
 export class DropDown extends UiControl<UIDropDown> {
-  runPrimaryAction = (next?: any) => {
+  runPrimaryAction = (next?: Actual) => {
     if (this.isEnabled()) {
       const control = this.props.item;
       const keys = _.keys(control.options);

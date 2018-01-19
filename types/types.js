@@ -123,6 +123,8 @@ declare type Space = {
   mqtt: string
 };
 
+declare type Internal = string;
+declare type Actual = any;
 declare type StateValue = {
   internal: string,
   actual: any

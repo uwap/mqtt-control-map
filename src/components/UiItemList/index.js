@@ -18,7 +18,7 @@ import { Toggle, DropDown, Link, Section, Text } from "./UiItem";
 export type UiItemListProps = {
   controls: Array<ControlUI>,
   state: State,
-  onChangeState: (topic: string, nextState: any) => void
+  onChangeState: (topic: string, nextState: Actual) => void
 };
 
 export default class UiItemList extends React.Component<UiItemListProps> {
