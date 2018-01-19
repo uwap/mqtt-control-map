@@ -14,14 +14,16 @@ import { MenuItem } from "material-ui/Menu";
 import Button from "material-ui/Button";
 
 import keyOf from "utils/keyOf";
+import { getInternals, getActuals } from "utils/state";
 
 type UiItemProps<I> = {
   item: I,
   state: State,
-  onChangeState: (topic: string, nextState: any) => void
+  onChangeState: (topic: string, nextState: Actual) => void
 };
 
-export default class UiItem<I> extends React.Component<UiItemProps<I>> {
+// eslint-disable-next-line flowtype/no-weak-types
+export default class UiItem<I:Object> extends React.Component<UiItemProps<I>> {
   constructor(props: UiItemProps<I>) {
     super(props);
   }
@@ -30,48 +32,79 @@ export default class UiItem<I> extends React.Component<UiItemProps<I>> {
 
   }
 
-  changeState(next: any) {
+  render() {
+    return null;
+  }
+
+  /*
+   * TODO: The type system can't really check if the enableCondition is of
+   * any function type or if it is a TopicDependentOption or a
+   * StateDependentOption. This should be fixed.
+   */
+  isEnabled() {
+    if (Object.keys(this.props.item).includes("enableCondition") &&
+      typeof this.props.item.enableCondition == "function") {
+      const enableCondition = this.props.item.enableCondition;
+      const state = this.props.state;
+      const internals = getInternals(state);
+      const actuals = getActuals(state);
+      return enableCondition(internals, actuals, state);
+    } else {
+      return true;
+    }
+  }
+}
+
+export class UiControl<I: UIControl> extends UiItem<I> {
+  constructor(props: UiItemProps<I>) {
+    super(props);
+  }
+
+  changeState(next: Actual) {
     if (this.props.item.topic == null) {
       throw new Error(
-        `Undefined topic in ${this.props.item.type} "${this.props.item.text}"`
+        `Missing topic in ${this.props.item.type} "${this.props.item.text}"`
       );
     }
     this.props.onChangeState(this.props.item.topic, next);
   }
 
   getValue() {
-    const topic: string = this.props.item.topic || "";
+    const control = this.props.item;
+    const topic: string = control.topic || "";
     const value = this.props.state[topic];
     if (value == null) {
-      const control = this.props.item;
+      if (topic === "") {
+        throw new Error(
+          `Missing topic in ${control.type} "${control.text}"`
+        );
+      }
       throw new Error(
-        `Unknown topic "${control.topic}" in ${control.type} "${control.text}"`
+        `Unknown topic "${topic}" in ${control.type} "${control.text}"`
       );
     }
     return value;
   }
 
   isEnabled() {
-    const enableCondition = this.props.item.enableCondition;
-    if (enableCondition == null) {
-      return true;
-    } else {
+    if (Object.keys(this.props.item).includes("enableCondition") &&
+      typeof this.props.item.enableCondition == "function") {
+      const enableCondition = this.props.item.enableCondition;
       const value = this.getValue();
       return enableCondition(
         value.internal || value.actual, value.actual, this.props.state);
+    } else {
+      return true;
     }
-  }
-
-  render() {
-    return null;
   }
 }
 
-export class Toggle extends UiItem<UIToggle> {
+export class Toggle extends UiControl<UIToggle> {
   isToggled = () => {
     const value = this.getValue();
     const control = this.props.item;
-    const isChecked = control.toggled || ((i) => i === (control.on || "on"));
+    const isChecked = control.toggled ||
+      ((i, _a, _s) => i === (control.on || "on"));
     const checked = isChecked(
       value.internal || value.actual, value.actual, this.props.state);
     return checked;
@@ -99,8 +132,8 @@ export class Toggle extends UiItem<UIToggle> {
   }
 }
 
-export class DropDown extends UiItem<UIDropDown> {
-  runPrimaryAction = (next?: any) => {
+export class DropDown extends UiControl<UIDropDown> {
+  runPrimaryAction = (next?: Actual) => {
     if (this.isEnabled()) {
       const control = this.props.item;
       const keys = _.keys(control.options);
@@ -117,7 +150,7 @@ export class DropDown extends UiItem<UIDropDown> {
   render() {
     const control = this.props.item;
     const value = this.getValue();
-    const id = `${control.topic}-${control.name}`;
+    const id = `${control.topic}-${control.text}`;
     const options = control.options;
     if (options == null) {
       throw new Error(
@@ -173,7 +206,7 @@ export class Section extends UiItem<UISection> {
   }
 }
 
-export class Text extends UiItem<UIText> {
+export class Text extends UiControl<UIText> {
   render() {
     return [
       <ListItemText key="label" primary={this.props.item.text} />,

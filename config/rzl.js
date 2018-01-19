@@ -406,7 +406,7 @@ const config : Config = {
     infoscreen: {
       name: "Infoscreen",
       position: [255, 495],
-      icon: "developer-board",
+      icon: "television-guide",
       iconColor: ({infoscreen}) => infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [
         {
@@ -439,6 +439,18 @@ const config : Config = {
           type: "link",
           link: "http://ultimaker.rzl/",
           text: "Open Webinterface"
+        }
+      ]
+    },
+    partkeepr: {
+      name: "Partkeepr",
+      position: [48, 450],
+      icon: "chip",
+      ui: [
+        {
+          type: "link",
+          link: "http://partkeepr.rzl/",
+          text: "Open Partkeepr"
         }
       ]
     }

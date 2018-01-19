@@ -1,23 +1,24 @@
 // @flow
-import React from "react";
+import * as React from "react";
 import _ from "lodash";
+import { getInternals, getActuals } from "utils/state";
 
 export default function parseIconName(name: string): string {
   return `mdi ${name.split(" ").map((icon) => "mdi-".concat(icon)).join(" ")}`;
 }
 
-export const renderIcon = (name: string, extraClass?: string) => {
+export const renderIcon = (name: string, extraClass?: string): React.Node => {
   return <i className={`${extraClass || ""} ${parseIconName(name)}`}></i>;
 };
 
 export const controlGetIcon = (control: Control, state: State): string => {
-  const internals = _.mapValues(state, (x) => x.internal || x.actual);
-  const actuals = _.mapValues(state, (x) => x.actual);
+  const internals: Map<string, Internal> = getInternals(state);
+  const actuals: Map<string, Actual> = getActuals(state);
   return typeof control.icon !== "function" ? control.icon
     : control.icon(internals, actuals, state);
 };
 
 export const renderControlIcon = (control: Control,
-  state: State, extraClass?: string) => {
+  state: State, extraClass?: string): React.Node => {
   return renderIcon(controlGetIcon(control, state), extraClass);
 };

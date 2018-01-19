@@ -1,5 +1,5 @@
 // @flow
-import React from "react";
+import * as React from "react";
 
 import withStyles from "material-ui/styles/withStyles";
 import Drawer from "material-ui/Drawer";
@@ -14,7 +14,8 @@ export type SideBarProps = {
   control: ?Control,
   open: boolean,
   onCloseRequest: () => void,
-  icon?: ?string
+  icon?: ?string,
+  children?: React.Node
 };
 
 export type SideBarState = {

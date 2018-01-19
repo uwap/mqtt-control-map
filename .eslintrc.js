@@ -137,6 +137,6 @@ module.exports = {
     // flow
     "flowtype/no-dupe-keys": "error",
     "flowtype/no-weak-types": "warn",
-    "flowtype/require-variable-type": "warn"
+    "flowtype/require-variable-type": "off" // wait for https://github.com/gajus/eslint-plugin-flowtype/issues/198 to be resolved
   }
 };

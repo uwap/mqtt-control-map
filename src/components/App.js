@@ -25,7 +25,7 @@ export type AppState = {
   selectedControl: ?Control,
   drawerOpened: boolean,
   mqttState: State,
-  mqttSend: (topic: string, value: any) => void,
+  mqttSend: (topic: string, value: Actual) => void,
   mqttConnected: boolean,
 };
 
@@ -91,7 +91,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
     this.setState({drawerOpened: false});
   }
 
-  changeState(topic: string, value: any) {
+  changeState(topic: string, value: Actual) {
     const rawTopic = this.props.config.topics[topic].command;
     if (rawTopic == null) {
       return;

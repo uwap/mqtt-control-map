@@ -13,46 +13,76 @@ declare type Topic = {
 };
 declare type Topics = Map<string,Topic>;
 
-declare type UIBase = {
-  text: string,
-  topic?: string,
-  icon?: string, 
-  enableCondition?: (internal: string, actual: any, state: State) => boolean
-}
+declare type TopicDependentOption<T> = (
+    internal: string, actual: any, state: State
+  ) => T;
+declare type StateDependentOption<T> = (
+    internals: Map<string, string>, actuals: Map<string, any>, state: State
+  ) => T;
 
-declare type UIToggle = {
+interface UIControl {
+  +type: string,
+  +text: string,
+  +topic: string
+};
+
+interface Enableable {
+  enableCondition?: TopicDependentOption<boolean>
+};
+
+declare type UIToggle = $ReadOnly<{|
   type: "toggle",
+  text: string,
+  topic: string,
+  icon?: string,
+  enableCondition?: TopicDependentOption<boolean>,
   on?: string,
   off?: string,
-  toggled?: (internal: string, actual: any, state: State) => boolean,
-} & UIBase;
+  toggled?: TopicDependentOption<boolean>
+|}>;
 
-declare type UIDropDown = {
+declare type UIDropDown = $ReadOnly<{|
   type: "dropDown",
+  text: string,
+  topic: string,
+  icon?: string,
+  enableCondition?: TopicDependentOption<boolean>,
   options: Map<string, any>,
   renderValue?: (value: string) => string
-} & UIBase;
+|}>;
 
-declare type UISlider = {
+declare type UISlider = $ReadOnly<{|
   type: "slider",
+  text: string,
+  topic: string,
+  icon?: string,
+  enableCondition?: TopicDependentOption<boolean>,
   min?: number,
   max?: number,
   step?: number
-} & UIBase;
+|}>;
 
-declare type UISection = {
+declare type UISection = $ReadOnly<{|
   type: "section",
   text: string
-};
+|}>;
 
-declare type UILink = {
+declare type UILink = $ReadOnly<{|
   type: "link",
-  link: string
-} & UIBase;
+  text: string,
+  link: string,
+  enableCondition?: StateDependentOption<boolean>,
+  
+  // TODO: check if both the following options are implemented
+  icon?: string
+|}>;
 
-declare type UIText = {
-  type: "text"
-} & UIBase;
+declare type UIText = $ReadOnly<{|
+  type: "text",
+  text: string,
+  topic: string,
+  icon?: string
+|}>;
 
 declare type ControlUI =
     UIToggle
@@ -64,7 +94,7 @@ declare type ControlUI =
 
 declare type Control = {
   name: string,
-  position: Array<number>,
+  position: [number, number],
   icon: string | (
       internals: Map<string, string>,
       actuals: Map<string, any>,
@@ -93,6 +123,8 @@ declare type Space = {
   mqtt: string
 };
 
+declare type Internal = string;
+declare type Actual = any;
 declare type StateValue = {
   internal: string,
   actual: any

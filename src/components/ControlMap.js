@@ -7,7 +7,7 @@ import parseIconName, { controlGetIcon } from "utils/parseIconName";
 
 export type Point = [number, number];
 
-const convertPoint = ([y,x]: Point): Point => [-x, y];
+const convertPoint = ([y, x]: Point): Point => [-x, y];
 
 export type ControlMapProps = {
   width: number,
@@ -58,12 +58,10 @@ export default class ControlMap extends React.Component<ControlMapProps> {
   }
 
   iconColor(control: Control): string {
+    const ints = _.mapValues(this.props.state, (x) => x.internal || x.actual);
+    const acts = _.mapValues(this.props.state, (x) => x.actual);
     if (control.iconColor != null) {
-      return control.iconColor(
-        _.mapValues(this.props.state, (x) => x.internal || x.actual),
-        _.mapValues(this.props.state, (x) => x.actual),
-        this.props.state
-      );
+      return control.iconColor(ints, acts, this.props.state);
     }
     return "#000";
   }
@@ -94,9 +92,16 @@ export default class ControlMap extends React.Component<ControlMapProps> {
       <LayersControlType
         key={layer.name}
         name={layer.name}
-        checked={layer.defaultVisibility === "visible"}>
+        checked={layer.defaultVisibility === "visible"}
+        removeLayer={(_layer) => {}}
+        removeLayerControl={(_layer) => {}}
+        addOverlay={(_layer, _name, _checked) => {}}
+        addBaseLayer={(_layer, _name, _checked) => {}}>
         <ImageOverlay url={layer.image}
-          bounds={Object.values(layer.bounds).map(convertPoint)}
+          bounds={[
+            convertPoint(layer.bounds.topLeft),
+            convertPoint(layer.bounds.bottomRight)
+          ]}
           opacity={layer.opacity || 1} />
       </LayersControlType>
     );
