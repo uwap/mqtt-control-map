@@ -14,6 +14,7 @@ import { MenuItem } from "material-ui/Menu";
 import Button from "material-ui/Button";
 
 import keyOf from "utils/keyOf";
+import { getInternals, getActuals } from "utils/state";
 
 type UiItemProps<I> = {
   item: I,
@@ -45,8 +46,8 @@ export default class UiItem<I:Object> extends React.Component<UiItemProps<I>> {
       typeof this.props.item.enableCondition == "function") {
       const enableCondition = this.props.item.enableCondition;
       const state = this.props.state;
-      const internals = _.mapValues(state, (x) => x.internal);
-      const actuals = _.mapValues(state, (x) => x.actual);
+      const internals = getInternals(state);
+      const actuals = getActuals(state);
       return enableCondition(internals, actuals, state);
     } else {
       return true;
