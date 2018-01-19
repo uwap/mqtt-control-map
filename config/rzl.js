@@ -378,7 +378,7 @@ const config : Config = {
     infoscreen: {
       name: "Infoscreen",
       position: [255, 495],
-      icon: "developer-board",
+      icon: "television-guide",
       iconColor: ({infoscreen}) => infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [
         {
