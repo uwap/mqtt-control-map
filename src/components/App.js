@@ -35,7 +35,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
     this.state = {
       selectedControl: null,
       drawerOpened: false,
-      mqttState: _.mapValues(props.config.topics, (topic) => ({
+      mqttState: _.mapValues(this.topics, (topic) => ({
         actual: topic.defaultValue,
         internal: keyOf(topic.values, topic.defaultValue)
       })),
@@ -44,10 +44,15 @@ class App extends React.Component<AppProps & Classes, AppState> {
         onConnect: () => this.setState({ mqttConnected: true }),
         onReconnect: () => this.setState({ mqttConnected: false }),
         onDisconnect: () => this.setState({ mqttConnected: false }),
-        subscribe: _.map(props.config.topics, (x) => x.state)
+        subscribe: _.map(this.topics, (x) => x.state)
       }),
       mqttConnected: false
     };
+  }
+
+  get topics(): Topics {
+    return Array.isArray(this.props.config.topics) ?
+      Object.assign({}, ...this.props.config.topics) : this.props.config.topics;
   }
 
   static styles(_theme: Object) {
@@ -67,20 +72,23 @@ class App extends React.Component<AppProps & Classes, AppState> {
   }
 
   receiveMessage(rawTopic: string, message: Object) {
-    const topic = _.findKey(
-      this.props.config.topics,
-      (v) => v.state === rawTopic
+    const topics = _.filter(
+      _.keys(this.topics),
+      (k) => this.topics[k].state === rawTopic
     );
-    if (topic == null) {
+    if (topics.length === 0) {
       return;
     }
-    const parseValue = this.props.config.topics[topic].parseState;
-    const value = parseValue == null ? message.toString() : parseValue(message);
-    this.setState({mqttState: _.merge(this.state.mqttState,
-      { [topic]: {
-        actual: value,
-        internal: keyOf(this.props.config.topics[topic].values, value) || value
-      }})});
+    for (let i in topics) {
+      const topic = topics[i];
+      const parseValue = this.topics[topic].parseState;
+      const val = parseValue == null ? message.toString() : parseValue(message);
+      this.setState({mqttState: _.merge(this.state.mqttState,
+        { [topic]: {
+          actual: val,
+          internal: keyOf(this.topics[topic].values, val) || val
+        }})});
+    }
   }
 
   changeControl(control: ?Control = null) {
@@ -92,13 +100,13 @@ class App extends React.Component<AppProps & Classes, AppState> {
   }
 
   changeState(topic: string, value: Actual) {
-    const rawTopic = this.props.config.topics[topic].command;
+    const rawTopic = this.topics[topic].command;
     if (rawTopic == null) {
       return;
     }
     this.state.mqttSend(
       rawTopic,
-      String(this.props.config.topics[topic].values[value] || value)
+      String(this.topics[topic].values[value] || value)
     );
   }
 

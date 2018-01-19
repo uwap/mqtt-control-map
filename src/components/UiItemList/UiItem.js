@@ -209,8 +209,8 @@ export class Section extends UiItem<UISection> {
 export class Text extends UiControl<UIText> {
   render() {
     return [
-      <ListItemText key="label" primary={this.props.item.text} />,
-      <ListItemText key="val" secondary={this.getValue().internal} />
+      <ListItemText key="label" secondary={this.props.item.text} />,
+      <ListItemText key="vr" primary={this.getValue().internal} align="right" />
     ];
   }
 }
