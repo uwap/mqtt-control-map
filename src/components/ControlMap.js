@@ -92,9 +92,16 @@ export default class ControlMap extends React.Component<ControlMapProps> {
       <LayersControlType
         key={layer.name}
         name={layer.name}
-        checked={layer.defaultVisibility === "visible"}>
+        checked={layer.defaultVisibility === "visible"}
+        removeLayer={(_layer) => {}}
+        removeLayerControl={(_layer) => {}}
+        addOverlay={(_layer, _name, _checked) => {}}
+        addBaseLayer={(_layer, _name, _checked) => {}}>
         <ImageOverlay url={layer.image}
-          bounds={Object.values(layer.bounds).map(convertPoint)}
+          bounds={[
+            convertPoint(layer.bounds.topLeft),
+            convertPoint(layer.bounds.bottomRight)
+          ]}
           opacity={layer.opacity || 1} />
       </LayersControlType>
     );

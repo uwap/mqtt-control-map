@@ -25,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(["dist"]),
-    // new WebpackShellPlugin({onBuildStart:preBuildScripts}),
+    new WebpackShellPlugin({onBuildStart:preBuildScripts}),
     new HtmlWebpackPlugin({
       title: 'Space Map',
       template: 'index.ejs'
