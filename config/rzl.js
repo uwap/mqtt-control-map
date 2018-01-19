@@ -122,6 +122,7 @@ const config : Config = {
       state: "/service/ultimaker/state",
       command: "",
       defaultValue: "unavailable",
+      values: {},
       parseState: msg => {
         switch (msg.toString()) {
           case "unreachable":
@@ -133,7 +134,7 @@ const config : Config = {
           case "resuming":
           case "wait_cleanup":
           case "maintenance":
-            return "action_needed"
+            return "awaiting_interaction"
 
           case "pre_print":
           case "post_print":
@@ -425,19 +426,14 @@ const config : Config = {
       name: "Ultimaker 3",
       position: [754, 560],
       icon: "printer-3d",
-      iconColor: ({printer_3d_status}) => {
-        if(printer_3d_status == "action_needed") {
-          return "#b3b300";
-        } else if(printer_3d_status == "printing") {
-          return "#00ff00";
-        } else if(printer_3d_status == "idle") {
-          return "#000000";
-        } else if(printer_3d_status == "unavailable") {
-          return "#888888";
-        } else {
-          return "#ff0000";
-        }
-      },
+      iconColor: ({printer_3d_status}) => 
+        ({
+          awaiting_interaction: "#b3b300",
+          printing: "#00ff00",
+          idle: "#000000",
+          unavailable: "#888888",
+          error: "#ff0000"
+        })[printer_3d_status],
       ui: [
         {
           type: "link",
