@@ -393,6 +393,18 @@ const config : Config = {
           text: "Open Infoscreen"
         }
       ]
+    },
+    partkeepr: {
+      name: "Partkeepr",
+      position: [48, 450],
+      icon: "chip",
+      ui: [
+        {
+          type: "link",
+          link: "http://partkeepr.rzl/",
+          text: "Open Partkeepr"
+        }
+      ]
     }
   },
   layers: [

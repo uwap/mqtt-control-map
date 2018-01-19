@@ -3939,7 +3939,7 @@ map-visit@^1.0.0:
     buffers "~0.1.1"
     readable-stream "~1.0.0"
 
-"material-ui-old@npm:material-ui@latest", "material-ui@npm:material-ui@latest":
+"material-ui-old@npm:material-ui@latest":
   version "0.20.0"
   resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-0.20.0.tgz#85411bb59c916c9c7703f29dcffc44e3a67d5111"
   dependencies:
