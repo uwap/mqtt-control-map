@@ -111,7 +111,7 @@ declare type Controls = Map<string,Control>;
 
 declare type Config = {
   space: Space,
-  topics: Topics,
+  topics: Topics | Array<Topics>,
   controls: Controls,
   layers: Array<Layer>
 };

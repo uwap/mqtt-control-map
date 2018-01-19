@@ -7,146 +7,150 @@ const config : Config = {
     color: "orange",
     mqtt: "ws://map.rzl:1884"
   },
-  topics: {
-    led_stahltraeger: {
-      state: "/service/openhab/out/pca301_ledstrips/state",
-      command: "/service/openhab/in/pca301_ledstrips/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    snackbar: {
-      state: "/service/openhab/out/pca301_snackbar/state",
-      command: "/service/openhab/in/pca301_snackbar/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    twinkle: {
-      state: "/service/openhab/out/pca301_twinkle/state",
-      command: "/service/openhab/in/pca301_twinkle/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    fan: {
-      state: "/service/openhab/out/pca301_fan/state",
-      command: "/service/openhab/in/pca301_fan/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    videogames: {
-      state: "/service/openhab/out/pca301_videogames/state",
-      command: "/service/openhab/in/pca301_videogames/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    olymp_pc: {
-      state: "/service/openhab/out/pca301_olymp_pc/state",
-      command: "/service/openhab/in/pca301_olymp_pc/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    flyfry: {
-      state: "/service/openhab/out/wifi_flyfry/state",
-      command: "/service/openhab/in/wifi_flyfry/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    artnet: {
-      state: "/artnet/state",
-      command: "/artnet/push",
-      defaultValue: "blackout",
-      values: { off: "blackout", yellow: "yellow", purple: "purple",
-                blue: "blue", green: "green", red: "red", random: "random",
-                cycle: "cycle-random" }
-    },
-    onkyo_connection: {
-      state: "/service/onkyo/connected",
-      command: "",
-      defaultValue: "0",
-      values: { disconnected: "0", connecting: "1", connected: "2" },
-    },
-    onkyo_power: {
-      state: "/service/onkyo/status/system-power",
-      command: "/service/onkyo/command",
-      defaultValue: "PWR00",
-      values: { off: "PWR00", on: "PWR01" },
-      parseState: msg => JSON.parse(msg.toString()).onkyo_raw
-    },
-    onkyo_mute: {
-      state: "/service/onkyo/status/audio-muting",
-      command: "/service/onkyo/command",
-      defaultValue: "AMT00",
-      values: { off: "AMT00", on: "AMT01" },
-      parseState: msg => JSON.parse(msg.toString()).onkyo_raw
-    },
-    onkyo_volume: {
-      state: "/service/onkyo/status/volume",
-      command: "/service/onkyo/set/volume",
-      defaultValue: 0,
-      values: {},
-      parseState: msg => JSON.parse(msg.toString()).val
-    },
-    onkyo_inputs: {
-      state: "/service/onkyo/status/input-selector",
-      command: "/service/onkyo/command",
-      defaultValue: "SLI00",
-      values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B" },
-      parseState: msg => JSON.parse(msg.toString()).onkyo_raw
-    },
-    onkyo_radios: {
-      state: "/service/onkyo/status/latest-NPR",
-      command: "/service/onkyo/command",
-      defaultValue: "",
-      values: { mpd: "NPR01", kohina: "NPR02", somafm_dronezone: "NPR03", somafm_thetrip: "NPR04",
-                querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08",
-                somafm_beatblender: "NPR09"}
-    },
-    rundumleuchte: {
-      state: "/service/openhab/out/pca301_rundumleuchte/state",
-      command: "/service/openhab/in/pca301_rundumleuchte/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    door_status: {
-      state: "/service/status",
-      command: "",
-      defaultValue: "\"closed\"",
-      values: { on: "\"open\"", off: "\"closed\"" }
-    },
-    infoscreen: {
-      state: "/service/openhab/out/pca301_infoscreen/state",
-      command: "/service/openhab/in/pca301_infoscreen/command",
-      defaultValue: "OFF",
-      values: { on: "ON", off: "OFF" }
-    },
-    printer_3d_status: {
-      state: "/service/ultimaker/state",
-      command: "",
-      defaultValue: "unavailable",
-      values: {},
-      parseState: msg => {
-        switch (msg.toString()) {
-          case "unreachable":
-          case "booting":
-            return "unavailable"
-
-          case "pausing":
-          case "paused":
-          case "resuming":
-          case "wait_cleanup":
-          case "maintenance":
-            return "awaiting_interaction"
-
-          case "pre_print":
-          case "post_print":
-          case "printing":
-            return "printing"
-
-          default:
-            return msg.toString()
-        }
+  topics: [
+    {
+      led_stahltraeger: {
+        state: "/service/openhab/out/pca301_ledstrips/state",
+        command: "/service/openhab/in/pca301_ledstrips/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
       },
-    }
-  },
+      snackbar: {
+        state: "/service/openhab/out/pca301_snackbar/state",
+        command: "/service/openhab/in/pca301_snackbar/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      twinkle: {
+        state: "/service/openhab/out/pca301_twinkle/state",
+        command: "/service/openhab/in/pca301_twinkle/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      fan: {
+        state: "/service/openhab/out/pca301_fan/state",
+        command: "/service/openhab/in/pca301_fan/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      videogames: {
+        state: "/service/openhab/out/pca301_videogames/state",
+        command: "/service/openhab/in/pca301_videogames/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      olymp_pc: {
+        state: "/service/openhab/out/pca301_olymp_pc/state",
+        command: "/service/openhab/in/pca301_olymp_pc/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      flyfry: {
+        state: "/service/openhab/out/wifi_flyfry/state",
+        command: "/service/openhab/in/wifi_flyfry/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      artnet: {
+        state: "/artnet/state",
+        command: "/artnet/push",
+        defaultValue: "blackout",
+        values: { off: "blackout", yellow: "yellow", purple: "purple",
+                  blue: "blue", green: "green", red: "red", random: "random",
+                  cycle: "cycle-random" }
+      },
+      onkyo_connection: {
+        state: "/service/onkyo/connected",
+        command: "",
+        defaultValue: "0",
+        values: { disconnected: "0", connecting: "1", connected: "2" },
+      },
+      onkyo_power: {
+        state: "/service/onkyo/status/system-power",
+        command: "/service/onkyo/command",
+        defaultValue: "PWR00",
+        values: { off: "PWR00", on: "PWR01" },
+        parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+      },
+      onkyo_mute: {
+        state: "/service/onkyo/status/audio-muting",
+        command: "/service/onkyo/command",
+        defaultValue: "AMT00",
+        values: { off: "AMT00", on: "AMT01" },
+        parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+      },
+      onkyo_volume: {
+        state: "/service/onkyo/status/volume",
+        command: "/service/onkyo/set/volume",
+        defaultValue: 0,
+        values: {},
+        parseState: msg => JSON.parse(msg.toString()).val
+      },
+      onkyo_inputs: {
+        state: "/service/onkyo/status/input-selector",
+        command: "/service/onkyo/command",
+        defaultValue: "SLI00",
+        values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B" },
+        parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+      },
+      onkyo_radios: {
+        state: "/service/onkyo/status/latest-NPR",
+        command: "/service/onkyo/command",
+        defaultValue: "",
+        values: { mpd: "NPR01", kohina: "NPR02", somafm_dronezone: "NPR03", somafm_thetrip: "NPR04",
+                  querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08",
+                  somafm_beatblender: "NPR09"}
+      },
+      rundumleuchte: {
+        state: "/service/openhab/out/pca301_rundumleuchte/state",
+        command: "/service/openhab/in/pca301_rundumleuchte/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      door_status: {
+        state: "/service/status",
+        command: "",
+        defaultValue: "\"closed\"",
+        values: { on: "\"open\"", off: "\"closed\"" }
+      },
+      infoscreen: {
+        state: "/service/openhab/out/pca301_infoscreen/state",
+        command: "/service/openhab/in/pca301_infoscreen/command",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
+      printer_3d_status: {
+        state: "/service/ultimaker/state",
+        command: "",
+        defaultValue: "unavailable",
+        values: {},
+        parseState: msg => {
+          switch (msg.toString()) {
+            case "unreachable":
+            case "booting":
+              return "unavailable"
+
+            case "pausing":
+            case "paused":
+            case "resuming":
+            case "wait_cleanup":
+            case "maintenance":
+              return "awaiting_interaction"
+
+            case "pre_print":
+            case "post_print":
+            case "printing":
+              return "printing"
+
+            default:
+              return msg.toString()
+          }
+        }
+      }
+    },
+    utils.esper_topics("afba40", "flyfry"),
+    utils.esper_topics("afba45", "alarm")
+  ],
   controls: {
     led_stahltrager: {
       name: "LED Stahlträger",
@@ -249,14 +253,14 @@ const config : Config = {
       position: [450, 590],
       icon: "fire",
       iconColor: ({flyfry}) => flyfry == "on" ? "#6666FF" : "#000000",
-      ui: [
+      ui: utils.esper_statistics("flyfry", [
         {
           type: "toggle",
           text: "Fliegenbratgerät",
           topic: "flyfry",
           icon: "power"
         }
-      ]
+      ])
     },
     artnet: {
       name: "Artnet",
@@ -390,6 +394,13 @@ const config : Config = {
         }
       ]
     },
+    alarm: {
+      name: "Alarm",
+      position: [340, 250],
+      icon: "alarm-bell",
+      iconColor: () => "#000000",
+      ui: utils.esper_statistics("alarm")
+    },
     door: {
       name: "Tür",
       position: [455,350],
@@ -406,7 +417,7 @@ const config : Config = {
     infoscreen: {
       name: "Infoscreen",
       position: [255, 495],
-      icon: "television-guide",
+      icon: "television-guide flip-v",
       iconColor: ({infoscreen}) => infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [
         {
