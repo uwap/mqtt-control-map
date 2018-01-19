@@ -118,6 +118,34 @@ const config : Config = {
         command: "/service/openhab/in/pca301_infoscreen/command",
         defaultValue: "OFF",
         values: { on: "ON", off: "OFF" }
+      },
+      printer_3d_status: {
+        state: "/service/ultimaker/state",
+        command: "",
+        defaultValue: "unavailable",
+        values: {},
+        parseState: msg => {
+          switch (msg.toString()) {
+            case "unreachable":
+            case "booting":
+              return "unavailable"
+
+            case "pausing":
+            case "paused":
+            case "resuming":
+            case "wait_cleanup":
+            case "maintenance":
+              return "awaiting_interaction"
+
+            case "pre_print":
+            case "post_print":
+            case "printing":
+              return "printing"
+
+            default:
+              return msg.toString()
+          }
+        }
       }
     },
     utils.esper_topics("afba40", "flyfry"),
@@ -402,6 +430,26 @@ const config : Config = {
           type: "link",
           link: "http://cashdesk.rzl:3030/rzl",
           text: "Open Infoscreen"
+        }
+      ]
+    },
+    printer_3d: {
+      name: "Ultimaker 3",
+      position: [754, 560],
+      icon: "printer-3d",
+      iconColor: ({printer_3d_status}) => 
+        ({
+          awaiting_interaction: "#b3b300",
+          printing: "#00ff00",
+          idle: "#000000",
+          unavailable: "#888888",
+          error: "#ff0000"
+        })[printer_3d_status],
+      ui: [
+        {
+          type: "link",
+          link: "http://ultimaker.rzl/",
+          text: "Open Webinterface"
         }
       ]
     },
