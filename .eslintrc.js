@@ -43,7 +43,6 @@ module.exports = {
     "no-floating-decimal": "error",
     "no-implicit-coercion": "error",
     "no-implied-eval": "error",
-    "no-invalid-this": "error",
     "no-iterator": "error",
     "no-loop-func": "error",
     "no-multi-spaces": "warn",
@@ -125,6 +124,11 @@ module.exports = {
     "semi-style": "error",
     "space-before-blocks": "error",
     "quotes": ["error", "double"],
+
+    // ES6
+    "arrow-spacing": "error",
+    "arrow-parens": "warn",
+    "no-confusing-arrow": ["error", {"allowParens": true}],
 
     // react
     "react/prop-types": "off",

@@ -11,6 +11,7 @@ const preBuildScripts = process.env.NO_FLOW == undefined ?
 
 module.exports = {
   resolve: {
+    modules: [path.resolve(__dirname, "src"), "node_modules"],
     extensions: ['.js', '.jsx']
   },
   output: {
@@ -24,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(["dist"]),
-    // new WebpackShellPlugin({onBuildStart:preBuildScripts}),
+    new WebpackShellPlugin({onBuildStart:preBuildScripts}),
     new HtmlWebpackPlugin({
       title: 'Space Map',
       template: 'index.ejs'

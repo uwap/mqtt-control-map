@@ -97,7 +97,8 @@ const config : Config = {
       command: "/service/onkyo/command",
       defaultValue: "",
       values: { mpd: "NPR01", kohina: "NPR02", somafm_dronezone: "NPR03", somafm_thetrip: "NPR04",
-                querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08"}
+                querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08",
+                somafm_beatblender: "NPR09"}
     },
     rundumleuchte: {
       state: "/service/openhab/out/pca301_rundumleuchte/state",
@@ -121,9 +122,9 @@ const config : Config = {
   controls: {
     led_stahltrager: {
       name: "LED Stahlträger",
-      position: [380, 300],
-      icon: "white-balance-iridescent mdi-rotate-90",
-      iconColor: state => state.led_stahltraeger == "on" ? utils.rainbow : "#000000",
+      position: [380, 590],
+      icon: "white-balance-iridescent",
+      iconColor: ({led_stahltraeger}) => led_stahltraeger == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
@@ -137,7 +138,7 @@ const config : Config = {
       name: "Snackbar",
       position: [510, 500],
       icon: "fridge",
-      iconColor: state => state.snackbar == "on" ? "#E20074" : "#000000",
+      iconColor: ({snackbar}) => snackbar == "on" ? "#E20074" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -150,8 +151,8 @@ const config : Config = {
     twinkle: {
       name: "Twinkle",
       position: [530, 560],
-      icon: "led-off mdi-flip-v",
-      iconColor: state => state.twinkle == "on" ? utils.rainbow : "#000000",
+      icon: ({twinkle}) => twinkle == "on" ? "led-on flip-v" : "led-off flip-v",
+      iconColor: ({twinkle}) => twinkle == "on" ? utils.rainbow : "#000000",
       ui: [
         {
           type: "toggle",
@@ -165,7 +166,7 @@ const config : Config = {
       name: "Ventilator",
       position: [520, 450],
       icon: "fan",
-      iconColor: state => state.fan == "on" ? "#00FF00" : "#000000",
+      iconColor: ({fan}) => fan == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -191,7 +192,7 @@ const config : Config = {
       name: "Videospiele",
       position: [100, 100],
       icon: "gamepad-variant",
-      iconColor: state => state.videogames == "on" ? "#00FF00" : "#000000",
+      iconColor: ({videogames}) => videogames == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -205,7 +206,7 @@ const config : Config = {
       name: "Rechner und Drucker",
       position: [297, 90],
       icon: "desktop-classic",
-      iconColor: state => state.olymp_pc == "on" ? "#00FF00" : "#000000",
+      iconColor: ({olymp_pc}) => olymp_pc == "on" ? "#00FF00" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -219,7 +220,7 @@ const config : Config = {
       name: "Fliegenbratgerät",
       position: [450, 590],
       icon: "fire",
-      iconColor: state => state.flyfry == "on" ? "#6666FF" : "#000000",
+      iconColor: ({flyfry}) => flyfry == "on" ? "#6666FF" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -233,15 +234,15 @@ const config : Config = {
       name: "Artnet",
       position: [535,480],
       icon: "spotlight",
-      iconColor: state => 
+      iconColor: ({artnet}) => 
         ({
           off: "#000000",
-          yellow: "#CCCC00",
+          yellow: "#F0DF10",
           red: "#FF0000",
           purple: "#FF00FF",
           green: "#00FF00",
           cycle: utils.rainbow
-        })[state.artnet],
+        })[artnet],
       ui: [
         {
           type: "toggle",
@@ -270,8 +271,8 @@ const config : Config = {
     onkyo: {
       name: "Onkyo",
       position: [350, 650],
-      iconColor: state =>
-        state.onkyo_connection != "connected" ? "#888888" : (state.onkyo_power == "on" ? "#00FF00" : "#000000"),
+      iconColor: ({onkyo_connection, onkyo_power}) =>
+        onkyo_connection != "connected" ? "#888888" : (onkyo_power == "on" ? "#00FF00" : "#000000"),
       icon: "volume-high",
       ui: [
         {
@@ -279,7 +280,7 @@ const config : Config = {
           text: "Power",
           icon: "power",
           topic: "onkyo_power",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "section",
@@ -292,14 +293,14 @@ const config : Config = {
           min: 0,
           max: 50,
           icon: "volume-high",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "toggle",
           text: "Mute",
           topic: "onkyo_mute",
           icon: "volume-off",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "section",
@@ -316,7 +317,7 @@ const config : Config = {
             pult: "Pult"
           },
           icon: "usb",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
         },
         {
           type: "dropDown",
@@ -330,10 +331,11 @@ const config : Config = {
             querfunk: "Querfunk",
             somafm_defconradio: "Defcon Radio (SomaFM)",
             somafm_secretagent: "Secret Agent (SomaFM)",
-            somafm_lush: "Lush (SomaFM)"
+            somafm_lush: "Lush (SomaFM)",
+            somafm_beatblender: "Beat Blender (Soma FM)"
           },
           icon: "radio",
-          enableCondition: (a, b, state) => state.onkyo_connection == "connected" && state.onkyo_inputs == "netzwerk"
+          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected" && state.onkyo_inputs.internal == "netzwerk"
         },
         {
           type: "section",
@@ -350,7 +352,7 @@ const config : Config = {
       name: "Rundumleuchte",
       position: [310,275],
       icon: "alarm-light",
-      iconColor: state => state.rundumleuchte == "on" ? "#CCCC00" : "#000000",
+      iconColor: ({rundumleuchte}) => rundumleuchte == "on" ? "#F0DF10" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -364,7 +366,7 @@ const config : Config = {
       name: "Tür",
       position: [455,350],
       icon: "swap-vertical",
-      iconColor: state => state.door_status == "on" ? "#00FF00" : "#FF0000",
+      iconColor: ({door_status}) => door_status == "on" ? "#00FF00" : "#FF0000",
       ui: [
         {
           type: "link",
@@ -377,7 +379,7 @@ const config : Config = {
       name: "Infoscreen",
       position: [255, 495],
       icon: "developer-board",
-      iconColor: state => state.infoscreen == "on" ? "#4444FF" : "#000000",
+      iconColor: ({infoscreen}) => infoscreen == "on" ? "#4444FF" : "#000000",
       ui: [
         {
           type: "toggle",
@@ -399,18 +401,30 @@ const config : Config = {
       baseLayer: true,
       name: "RaumZeitLabor",
       defaultVisibility: "visible",
-      opacity: 0.7
+      opacity: 0.7,
+      bounds: {
+        topLeft: [0, 0],
+        bottomRight: [1000, 700]
+      }
     },
     {
       image: require("../img/layers/rzl/details.svg"),
       name: "Details",
       defaultVisibility: "visible",
-      opacity: 0.4
+      opacity: 0.4,
+      bounds: {
+        topLeft: [0, 0],
+        bottomRight: [1000, 700]
+      }
     },
     {
       image: require("../img/layers/rzl/labels.svg"),
       name: "Labels",
-      defaultVisibility: "visible"
+      defaultVisibility: "visible",
+      bounds: {
+        topLeft: [0, 0],
+        bottomRight: [1000, 700]
+      }
     }
   ]
 };
