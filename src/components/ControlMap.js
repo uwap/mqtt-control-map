@@ -7,7 +7,7 @@ import parseIconName, { controlGetIcon } from "utils/parseIconName";
 
 export type Point = [number, number];
 
-const convertPoint = ([y,x]: Point): Point => [-x, y];
+const convertPoint = ([y, x]: Point): Point => [-x, y];
 
 export type ControlMapProps = {
   width: number,
@@ -58,12 +58,10 @@ export default class ControlMap extends React.Component<ControlMapProps> {
   }
 
   iconColor(control: Control): string {
+    const ints = _.mapValues(this.props.state, (x) => x.internal || x.actual);
+    const acts = _.mapValues(this.props.state, (x) => x.actual);
     if (control.iconColor != null) {
-      return control.iconColor(
-        _.mapValues(this.props.state, (x) => x.internal || x.actual),
-        _.mapValues(this.props.state, (x) => x.actual),
-        this.props.state
-      );
+      return control.iconColor(ints, acts, this.props.state);
     }
     return "#000";
   }
