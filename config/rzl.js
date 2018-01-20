@@ -147,6 +147,35 @@ const config : Config = {
               return msg.toString()
           }
         }
+      },
+      printer_3d_remaining: {
+        state: "/service/ultimaker/job",
+        command: "",
+        defaultValue: "",
+        values: {},
+        parseState: msg => {
+          var job = JSON.parse(msg.toString());
+          if(!job["time_elapsed"] || ! job["time_total"]) {
+            return "";
+          } else {
+            var secondsLeft = job["time_total"] - job["time_elapsed"];
+            var hours = Math.floor(secondsLeft / (60*60));
+            var minutes = Math.round(secondsLeft % (60*60) / 60);
+            var result = "";
+            if(hours > 1) {
+              result += hours+" Hours ";
+            } else if (hours === 1) {
+              result += hours+" Hour ";
+            }
+
+            if(minutes === 1) {
+              result += minutes+" Minute";
+            } else {
+              result += minutes+" Minutes";
+            }
+            return result;
+          }
+        }
       }
     },
     utils.esper_topics("afba40", "flyfry"),
@@ -451,6 +480,11 @@ const config : Config = {
           type: "link",
           link: "http://ultimaker.rzl/",
           text: "Open Webinterface"
+        }, {
+          type: "text",
+          text: "Time Left",
+          icon: "clock",
+          topic: "printer_3d_remaining"
         }
       ]
     },
