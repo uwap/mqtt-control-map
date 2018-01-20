@@ -90,7 +90,7 @@ const config : Config = {
         state: "/service/onkyo/status/input-selector",
         command: "/service/onkyo/command",
         defaultValue: "SLI00",
-        values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B" },
+        values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B", front: "SLI03" },
         parseState: msg => JSON.parse(msg.toString()).onkyo_raw
       },
       onkyo_radios: {
@@ -346,7 +346,8 @@ const config : Config = {
             netzwerk: "Netzwerk",
             tisch: "Tisch",
             chromecast: "Chromecast",
-            pult: "Pult"
+            pult: "Pult",
+            front: "Front HDMI"
           },
           icon: "usb",
           enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
