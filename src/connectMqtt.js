@@ -5,15 +5,15 @@ import _ from "lodash";
 // TODO: type mqtt.js
 
 export type MqttSettings = {
-  onReconnect?: (mqtt: Object) => void,
-  onDisconnect?: (mqtt: Object) => void,
-  onMessage?: (topic: string, message: Object) => void,
-  onMessageSent?: (topic: string, message: any) => void,
-  onConnect?: (mqtt: Object) => void,
+  onReconnect?: (mqtt: mqtt.Client) => void,
+  onDisconnect?: (mqtt: mqtt.Client) => void,
+  onMessage?: (topic: string, message: Buffer) => void,
+  onMessageSent?: (topic: string, message: Buffer) => void,
+  onConnect?: (mqtt: mqtt.Client) => void,
   subscribe?: Array<string>
 }
 
-export type MessageCallback = (topic: string, message: any) => void;
+export type MessageCallback = (topic: string, message: Buffer) => void;
 
 export default function connectMqtt(
   url: string,
@@ -28,7 +28,7 @@ export default function connectMqtt(
       settings.onConnect(client);
     }
   });
-  client.on("message", (topic, message) => {
+  client.on("message", (topic: string, message: Buffer) => {
     if (settings.onMessage != null) {
       settings.onMessage(topic, message);
     }
@@ -48,7 +48,7 @@ export default function connectMqtt(
       settings.onReconnect(client);
     }
   });
-  return (topic: string, message: any) => {
+  return (topic: string, message: Buffer) => {
     client.publish(topic, message, null, (error) => {
       if (error == null && settings.onMessageSent != null) {
         settings.onMessageSent(topic, message);
