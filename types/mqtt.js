@@ -41,13 +41,14 @@ declare module 'mqtt' {
 
     publish(topic: string, message: Buffer | string, options: ?PublishOptions, callback: any): void; // TODO: message: Buffer|string, callback..., topic array and topic object
 
-    subscribe(topic: string | Array<string>, cb: (error: Error, granted: any) => void): void; // TODO: granted
+    subscribe(topic: string | Array<string>, cb?: (error: Error, granted: any) => void): void; // TODO: granted
     subscribe(topic: string | Array<string>, opts: ClientSubscribeOptions, cb: (error: Error, granted: any) => void): void; // TODO: granted
 
     on(event: "message", // TODO: packet
       cb: (topic: string, payload: Buffer, packet: any) => void): void;
     on(event: "offline", cb: () => void): void;
     on(event: "reconnect", cb: () => void): void;
+    on(event: "connect", cb: () => void): void;
     on(event: "close", cb: () => void): void;
   }
 
