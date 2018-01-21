@@ -84,6 +84,15 @@ declare type UIText = $ReadOnly<{|
   icon?: string
 |}>;
 
+declare type UIProgress = $ReadOnly<{|
+  type: "progress",
+  text: string,
+  topic: string,
+  icon?: string,
+  min?: number,
+  max?: number
+|}>;
+
 declare type ControlUI =
     UIToggle
   | UIDropDown
@@ -91,6 +100,7 @@ declare type ControlUI =
   | UISection
   | UILink
   | UIText
+  | UIProgress
 
 declare type Control = {
   name: string,

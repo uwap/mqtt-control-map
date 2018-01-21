@@ -146,6 +146,13 @@ const config : Config = {
               return msg.toString()
           }
         }
+      },
+      printer_3d_progress: {
+        state: "/service/ultimaker/job",
+        command: "",
+        defaultValue: "",
+        values: {},
+        parseState: msg => JSON.parse(msg.toString()).progress || 0
       }
     },
     utils.esper_topics("afba40", "flyfry"),
@@ -451,6 +458,18 @@ const config : Config = {
           type: "link",
           link: "http://ultimaker.rzl/",
           text: "Open Webinterface"
+        },
+        {
+          type: "section",
+          text: "Current Job"
+        },
+        {
+          type: "progress",
+          icon: "rotate-right",
+          min: 0,
+          max: 1,
+          text: "Printing Progress",
+          topic: "printer_3d_progress"
         }
       ]
     },

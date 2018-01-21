@@ -12,6 +12,7 @@ import { FormControl } from "material-ui/Form";
 import Select from "material-ui/Select";
 import { MenuItem } from "material-ui/Menu";
 import Button from "material-ui/Button";
+import { LinearProgress } from "material-ui/Progress";
 
 import keyOf from "utils/keyOf";
 import { getInternals, getActuals } from "utils/state";
@@ -211,6 +212,21 @@ export class Text extends UiControl<UIText> {
     return [
       <ListItemText key="label" secondary={this.props.item.text} />,
       <ListItemText key="vr" primary={this.getValue().internal} align="right" />
+    ];
+  }
+}
+
+export class Progress extends UiControl<UIProgress> {
+  render() {
+    const min = this.props.item.min || 0;
+    const max = this.props.item.max || 100;
+    const val = parseFloat(this.getValue().internal || this.getValue().actual);
+    const value = val * 100 / max - min;
+    return [
+      <ListItemText key="label" secondary={this.props.item.text} />,
+      <div style={{ flex: "10 1 auto" }} key="progressbar">
+        <LinearProgress mode="determinate" value={value} />
+      </div>
     ];
   }
 }
