@@ -113,6 +113,13 @@ const config : Config = {
         defaultValue: "\"closed\"",
         values: { on: "\"open\"", off: "\"closed\"" }
       },
+      presence_status: {
+        state: "service/status/presence",
+        command: "",
+        defaultValue: "",
+        values: {},
+        parseState: msg => JSON.parse(msg.toString()).join(", ")
+      },
       infoscreen: {
         state: "/service/openhab/out/pca301_infoscreen/state",
         command: "/service/openhab/in/pca301_infoscreen/command",
@@ -419,6 +426,12 @@ const config : Config = {
           type: "link",
           link: "http://s.rzl.so",
           text: "Open Status Page"
+        },
+        {
+          type: "text",
+          text: "Anwesend",
+          topic: "presence_status",
+          icon: "account"
         }
       ]
     },
