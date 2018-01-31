@@ -1,4 +1,4 @@
 // @flow
-import config from "../config/rzl";
+import config from "../config/entropia";
 
 export default config;
