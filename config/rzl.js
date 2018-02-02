@@ -1,5 +1,5 @@
 // @flow
-import * from './;
+import { hex, rgb, rgba, rainbow, esper_topics, esper_statistics } from "./utils";
 
 const config : Config = {
   space: {
