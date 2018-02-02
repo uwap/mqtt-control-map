@@ -1,16 +1,17 @@
-# Space Map
+# MQTT Control Map
 
-## How to set up
+## Development / Configuration
 
 1. run `yarn` to install all dependencies.
-2. run `yarn build` to compile everything
-3. open the `index.html`
-4. ???
-5. profit
+2. run `yarn watch CONFIG` to run a local build server that automatically builds
+your the mqtt control map for the given CONFIG everytime something changes.
+3. run `yarn build CONFIG` to create just a single build of the mqtt control map
+for the given config.
+4. run `yarn production-build CONFIG` to generate all files for production use.
 
 ## Config
 
-See `src/config.js`.
+See `config/`.
 
 The Config format consists out of two sections. Topics and Controls.
 

@@ -10,9 +10,17 @@ const extractCSS = ExtractTextPlugin.extract({
           }
         });
 
-module.exports = merge(common, {
+const configPath = env => {
+  if (env === true) {
+    throw "No config file was provided.";
+  }
+  return path.resolve(__dirname, `config/${env}`);
+};
+
+module.exports = env => merge(common, {
   entry: {
-    main: path.resolve(__dirname, 'src/index.jsx')
+    main: [configPath(env),
+          path.resolve(__dirname, 'src/index.jsx')]
   },
   module: {
     loaders: [

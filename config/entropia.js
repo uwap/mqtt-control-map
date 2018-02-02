@@ -60,4 +60,4 @@ const config : Config = {
   ]
 };
 
-export default config;
+window.config = config;

@@ -4,9 +4,9 @@
   "author": "uwap <me+mqttmap.package.json@uwap.name>",
   "description": "control devices via mqtt on a beautiful map of your space",
   "scripts": {
-    "build": "webpack --bail --config webpack.dev.js",
-    "production-build": "webpack --bail --config webpack.prod.js",
-    "watch": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --bail --config webpack.dev.js --env",
+    "production-build": "webpack --bail --config webpack.prod.js --env",
+    "watch": "webpack-dev-server --open --config webpack.dev.js --env",
     "travis": "yarn lint && yarn build && yarn production-build",
     "lint": "eslint -- --ext js --ext jsx src/",
     "precommit": "yarn lint"
