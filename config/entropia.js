@@ -1,5 +1,5 @@
 // @flow
-import * as utils from './utils';
+import * from './utils';
 
 const config : Config = {
   space: {
@@ -28,7 +28,7 @@ const config : Config = {
       name: "Hauptraum Tisch",
       position: [450, 450],
       icon: "white-balance-iridescent",
-      iconColor: () => "#000000",
+      iconColor: () => hex("#000000"),
       ui: [
         {
           type: "toggle",

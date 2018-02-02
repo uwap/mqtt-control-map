@@ -1,5 +1,5 @@
 // @flow
-import * as utils from './utils';
+import * from './;
 
 const config : Config = {
   space: {
@@ -162,15 +162,15 @@ const config : Config = {
         parseState: msg => JSON.parse(msg.toString()).progress || 0
       }
     },
-    utils.esper_topics("afba40", "flyfry"),
-    utils.esper_topics("afba45", "alarm")
+    esper_topics("afba40", "flyfry"),
+    esper_topics("afba45", "alarm")
   ],
   controls: {
     led_stahltrager: {
       name: "LED Stahlträger",
       position: [380, 590],
       icon: "white-balance-iridescent",
-      iconColor: ({led_stahltraeger}) => led_stahltraeger == "on" ? utils.rainbow : "#000000",
+      iconColor: ({led_stahltraeger}) => led_stahltraeger == "on" ? rainbow : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -184,7 +184,7 @@ const config : Config = {
       name: "Snackbar",
       position: [510, 500],
       icon: "fridge",
-      iconColor: ({snackbar}) => snackbar == "on" ? "#E20074" : "#000000",
+      iconColor: ({snackbar}) => snackbar == "on" ? hex("#E20074") : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -198,7 +198,7 @@ const config : Config = {
       name: "Twinkle",
       position: [530, 560],
       icon: ({twinkle}) => twinkle == "on" ? "led-on flip-v" : "led-off flip-v",
-      iconColor: ({twinkle}) => twinkle == "on" ? utils.rainbow : "#000000",
+      iconColor: ({twinkle}) => twinkle == "on" ? rainbow : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -212,7 +212,7 @@ const config : Config = {
       name: "Ventilator",
       position: [520, 450],
       icon: "fan",
-      iconColor: ({fan}) => fan == "on" ? "#00FF00" : "#000000",
+      iconColor: ({fan}) => fan == "on" ? hex("#00FF00") : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -238,7 +238,7 @@ const config : Config = {
       name: "Videospiele",
       position: [100, 100],
       icon: "gamepad-variant",
-      iconColor: ({videogames}) => videogames == "on" ? "#00FF00" : "#000000",
+      iconColor: ({videogames}) => videogames == "on" ? hex("#00FF00") : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -252,7 +252,7 @@ const config : Config = {
       name: "Rechner und Drucker",
       position: [297, 90],
       icon: "desktop-classic",
-      iconColor: ({olymp_pc}) => olymp_pc == "on" ? "#00FF00" : "#000000",
+      iconColor: ({olymp_pc}) => olymp_pc == "on" ? hex("#00FF00") : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -266,8 +266,8 @@ const config : Config = {
       name: "Fliegenbratgerät",
       position: [450, 590],
       icon: "fire",
-      iconColor: ({flyfry}) => flyfry == "on" ? "#6666FF" : "#000000",
-      ui: utils.esper_statistics("flyfry", [
+      iconColor: ({flyfry}) => flyfry == "on" ? hex("#6666FF") : hex("#000000"),
+      ui: esper_statistics("flyfry", [
         {
           type: "toggle",
           text: "Fliegenbratgerät",
@@ -282,12 +282,12 @@ const config : Config = {
       icon: "spotlight",
       iconColor: ({artnet}) => 
         ({
-          off: "#000000",
-          yellow: "#F0DF10",
-          red: "#FF0000",
-          purple: "#FF00FF",
-          green: "#00FF00",
-          cycle: utils.rainbow
+          off: hex("#000000"),
+          yellow: hex("#F0DF10"),
+          red: hex("#FF0000"),
+          purple: hex("#FF00FF"),
+          green: hex("#00FF00"),
+          cycle: rainbow
         })[artnet],
       ui: [
         {
@@ -318,7 +318,7 @@ const config : Config = {
       name: "Onkyo",
       position: [350, 650],
       iconColor: ({onkyo_connection, onkyo_power}) =>
-        onkyo_connection != "connected" ? "#888888" : (onkyo_power == "on" ? "#00FF00" : "#000000"),
+        onkyo_connection != "connected" ? hex("#888888") : (onkyo_power == "on" ? hex("#00FF00") : hex("#000000")),
       icon: "volume-high",
       ui: [
         {
@@ -399,7 +399,7 @@ const config : Config = {
       name: "Rundumleuchte",
       position: [310,275],
       icon: "alarm-light",
-      iconColor: ({rundumleuchte}) => rundumleuchte == "on" ? "#F0DF10" : "#000000",
+      iconColor: ({rundumleuchte}) => rundumleuchte == "on" ? hex("#F0DF10") : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -413,14 +413,14 @@ const config : Config = {
       name: "Alarm",
       position: [340, 250],
       icon: "alarm-bell",
-      iconColor: () => "#000000",
-      ui: utils.esper_statistics("alarm")
+      iconColor: () => hex("#000000"),
+      ui: esper_statistics("alarm")
     },
     door: {
       name: "Tür",
       position: [455,350],
       icon: "swap-vertical",
-      iconColor: ({door_status}) => door_status == "on" ? "#00FF00" : "#FF0000",
+      iconColor: ({door_status}) => door_status == "on" ? hex("#00FF00") : hex("#FF0000"),
       ui: [
         {
           type: "link",
@@ -439,7 +439,7 @@ const config : Config = {
       name: "Infoscreen",
       position: [255, 495],
       icon: "television-guide flip-v",
-      iconColor: ({infoscreen}) => infoscreen == "on" ? "#4444FF" : "#000000",
+      iconColor: ({infoscreen}) => infoscreen == "on" ? hex("#4444FF") : hex("#000000"),
       ui: [
         {
           type: "toggle",
@@ -460,11 +460,11 @@ const config : Config = {
       icon: "printer-3d",
       iconColor: ({printer_3d_status}) => 
         ({
-          awaiting_interaction: "#b3b300",
-          printing: "#00ff00",
-          idle: "#000000",
-          unavailable: "#888888",
-          error: "#ff0000"
+          awaiting_interaction: hex("#b3b300"),
+          printing: hex("#00ff00"),
+          idle: hex("#000000"),
+          unavailable: hex("#888888"),
+          error: hex("#ff0000")
         })[printer_3d_status],
       ui: [
         {
