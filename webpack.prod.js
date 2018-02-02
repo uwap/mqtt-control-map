@@ -25,7 +25,7 @@ const configPath = env => {
 module.exports = env => merge(common, {
   entry: {
     main: [configPath(env),
-          path.resolve(__dirname, 'src/index.jsx')]
+          path.resolve(__dirname, 'src/index.jsx')],
     vendor: ['react', 'material-ui', 'mqtt', 'lodash']
   },
   module: {

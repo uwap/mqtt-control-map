@@ -7,7 +7,7 @@
     "build": "webpack --bail --config webpack.dev.js --env",
     "production-build": "webpack --bail --config webpack.prod.js --env",
     "watch": "webpack-dev-server --open --config webpack.dev.js --env",
-    "travis": "yarn lint && yarn build && yarn production-build",
+    "travis": "./travis.sh",
     "lint": "eslint -- --ext js --ext jsx src/",
     "precommit": "yarn lint"
   },
