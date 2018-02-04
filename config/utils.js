@@ -1,17 +1,5 @@
 // @flow
-
-export const rainbow = "rgba(200,120,120,0.5);"
-      + "--before-background: linear-gradient(40deg, #FF0000 0%, #00FF00 50%, #0000FF 70%, #FFFF00 100%);";
-
-export const hex = (hex: string) => hex;
-
-export const rgb = (r: number, g: number, b: number) => (
-  `rgb(${r.toString()}, ${g.toString()}, ${b.toString()})`
-);
-
-export const rgba = (r: number, g: number, b: number, a: number) => (
-  `rgb(${r.toString()}, ${g.toString()}, ${b.toString()}, ${a.toString()})`
-);
+import type { ControlUI } from "config/types";
 
 export const esper_topics = (chip_id: string, name: string) => ({
   [ `esper_${name}_version` ]: {

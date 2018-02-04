@@ -5,6 +5,8 @@ import Leaflet from "leaflet";
 import _ from "lodash";
 import parseIconName, { controlGetIcon } from "utils/parseIconName";
 
+import type { Controls, Control } from "config/types";
+
 export type Point = [number, number];
 
 const convertPoint = ([y, x]: Point): Point => [-x, y];

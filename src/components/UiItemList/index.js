@@ -9,6 +9,8 @@ import {
 } from "material-ui/List";
 import { renderIcon } from "utils/parseIconName";
 
+import type { ControlUI, UIControl, UISlider } from "config/types";
+
 // TODO: Use something else
 import Slider from "material-ui-old/Slider";
 import MuiThemeProvider from "material-ui-old/styles/MuiThemeProvider";

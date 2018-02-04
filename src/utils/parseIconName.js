@@ -3,6 +3,8 @@ import * as React from "react";
 import _ from "lodash";
 import { getInternals, getActuals } from "utils/state";
 
+import type { Control } from "config/types";
+
 export default function parseIconName(name: string): string {
   return `mdi ${name.split(" ").map((icon) => "mdi-".concat(icon)).join(" ")}`;
 }

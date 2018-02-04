@@ -1,5 +1,7 @@
 // @flow
-import { hex, rgb, rgba, rainbow, esper_topics, esper_statistics } from "./utils";
+import type { Config } from "config/types";
+import { hex, rgb, rgba, rainbow } from "config/colors";
+import { esper_topics, esper_statistics } from "./utils";
 
 const config : Config = {
   space: {

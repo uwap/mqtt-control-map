@@ -2,6 +2,8 @@
 import React from "react";
 import _ from "lodash";
 
+import type { Config, Control, Topics } from "config/types";
+
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import createMuiTheme from "material-ui/styles/createMuiTheme";
 import withStyles from "material-ui/styles/withStyles";

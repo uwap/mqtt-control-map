@@ -14,6 +14,11 @@ import { MenuItem } from "material-ui/Menu";
 import Button from "material-ui/Button";
 import { LinearProgress } from "material-ui/Progress";
 
+import type {
+  UIControl, UIToggle, UIDropDown, UILink,
+  UISection, UIText, UIProgress
+} from "config/types";
+
 import keyOf from "utils/keyOf";
 import { getInternals, getActuals } from "utils/state";
 

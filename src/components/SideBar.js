@@ -10,6 +10,8 @@ import Toolbar from "material-ui/Toolbar";
 import List from "material-ui/List";
 import { renderIcon } from "utils/parseIconName";
 
+import type { Control } from "config/types";
+
 export type SideBarProps = {
   control: ?Control,
   open: boolean,

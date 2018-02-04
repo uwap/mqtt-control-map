@@ -8,7 +8,7 @@ import App from "components/App";
 import "../node_modules/mdi/css/materialdesignicons.min.css";
 import "../css/styles.css";
 
-const Config = window.config;
+const Config : Config = window.config;
 injectTapEventPlugin();
 
 document.title = `${Config.space.name} Map`;
