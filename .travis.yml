@@ -5,5 +5,13 @@ node_js:
   - 9
 script:
   - yarn travis
+
+after_success:
+  - ./travis-upload-artifacts.sh
+
 cache:
   yarn: true
+
+env:
+  global:
+    secure: tF/UHXKXmkEMfaB2bxt6bBXJNJZOT2Tb7grbsCHGBc/4OYh1lBhDLb/y55yzuvrE+zHu5Y3CPcK1OFV9KcsbwfvW3Kzt11fxdMI1Eqg7vG5m4JXokMt3YjhgrJSCm5IVqVMbyuRhfrNJ7RGXNQqhw81g2nwkUfpj6FW//fJOyg/J8GQiWEzjeB14r15oTvgEMsGPLE4/qck9Liv4u7DQV1n1+E2wENJMV2jbvoUe2bqteGSMoeZL2ALvI1572oBviYywjtpOM0xHxI5fYJ/m3eq3LFggKEVZp2CzKQ2WZ2rtd1lplxJ8tHco8XmOu3dn3ZkbrBB2Rg+XLvrOkYQMqnuukAwbTn4Br//b3zXsspt+A38mTxW5/UDpoQz+IG26hiGXE3EYQ91pJfOGwHMn+fOLrFz+X0A6H+oi65HwA8nriIRNqiPauYIxeZdb/lAaHaVJeovsIC6EP19ycEXVlHYbwRG2cB6FNeJaGrP8Zu10/MHxx2QY3UuwqWMdZZ5ZjWapiqOSDoPNGBETTPngWLGFMnzkhWYmLsdbp+LF353PR+ikALUVYrQaCPgr0IvTs9H8PEzHlZjoW+aD67TT6Q5Yhiz2dFEy9fJNH/Y4QcKglAFf1tz/gd41JX8cNLJINWdltzsYKWP0FInvLAr7f3iwhmqzly55XDkmftQRlRs=
