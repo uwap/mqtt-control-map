@@ -1,8 +1,8 @@
 // @flow
-import _ from "lodash";
+import findKey from "lodash/findKey";
 
 const keyOf = <a, b> (map: Map<a, b>, value: b): ?a => (
-  _.findKey(map, (x) => x === value)
+  findKey(map, (x) => x === value)
 );
 
 export default keyOf;

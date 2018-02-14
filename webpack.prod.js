@@ -3,6 +3,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const extractCSS = ExtractTextPlugin.extract({
           fallback: "style-loader",
@@ -26,7 +27,6 @@ module.exports = env => merge(common, {
   entry: {
     main: [configPath(env),
           path.resolve(__dirname, 'src/index.jsx')],
-    vendor: ['react', 'material-ui', 'mqtt', 'lodash']
   },
   module: {
     loaders: [
@@ -36,16 +36,16 @@ module.exports = env => merge(common, {
   },
   devtool: "source-map",
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    new LodashModuleReplacementPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
-    }),
+    new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'runtime'
     }),

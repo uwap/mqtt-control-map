@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
-import _ from "lodash";
+import keys from "lodash/keys";
+import map from "lodash/map";
 import {
   ListItemSecondaryAction,
   ListItemText,
@@ -142,11 +143,11 @@ export class DropDown extends UiControl<UIDropDown> {
   runPrimaryAction = (next?: Actual) => {
     if (this.isEnabled()) {
       const control = this.props.item;
-      const keys = _.keys(control.options);
+      const optionKeys = keys(control.options);
       const value = this.getValue();
-      const valueIndex = keyOf(keys, value);
+      const valueIndex = keyOf(optionKeys, value);
       if (next == null) {
-        this.changeState(keys[(valueIndex + 1) % keys.length]);
+        this.changeState(optionKeys[(valueIndex + 1) % optionKeys.length]);
       } else {
         this.changeState(next);
       }
@@ -171,7 +172,7 @@ export class DropDown extends UiControl<UIDropDown> {
           disabled={!this.isEnabled()}
           input={<Input id={id} />}
         >
-          {_.map(options, (v, k) => <MenuItem value={k} key={k}>{v}</MenuItem>)}
+          {map(options, (v, k) => <MenuItem value={k} key={k}>{v}</MenuItem>)}
         </Select>
       </FormControl>
     );

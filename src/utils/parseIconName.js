@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import _ from "lodash";
 import { getInternals, getActuals } from "utils/state";
 
 import type { Control } from "config/types";

@@ -1,8 +1,9 @@
 // @flow
 import React from "react";
 import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
-import Leaflet from "leaflet";
-import _ from "lodash";
+import { CRS, point, divIcon } from "leaflet";
+import map from "lodash/map";
+import mapValues from "lodash/mapValues";
 import parseIconName, { controlGetIcon } from "utils/parseIconName";
 
 import type { Controls, Control } from "config/types";
@@ -37,7 +38,7 @@ export default class ControlMap extends React.Component<ControlMapProps> {
     return (
       <Map center={this.center}
         zoom={this.props.zoom}
-        crs={Leaflet.CRS.Simple}>
+        crs={CRS.Simple}>
         {this.renderMarkers()}
         {this.renderLayers()}
       </Map>
@@ -45,23 +46,23 @@ export default class ControlMap extends React.Component<ControlMapProps> {
   }
 
   renderMarkers() {
-    return _.map(this.props.controls, this.renderMarker.bind(this));
+    return map(this.props.controls, this.renderMarker.bind(this));
   }
 
   createLeafletIcon(control: Control) {
     const icon = controlGetIcon(control, this.props.state);
     const iconClass = parseIconName(`${icon} 36px`);
-    return Leaflet.divIcon({
-      iconSize: Leaflet.point(36, 36),
-      iconAnchor: Leaflet.point(18, 18),
+    return divIcon({
+      iconSize: point(36, 36),
+      iconAnchor: point(18, 18),
       html: `<i class="${iconClass}"
           style="line-height: 1; color: ${this.iconColor(control)}"></i>`
     });
   }
 
   iconColor(control: Control): string {
-    const ints = _.mapValues(this.props.state, (x) => x.internal || x.actual);
-    const acts = _.mapValues(this.props.state, (x) => x.actual);
+    const ints = mapValues(this.props.state, (x) => x.internal || x.actual);
+    const acts = mapValues(this.props.state, (x) => x.actual);
     if (control.iconColor != null) {
       return control.iconColor(ints, acts, this.props.state);
     }

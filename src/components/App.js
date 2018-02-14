@@ -1,6 +1,10 @@
 // @flow
 import React from "react";
-import _ from "lodash";
+import map from "lodash/map";
+import mapValues from "lodash/mapValues";
+import filter from "lodash/filter";
+import keys from "lodash/keys";
+import merge from "lodash/merge";
 
 import type { Config, Control, Topics } from "config/types";
 
@@ -37,7 +41,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
     this.state = {
       selectedControl: null,
       drawerOpened: false,
-      mqttState: _.mapValues(this.topics, (topic) => ({
+      mqttState: mapValues(this.topics, (topic) => ({
         actual: topic.defaultValue,
         internal: keyOf(topic.values, topic.defaultValue)
       })),
@@ -46,7 +50,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
         onConnect: () => this.setState({ mqttConnected: true }),
         onReconnect: () => this.setState({ mqttConnected: false }),
         onDisconnect: () => this.setState({ mqttConnected: false }),
-        subscribe: _.map(this.topics, (x) => x.state)
+        subscribe: map(this.topics, (x) => x.state)
       }),
       mqttConnected: false
     };
@@ -74,8 +78,8 @@ class App extends React.Component<AppProps & Classes, AppState> {
   }
 
   receiveMessage(rawTopic: string, message: Object) {
-    const topics = _.filter(
-      _.keys(this.topics),
+    const topics = filter(
+      keys(this.topics),
       (k) => this.topics[k].state === rawTopic
     );
     if (topics.length === 0) {
@@ -85,7 +89,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
       const topic = topics[i];
       const parseValue = this.topics[topic].parseState;
       const val = parseValue == null ? message.toString() : parseValue(message);
-      this.setState({mqttState: _.merge(this.state.mqttState,
+      this.setState({mqttState: merge(this.state.mqttState,
         { [topic]: {
           actual: val,
           internal: keyOf(this.topics[topic].values, val) || val

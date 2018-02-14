@@ -1,6 +1,6 @@
 // @flow
 import mqtt from "mqtt";
-import _ from "lodash";
+import uniq from "lodash/uniq";
 
 // TODO: type mqtt.js
 
@@ -22,7 +22,7 @@ export default function connectMqtt(
   const client = mqtt.connect(url);
   client.on("connect", () => {
     if (settings.subscribe != null) {
-      client.subscribe(_.uniq(settings.subscribe));
+      client.subscribe(uniq(settings.subscribe));
     }
     if (settings.onConnect != null) {
       settings.onConnect(client);

@@ -12,7 +12,10 @@ const preBuildScripts = process.env.NO_FLOW == undefined ?
 module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      'lodash': 'lodash-es'
+    }
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -30,6 +33,6 @@ module.exports = {
       title: 'Space Map',
       template: 'index.ejs'
     }),
-    new ExtractTextPlugin("styles.css")
+    new ExtractTextPlugin("styles.css"),
   ]
 };
