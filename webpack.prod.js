@@ -42,12 +42,8 @@ module.exports = env => merge(common, {
       }
     }),
     new LodashModuleReplacementPlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'runtime'
-    }),
+    new webpack.optimize.AggressiveMergingPlugin()
   ]
 });
