@@ -23,7 +23,7 @@ module.exports = env => merge(common, {
           path.resolve(__dirname, 'src/index.jsx')]
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.css$/, use: extractCSS },
       { test: /\.js(x)?$/, exclude: /node_modules/, loader: "babel-loader?cacheDirectory=true" }
     ]

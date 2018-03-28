@@ -22,7 +22,7 @@ module.exports = {
     filename: '[name]-[chunkhash].js'
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.(woff2?|eot|ttf|svg)$/, loader: "file-loader" }
     ]
   },
