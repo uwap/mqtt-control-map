@@ -29,7 +29,7 @@ module.exports = env => merge(common, {
           path.resolve(__dirname, 'src/index.jsx')],
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.css$/, use: extractCSS },
       { test: /\.js(x)?$/, exclude: /node_modules/, loader: "babel-loader" }
     ]
@@ -42,12 +42,8 @@ module.exports = env => merge(common, {
       }
     }),
     new LodashModuleReplacementPlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'runtime'
-    }),
+    new webpack.optimize.AggressiveMergingPlugin()
   ]
 });

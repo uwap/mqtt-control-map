@@ -95,6 +95,7 @@ export class UiControl<I: UIControl> extends UiItem<I> {
 
   isEnabled() {
     if (Object.keys(this.props.item).includes("enableCondition") &&
+      // $FlowFixMe
       typeof this.props.item.enableCondition == "function") {
       const enableCondition = this.props.item.enableCondition;
       const value = this.getValue();
