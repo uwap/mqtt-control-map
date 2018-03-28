@@ -1,5 +1,7 @@
 # MQTT Control Map
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/uwap/mqtt-control-map.svg)](https://greenkeeper.io/)
+
 ## Development / Configuration
 
 1. run `yarn` to install all dependencies.
