@@ -72,28 +72,28 @@ const config : Config = {
         command: "/service/onkyo/command",
         defaultValue: "PWR00",
         values: { off: "PWR00", on: "PWR01" },
-        parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+        type: msg => JSON.parse(msg.toString()).onkyo_raw
       },
       onkyo_mute: {
         state: "/service/onkyo/status/audio-muting",
         command: "/service/onkyo/command",
         defaultValue: "AMT00",
         values: { off: "AMT00", on: "AMT01" },
-        parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+        type: msg => JSON.parse(msg.toString()).onkyo_raw
       },
       onkyo_volume: {
         state: "/service/onkyo/status/volume",
         command: "/service/onkyo/set/volume",
         defaultValue: 0,
         values: {},
-        parseState: msg => JSON.parse(msg.toString()).val
+        type: msg => JSON.parse(msg.toString()).val
       },
       onkyo_inputs: {
         state: "/service/onkyo/status/input-selector",
         command: "/service/onkyo/command",
         defaultValue: "SLI00",
         values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B", front: "SLI03" },
-        parseState: msg => JSON.parse(msg.toString()).onkyo_raw
+        type: msg => JSON.parse(msg.toString()).onkyo_raw
       },
       onkyo_radios: {
         state: "/service/onkyo/status/latest-NPR",
@@ -120,7 +120,7 @@ const config : Config = {
         command: "",
         defaultValue: "",
         values: {},
-        parseState: msg => JSON.parse(msg.toString()).join(", ")
+        type: msg => JSON.parse(msg.toString()).join(", ")
       },
       infoscreen: {
         state: "/service/openhab/out/pca301_infoscreen/state",
@@ -133,7 +133,7 @@ const config : Config = {
         command: "",
         defaultValue: "unavailable",
         values: {},
-        parseState: msg => {
+        type: msg => {
           switch (msg.toString()) {
             case "unreachable":
             case "booting":
@@ -161,7 +161,7 @@ const config : Config = {
         command: "",
         defaultValue: "",
         values: {},
-        parseState: msg => JSON.parse(msg.toString()).progress || 0
+        type: msg => JSON.parse(msg.toString()).progress || 0
       }
     },
     esper_topics("afba40", "flyfry"),

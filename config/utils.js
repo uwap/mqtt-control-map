@@ -7,28 +7,28 @@ export const esper_topics = (chip_id: string, name: string) => ({
     command: "",
     defaultValue: "UNKNOWN",
     values: {},
-    parseState: msg => JSON.parse(msg.toString()).version.esper
+    type: msg => JSON.parse(msg.toString()).version.esper
   },
   [ `esper_${name}_ip` ]: {
     state: `/service/esper/${chip_id}/info`,
     command: "",
     defaultValue: "UNKNOWN",
     values: {},
-    parseState: msg => JSON.parse(msg.toString()).network.ip
+    type: msg => JSON.parse(msg.toString()).network.ip
   },
   [ `esper_${name}_rssi` ]: {
     state: `/service/esper/${chip_id}/info`,
     command: "",
     defaultValue: "UNKNOWN",
     values: {},
-    parseState: msg => JSON.parse(msg.toString()).wifi.rssi
+    type: msg => JSON.parse(msg.toString()).wifi.rssi
   },
   [ `esper_${name}_uptime` ]: {
     state: `/service/esper/${chip_id}/info`,
     command: "",
     defaultValue: "UNKNOWN",
     values: {},
-    parseState: msg => new Date(JSON.parse(msg.toString()).time.startup * 1000)
+    type: msg => new Date(JSON.parse(msg.toString()).time.startup * 1000)
                           .toLocaleString()
   },
   [ `esper_${name}_device` ]: {
@@ -36,7 +36,7 @@ export const esper_topics = (chip_id: string, name: string) => ({
     command: "",
     defaultValue: "UNKNOWN",
     values: {},
-    parseState: msg => JSON.parse(msg.toString()).device
+    type: msg => JSON.parse(msg.toString()).device
   }
 });
 

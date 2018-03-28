@@ -6,7 +6,7 @@ export type Topic = {
   command: string,
   defaultValue: Actual,
   values: Map<Internal, Actual>,
-  parseState?: (msg: Object) => any
+  type?: (msg: Buffer) => any
 };
 export type Topics = Map<string, Topic>;
 

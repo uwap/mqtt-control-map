@@ -87,7 +87,7 @@ class App extends React.Component<AppProps & Classes, AppState> {
     }
     for (let i in topics) {
       const topic = topics[i];
-      const parseValue = this.topics[topic].parseState;
+      const parseValue = this.topics[topic].type;
       const val = parseValue == null ? message.toString() : parseValue(message);
       this.setState({mqttState: merge(this.state.mqttState,
         { [topic]: {
