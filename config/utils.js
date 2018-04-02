@@ -1,5 +1,5 @@
 // @flow
-import type { ControlUI } from "config/types";
+import type { ControlUI } from "config/flowtypes";
 
 export const esper_topics = (chip_id: string, name: string) => ({
   [ `esper_${name}_version` ]: {

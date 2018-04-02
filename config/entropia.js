@@ -1,5 +1,5 @@
 // @flow
-import type { Config } from "config/types";
+import type { Config } from "config/flowtypes";
 import { hex, rgb, rgba, rainbow } from "config/colors";
 import { esper_topics, esper_statistics } from "./utils";
 
