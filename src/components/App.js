@@ -6,7 +6,7 @@ import filter from "lodash/filter";
 import keys from "lodash/keys";
 import merge from "lodash/merge";
 
-import type { Config, Control, Topics } from "config/types";
+import type { Config, Control, Topics } from "config/flowtypes";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import createMuiTheme from "material-ui/styles/createMuiTheme";

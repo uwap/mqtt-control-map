@@ -18,7 +18,7 @@ import { LinearProgress } from "material-ui/Progress";
 import type {
   UIControl, UIToggle, UIDropDown, UILink,
   UISection, UIText, UIProgress
-} from "config/types";
+} from "config/flowtypes";
 
 import keyOf from "utils/keyOf";
 import { getInternals, getActuals } from "utils/state";

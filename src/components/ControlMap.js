@@ -6,7 +6,7 @@ import map from "lodash/map";
 import mapValues from "lodash/mapValues";
 import parseIconName, { controlGetIcon } from "utils/parseIconName";
 
-import type { Controls, Control } from "config/types";
+import type { Controls, Control } from "config/flowtypes";
 
 export type Point = [number, number];
 

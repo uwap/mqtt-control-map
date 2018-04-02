@@ -2,7 +2,7 @@
 import * as React from "react";
 import { getInternals, getActuals } from "utils/state";
 
-import type { Control } from "config/types";
+import type { Control } from "config/flowtypes";
 
 export default function parseIconName(name: string): string {
   return `mdi ${name.split(" ").map((icon) => "mdi-".concat(icon)).join(" ")}`;

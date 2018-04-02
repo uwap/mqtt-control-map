@@ -1,5 +1,6 @@
 // @flow
-import type { Config } from "config/types";
+import type { Config } from "config/flowtypes";
+import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
 import { esper_topics, esper_statistics } from "./utils";
 
@@ -72,28 +73,28 @@ const config : Config = {
         command: "/service/onkyo/command",
         defaultValue: "PWR00",
         values: { off: "PWR00", on: "PWR01" },
-        type: msg => JSON.parse(msg.toString()).onkyo_raw
+        type: types.json("onkyo_raw")
       },
       onkyo_mute: {
         state: "/service/onkyo/status/audio-muting",
         command: "/service/onkyo/command",
         defaultValue: "AMT00",
         values: { off: "AMT00", on: "AMT01" },
-        type: msg => JSON.parse(msg.toString()).onkyo_raw
+        type: types.json("onkyo_raw")
       },
       onkyo_volume: {
         state: "/service/onkyo/status/volume",
         command: "/service/onkyo/set/volume",
         defaultValue: 0,
         values: {},
-        type: msg => JSON.parse(msg.toString()).val
+        type: types.json("val")
       },
       onkyo_inputs: {
         state: "/service/onkyo/status/input-selector",
         command: "/service/onkyo/command",
         defaultValue: "SLI00",
         values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B", front: "SLI03" },
-        type: msg => JSON.parse(msg.toString()).onkyo_raw
+        type: types.json("onkyo_raw")
       },
       onkyo_radios: {
         state: "/service/onkyo/status/latest-NPR",
