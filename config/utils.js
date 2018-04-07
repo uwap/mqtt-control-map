@@ -40,6 +40,25 @@ export const esper_topics = (chip_id: string, name: string) => ({
   }
 });
 
+export const floalt = {
+  color: (light_id: string) => `floalt_${light_id}_color`,
+  brightness: (light_id: string) => `floalt_${light_id}_brightness`,
+  topics: (light_id: string) => ({
+    [ `floalt_${light_id}_color` ]: {
+      state: `/service/openhab/out/tradfri_0220_gwb8d7af2b448f_${light_id}_color_temperature/state`,
+      command: `/service/openhab/in/tradfri_0220_gwb8d7af2b448f_${light_id}_color_temperature/command`,
+      defaultValue: "0",
+      values: {}
+    },
+    [ `floalt_${light_id}_brightness` ]: {
+      state: `/service/openhab/out/tradfri_0220_gwb8d7af2b448f_${light_id}_brightness/state`,
+      command: `/service/openhab/in/tradfri_0220_gwb8d7af2b448f_${light_id}_brightness/command`,
+      defaultValue: "0",
+      values: {}
+    }
+  })
+}
+
 export const esper_statistics = (name: string,
     prev_ui: Array<ControlUI> = []) => (
       prev_ui.concat([

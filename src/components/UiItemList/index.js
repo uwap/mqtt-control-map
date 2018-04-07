@@ -102,6 +102,11 @@ export default class UiItemList extends React.Component<UiItemListProps> {
 
   renderSlider(control: UISlider) {
     const value = this.getValue(control);
+    const on = (dontApply: ?boolean) => () => {
+      if (dontApply == null || dontApply === false) {
+        this.props.onChangeState(control.topic, this.val);
+      }
+    };
     return [
       <ListItemText primary={control.text} key="text" />,
       <ListItemSecondaryAction key="action">
@@ -110,10 +115,11 @@ export default class UiItemList extends React.Component<UiItemListProps> {
             min={control.min || 0}
             max={control.max || 100}
             step={control.step || 1}
-            onChange={
-              (_event, newvalue) =>
-                this.props.onChangeState(control.topic, newvalue)
-            }
+            onChange={(_event, next) => {
+              this.val = next;
+              on(control.delayedApply)();
+            }}
+            onDragStop={on(false)}
             style={{width: 100}}
           /></MuiThemeProvider>
       </ListItemSecondaryAction>

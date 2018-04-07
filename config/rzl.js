@@ -2,7 +2,7 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
-import { esper_topics, esper_statistics } from "./utils";
+import { esper_topics, esper_statistics, floalt } from "./utils";
 
 const config : Config = {
   space: {
@@ -165,6 +165,10 @@ const config : Config = {
         type: msg => JSON.parse(msg.toString()).progress || 0
       }
     },
+    floalt.topics("65537"),
+    floalt.topics("65538"),
+    floalt.topics("65539"),
+    floalt.topics("65540"),
     esper_topics("afba40", "flyfry"),
     esper_topics("afba45", "alarm")
   ],
@@ -498,6 +502,101 @@ const config : Config = {
           type: "link",
           link: "http://partkeepr.rzl/",
           text: "Open Partkeepr"
+        }
+      ]
+    },
+    kitchen_light: {
+      name: "Deckenlicht Küche",
+      position: [325, 407],
+      icon: "ceiling-light",
+      ui: [
+        {
+          type: "section",
+          text: "Lampe Eingang"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: floalt.brightness("65537"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: "weather-sunset-down",
+          topic: floalt.color("65537"),
+          delayedApply: true
+        },
+        {
+          type: "section",
+          text: "Lampe Hauptraum"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: floalt.brightness("65538"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: "weather-sunset-down",
+          topic: floalt.color("65538"),
+          delayedApply: true
+        },
+        {
+          type: "section",
+          text: "Lampe Spüle"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: floalt.brightness("65539"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: "weather-sunset-down",
+          topic: floalt.color("65539"),
+          delayedApply: true
+        },
+        {
+          type: "section",
+          text: "Lampe Herd"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: floalt.brightness("65540"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: "weather-sunset-down",
+          topic: floalt.color("65540"),
+          delayedApply: true
         }
       ]
     }
