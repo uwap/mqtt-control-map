@@ -104,7 +104,9 @@ export default class UiItemList extends React.Component<UiItemListProps> {
     const value = this.getValue(control);
     const on = (dontApply: ?boolean) => () => {
       if (dontApply == null || dontApply === false) {
-        this.props.onChangeState(control.topic, this.val);
+        this.props.onChangeState(control.topic,
+          // $FlowFixMe
+          this.val);
       }
     };
     return [
@@ -116,6 +118,7 @@ export default class UiItemList extends React.Component<UiItemListProps> {
             max={control.max || 100}
             step={control.step || 1}
             onChange={(_event, next) => {
+              // $FlowFixMe
               this.val = next;
               on(control.delayedApply)();
             }}
