@@ -526,7 +526,7 @@ const config : Config = {
           type: "toggle",
           on: 50,
           off: 0,
-          toggled: n => n > 0,
+          toggled: n => parseInt(n) > 0,
           topic: "kitchen_light_brightness",
           text: "Ein/Ausschalten",
           icon: "power"
