@@ -25,7 +25,7 @@ export default class TopBar extends React.Component<TopBarProps, TopBarState> {
       <AppBar position="static">
         <Toolbar>
           {this.renderConnectionIndicator()}
-          <Typography type="title">{this.props.title}</Typography>
+          <Typography variant="title">{this.props.title}</Typography>
         </Toolbar>
       </AppBar>
     );

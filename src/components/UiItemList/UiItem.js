@@ -134,7 +134,8 @@ export class Toggle extends UiControl<UIToggle> {
         <Switch label={this.props.item.text}
           checked={this.isToggled()}
           onChange={this.runPrimaryAction}
-          disabled={!this.isEnabled()} />
+          disabled={!this.isEnabled()}
+          color="primary" />
       </ListItemSecondaryAction>
     ];
   }
@@ -195,7 +196,8 @@ export class Link extends UiItem<UILink> {
 
   render() {
     return (
-      <Button raised
+      <Button
+        variant="raised"
         onClick={this.runPrimaryAction}
         color="primary"
         disabled={!this.isEnabled()}

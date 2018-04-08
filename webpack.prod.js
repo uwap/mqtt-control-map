@@ -41,7 +41,7 @@ module.exports = env => merge(common, {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new LodashModuleReplacementPlugin(),
+ //   new LodashModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin()

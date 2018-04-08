@@ -31,7 +31,7 @@ class SideBar extends React.Component<SideBarProps & Classes, SideBarState> {
   static styles(_theme: Object): Object {
     return {
       drawerPaper: {
-        width: 320
+        width: 340
       },
       flex: {
         flex: 1
@@ -49,13 +49,13 @@ class SideBar extends React.Component<SideBarProps & Classes, SideBarState> {
         anchor="right"
         onRequestClose={this.close}
         classes={{paper: this.props.classes.drawerPaper}}
-        type="persistent"
+        variant="persistent"
       >
         <AppBar position="static">
           <Toolbar>
             {this.props.icon == null
               || renderIcon(this.props.icon, "mdi-36px")}
-            <Typography type="title" className={this.props.classes.flex}>
+            <Typography variant="title" className={this.props.classes.flex}>
               {this.props.control == null || this.props.control.name}
             </Typography>
             <IconButton onClick={this.close.bind(this)}>
