@@ -163,6 +163,18 @@ const config : Config = {
         defaultValue: "",
         values: {},
         type: msg => JSON.parse(msg.toString()).progress || 0
+      },
+      kitchen_light_color: {
+        state: "/service/openhab/out/kitchen_light_all_color_temperature/state",
+        command: "/service/openhab/in/kitchen_light_all_color_temperature/command",
+        defaultValue: "0",
+        values: {}
+      },
+      kitchen_light_brightness: {
+        state: "/service/openhab/out/kitchen_light_all_brightness/state",
+        command: "/service/openhab/in/kitchen_light_all_brightness/command",
+        defaultValue: "0",
+        values: {}
       }
     },
     floalt.topics("65537"),
@@ -510,6 +522,24 @@ const config : Config = {
       position: [325, 407],
       icon: "ceiling-light",
       ui: [
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: "kitchen_light_brightness",
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: "weather-sunset-down",
+          topic: "kitchen_light_color",
+          delayedApply: true
+        },
         {
           type: "section",
           text: "Lampe Eingang"

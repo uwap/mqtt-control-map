@@ -123,7 +123,7 @@ export default class UiItemList extends React.Component<UiItemListProps> {
               on(control.delayedApply)();
             }}
             onDragStop={on(false)}
-            style={{width: 100, marginTop: 54}}
+            style={{width: 100}}
           /></MuiThemeProvider>
       </ListItemSecondaryAction>
     ];
