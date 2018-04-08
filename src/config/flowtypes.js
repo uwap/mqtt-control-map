@@ -35,8 +35,8 @@ export type UIToggle = $ReadOnly<{|
   topic: string,
   icon?: string,
   enableCondition?: TopicDependentOption<boolean>,
-  on?: string,
-  off?: string,
+  on?: Actual,
+  off?: Actual,
   toggled?: TopicDependentOption<boolean>
 |}>;
 
