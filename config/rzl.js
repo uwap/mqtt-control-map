@@ -523,6 +523,15 @@ const config : Config = {
       icon: "ceiling-light",
       ui: [
         {
+          type: "toggle",
+          on: 50,
+          off: 0,
+          toggled: n => n > 0,
+          topic: "kitchen_light_brightness",
+          text: "Ein/Ausschalten",
+          icon: "power"
+        },
+        {
           type: "slider",
           min: 0,
           max: 100,

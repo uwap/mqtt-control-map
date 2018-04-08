@@ -122,7 +122,9 @@ export class Toggle extends UiControl<UIToggle> {
     if (this.isEnabled()) {
       const control = this.props.item;
       const toggled = this.isToggled();
-      const next = toggled ? (control.off || "off") : (control.on || "on");
+      const on = control.on == null ? "on" : control.on;
+      const off = control.off == null ? "off" : control.off;
+      const next = toggled ? off : on;
       this.changeState(next);
     }
   }
