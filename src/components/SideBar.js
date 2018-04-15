@@ -23,7 +23,8 @@ export type SideBarProps = {
 export type SideBarState = {
 };
 
-class SideBar extends React.PureComponent<SideBarProps & Classes, SideBarState> {
+class SideBar extends React.PureComponent<SideBarProps & Classes, SideBarState>
+{
   constructor(props: SideBarProps & Classes) {
     super(props);
   }

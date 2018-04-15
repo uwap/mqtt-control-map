@@ -30,7 +30,8 @@ type UiItemProps<I> = {
 };
 
 // eslint-disable-next-line flowtype/no-weak-types
-export default class UiItem<I:Object> extends React.PureComponent<UiItemProps<I>> {
+export default class UiItem<I:Object>
+    extends React.PureComponent<UiItemProps<I>> {
   constructor(props: UiItemProps<I>) {
     super(props);
   }
