@@ -30,7 +30,7 @@ type UiItemProps<I> = {
 };
 
 // eslint-disable-next-line flowtype/no-weak-types
-export default class UiItem<I:Object> extends React.Component<UiItemProps<I>> {
+export default class UiItem<I:Object> extends React.PureComponent<UiItemProps<I>> {
   constructor(props: UiItemProps<I>) {
     super(props);
   }
@@ -236,7 +236,7 @@ export class Progress extends UiControl<UIProgress> {
     return [
       <ListItemText key="label" secondary={this.props.item.text} />,
       <div style={{ flex: "10 1 auto" }} key="progressbar">
-        <LinearProgress mode="determinate" value={value} />
+        <LinearProgress variant="determinate" value={value} />
       </div>
     ];
   }

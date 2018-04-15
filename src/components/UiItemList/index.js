@@ -22,7 +22,7 @@ export type UiItemListProps = {
   onChangeState: (topic: string, nextState: Actual) => void
 };
 
-export default class UiItemList extends React.Component<UiItemListProps> {
+export default class UiItemList extends React.PureComponent<UiItemListProps> {
   constructor(props: UiItemListProps) {
     super(props);
   }

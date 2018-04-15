@@ -22,7 +22,7 @@ export type ControlMapProps = {
   state: State
 };
 
-export default class ControlMap extends React.Component<ControlMapProps> {
+export default class ControlMap extends React.PureComponent<ControlMapProps> {
   constructor(props: ControlMapProps) {
     super(props);
   }

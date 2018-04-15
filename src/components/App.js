@@ -35,7 +35,7 @@ export type AppState = {
   mqttConnected: boolean,
 };
 
-class App extends React.Component<AppProps & Classes, AppState> {
+class App extends React.PureComponent<AppProps & Classes, AppState> {
   constructor(props: AppProps & Classes) {
     super(props);
     this.state = {
@@ -89,11 +89,11 @@ class App extends React.Component<AppProps & Classes, AppState> {
       const topic = topics[i];
       const parseValue = this.topics[topic].type;
       const val = parseValue == null ? message.toString() : parseValue(message);
-      this.setState({mqttState: merge(this.state.mqttState,
+      this.setState({mqttState: Object.assign({}, merge(this.state.mqttState,
         { [topic]: {
           actual: val,
           internal: keyOf(this.topics[topic].values, val) || val
-        }})});
+        }}))});
     }
   }
 

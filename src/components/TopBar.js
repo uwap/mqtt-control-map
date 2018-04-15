@@ -15,7 +15,7 @@ export type TopBarState = {
 
 };
 
-export default class TopBar extends React.Component<TopBarProps, TopBarState> {
+export default class TopBar extends React.PureComponent<TopBarProps, TopBarState> {
   constructor(props: TopBarProps) {
     super(props);
   }
