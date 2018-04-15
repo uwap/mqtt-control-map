@@ -2,7 +2,7 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
-import { esper_topics, esper_statistics, floalt } from "./utils";
+import { esper_topics, esper_statistics, floalt, remote } from "./utils";
 
 const config : Config = {
   space: {
@@ -182,10 +182,12 @@ const config : Config = {
     floalt.topics("65538"),
     floalt.topics("65539"),
     floalt.topics("65540"),
+    remote.topics("65536"),
 
     //Theken-Floalts
     floalt.topics("65543"),
     floalt.topics("65544"),
+    remote.topics("65542"),
 
     esper_topics("afba40", "flyfry"),
     esper_topics("afba45", "alarm")
@@ -695,7 +697,33 @@ const config : Config = {
           delayedApply: true
         }
       ]
-    }
+    },
+    remotes: {
+      name: "Fernbedinungen",
+      position: [400, 348],
+      icon: "remote",
+      iconColor: ({remote_65536_low, remote_65542_low}) =>
+        ((remote_65536_low == "true") || (remote_65542_low == "true"))
+        ? hex("#ff0000") : hex("#000000"),
+      ui: [
+        {
+          type: "progress",
+          icon: "battery",
+          min: 0,
+          max: 100,
+          text: "Tisch",
+          topic: "remote_65536_level"
+        },
+        {
+          type: "progress",
+          icon: "battery",
+          min: 0,
+          max: 100,
+          text: "Theke",
+          topic: "remote_65542_level"
+        }
+      ]
+    },
   },
   layers: [
     {
