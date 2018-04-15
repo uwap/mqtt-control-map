@@ -177,10 +177,16 @@ const config : Config = {
         values: {}
       }
     },
+    //Kuechen-Floalts
     floalt.topics("65537"),
     floalt.topics("65538"),
     floalt.topics("65539"),
     floalt.topics("65540"),
+
+    //Theken-Floalts
+    floalt.topics("65543"),
+    floalt.topics("65544"),
+
     esper_topics("afba40", "flyfry"),
     esper_topics("afba45", "alarm")
   ],
@@ -635,6 +641,57 @@ const config : Config = {
           text: "Farbtemperatur",
           icon: "weather-sunset-down",
           topic: floalt.color("65540"),
+          delayedApply: true
+        }
+      ]
+    },
+    kitchen_counter_light: {
+      name: "Deckenlicht Theke",
+      position: [400, 440],
+      icon: "ceiling-light",
+      ui: [
+        {
+          type: "section",
+          text: "Lampe Eingang"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: floalt.brightness("65544"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: "weather-sunset-down",
+          topic: floalt.color("65544"),
+          delayedApply: true
+        },
+        {
+          type: "section",
+          text: "Lampe Hauptraum"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: floalt.brightness("65543"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: "weather-sunset-down",
+          topic: floalt.color("65543"),
           delayedApply: true
         }
       ]
