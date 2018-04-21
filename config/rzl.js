@@ -703,7 +703,7 @@ const config : Config = {
       position: [400, 348],
       icon: "remote",
       iconColor: (state) =>
-        (state[tradfri_remote.low("65536")] || state[tradfri_remote.low("65542")]) ? hex("#ff0000") : hex("#000000"),
+        ((state[tradfri_remote.low("65536")] == "true") || (state[tradfri_remote.low("65542")] == "true")) ? hex("#ff0000") : hex("#000000"),
       ui: [
         {
           type: "progress",

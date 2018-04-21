@@ -73,7 +73,7 @@ export const tradfri_remote = {
       state: `/service/openhab/out/tradfri_0830_gwb8d7af2b448f_${remote_id}_battery_low/state`,
       command: ``,
       defaultValue: "OFF",
-      values: { [true]: "ON", [false]: "OFF" }
+      values: { true: "ON", false: "OFF" }
     }
   })
 }
