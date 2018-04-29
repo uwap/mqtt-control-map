@@ -178,7 +178,7 @@ const config : Config = {
       },
       kitchen_sink_light_brightness: {
         state: "/service/openhab/out/tradfri_0100_gwb8d7af2b448f_65545_brightness/state",
-        command: "/service/openhab/out/tradfri_0100_gwb8d7af2b448f_65545_brightness/command",
+        command: "/service/openhab/in/tradfri_0100_gwb8d7af2b448f_65545_brightness/command",
         defaultValue: "0",
         values: {}
       }
