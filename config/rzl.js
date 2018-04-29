@@ -183,11 +183,13 @@ const config : Config = {
     floalt.topics("65539"),
     floalt.topics("65540"),
     tradfri_remote.topics("65536"),
+    tradfri_remote.topics("65547"),
 
     //Theken-Floalts
     floalt.topics("65543"),
     floalt.topics("65544"),
     tradfri_remote.topics("65542"),
+    tradfri_remote.topics("65546"),
 
     esper_topics("afba40", "flyfry"),
     esper_topics("afba45", "alarm")
@@ -703,7 +705,7 @@ const config : Config = {
       position: [400, 348],
       icon: "remote",
       iconColor: (state) =>
-        ((state[tradfri_remote.low("65536")] == "true") || (state[tradfri_remote.low("65542")] == "true")) ? hex("#ff0000") : hex("#000000"),
+        ((state[tradfri_remote.low("65536")] == "true") || (state[tradfri_remote.low("65542")] == "true") || (state[tradfri_remote.low("65546")] == "true") || (state[tradfri_remote.low("65547")] == "true")) ? hex("#ff0000") : hex("#000000"),
       ui: [
         {
           type: "progress",
@@ -718,8 +720,24 @@ const config : Config = {
           icon: "battery",
           min: 0,
           max: 100,
+          text: "Tisch 2",
+          topic: tradfri_remote.level("65547")
+        },
+        {
+          type: "progress",
+          icon: "battery",
+          min: 0,
+          max: 100,
           text: "Theke",
           topic: tradfri_remote.level("65542")
+        },
+        {
+          type: "progress",
+          icon: "battery",
+          min: 0,
+          max: 100,
+          text: "Theke 2",
+          topic: tradfri_remote.level("65546")
         }
       ]
     },
