@@ -129,6 +129,31 @@ const config : Config = {
         defaultValue: "OFF",
         values: { on: "ON", off: "OFF" }
       },
+      projector: {
+        state: "/service/beamer/state",
+        command: "/service/beamer/command",
+        defaultValue: "unavailable",
+        values: {on: "ON", off: "OFF"},
+        type: msg => {
+          switch (msg.toString()) {
+            case "START_UP":
+            case "START_UP_LAMP":
+              return "transient_on"
+            case "COOLING":
+            case "COOLING2":
+              return "transient_off"
+            case "POWER_ON":
+              return "on"
+            case "STANDBY":
+              return "off"
+            case "unknown":
+              return "unknown"
+
+            default:
+              return msg.toString()
+          }
+        }
+      },
       printer_3d_status: {
         state: "/service/ultimaker/state",
         command: "",
@@ -294,6 +319,28 @@ const config : Config = {
           icon: "power"
         }
       ])
+    },
+    projector: {
+      name: "Beamer",
+      position: [415, 590],
+      icon: "projector",
+      iconColor: ({projector}) =>
+        ({
+          transient_on: hex("#b3b300"),
+          transient_off: hex("#b3b300"),
+          on: hex("#00ff00"),
+          off: hex("#000000"),
+          unknown: hex("#888888"),
+        })[projector],
+      ui: [
+        {
+          type: "toggle",
+          text: "Beamer",
+          topic: "projector",
+          toggled: val => val == "transient_on" || val == "on",
+          icon: "power"
+        }
+      ]
     },
     artnet: {
       name: "Artnet",
