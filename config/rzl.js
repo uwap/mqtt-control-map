@@ -175,6 +175,12 @@ const config : Config = {
         command: "/service/openhab/in/kitchen_light_all_brightness/command",
         defaultValue: "0",
         values: {}
+      },
+      kitchen_sink_light_brightness: {
+        state: "/service/openhab/out/tradfri_0100_gwb8d7af2b448f_65545_brightness/state",
+        command: "/service/openhab/in/tradfri_0100_gwb8d7af2b448f_65545_brightness/command",
+        defaultValue: "0",
+        values: {}
       }
     },
     floalt.topics("65537"),
@@ -636,6 +642,31 @@ const config : Config = {
           text: "Farbtemperatur",
           icon: "weather-sunset-down",
           topic: floalt.color("65540"),
+          delayedApply: true
+        }
+      ]
+    },
+    kitchen_sink_light: {
+      name: "Licht Spüle",
+      position: [300, 348],
+      icon: "ceiling-light",
+      ui: [
+        {
+          type: "toggle",
+          on: 50,
+          off: 0,
+          toggled: n => parseInt(n) > 0,
+          topic: "kitchen_sink_light_brightness",
+          text: "Ein/Ausschalten",
+          icon: "power"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: "kitchen_sink_light_brightness",
           delayedApply: true
         }
       ]
