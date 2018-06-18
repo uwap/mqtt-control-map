@@ -60,7 +60,7 @@ export const floalt = {
 }
 
 export const esper_statistics = (name: string,
-    prev_ui: Array<ControlUI> = []) => (
+    prev_ui: Array<ControlUI> = []): Array<ControlUI> => (
       prev_ui.concat([
         {
           type: "section",
