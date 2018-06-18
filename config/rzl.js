@@ -102,7 +102,7 @@ const config : Config = {
         defaultValue: "",
         values: { mpd: "NPR01", kohina: "NPR02", somafm_dronezone: "NPR03", somafm_thetrip: "NPR04",
                   querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08",
-                  somafm_beatblender: "NPR09"}
+                  somafm_beatblender: "NPR09", ponyville: "NPR0a"}
       },
       rundumleuchte: {
         state: "/service/openhab/out/pca301_rundumleuchte/state",
@@ -398,7 +398,8 @@ const config : Config = {
             somafm_defconradio: "Defcon Radio (SomaFM)",
             somafm_secretagent: "Secret Agent (SomaFM)",
             somafm_lush: "Lush (SomaFM)",
-            somafm_beatblender: "Beat Blender (Soma FM)"
+            somafm_beatblender: "Beat Blender (Soma FM)",
+            ponyville: "Ponyville FM"
           },
           icon: "radio",
           enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected" && state.onkyo_inputs.internal == "netzwerk"
