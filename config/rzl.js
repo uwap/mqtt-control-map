@@ -102,7 +102,7 @@ const config : Config = {
         defaultValue: "",
         values: { mpd: "NPR01", kohina: "NPR02", somafm_dronezone: "NPR03", somafm_thetrip: "NPR04",
                   querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08",
-                  somafm_beatblender: "NPR09"}
+                  somafm_beatblender: "NPR09", ponyville: "NPR0a"}
       },
       rundumleuchte: {
         state: "/service/openhab/out/pca301_rundumleuchte/state",
@@ -173,6 +173,12 @@ const config : Config = {
       kitchen_light_brightness: {
         state: "/service/openhab/out/kitchen_light_all_brightness/state",
         command: "/service/openhab/in/kitchen_light_all_brightness/command",
+        defaultValue: "0",
+        values: {}
+      },
+      kitchen_sink_light_brightness: {
+        state: "/service/openhab/out/tradfri_0100_gwb8d7af2b448f_65545_brightness/state",
+        command: "/service/openhab/in/tradfri_0100_gwb8d7af2b448f_65545_brightness/command",
         defaultValue: "0",
         values: {}
       }
@@ -408,7 +414,8 @@ const config : Config = {
             somafm_defconradio: "Defcon Radio (SomaFM)",
             somafm_secretagent: "Secret Agent (SomaFM)",
             somafm_lush: "Lush (SomaFM)",
-            somafm_beatblender: "Beat Blender (Soma FM)"
+            somafm_beatblender: "Beat Blender (Soma FM)",
+            ponyville: "Ponyville FM"
           },
           icon: "radio",
           enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected" && state.onkyo_inputs.internal == "netzwerk"
@@ -645,6 +652,31 @@ const config : Config = {
           text: "Farbtemperatur",
           icon: "weather-sunset-down",
           topic: floalt.color("65540"),
+          delayedApply: true
+        }
+      ]
+    },
+    kitchen_sink_light: {
+      name: "Licht Spüle",
+      position: [300, 348],
+      icon: "ceiling-light",
+      ui: [
+        {
+          type: "toggle",
+          on: 50,
+          off: 0,
+          toggled: n => parseInt(n) > 0,
+          topic: "kitchen_sink_light_brightness",
+          text: "Ein/Ausschalten",
+          icon: "power"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: "brightness-7",
+          topic: "kitchen_sink_light_brightness",
           delayedApply: true
         }
       ]

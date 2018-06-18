@@ -6,18 +6,19 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   ListSubheader
-} from "material-ui/List";
-import Switch from "material-ui/Switch";
-import Input, { InputLabel } from "material-ui/Input";
-import { FormControl } from "material-ui/Form";
-import Select from "material-ui/Select";
-import { MenuItem } from "material-ui/Menu";
-import Button from "material-ui/Button";
-import { LinearProgress } from "material-ui/Progress";
+} from "@material-ui/core/List";
+import Switch from "@material-ui/core/Switch";
+import Input, { InputLabel } from "@material-ui/core/Input";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { MenuItem } from "@material-ui/core/Menu";
+import Button from "@material-ui/core/Button";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import SliderComponent from "@material-ui/lab/Slider";
 
 import type {
   UIControl, UIToggle, UIDropDown, UILink,
-  UISection, UIText, UIProgress
+  UISection, UIText, UIProgress, UISlider
 } from "config/flowtypes";
 
 import keyOf from "utils/keyOf";
@@ -184,6 +185,27 @@ export class DropDown extends UiControl<UIDropDown> {
   }
 }
 
+export class Slider extends UiControl<UISlider> {
+  runPrimaryAction = (_e: ?any, v: ?number) => {
+    if (v != null) {
+      this.changeState(v);
+    }
+  }
+
+  render() {
+    return [
+      <ListItemText key="label" secondary={this.props.item.text} />,
+      <SliderComponent key="slidercomponent"
+        value={this.getValue().internal || this.getValue().actual}
+        min={this.props.item.min || 0} max={this.props.item.max || 0}
+        step={this.props.item.step || 0}
+        onChange={() => this.props.item.delayedApply || this.runPrimaryAction()}
+        onDragEnd={this.runPrimaryAction}
+        disabled={!this.isEnabled()} />
+    ];
+  }
+}
+
 export class Link extends UiItem<UILink> {
   runPrimaryAction = () => {
     const control = this.props.item;
@@ -242,3 +264,4 @@ export class Progress extends UiControl<UIProgress> {
     ];
   }
 }
+

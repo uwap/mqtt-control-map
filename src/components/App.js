@@ -8,10 +8,10 @@ import merge from "lodash/merge";
 
 import type { Config, Control, Topics } from "config/flowtypes";
 
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import createMuiTheme from "material-ui/styles/createMuiTheme";
-import withStyles from "material-ui/styles/withStyles";
-import * as Colors from "material-ui/colors";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import withStyles from "@material-ui/core/styles/withStyles";
+import * as Colors from "@material-ui/core/colors";
 
 import SideBar from "components/SideBar";
 import ControlMap from "components/ControlMap";

@@ -1,13 +1,13 @@
 // @flow
 import * as React from "react";
 
-import withStyles from "material-ui/styles/withStyles";
-import Drawer from "material-ui/Drawer";
-import Typography from "material-ui/Typography";
-import IconButton from "material-ui/IconButton";
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import List from "material-ui/List";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Drawer from "@material-ui/core/Drawer";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
 import { renderIcon } from "utils/parseIconName";
 
 import type { Control } from "config/flowtypes";
