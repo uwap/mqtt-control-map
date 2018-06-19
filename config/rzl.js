@@ -344,7 +344,7 @@ const config : Config = {
       position: [350, 650],
       iconColor: ({onkyo_connection, onkyo_power}) =>
         onkyo_connection != "connected" ? hex("#888888") : (onkyo_power == "on" ? hex("#00FF00") : hex("#000000")),
-      icon: "volume-high",
+      icon: "audio-video",
       ui: [
         {
           type: "toggle",
@@ -648,8 +648,8 @@ const config : Config = {
     },
     kitchen_sink_light: {
       name: "Licht Spüle",
-      position: [300, 348],
-      icon: "ceiling-light",
+      position: [300, 345],
+      icon: "wall-sconce-flat",
       ui: [
         {
           type: "toggle",

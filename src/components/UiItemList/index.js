@@ -1,9 +1,7 @@
 // @flow
 import React from "react";
-import {
-  ListItem,
-  ListItemIcon
-} from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { renderIcon } from "utils/parseIconName";
 
 import type { ControlUI } from "config/flowtypes";
