@@ -697,7 +697,8 @@ const config : Config = {
     {
       image: require("../img/layers/rzl/labels.svg"),
       name: "Labels",
-      defaultVisibility: "visible",
+      defaultVisibility: "hidden",
+      opacity: 0.8,
       bounds: {
         topLeft: [0, 0],
         bottomRight: [1000, 700]
