@@ -761,7 +761,7 @@ const config : Config = {
     },
     remotes: {
       name: "Fernbedinungen",
-      position: [400, 348],
+      position: [400, 344],
       icon: mdi("light-switch"),
       iconColor: (state) => //if any remote is low make icon red
         ["65536", "65542", "65546", "65547"].some(
@@ -772,7 +772,7 @@ const config : Config = {
           icon: mdi_battery(tradfri_remote.level("65536")),
           min: 0,
           max: 100,
-          text: "Tisch",
+          text: "Licht Tisch 1",
           topic: tradfri_remote.level("65536")
         },
         {
@@ -780,7 +780,7 @@ const config : Config = {
           icon: mdi_battery(tradfri_remote.level("65547")),
           min: 0,
           max: 100,
-          text: "Tisch 2",
+          text: "Licht Tisch 2",
           topic: tradfri_remote.level("65547")
         },
         {
@@ -788,7 +788,7 @@ const config : Config = {
           icon: mdi_battery(tradfri_remote.level("65542")),
           min: 0,
           max: 100,
-          text: "Theke",
+          text: "Licht Theke 1",
           topic: tradfri_remote.level("65542")
         },
         {
@@ -796,7 +796,7 @@ const config : Config = {
           icon: mdi_battery(tradfri_remote.level("65546")),
           min: 0,
           max: 100,
-          text: "Theke 2",
+          text: "Licht Theke 2",
           topic: tradfri_remote.level("65546")
         }
       ]
