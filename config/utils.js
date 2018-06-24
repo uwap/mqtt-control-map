@@ -65,13 +65,13 @@ export const tradfri_remote = {
   topics: (remote_id: string) => ({
     [ `tradfri_remote_${remote_id}_level` ]: {
       state: `/service/openhab/out/tradfri_0830_gwb8d7af2b448f_${remote_id}_battery_level/state`,
-      command: ``,
+      command: "",
       defaultValue: "0",
       values: {}
     },
     [ `tradfri_remote_${remote_id}_low` ]: {
       state: `/service/openhab/out/tradfri_0830_gwb8d7af2b448f_${remote_id}_battery_low/state`,
-      command: ``,
+      command: "",
       defaultValue: "OFF",
       values: { true: "ON", false: "OFF" }
     }
