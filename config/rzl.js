@@ -737,8 +737,8 @@ const config : Config = {
       position: [400, 348],
       icon: "remote",
       iconColor: (state) => //if any remote is low make icon red
-        ["65536", "65542", "65546", "65547"
-        ].some(x => state[tradfri_remote.low(x)] == "true") ? hex("#ff0000") : hex("#000000"),
+        ["65536", "65542", "65546", "65547"].some(
+          x => state[tradfri_remote.low(x)] == "true") ? hex("#ff0000") : hex("#000000"),
       ui: [
         {
           type: "progress",
