@@ -2,8 +2,8 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
-import { mdi, raw_mdi } from "config/icon";
-import { esper_topics, esper_statistics, floalt } from "./utils";
+import { mdi, raw_mdi, mdi_battery } from "config/icon";
+import { esper_topics, esper_statistics, floalt, tradfri_remote } from "./utils";
 
 const config : Config = {
   space: {
@@ -190,10 +190,20 @@ const config : Config = {
         values: {}
       }
     },
+    //Kuechen-Floalts
     floalt.topics("65537"),
     floalt.topics("65538"),
     floalt.topics("65539"),
     floalt.topics("65540"),
+    tradfri_remote.topics("65536"),
+    tradfri_remote.topics("65547"),
+
+    //Theken-Floalts
+    floalt.topics("65543"),
+    floalt.topics("65544"),
+    tradfri_remote.topics("65542"),
+    tradfri_remote.topics("65546"),
+
     esper_topics("afba40", "flyfry"),
     esper_topics("afba45", "alarm")
   ],
@@ -298,14 +308,14 @@ const config : Config = {
     olymp_printer: {
       name: "Drucker",
       position: [335, 90],
-      icon: "printer",
+      icon: mdi("printer"),
       iconColor: ({olymp_printer}) => olymp_printer == "on" ? hex("#00FF00") : hex("#000000"),
       ui: [
         {
           type: "toggle",
           text: "Drucker",
           topic: "olymp_printer",
-          icon: "power"
+          icon: mdi("power")
         },
         {
           type: "link",
@@ -697,7 +707,100 @@ const config : Config = {
           delayedApply: true
         }
       ]
-    }
+    },
+    kitchen_counter_light: {
+      name: "Deckenlicht Theke",
+      position: [400, 440],
+      icon: mdi("ceiling-light"),
+      ui: [
+        {
+          type: "section",
+          text: "Lampe Eingang"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: mdi("brightness-7"),
+          topic: floalt.brightness("65544"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: mdi("weather-sunset-down"),
+          topic: floalt.color("65544"),
+          delayedApply: true
+        },
+        {
+          type: "section",
+          text: "Lampe Hauptraum"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Helligkeit",
+          icon: mdi("brightness-7"),
+          topic: floalt.brightness("65543"),
+          delayedApply: true
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Farbtemperatur",
+          icon: mdi("weather-sunset-down"),
+          topic: floalt.color("65543"),
+          delayedApply: true
+        }
+      ]
+    },
+    remotes: {
+      name: "Fernbedinungen",
+      position: [400, 348],
+      icon: mdi("light-switch"),
+      iconColor: (state) => //if any remote is low make icon red
+        ["65536", "65542", "65546", "65547"].some(
+          x => state[tradfri_remote.low(x)] == "true") ? hex("#ff0000") : hex("#000000"),
+      ui: [
+        {
+          type: "progress",
+          icon: mdi_battery(tradfri_remote.level("65536")),
+          min: 0,
+          max: 100,
+          text: "Tisch",
+          topic: tradfri_remote.level("65536")
+        },
+        {
+          type: "progress",
+          icon: mdi_battery(tradfri_remote.level("65547")),
+          min: 0,
+          max: 100,
+          text: "Tisch 2",
+          topic: tradfri_remote.level("65547")
+        },
+        {
+          type: "progress",
+          icon: mdi_battery(tradfri_remote.level("65542")),
+          min: 0,
+          max: 100,
+          text: "Theke",
+          topic: tradfri_remote.level("65542")
+        },
+        {
+          type: "progress",
+          icon: mdi_battery(tradfri_remote.level("65546")),
+          min: 0,
+          max: 100,
+          text: "Theke 2",
+          topic: tradfri_remote.level("65546")
+        }
+      ]
+    },
   },
   layers: [
     {
