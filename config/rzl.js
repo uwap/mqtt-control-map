@@ -324,7 +324,7 @@ const config : Config = {
     projector: {
       name: "Beamer",
       position: [415, 590],
-      icon: "projector flip-v",
+      icon: mdi("projector flip-v"),
       iconColor: ({projector}) =>
         ({
           transient_on: hex("#b3b300"),
@@ -339,7 +339,7 @@ const config : Config = {
           text: "Beamer",
           topic: "projector",
           toggled: val => val == "transient_on" || val == "on",
-          icon: "power"
+          icon: mdi("power")
         }
       ]
     },
