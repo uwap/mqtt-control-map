@@ -323,7 +323,7 @@ const config : Config = {
     projector: {
       name: "Beamer",
       position: [415, 590],
-      icon: "projector",
+      icon: "projector flip-v",
       iconColor: ({projector}) =>
         ({
           transient_on: hex("#b3b300"),
