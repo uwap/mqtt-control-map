@@ -49,6 +49,12 @@ const config : Config = {
         defaultValue: "OFF",
         values: { on: "ON", off: "OFF" }
       },
+      olymp_printer: {
+        state: "stat/sonoff2/POWER",
+        command: "cmnd/sonoff2/power",
+        defaultValue: "OFF",
+        values: { on: "ON", off: "OFF" }
+      },
       flyfry: {
         state: "/service/openhab/out/wifi_flyfry/state",
         command: "/service/openhab/in/wifi_flyfry/command",
@@ -276,16 +282,35 @@ const config : Config = {
       ]
     },
     olymp_pc: {
-      name: "Rechner und Drucker",
+      name: "Rechner",
       position: [297, 90],
       icon: mdi("desktop-classic"),
       iconColor: ({olymp_pc}) => olymp_pc == "on" ? hex("#00FF00") : hex("#000000"),
       ui: [
         {
           type: "toggle",
-          text: "Rechner und Drucker",
+          text: "Rechner",
           topic: "olymp_pc",
           icon: mdi("power")
+        }
+      ]
+    },
+    olymp_printer: {
+      name: "Drucker",
+      position: [335, 90],
+      icon: "printer",
+      iconColor: ({olymp_printer}) => olymp_printer == "on" ? hex("#00FF00") : hex("#000000"),
+      ui: [
+        {
+          type: "toggle",
+          text: "Drucker",
+          topic: "olymp_printer",
+          icon: "power"
+        },
+        {
+          type: "link",
+          link: "http://annette.rzl/",
+          text: "Open Annette"
         }
       ]
     },
