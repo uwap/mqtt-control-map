@@ -4,7 +4,7 @@ import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
 import { CRS, point, divIcon } from "leaflet";
 import map from "lodash/map";
 import mapValues from "lodash/mapValues";
-import parseIconName, { controlGetIcon } from "utils/parseIconName";
+import { toRawIcon } from "config/icon";
 
 import type { Controls, Control } from "config/flowtypes";
 
@@ -50,8 +50,8 @@ export default class ControlMap extends React.PureComponent<ControlMapProps> {
   }
 
   createLeafletIcon(control: Control) {
-    const icon = controlGetIcon(control, this.props.state);
-    const iconClass = parseIconName(`${icon} 36px`);
+    const icon = toRawIcon(control.icon, this.props.state);
+    const iconClass = `${icon} mdi-36px`;
     return divIcon({
       iconSize: point(36, 36),
       iconAnchor: point(18, 18),

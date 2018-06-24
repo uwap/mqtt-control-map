@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --bail --config webpack.config.js -p --env",
     "dev": "webpack --bail --config webpack.config.js --mode development --env",
-    "watch": "webpack-dev-server --open --config webpack.dev.js --mode development --env",
+    "watch": "webpack-dev-server --open --config webpack.config.js --mode development --env",
     "travis": "./travis.sh",
     "lint": "eslint -- --ext js --ext jsx src/",
     "precommit": "yarn lint"
@@ -30,8 +30,8 @@
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.18",
     "css-loader": "^0.28.9",
     "eslint": "^4.16.0",

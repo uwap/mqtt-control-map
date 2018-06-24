@@ -1,5 +1,6 @@
 // @flow
 import type { ControlUI } from "config/flowtypes";
+import { mdi } from "config/icon";
 
 export const esper_topics = (chip_id: string, name: string) => ({
   [ `esper_${name}_version` ]: {
@@ -69,31 +70,31 @@ export const esper_statistics = (name: string,
         {
           type: "text",
           text: "Device Variant",
-          icon: "chart-donut",
+          icon: mdi("chart-donut"),
           topic: `esper_${name}_device`
         },
         {
           type: "text",
           text: "Version",
-          icon: "source-branch",
+          icon: mdi("source-branch"),
           topic: `esper_${name}_version`
         },
         {
           type: "text",
           text: "IP",
-          icon: "access-point-network",
+          icon: mdi("access-point-network"),
           topic: `esper_${name}_ip`
         },
         {
           type: "text",
           text: "RSSI",
-          icon: "wifi",
+          icon: mdi("wifi"),
           topic: `esper_${name}_rssi`
         },
         {
           type: "text",
           text: "Running since…",
-          icon: "av-timer",
+          icon: mdi("av-timer"),
           topic: `esper_${name}_uptime`
         }
       ])

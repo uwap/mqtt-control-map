@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-
 const preBuildScripts = process.env.NO_FLOW == undefined ?
   process.env.FLOW_PATH != undefined ? [process.env.FLOW_PATH] : ['flow']
   : [];
