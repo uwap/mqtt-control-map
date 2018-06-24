@@ -762,7 +762,7 @@ const config : Config = {
     remotes: {
       name: "Fernbedinungen",
       position: [400, 348],
-      icon: mdi("remote"),
+      icon: mdi("light-switch"),
       iconColor: (state) => //if any remote is low make icon red
         ["65536", "65542", "65546", "65547"].some(
           x => state[tradfri_remote.low(x)] == "true") ? hex("#ff0000") : hex("#000000"),
