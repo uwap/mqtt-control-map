@@ -308,14 +308,14 @@ const config : Config = {
     olymp_printer: {
       name: "Drucker",
       position: [335, 90],
-      icon: "printer",
+      icon: mdi("printer"),
       iconColor: ({olymp_printer}) => olymp_printer == "on" ? hex("#00FF00") : hex("#000000"),
       ui: [
         {
           type: "toggle",
           text: "Drucker",
           topic: "olymp_printer",
-          icon: "power"
+          icon: mdi("power")
         },
         {
           type: "link",
@@ -711,7 +711,7 @@ const config : Config = {
     kitchen_counter_light: {
       name: "Deckenlicht Theke",
       position: [400, 440],
-      icon: "ceiling-light",
+      icon: mdi("ceiling-light"),
       ui: [
         {
           type: "section",
@@ -722,7 +722,7 @@ const config : Config = {
           min: 0,
           max: 100,
           text: "Helligkeit",
-          icon: "brightness-7",
+          icon: mdi("brightness-7"),
           topic: floalt.brightness("65544"),
           delayedApply: true
         },
@@ -731,7 +731,7 @@ const config : Config = {
           min: 0,
           max: 100,
           text: "Farbtemperatur",
-          icon: "weather-sunset-down",
+          icon: mdi("weather-sunset-down"),
           topic: floalt.color("65544"),
           delayedApply: true
         },
@@ -744,7 +744,7 @@ const config : Config = {
           min: 0,
           max: 100,
           text: "Helligkeit",
-          icon: "brightness-7",
+          icon: mdi("brightness-7"),
           topic: floalt.brightness("65543"),
           delayedApply: true
         },
@@ -753,7 +753,7 @@ const config : Config = {
           min: 0,
           max: 100,
           text: "Farbtemperatur",
-          icon: "weather-sunset-down",
+          icon: mdi("weather-sunset-down"),
           topic: floalt.color("65543"),
           delayedApply: true
         }
