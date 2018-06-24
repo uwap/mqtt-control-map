@@ -2,7 +2,7 @@
 import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { renderIcon } from "utils/parseIconName";
+import { renderIcon } from "config/icon";
 
 import type { ControlUI } from "config/flowtypes";
 
@@ -33,7 +33,9 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
       return (
         <ListItem key={key}>
           {control.icon == null ||
-            <ListItemIcon>{renderIcon(control.icon, "mdi-24px")}</ListItemIcon>}
+            <ListItemIcon>
+              {renderIcon(control.icon, this.props.state, "mdi-24px")}
+            </ListItemIcon>}
           {this.renderControl(control)}
         </ListItem>
       );

@@ -185,7 +185,7 @@ export class DropDown extends UiControl<UIDropDown> {
 }
 
 export class Slider extends UiControl<UISlider> {
-  runPrimaryAction = (_e: ?any, v: ?number) => {
+  runPrimaryAction = (e: ?Event, v: ?number) => {
     if (v != null) {
       this.changeState(v);
     }
@@ -197,8 +197,9 @@ export class Slider extends UiControl<UISlider> {
       <SliderComponent key="slidercomponent"
         value={this.getValue().internal || this.getValue().actual}
         min={this.props.item.min || 0} max={this.props.item.max || 0}
-        step={this.props.item.step || 0}
-        onChange={() => this.props.item.delayedApply || this.runPrimaryAction()}
+        step={this.props.item.step || 1}
+        onChange={(e, v) =>
+          this.props.item.delayedApply || this.runPrimaryAction(e, v)}
         onDragEnd={this.runPrimaryAction}
         disabled={!this.isEnabled()} />
     ];
