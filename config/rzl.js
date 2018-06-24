@@ -769,7 +769,7 @@ const config : Config = {
       ui: [
         {
           type: "progress",
-          icon: "battery",
+          icon: mdi_battery(tradfri_remote.level("65536")),
           min: 0,
           max: 100,
           text: "Tisch",
@@ -777,7 +777,7 @@ const config : Config = {
         },
         {
           type: "progress",
-          icon: "battery",
+          icon: mdi_battery(tradfri_remote.level("65547")),
           min: 0,
           max: 100,
           text: "Tisch 2",
@@ -785,7 +785,7 @@ const config : Config = {
         },
         {
           type: "progress",
-          icon: "battery",
+          icon: mdi_battery(tradfri_remote.level("65542")),
           min: 0,
           max: 100,
           text: "Theke",
@@ -793,7 +793,7 @@ const config : Config = {
         },
         {
           type: "progress",
-          icon: "battery",
+          icon: mdi_battery(tradfri_remote.level("65546")),
           min: 0,
           max: 100,
           text: "Theke 2",
