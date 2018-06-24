@@ -123,6 +123,12 @@ const config : Config = {
         values: {},
         type: msg => JSON.parse(msg.toString()).join(", ")
       },
+      devices_status: {
+        state: "/service/status/devices",
+        command: "",
+        defaultValue: "",
+        values: {}
+      },
       infoscreen: {
         state: "/service/openhab/out/pca301_infoscreen/state",
         command: "/service/openhab/in/pca301_infoscreen/command",
@@ -458,7 +464,14 @@ const config : Config = {
           text: "Anwesend",
           topic: "presence_status",
           icon: "account"
+        },
+        {
+          type: "text",
+          text: "Devices",
+          topic: "devices_status",
+          icon: "wifi"
         }
+
       ]
     },
     infoscreen: {
