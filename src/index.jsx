@@ -5,7 +5,7 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 
 import App from "components/App";
 
-import "../node_modules/mdi/css/materialdesignicons.min.css";
+import "../node_modules/@mdi/font/css/materialdesignicons.min.css";
 import "../css/styles.css";
 
 const Config : Config = window.config;

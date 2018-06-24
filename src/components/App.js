@@ -19,7 +19,7 @@ import TopBar from "components/TopBar";
 import UiItemList from "components/UiItemList";
 
 import keyOf from "utils/keyOf";
-import { controlGetIcon } from "utils/parseIconName";
+import { toRawIcon } from "config/icon";
 
 import connectMqtt from "../connectMqtt";
 
@@ -127,7 +127,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
               control={this.state.selectedControl}
               onCloseRequest={this.closeDrawer.bind(this)}
               icon={this.state.selectedControl == null ? null :
-                controlGetIcon(this.state.selectedControl,
+                toRawIcon(this.state.selectedControl.icon,
                   this.state.mqttState)}
             >
               {this.state.selectedControl == null

@@ -2,16 +2,15 @@
 import React from "react";
 import keys from "lodash/keys";
 import map from "lodash/map";
-import {
-  ListItemSecondaryAction,
-  ListItemText,
-  ListSubheader
-} from "@material-ui/core/List";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import Switch from "@material-ui/core/Switch";
-import Input, { InputLabel } from "@material-ui/core/Input";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { MenuItem } from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import SliderComponent from "@material-ui/lab/Slider";
@@ -186,7 +185,7 @@ export class DropDown extends UiControl<UIDropDown> {
 }
 
 export class Slider extends UiControl<UISlider> {
-  runPrimaryAction = (_e: ?any, v: ?number) => {
+  runPrimaryAction = (e: ?Event, v: ?number) => {
     if (v != null) {
       this.changeState(v);
     }
@@ -194,12 +193,13 @@ export class Slider extends UiControl<UISlider> {
 
   render() {
     return [
-      <ListItemText key="label" secondary={this.props.item.text} />,
+      <ListItemText key="label" primary={this.props.item.text} />,
       <SliderComponent key="slidercomponent"
         value={this.getValue().internal || this.getValue().actual}
         min={this.props.item.min || 0} max={this.props.item.max || 0}
-        step={this.props.item.step || 0}
-        onChange={() => this.props.item.delayedApply || this.runPrimaryAction()}
+        step={this.props.item.step || 1}
+        onChange={(e, v) =>
+          this.props.item.delayedApply || this.runPrimaryAction(e, v)}
         onDragEnd={this.runPrimaryAction}
         disabled={!this.isEnabled()} />
     ];

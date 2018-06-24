@@ -1,6 +1,7 @@
 // @flow
 import type { Config } from "config/flowtypes";
 import { hex, rgb, rgba, rainbow } from "config/colors";
+import { mdi } from "config/icon";
 import { esper_topics, esper_statistics } from "./utils";
 
 const config : Config = {
@@ -29,20 +30,20 @@ const config : Config = {
     hauptraum_table_light: {
       name: "Hauptraum Tisch",
       position: [450, 450],
-      icon: "white-balance-iridescent",
+      icon: mdi("white-balance-iridescent"),
       iconColor: () => hex("#000000"),
       ui: [
         {
           type: "toggle",
           text: "Licht",
           topic: "hauptraum_table_light",
-          icon: "power"
+          icon: mdi("power")
         },
         {
           type: "toggle",
           text: "Licht",
           topic: "hauptraum_table_light_on_hack",
-          icon: "power"
+          icon: mdi("power")
         }
       ]
     }

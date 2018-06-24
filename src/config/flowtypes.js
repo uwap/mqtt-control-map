@@ -1,5 +1,6 @@
 // @flow
 import type { Color } from "config/colors";
+import type { Icon } from "config/icon";
 
 export type TopicType = (msg: Buffer) => any;
 
@@ -33,7 +34,7 @@ export type UIToggle = $ReadOnly<{|
   type: "toggle",
   text: string,
   topic: string,
-  icon?: string,
+  icon?: Icon,
   enableCondition?: TopicDependentOption<boolean>,
   on?: Actual,
   off?: Actual,
@@ -44,7 +45,7 @@ export type UIDropDown = $ReadOnly<{|
   type: "dropDown",
   text: string,
   topic: string,
-  icon?: string,
+  icon?: Icon,
   enableCondition?: TopicDependentOption<boolean>,
   options: Map<string, any>,
   renderValue?: (value: string) => string
@@ -54,7 +55,7 @@ export type UISlider = $ReadOnly<{|
   type: "slider",
   text: string,
   topic: string,
-  icon?: string,
+  icon?: Icon,
   enableCondition?: TopicDependentOption<boolean>,
   min?: number,
   max?: number,
@@ -74,21 +75,21 @@ export type UILink = $ReadOnly<{|
   enableCondition?: StateDependentOption<boolean>,
 
   // TODO: check if both the following options are implemented
-  icon?: string
+  icon?: Icon
 |}>;
 
 export type UIText = $ReadOnly<{|
   type: "text",
   text: string,
   topic: string,
-  icon?: string
+  icon?: Icon
 |}>;
 
 export type UIProgress = $ReadOnly<{|
   type: "progress",
   text: string,
   topic: string,
-  icon?: string,
+  icon?: Icon,
   min?: number,
   max?: number
 |}>;
@@ -105,11 +106,7 @@ export type ControlUI =
 export type Control = {
   name: string,
   position: [number, number],
-  icon: string | (
-      internals: Map<string, Internal>,
-      actuals: Map<string, Actual>,
-      state: State
-    ) => string,
+  icon: Icon,
   iconColor?: (
       internals: Map<string, Internal>,
       actuals: Map<string, Actual>,
