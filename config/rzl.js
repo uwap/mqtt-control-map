@@ -2,7 +2,7 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
-import { mdi, raw_mdi } from "config/icon";
+import { mdi, raw_mdi, mdi_battery } from "config/icon";
 import { esper_topics, esper_statistics, floalt, tradfri_remote } from "./utils";
 
 const config : Config = {
@@ -762,7 +762,7 @@ const config : Config = {
     remotes: {
       name: "Fernbedinungen",
       position: [400, 348],
-      icon: "remote",
+      icon: mdi("remote"),
       iconColor: (state) => //if any remote is low make icon red
         ["65536", "65542", "65546", "65547"].some(
           x => state[tradfri_remote.low(x)] == "true") ? hex("#ff0000") : hex("#000000"),
