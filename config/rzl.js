@@ -127,7 +127,8 @@ const config : Config = {
         state: "/service/status/devices",
         command: "",
         defaultValue: "",
-        values: {}
+        values: {},
+        type: types.str
       },
       infoscreen: {
         state: "/service/openhab/out/pca301_infoscreen/state",
