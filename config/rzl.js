@@ -147,6 +147,7 @@ const config : Config = {
             case "STANDBY":
               return "off"
             case "unknown":
+            case "offline":
               return "unknown"
 
             default:
