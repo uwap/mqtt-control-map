@@ -7,7 +7,7 @@ import { renderIcon } from "config/icon";
 import type { ControlUI } from "config/flowtypes";
 
 import { Toggle, DropDown, Link,
-        Section, Text, Progress, Slider } from "./UiItem";
+  Section, Text, Progress, Slider } from "./UiItem";
 
 export type UiItemListProps = {
   controls: Array<ControlUI>,

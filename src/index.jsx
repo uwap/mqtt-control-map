@@ -8,11 +8,11 @@ import App from "components/App";
 import "../node_modules/@mdi/font/css/materialdesignicons.min.css";
 import "../css/styles.css";
 
-const Config : Config = window.config;
+const config : Config = window.config;
 injectTapEventPlugin();
 
-document.title = `${Config.space.name} Map`;
+document.title = `${config.space.name} Map`;
 
 // $FlowFixMe
 const contentElement: Element = document.getElementById("content");
-ReactDOM.render(<App config={Config} />, contentElement);
+ReactDOM.render(<App config={config} />, contentElement);
