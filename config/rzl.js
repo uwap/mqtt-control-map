@@ -254,6 +254,32 @@ const config : Config = {
         },
         defaultValue: "off"
       },
+      projector: {
+        state: {
+          name: "/service/beamer/state",
+          type: types.option({
+            START_UP: "transient_on",
+            START_UP_LAMP: "transient_on",
+            COOLING: "transient_off",
+            COOLING2: "transient_off",
+            POWER_ON: "on",
+            STANDBY: "off",
+            unknown: "unknown",
+            offline: "unknown"
+          })
+        },
+        command: {
+          name: "/service/beamer/command",
+          type: types.option({
+            on: "ON",
+            off: "OFF",
+            transient_off: "OFF",
+            transient_on: "ON",
+            unknown: "OFF"
+          })
+        },
+        defaultValue: "unknown"
+      },
       printer_3d_status: {
         state: {
           name: "/service/ultimaker/state",
@@ -456,6 +482,28 @@ const config : Config = {
           icon: mdi("power")
         }
       ])
+    },
+    projector: {
+      name: "Beamer",
+      position: [415, 590],
+      icon: mdi("projector flip-v"),
+      iconColor: ({projector}) =>
+        ({
+          transient_on: hex("#b3b300"),
+          transient_off: hex("#b3b300"),
+          on: hex("#00ff00"),
+          off: hex("#000000"),
+          unknown: hex("#888888"),
+        })[projector],
+      ui: [
+        {
+          type: "toggle",
+          text: "Beamer",
+          topic: "projector",
+          toggled: val => val == "transient_on" || val == "on",
+          icon: mdi("power")
+        }
+      ]
     },
     onkyo: {
       name: "Onkyo",
