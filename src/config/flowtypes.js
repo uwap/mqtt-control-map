@@ -2,23 +2,19 @@
 import type { Color } from "config/colors";
 import type { Icon } from "config/icon";
 
-export type TopicType = (msg: Buffer) => any;
+export type TopicType = (msg: Buffer) => string;
+
+export type StateCommand = {
+  name: string,
+  type: TopicType
+}
 
 export type Topic = {
-  state: string,
-  command: string,
-  defaultValue: Actual,
-  values: Map<Internal, Actual>,
-  type?: TopicType
+  state?: StateCommand,
+  command?: StateCommand,
+  defaultValue: string
 };
 export type Topics = Map<string, Topic>;
-
-export type TopicDependentOption<T> = (
-    internal: Internal, actual: Actual, state: State
-  ) => T;
-export type StateDependentOption<T> = (
-    internals: Map<string, Internal>, actuals: Map<string, Actual>, state: State
-  ) => T;
 
 export interface UIControl {
   +type: string,
@@ -27,7 +23,7 @@ export interface UIControl {
 }
 
 export interface Enableable {
-  enableCondition?: TopicDependentOption<boolean>
+  enableCondition?: (s: State) => boolean
 }
 
 export type UIToggle = $ReadOnly<{|
@@ -35,10 +31,10 @@ export type UIToggle = $ReadOnly<{|
   text: string,
   topic: string,
   icon?: Icon,
-  enableCondition?: TopicDependentOption<boolean>,
-  on?: Actual,
-  off?: Actual,
-  toggled?: TopicDependentOption<boolean>
+  enableCondition?: (s: State) => boolean,
+  on?: string,
+  off?: string,
+  toggled?: (v: string, s: State) => boolean
 |}>;
 
 export type UIDropDown = $ReadOnly<{|
@@ -46,8 +42,8 @@ export type UIDropDown = $ReadOnly<{|
   text: string,
   topic: string,
   icon?: Icon,
-  enableCondition?: TopicDependentOption<boolean>,
-  options: Map<string, any>,
+  enableCondition?: (s: State) => boolean,
+  options: Map<string, string>,
   renderValue?: (value: string) => string
 |}>;
 
@@ -56,7 +52,7 @@ export type UISlider = $ReadOnly<{|
   text: string,
   topic: string,
   icon?: Icon,
-  enableCondition?: TopicDependentOption<boolean>,
+  enableCondition?: (s: State) => boolean,
   min?: number,
   max?: number,
   step?: number,
@@ -72,7 +68,7 @@ export type UILink = $ReadOnly<{|
   type: "link",
   text: string,
   link: string,
-  enableCondition?: StateDependentOption<boolean>,
+  enableCondition?: (s: State) => boolean,
 
   // TODO: check if both the following options are implemented
   icon?: Icon
@@ -107,11 +103,7 @@ export type Control = {
   name: string,
   position: [number, number],
   icon: Icon,
-  iconColor?: (
-      internals: Map<string, Internal>,
-      actuals: Map<string, Actual>,
-      state: State
-    ) => Color,
+  iconColor?: (state: State) => Color,
   ui: Array<ControlUI>
 };
 export type Controls = Map<string, Control>;

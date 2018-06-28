@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import { renderRawIcon } from "config/icon";
+import { renderIcon } from "config/icon";
 
 import type { RawIcon } from "config/icon";
 import type { Control } from "config/flowtypes";
@@ -57,7 +57,7 @@ class SideBar extends React.PureComponent<Props, SideBarState> {
         <AppBar position="static">
           <Toolbar>
             {this.props.icon == null
-              || renderRawIcon(this.props.icon, "mdi-36px")}
+              || renderIcon(this.props.icon, "mdi-36px")}
             <Typography variant="title" className={this.props.classes.flex}>
               {this.props.control == null || this.props.control.name}
             </Typography>

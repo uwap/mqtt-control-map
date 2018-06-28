@@ -12,7 +12,7 @@ import { Toggle, DropDown, Link,
 export type UiItemListProps = {
   controls: Array<ControlUI>,
   state: State,
-  onChangeState: (topic: string, nextState: Actual) => void
+  onChangeState: (topic: string, nextState: string) => void
 };
 
 export default class UiItemList extends React.PureComponent<UiItemListProps> {
@@ -34,7 +34,7 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
         <ListItem key={key}>
           {control.icon == null ||
             <ListItemIcon>
-              {renderIcon(control.icon, this.props.state, "mdi-24px")}
+              {renderIcon(control.icon(this.props.state), "mdi-24px")}
             </ListItemIcon>}
           {this.renderControl(control)}
         </ListItem>

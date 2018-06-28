@@ -14,187 +14,299 @@ const config : Config = {
   topics: [
     {
       led_stahltraeger: {
-        state: "/service/openhab/out/pca301_ledstrips/state",
-        command: "/service/openhab/in/pca301_ledstrips/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_ledstrips/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_ledstrips/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       snackbar: {
-        state: "/service/openhab/out/pca301_snackbar/state",
-        command: "/service/openhab/in/pca301_snackbar/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_snackbar/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_snackbar/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off",
       },
       twinkle: {
-        state: "/service/openhab/out/pca301_twinkle/state",
-        command: "/service/openhab/in/pca301_twinkle/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_twinkle/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_twinkle/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       fan: {
-        state: "/service/openhab/out/pca301_fan/state",
-        command: "/service/openhab/in/pca301_fan/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_fan/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_fan/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       videogames: {
-        state: "/service/openhab/out/pca301_videogames/state",
-        command: "/service/openhab/in/pca301_videogames/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_videogames/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_videogames/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       olymp_pc: {
-        state: "/service/openhab/out/pca301_olymp_pc/state",
-        command: "/service/openhab/in/pca301_olymp_pc/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_olymp_pc/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_olymp_pc/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       olymp_printer: {
-        state: "stat/sonoff2/POWER",
-        command: "cmnd/sonoff2/power",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "stat/sonoff2/POWER",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "cmnd/sonoff2/power",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       flyfry: {
-        state: "/service/openhab/out/wifi_flyfry/state",
-        command: "/service/openhab/in/wifi_flyfry/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
-      },
-      artnet: {
-        state: "/artnet/state",
-        command: "/artnet/push",
-        defaultValue: "blackout",
-        values: { off: "blackout", yellow: "yellow", purple: "purple",
-                  blue: "blue", green: "green", red: "red", random: "random",
-                  cycle: "cycle-random" }
+        state: {
+          name: "/service/openhab/out/wifi_flyfry/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/wifi_flyfry/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       onkyo_connection: {
-        state: "/service/onkyo/connected",
-        command: "",
-        defaultValue: "0",
-        values: { disconnected: "0", connecting: "1", connected: "2" },
+        state: {
+          name: "/service/onkyo/connected",
+          type: types.option({
+            "0": "disconnected",
+            "1": "connecting",
+            "2": "connected"
+          })
+        },
+        defaultValue: "disconnected"
       },
       onkyo_power: {
-        state: "/service/onkyo/status/system-power",
-        command: "/service/onkyo/command",
-        defaultValue: "PWR00",
-        values: { off: "PWR00", on: "PWR01" },
-        type: types.json("onkyo_raw")
+        state: {
+          name: "/service/onkyo/status/system-power",
+          type: types.json("onkyo_raw", types.option({
+            PWR00: "off",
+            PWR01: "on"
+          }))
+        },
+        command: {
+          name: "/service/onkyo/command",
+          type: types.option({ off: "PWR00", on: "PWR01" })
+        },
+        defaultValue: "off"
       },
       onkyo_mute: {
-        state: "/service/onkyo/status/audio-muting",
-        command: "/service/onkyo/command",
-        defaultValue: "AMT00",
-        values: { off: "AMT00", on: "AMT01" },
-        type: types.json("onkyo_raw")
+        state: {
+          name: "/service/onkyo/status/audio-muting",
+          type: types.json("onkyo_raw", types.option({
+            AMT00: "off",
+            AMT01: "on"
+          }))
+        },
+        command: {
+          name: "/service/onkyo/command",
+          type: types.option({ off: "AMT00", on: "AMT01" })
+        },
+        defaultValue: "off"
       },
       onkyo_volume: {
-        state: "/service/onkyo/status/volume",
-        command: "/service/onkyo/set/volume",
-        defaultValue: 0,
-        values: {},
-        type: types.json("val")
+        state: {
+          name: "/service/onkyo/status/volume",
+          type: types.json("val")
+        },
+        command: {
+          name: "/service/onkyo/set/volume",
+          type: types.string
+        },
+        defaultValue: "0"
       },
       onkyo_inputs: {
-        state: "/service/onkyo/status/input-selector",
-        command: "/service/onkyo/command",
-        defaultValue: "SLI00",
-        values: { tisch: "SLI11", chromecast: "SLI01", pult: "SLI10", netzwerk: "SLI2B", front: "SLI03" },
-        type: types.json("onkyo_raw")
+        state: {
+          name: "/service/onkyo/status/input-selector",
+          type: types.json("onkyo_raw", types.option({
+            SLI11: "tisch",
+            SLI01: "chromecast",
+            SLI10: "pult",
+            SLI2B: "netzwerk",
+            SLI03: "front",
+            otherwise: "unknown"
+          }))
+        },
+        command: {
+          name: "/service/onkyo/command",
+          type: types.option({
+            tisch: "SLI11",
+            chromecast: "SLI01",
+            pult: "SLI10",
+            netzwerk: "SLI2B",
+            front: "SLI03",
+            unknown: "SLI00"
+          })
+        },
+        defaultValue: "unknown",
       },
       onkyo_radios: {
-        state: "/service/onkyo/status/latest-NPR",
-        command: "/service/onkyo/command",
-        defaultValue: "",
-        values: { mpd: "NPR01", kohina: "NPR02", somafm_dronezone: "NPR03", somafm_thetrip: "NPR04",
-                  querfunk: "NPR05", somafm_defconradio: "NPR06", somafm_secretagent: "NPR07", somafm_lush: "NPR08",
-                  somafm_beatblender: "NPR09", ponyville: "NPR0a"}
+        state: {
+          name: "/service/onkyo/status/latest-NPR",
+          type: types.option({
+            NPR01: "mpd",
+            NPR02: "kohina",
+            NPR03: "somafm_dronezone",
+            NPR04: "somafm_thetrip",
+            NPR05: "querfunk",
+            NPR06: "somafm_defconradio",
+            NPR07: "somafm_secretagent",
+            NPR08: "somafm_lush",
+            NPR09: "somafm_beatblender",
+            NPR0a: "ponyville",
+            otherwise: "unknown"
+          })
+        },
+        command: {
+          name: "/service/onkyo/command",
+          type: types.option({
+            mpd: "NPR01",
+            kohina: "NPR02",
+            somafm_dronezone: "NPR03",
+            somafm_thetrip: "NPR04",
+            querfunk: "NPR05",
+            somafm_defconradio: "NPR06",
+            somafm_secretagent: "NPR07",
+            somafm_lush: "NPR08",
+            somafm_beatblender: "NPR09",
+            ponyville: "NPR0a",
+            otherwise: "NPR00"
+          })
+        },
+        defaultValue: "unknown"
       },
       rundumleuchte: {
-        state: "/service/openhab/out/pca301_rundumleuchte/state",
-        command: "/service/openhab/in/pca301_rundumleuchte/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_rundumleuchte/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_rundumleuchte/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       door_status: {
-        state: "/service/status",
-        command: "",
-        defaultValue: "\"closed\"",
-        values: { on: "\"open\"", off: "\"closed\"" }
+        state: {
+          name: "/service/status",
+          type: types.option({ "\"open\"": "on", "\"closed\"": "off" })
+        },
+        defaultValue: "off"
       },
       presence_status: {
-        state: "service/status/presence",
-        command: "",
-        defaultValue: "",
-        values: {},
-        type: msg => JSON.parse(msg.toString()).join(", ")
+        state: {
+          name: "service/status/presence",
+          type: types.jsonArray
+        },
+        defaultValue: ""
       },
       devices_status: {
-        state: "/service/status/devices",
-        command: "",
-        defaultValue: "",
-        values: {},
-        type: types.string
+        state: {
+          name: "/service/status/devices",
+          type: types.string
+        },
+        defaultValue: ""
       },
       infoscreen: {
-        state: "/service/openhab/out/pca301_infoscreen/state",
-        command: "/service/openhab/in/pca301_infoscreen/command",
-        defaultValue: "OFF",
-        values: { on: "ON", off: "OFF" }
+        state: {
+          name: "/service/openhab/out/pca301_infoscreen/state",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/openhab/in/pca301_infoscreen/command",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       },
       printer_3d_status: {
-        state: "/service/ultimaker/state",
-        command: "",
+        state: {
+          name: "/service/ultimaker/state",
+          type: types.option({
+            unreachable: "unavailable",
+            booting: "unavailable",
+            pre_print: "printing",
+            post_print: "printing",
+            printing: "printing",
+            otherwise: "awaiting_interaction"
+          })
+        },
         defaultValue: "unavailable",
-        values: {},
-        type: msg => {
-          switch (msg.toString()) {
-            case "unreachable":
-            case "booting":
-              return "unavailable"
-
-            case "pausing":
-            case "paused":
-            case "resuming":
-            case "wait_cleanup":
-            case "maintenance":
-              return "awaiting_interaction"
-
-            case "pre_print":
-            case "post_print":
-            case "printing":
-              return "printing"
-
-            default:
-              return msg.toString()
-          }
-        }
       },
       printer_3d_progress: {
-        state: "/service/ultimaker/job",
-        command: "",
-        defaultValue: "",
-        values: {},
-        type: msg => JSON.parse(msg.toString()).progress || 0
+        state: {
+          name: "/service/ultimaker/job",
+          type: msg => JSON.parse(msg.toString()).progress || "0"
+        },
+        defaultValue: "0"
       },
       kitchen_light_color: {
-        state: "/service/openhab/out/kitchen_light_all_color_temperature/state",
-        command: "/service/openhab/in/kitchen_light_all_color_temperature/command",
-        defaultValue: "0",
-        values: {}
+        state: {
+          name: "/service/openhab/out/kitchen_light_all_color_temperature/state",
+          type: types.string
+        },
+        command: {
+          name: "/service/openhab/in/kitchen_light_all_color_temperature/command",
+          type: types.string
+        },
+        defaultValue: "0"
       },
       kitchen_light_brightness: {
-        state: "/service/openhab/out/kitchen_light_all_brightness/state",
-        command: "/service/openhab/in/kitchen_light_all_brightness/command",
-        defaultValue: "0",
-        values: {}
+        state: {
+          name: "/service/openhab/out/kitchen_light_all_brightness/state",
+          type: types.string
+        },
+        command: {
+          name: "/service/openhab/in/kitchen_light_all_brightness/command",
+          type: types.string
+        },
+        defaultValue: "0"
       },
       kitchen_sink_light_brightness: {
-        state: "/service/openhab/out/tradfri_0100_gwb8d7af2b448f_65545_brightness/state",
-        command: "/service/openhab/in/tradfri_0100_gwb8d7af2b448f_65545_brightness/command",
-        defaultValue: "0",
-        values: {}
+        state: {
+          name: "/service/openhab/out/tradfri_0100_gwb8d7af2b448f_65545_brightness/state",
+          type: types.string
+        },
+        command: {
+          name: "/service/openhab/in/tradfri_0100_gwb8d7af2b448f_65545_brightness/command",
+          type: types.string
+        },
+        defaultValue: "0"
       }
     },
     //Kuechen-Floalts
@@ -345,44 +457,6 @@ const config : Config = {
         }
       ])
     },
-    artnet: {
-      name: "Artnet",
-      position: [535,480],
-      icon: mdi("spotlight"),
-      iconColor: ({artnet}) => 
-        ({
-          off: hex("#000000"),
-          yellow: hex("#F0DF10"),
-          red: hex("#FF0000"),
-          purple: hex("#FF00FF"),
-          green: hex("#00FF00"),
-          cycle: rainbow
-        })[artnet],
-      ui: [
-        {
-          type: "toggle",
-          text: "An/Aus",
-          topic: "artnet",
-          on: "cycle",
-          toggled: val => val != "off",
-          icon: mdi("power")
-        },
-        {
-          type: "dropDown",
-          text: "Farbe",
-          topic: "artnet",
-          options: {
-            yellow: "Gelb",
-            red: "Rot",
-            purple: "Pink",
-            green: "Grün",
-            cycle: "Farbwechsel"
-          },
-          enableCondition: val => val != "off",
-          icon: mdi("palette")
-        }
-      ]
-    },
     onkyo: {
       name: "Onkyo",
       position: [350, 650],
@@ -395,7 +469,7 @@ const config : Config = {
           text: "Power",
           icon: mdi("power"),
           topic: "onkyo_power",
-          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
+          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
         },
         {
           type: "section",
@@ -408,14 +482,14 @@ const config : Config = {
           min: 0,
           max: 50,
           icon: mdi("volume-high"),
-          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
+          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
         },
         {
           type: "toggle",
           text: "Mute",
           topic: "onkyo_mute",
           icon: mdi("volume-off"),
-          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
+          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
         },
         {
           type: "section",
@@ -433,7 +507,7 @@ const config : Config = {
             front: "Front HDMI"
           },
           icon: mdi("usb"),
-          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected"
+          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
         },
         {
           type: "dropDown",
@@ -452,7 +526,7 @@ const config : Config = {
             ponyville: "Ponyville FM"
           },
           icon: mdi("radio"),
-          enableCondition: (a, b, state) => state.onkyo_connection.internal == "connected" && state.onkyo_inputs.internal == "netzwerk"
+          enableCondition: (state) => state.onkyo_connection == "connected" && state.onkyo_inputs == "netzwerk"
         },
         {
           type: "section",
@@ -582,8 +656,8 @@ const config : Config = {
       ui: [
         {
           type: "toggle",
-          on: 50,
-          off: 0,
+          on: "50",
+          off: "0",
           toggled: n => parseInt(n) > 0,
           topic: "kitchen_light_brightness",
           text: "Ein/Ausschalten",
@@ -704,8 +778,8 @@ const config : Config = {
       ui: [
         {
           type: "toggle",
-          on: 50,
-          off: 0,
+          on: "50",
+          off: "0",
           toggled: n => parseInt(n) > 0,
           topic: "kitchen_sink_light_brightness",
           text: "Ein/Ausschalten",
