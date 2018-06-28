@@ -5,6 +5,7 @@
 .leaflet-container {
   height: calc(100vh - 64px);
   max-height: 100%;
+  background: rgba(239,239,203,.59);
 }
 body {
   margin: 0;

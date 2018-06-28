@@ -2,36 +2,35 @@
 import React from "react";
 import keys from "lodash/keys";
 import map from "lodash/map";
-import {
-  ListItemSecondaryAction,
-  ListItemText,
-  ListSubheader
-} from "material-ui/List";
-import Switch from "material-ui/Switch";
-import Input, { InputLabel } from "material-ui/Input";
-import { FormControl } from "material-ui/Form";
-import Select from "material-ui/Select";
-import { MenuItem } from "material-ui/Menu";
-import Button from "material-ui/Button";
-import { LinearProgress } from "material-ui/Progress";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import Switch from "@material-ui/core/Switch";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import SliderComponent from "@material-ui/lab/Slider";
 
 import type {
   UIControl, UIToggle, UIDropDown, UILink,
-  UISection, UIText, UIProgress
+  UISection, UIText, UIProgress, UISlider
 } from "config/flowtypes";
 
 import keyOf from "utils/keyOf";
-import { getInternals, getActuals } from "utils/state";
 
 type UiItemProps<I> = {
   item: I,
   state: State,
-  onChangeState: (topic: string, nextState: Actual) => void
+  onChangeState: (topic: string, nextState: string) => void
 };
 
 // eslint-disable-next-line flowtype/no-weak-types
 export default class UiItem<I:Object>
-    extends React.PureComponent<UiItemProps<I>> {
+  extends React.PureComponent<UiItemProps<I>> {
   constructor(props: UiItemProps<I>) {
     super(props);
   }
@@ -54,9 +53,7 @@ export default class UiItem<I:Object>
       typeof this.props.item.enableCondition == "function") {
       const enableCondition = this.props.item.enableCondition;
       const state = this.props.state;
-      const internals = getInternals(state);
-      const actuals = getActuals(state);
-      return enableCondition(internals, actuals, state);
+      return enableCondition(state);
     } else {
       return true;
     }
@@ -68,7 +65,7 @@ export class UiControl<I: UIControl> extends UiItem<I> {
     super(props);
   }
 
-  changeState(next: Actual) {
+  changeState(next: string) {
     if (this.props.item.topic == null) {
       throw new Error(
         `Missing topic in ${this.props.item.type} "${this.props.item.text}"`
@@ -93,19 +90,6 @@ export class UiControl<I: UIControl> extends UiItem<I> {
     }
     return value;
   }
-
-  isEnabled() {
-    if (Object.keys(this.props.item).includes("enableCondition") &&
-      // $FlowFixMe
-      typeof this.props.item.enableCondition == "function") {
-      const enableCondition = this.props.item.enableCondition;
-      const value = this.getValue();
-      return enableCondition(
-        value.internal || value.actual, value.actual, this.props.state);
-    } else {
-      return true;
-    }
-  }
 }
 
 export class Toggle extends UiControl<UIToggle> {
@@ -113,9 +97,8 @@ export class Toggle extends UiControl<UIToggle> {
     const value = this.getValue();
     const control = this.props.item;
     const isChecked = control.toggled ||
-      ((i, _a, _s) => i === (control.on || "on"));
-    const checked = isChecked(
-      value.internal || value.actual, value.actual, this.props.state);
+      ((i, _s) => i === (control.on || "on"));
+    const checked = isChecked(value, this.props.state);
     return checked;
   }
 
@@ -145,7 +128,7 @@ export class Toggle extends UiControl<UIToggle> {
 }
 
 export class DropDown extends UiControl<UIDropDown> {
-  runPrimaryAction = (next?: Actual) => {
+  runPrimaryAction = (next?: string) => {
     if (this.isEnabled()) {
       const control = this.props.item;
       const optionKeys = keys(control.options);
@@ -172,7 +155,7 @@ export class DropDown extends UiControl<UIDropDown> {
     return (
       <FormControl>
         <InputLabel htmlFor={id}>{control.text}</InputLabel>
-        <Select value={value.internal || value.actual}
+        <Select value={value}
           onChange={(event) => this.runPrimaryAction(event.target.value)}
           disabled={!this.isEnabled()}
           input={<Input id={id} />}
@@ -181,6 +164,28 @@ export class DropDown extends UiControl<UIDropDown> {
         </Select>
       </FormControl>
     );
+  }
+}
+
+export class Slider extends UiControl<UISlider> {
+  runPrimaryAction = (e: ?Event, v: ?number) => {
+    if (v != null) {
+      this.changeState(v.toString());
+    }
+  }
+
+  render() {
+    return [
+      <ListItemText key="label" primary={this.props.item.text} />,
+      <SliderComponent key="slidercomponent"
+        value={parseFloat(this.getValue())}
+        min={this.props.item.min || 0} max={this.props.item.max || 0}
+        step={this.props.item.step || 1}
+        onChange={(e, v) =>
+          this.props.item.delayedApply || this.runPrimaryAction(e, v)}
+        onDragEnd={this.runPrimaryAction}
+        disabled={!this.isEnabled()} />
+    ];
   }
 }
 
@@ -223,7 +228,7 @@ export class Text extends UiControl<UIText> {
   render() {
     return [
       <ListItemText key="label" secondary={this.props.item.text} />,
-      <ListItemText key="vr" primary={this.getValue().internal} align="right" />
+      <ListItemText key="vr" primary={this.getValue()} align="right" />
     ];
   }
 }
@@ -232,7 +237,7 @@ export class Progress extends UiControl<UIProgress> {
   render() {
     const min = this.props.item.min || 0;
     const max = this.props.item.max || 100;
-    const val = parseFloat(this.getValue().internal || this.getValue().actual);
+    const val = parseFloat(this.getValue());
     const value = val * 100 / max - min;
     return [
       <ListItemText key="label" secondary={this.props.item.text} />,
@@ -242,3 +247,4 @@ export class Progress extends UiControl<UIProgress> {
     ];
   }
 }
+

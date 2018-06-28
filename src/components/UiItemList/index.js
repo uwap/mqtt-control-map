@@ -1,25 +1,18 @@
 // @flow
 import React from "react";
-import {
-  ListItem,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText
-} from "material-ui/List";
-import { renderIcon } from "utils/parseIconName";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { renderIcon } from "config/icon";
 
-import type { ControlUI, UIControl, UISlider } from "config/flowtypes";
+import type { ControlUI } from "config/flowtypes";
 
-// TODO: Use something else
-import Slider from "material-ui-old/Slider";
-import MuiThemeProvider from "material-ui-old/styles/MuiThemeProvider";
-
-import { Toggle, DropDown, Link, Section, Text, Progress } from "./UiItem";
+import { Toggle, DropDown, Link,
+  Section, Text, Progress, Slider } from "./UiItem";
 
 export type UiItemListProps = {
   controls: Array<ControlUI>,
   state: State,
-  onChangeState: (topic: string, nextState: Actual) => void
+  onChangeState: (topic: string, nextState: string) => void
 };
 
 export default class UiItemList extends React.PureComponent<UiItemListProps> {
@@ -40,7 +33,9 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
       return (
         <ListItem key={key}>
           {control.icon == null ||
-            <ListItemIcon>{renderIcon(control.icon, "mdi-24px")}</ListItemIcon>}
+            <ListItemIcon>
+              {renderIcon(control.icon(this.props.state), "mdi-24px")}
+            </ListItemIcon>}
           {this.renderControl(control)}
         </ListItem>
       );
@@ -70,7 +65,9 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
         onChangeState={this.props.onChangeState} />;
     }
     case "slider": {
-      return this.renderSlider(control);
+      return <Slider item={control}
+        state={this.props.state}
+        onChangeState={this.props.onChangeState} />;
     }
     case "text": {
       return <Text item={control}
@@ -88,44 +85,5 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
       );
     }
     }
-  }
-
-  getValue(control: UIControl) {
-    const value = this.props.state[control.topic];
-    if (value == null) {
-      throw new Error(
-        `Unknown topic "${control.topic}" in ${control.type} "${control.text}"`
-      );
-    }
-    return value;
-  }
-
-  renderSlider(control: UISlider) {
-    const value = this.getValue(control);
-    const on = (dontApply: ?boolean) => () => {
-      if (dontApply == null || dontApply === false) {
-        this.props.onChangeState(control.topic,
-          // $FlowFixMe
-          this.val);
-      }
-    };
-    return [
-      <ListItemText primary={control.text} key="text" />,
-      <ListItemSecondaryAction key="action">
-        <MuiThemeProvider>
-          <Slider value={value.internal || value.actual}
-            min={control.min || 0}
-            max={control.max || 100}
-            step={control.step || 1}
-            onChange={(_event, next) => {
-              // $FlowFixMe
-              this.val = next;
-              on(control.delayedApply)();
-            }}
-            onDragStop={on(false)}
-            style={{width: 100}}
-          /></MuiThemeProvider>
-      </ListItemSecondaryAction>
-    ];
   }
 }

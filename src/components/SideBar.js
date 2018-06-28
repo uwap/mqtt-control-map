@@ -1,31 +1,33 @@
 // @flow
 import * as React from "react";
 
-import withStyles from "material-ui/styles/withStyles";
-import Drawer from "material-ui/Drawer";
-import Typography from "material-ui/Typography";
-import IconButton from "material-ui/IconButton";
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import List from "material-ui/List";
-import { renderIcon } from "utils/parseIconName";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Drawer from "@material-ui/core/Drawer";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import { renderIcon } from "config/icon";
 
+import type { RawIcon } from "config/icon";
 import type { Control } from "config/flowtypes";
 
 export type SideBarProps = {
   control: ?Control,
   open: boolean,
   onCloseRequest: () => void,
-  icon?: ?string,
+  icon?: ?RawIcon,
   children?: React.Node
 };
 
 export type SideBarState = {
 };
 
-class SideBar extends React.PureComponent<SideBarProps & Classes, SideBarState>
-{
-  constructor(props: SideBarProps & Classes) {
+type Props = SideBarProps & Classes;
+
+class SideBar extends React.PureComponent<Props, SideBarState> {
+  constructor(props: Props) {
     super(props);
   }
 

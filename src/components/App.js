@@ -8,18 +8,15 @@ import merge from "lodash/merge";
 
 import type { Config, Control, Topics } from "config/flowtypes";
 
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import createMuiTheme from "material-ui/styles/createMuiTheme";
-import withStyles from "material-ui/styles/withStyles";
-import * as Colors from "material-ui/colors";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import withStyles from "@material-ui/core/styles/withStyles";
+import * as Colors from "@material-ui/core/colors";
 
 import SideBar from "components/SideBar";
 import ControlMap from "components/ControlMap";
 import TopBar from "components/TopBar";
 import UiItemList from "components/UiItemList";
-
-import keyOf from "utils/keyOf";
-import { controlGetIcon } from "utils/parseIconName";
 
 import connectMqtt from "../connectMqtt";
 
@@ -31,7 +28,7 @@ export type AppState = {
   selectedControl: ?Control,
   drawerOpened: boolean,
   mqttState: State,
-  mqttSend: (topic: string, value: Actual) => void,
+  mqttSend: (topic: string, value: Buffer) => void,
   mqttConnected: boolean,
 };
 
@@ -41,16 +38,15 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
     this.state = {
       selectedControl: null,
       drawerOpened: false,
-      mqttState: mapValues(this.topics, (topic) => ({
-        actual: topic.defaultValue,
-        internal: keyOf(topic.values, topic.defaultValue)
-      })),
+      mqttState: mapValues(this.topics, (topic) => topic.defaultValue),
       mqttSend: connectMqtt(props.config.space.mqtt, {
         onMessage: this.receiveMessage.bind(this),
         onConnect: () => this.setState({ mqttConnected: true }),
         onReconnect: () => this.setState({ mqttConnected: false }),
         onDisconnect: () => this.setState({ mqttConnected: false }),
-        subscribe: map(this.topics, (x) => x.state)
+        subscribe: map(
+          filter(keys(this.topics), (x) => this.topics[x].state != null),
+          (x) => this.topics[x].state.name)
       }),
       mqttConnected: false
     };
@@ -77,23 +73,23 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
     });
   }
 
-  receiveMessage(rawTopic: string, message: Object) {
+  receiveMessage(rawTopic: string, message: Buffer) {
     const topics = filter(
       keys(this.topics),
-      (k) => this.topics[k].state === rawTopic
+      (k) => this.topics[k].state != null &&
+        this.topics[k].state.name === rawTopic
     );
     if (topics.length === 0) {
       return;
     }
     for (let i in topics) {
+      // TODO: Remove FlowFixMe
       const topic = topics[i];
-      const parseValue = this.topics[topic].type;
+      // $FlowFixMe
+      const parseValue = this.topics[topic].state.type;
       const val = parseValue == null ? message.toString() : parseValue(message);
       this.setState({mqttState: Object.assign({}, merge(this.state.mqttState,
-        { [topic]: {
-          actual: val,
-          internal: keyOf(this.topics[topic].values, val) || val
-        }}))});
+        { [topic]: val}))});
     }
   }
 
@@ -105,15 +101,15 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
     this.setState({drawerOpened: false});
   }
 
-  changeState(topic: string, value: Actual) {
-    const rawTopic = this.topics[topic].command;
-    if (rawTopic == null) {
+  changeState(topic: string, value: string) {
+    if (this.topics[topic].command == null) {
       return;
     }
-    this.state.mqttSend(
-      rawTopic,
-      String(this.topics[topic].values[value] || value)
-    );
+    const rawTopic = this.topics[topic].command.name;
+    const transformValue = this.topics[topic].command.type;
+    const val =
+      transformValue == null ? value : transformValue(Buffer.from(value));
+    this.state.mqttSend(rawTopic, Buffer.from(val));
   }
 
   render() {
@@ -127,8 +123,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
               control={this.state.selectedControl}
               onCloseRequest={this.closeDrawer.bind(this)}
               icon={this.state.selectedControl == null ? null :
-                controlGetIcon(this.state.selectedControl,
-                  this.state.mqttState)}
+                this.state.selectedControl.icon(this.state.mqttState)}
             >
               {this.state.selectedControl == null
                 || <UiItemList state={this.state.mqttState}

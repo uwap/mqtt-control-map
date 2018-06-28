@@ -5,14 +5,16 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 
 import App from "components/App";
 
-import "../node_modules/mdi/css/materialdesignicons.min.css";
+import "../node_modules/@mdi/font/css/materialdesignicons.min.css";
 import "../css/styles.css";
 
-const Config : Config = window.config;
+import type { Config } from "config/flowtypes";
+
+const config : Config = window.config;
 injectTapEventPlugin();
 
-document.title = `${Config.space.name} Map`;
+document.title = `${config.space.name} Map`;
 
 // $FlowFixMe
 const contentElement: Element = document.getElementById("content");
-ReactDOM.render(<App config={Config} />, contentElement);
+ReactDOM.render(<App config={config} />, contentElement);

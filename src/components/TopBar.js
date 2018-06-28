@@ -1,10 +1,10 @@
 // @flow
 import React from "react";
 
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import { CircularProgress } from "material-ui/Progress";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export type TopBarProps = {
   title: string,
@@ -16,7 +16,7 @@ export type TopBarState = {
 };
 
 export default class TopBar
-    extends React.PureComponent<TopBarProps, TopBarState> {
+  extends React.PureComponent<TopBarProps, TopBarState> {
   constructor(props: TopBarProps) {
     super(props);
   }
