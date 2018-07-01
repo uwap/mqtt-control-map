@@ -618,28 +618,28 @@ const config : Config = {
     loetarbeitsplatz4: {
       name: "Lötarbeitsplatz",
       position: [205, 455],
-      icon: "eyedropper-variant",
+      icon: mdi("eyedropper-variant"),
       iconColor: ({loetarbeitsplatz4}) => loetarbeitsplatz4 == "on" ? hex("#FF0000") : hex("#000000"),
       ui: [
         {
           type: "text",
           text: "Status",
           topic: "loetarbeitsplatz4",
-          icon: "eyedropper-variant"
+          icon: mdi("eyedropper-variant")
         }
       ]
     },
     loetarbeitsplatz5: {
       name: "Lötarbeitsplatz",
       position: [205, 405],
-      icon: "eyedropper-variant",
+      icon: mdi("eyedropper-variant"),
       iconColor: ({loetarbeitsplatz5}) => loetarbeitsplatz5 == "on" ? hex("#FF0000") : hex("#000000"),
       ui: [
         {
           type: "text",
           text: "Status",
           topic: "loetarbeitsplatz5",
-          icon: "eyedropper-variant"
+          icon: mdi("eyedropper-variant")
         }
       ]
     },
