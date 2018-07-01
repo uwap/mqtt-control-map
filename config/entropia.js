@@ -1,6 +1,8 @@
 // @flow
 import type { Config } from "config/flowtypes";
 import { hex, rgb, rgba, rainbow } from "config/colors";
+import * as types from "config/types";
+import { mdi } from "config/icon";
 import { esper_topics, esper_statistics } from "./utils";
 
 const config : Config = {
@@ -12,16 +14,18 @@ const config : Config = {
   topics: [
     {
       hauptraum_table_light: {
-        command: "/public/sensoren/TPH/leinwand/control",
-        state: "test",
-        defaultValue: "A1 ON",
-        values: { on: "A1 ON", off: "A1 OFF" }
+        command: {
+          name: "/public/sensoren/TPH/leinwand/control",
+          type: types.option({ "A1 ON": "on", "A1 OFF": "off" })
+        },
+        defaultValue: "off"
       }, 
       hauptraum_table_light_on_hack: {
-        command: "/public/sensoren/TPH/leinwand/control",
-        state: "test",
-        defaultValue: "A1 OFF",
-        values: { on: "A1 ON", off: "A1 OFF" }
+        command: {
+          name: "/public/sensoren/TPH/leinwand/control",
+          type: types.option({ "A1 ON": "on", "A1 OFF": "off" })
+        },
+        defaultValue: "on"
       }
     }
   ],
@@ -29,20 +33,20 @@ const config : Config = {
     hauptraum_table_light: {
       name: "Hauptraum Tisch",
       position: [450, 450],
-      icon: "white-balance-iridescent",
+      icon: mdi("white-balance-iridescent"),
       iconColor: () => hex("#000000"),
       ui: [
         {
           type: "toggle",
           text: "Licht",
           topic: "hauptraum_table_light",
-          icon: "power"
+          icon: mdi("power")
         },
         {
           type: "toggle",
           text: "Licht",
           topic: "hauptraum_table_light_on_hack",
-          icon: "power"
+          icon: mdi("power")
         }
       ]
     }
