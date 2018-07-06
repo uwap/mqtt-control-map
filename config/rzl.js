@@ -222,6 +222,20 @@ const config : Config = {
         },
         defaultValue: "off"
       },
+      loetarbeitsplatz4: {
+        state: {
+          name: "stat/sonoff4/POWER",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        defaultValue: "off",
+      },
+      loetarbeitsplatz5: {
+        state: {
+          name: "stat/sonoff5/POWER",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        defaultValue: "off",
+      },
       door_status: {
         state: {
           name: "/service/status",
@@ -598,6 +612,34 @@ const config : Config = {
           text: "Rundumleuchte",
           topic: "rundumleuchte",
           icon: mdi("power")
+        }
+      ]
+    },
+    loetarbeitsplatz4: {
+      name: "Lötarbeitsplatz",
+      position: [205, 455],
+      icon: mdi("eyedropper-variant"),
+      iconColor: ({loetarbeitsplatz4}) => loetarbeitsplatz4 == "on" ? hex("#FF0000") : hex("#000000"),
+      ui: [
+        {
+          type: "text",
+          text: "Status",
+          topic: "loetarbeitsplatz4",
+          icon: mdi("eyedropper-variant")
+        }
+      ]
+    },
+    loetarbeitsplatz5: {
+      name: "Lötarbeitsplatz",
+      position: [205, 405],
+      icon: mdi("eyedropper-variant"),
+      iconColor: ({loetarbeitsplatz5}) => loetarbeitsplatz5 == "on" ? hex("#FF0000") : hex("#000000"),
+      ui: [
+        {
+          type: "text",
+          text: "Status",
+          topic: "loetarbeitsplatz5",
+          icon: mdi("eyedropper-variant")
         }
       ]
     },
