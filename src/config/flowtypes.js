@@ -55,8 +55,7 @@ export type UISlider = $ReadOnly<{|
   enableCondition?: (s: State) => boolean,
   min?: number,
   max?: number,
-  step?: number,
-  delayedApply?: boolean
+  step?: number
 |}>;
 
 export type UISection = $ReadOnly<{|

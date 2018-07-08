@@ -759,8 +759,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: "kitchen_light_brightness",
-          delayedApply: true
+          topic: "kitchen_light_brightness"
         },
         {
           type: "slider",
@@ -768,8 +767,7 @@ const config : Config = {
           max: 100,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: "kitchen_light_color",
-          delayedApply: true
+          topic: "kitchen_light_color"
         },
         {
           type: "section",
@@ -781,8 +779,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: floalt.brightness("65537"),
-          delayedApply: true
+          topic: floalt.brightness("65537")
         },
         {
           type: "slider",
@@ -790,8 +787,7 @@ const config : Config = {
           max: 100,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65537"),
-          delayedApply: true
+          topic: floalt.color("65537")
         },
         {
           type: "section",
@@ -803,8 +799,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: floalt.brightness("65538"),
-          delayedApply: true
+          topic: floalt.brightness("65538")
         },
         {
           type: "slider",
@@ -812,8 +807,7 @@ const config : Config = {
           max: 100,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65538"),
-          delayedApply: true
+          topic: floalt.color("65538")
         },
         {
           type: "section",
@@ -825,8 +819,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: floalt.brightness("65539"),
-          delayedApply: true
+          topic: floalt.brightness("65539")
         },
         {
           type: "slider",
@@ -834,8 +827,7 @@ const config : Config = {
           max: 100,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65539"),
-          delayedApply: true
+          topic: floalt.color("65539")
         },
         {
           type: "section",
@@ -847,8 +839,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: floalt.brightness("65540"),
-          delayedApply: true
+          topic: floalt.brightness("65540")
         },
         {
           type: "slider",
@@ -856,8 +847,7 @@ const config : Config = {
           max: 100,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65540"),
-          delayedApply: true
+          topic: floalt.color("65540")
         }
       ]
     },
@@ -881,8 +871,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: "kitchen_sink_light_brightness",
-          delayedApply: true
+          topic: "kitchen_sink_light_brightness"
         }
       ]
     },
@@ -901,8 +890,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: floalt.brightness("65544"),
-          delayedApply: true
+          topic: floalt.brightness("65544")
         },
         {
           type: "slider",
@@ -910,8 +898,7 @@ const config : Config = {
           max: 100,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65544"),
-          delayedApply: true
+          topic: floalt.color("65544")
         },
         {
           type: "section",
@@ -923,8 +910,7 @@ const config : Config = {
           max: 100,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: floalt.brightness("65543"),
-          delayedApply: true
+          topic: floalt.brightness("65543")
         },
         {
           type: "slider",
@@ -932,8 +918,7 @@ const config : Config = {
           max: 100,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65543"),
-          delayedApply: true
+          topic: floalt.color("65543")
         }
       ]
     },

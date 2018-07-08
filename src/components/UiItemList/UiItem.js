@@ -2,6 +2,7 @@
 import React from "react";
 import keys from "lodash/keys";
 import map from "lodash/map";
+import debounce from "lodash/debounce";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -71,8 +72,14 @@ export class UiControl<I: UIControl> extends UiItem<I> {
         `Missing topic in ${this.props.item.type} "${this.props.item.text}"`
       );
     }
-    this.props.onChangeState(this.props.item.topic, next);
+    this.debouncedChange(next);
   }
+
+  debouncedChange = debounce((next: string) =>
+    this.props.onChangeState(this.props.item.topic, next), 50, {
+      leading: true,
+      trailing: true
+    });
 
   getValue() {
     const control = this.props.item;
@@ -181,10 +188,9 @@ export class Slider extends UiControl<UISlider> {
         value={parseFloat(this.getValue())}
         min={this.props.item.min || 0} max={this.props.item.max || 0}
         step={this.props.item.step || 1}
-        onChange={(e, v) =>
-          this.props.item.delayedApply || this.runPrimaryAction(e, v)}
-        onDragEnd={this.runPrimaryAction}
-        disabled={!this.isEnabled()} />
+        onChange={this.runPrimaryAction}
+        disabled={!this.isEnabled()}
+        style={{marginLeft: 40}} />
     ];
   }
 }
