@@ -31,7 +31,7 @@ class SideBar extends React.PureComponent<Props, SideBarState> {
     super(props);
   }
 
-  static styles(_theme: Object): Object {
+  static styles(): Object {
     return {
       drawerPaper: {
         width: 340

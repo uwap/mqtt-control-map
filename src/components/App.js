@@ -57,7 +57,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
       Object.assign({}, ...this.props.config.topics) : this.props.config.topics;
   }
 
-  static styles(_theme: Object) {
+  static styles() {
     return {
       drawerPaper: {
         width: 320
@@ -83,10 +83,9 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
       return;
     }
     for (let i in topics) {
-      // TODO: Remove FlowFixMe
       const topic = topics[i];
-      // $FlowFixMe
-      const parseValue = this.topics[topic].state.type;
+      const stateTopic = this.topics[topic].state;
+      const parseValue = stateTopic ? stateTopic.type : null;
       const val = parseValue == null ? message.toString() : parseValue(message);
       this.setState({mqttState: Object.assign({}, merge(this.state.mqttState,
         { [topic]: val}))});

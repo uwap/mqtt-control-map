@@ -2,7 +2,7 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
-import { mdi, raw_mdi, mdi_battery } from "config/icon";
+import { mdi, rawMdi, mdiBattery } from "config/icon";
 import { esper_topics, esper_statistics, floalt, tradfri_remote } from "./utils";
 
 const config : Config = {
@@ -401,7 +401,7 @@ const config : Config = {
       name: "Twinkle",
       position: [530, 560],
       icon: ({twinkle}) =>
-        twinkle == "on" ? raw_mdi("led-on flip-v") : raw_mdi("led-off flip-v"),
+        twinkle == "on" ? rawMdi("led-on flip-v") : rawMdi("led-off flip-v"),
       iconColor: ({twinkle}) => twinkle == "on" ? rainbow : hex("#000000"),
       ui: [
         {
@@ -434,7 +434,8 @@ const config : Config = {
         {
           type: "link",
           link: "http://cashdesk.rzl:8081/",
-          text: "Open Cashdesk"
+          text: "Open Cashdesk",
+          icon: mdi("open-in-new")
         }
       ]
     },
@@ -481,7 +482,8 @@ const config : Config = {
         {
           type: "link",
           link: "http://annette.rzl/",
-          text: "Open Annette"
+          text: "Open Annette",
+          icon: mdi("open-in-new")
         }
       ]
     },
@@ -599,7 +601,8 @@ const config : Config = {
         {
           type: "link",
           link: "http://mpd.rzl/mpd/player/index.php",
-          text: "Open MPD Interface"
+          text: "Open MPD Interface",
+          icon: mdi("open-in-new")
         }
       ]
     },
@@ -661,7 +664,8 @@ const config : Config = {
         {
           type: "link",
           link: "http://s.rzl.so",
-          text: "Open Status Page"
+          text: "Open Status Page",
+          icon: mdi("open-in-new")
         },
         {
           type: "text",
@@ -693,7 +697,8 @@ const config : Config = {
         {
           type: "link",
           link: "http://cashdesk.rzl:3030/rzl",
-          text: "Open Infoscreen"
+          text: "Open Infoscreen",
+          icon: mdi("open-in-new")
         }
       ]
     },
@@ -713,7 +718,8 @@ const config : Config = {
         {
           type: "link",
           link: "http://ultimaker.rzl/",
-          text: "Open Webinterface"
+          text: "Open Webinterface",
+          icon: mdi("open-in-new")
         },
         {
           type: "section",
@@ -737,7 +743,8 @@ const config : Config = {
         {
           type: "link",
           link: "http://partkeepr.rzl/",
-          text: "Open Partkeepr"
+          text: "Open Partkeepr",
+          icon: mdi("open-in-new")
         }
       ]
     },
@@ -934,7 +941,7 @@ const config : Config = {
       ui: [
         {
           type: "progress",
-          icon: mdi_battery(tradfri_remote.level("65536")),
+          icon: mdiBattery(tradfri_remote.level("65536")),
           min: 0,
           max: 100,
           text: "Licht Tisch 1",
@@ -942,7 +949,7 @@ const config : Config = {
         },
         {
           type: "progress",
-          icon: mdi_battery(tradfri_remote.level("65547")),
+          icon: mdiBattery(tradfri_remote.level("65547")),
           min: 0,
           max: 100,
           text: "Licht Tisch 2",
@@ -950,7 +957,7 @@ const config : Config = {
         },
         {
           type: "progress",
-          icon: mdi_battery(tradfri_remote.level("65542")),
+          icon: mdiBattery(tradfri_remote.level("65542")),
           min: 0,
           max: 100,
           text: "Licht Theke 1",
@@ -958,7 +965,7 @@ const config : Config = {
         },
         {
           type: "progress",
-          icon: mdi_battery(tradfri_remote.level("65546")),
+          icon: mdiBattery(tradfri_remote.level("65546")),
           min: 0,
           max: 100,
           text: "Licht Theke 2",

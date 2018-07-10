@@ -32,7 +32,7 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
       }
       return (
         <ListItem key={key}>
-          {control.icon == null ||
+          {control.icon == null || control.type === "link" ||
             <ListItemIcon>
               {renderIcon(control.icon(this.props.state), "mdi-24px")}
             </ListItemIcon>}

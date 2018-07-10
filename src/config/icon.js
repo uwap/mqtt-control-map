@@ -5,37 +5,37 @@ export opaque type RawIcon: string = string;
 
 export type Icon = (State) => RawIcon;
 
-export const raw_mdi = (name: string): RawIcon => {
+export const rawMdi = (name: string): RawIcon => {
   return `mdi ${name.split(" ").map((icon) => "mdi-".concat(icon)).join(" ")}`;
 };
 
-export const mdi = (icon: string) => () => raw_mdi(icon);
+export const mdi = (icon: string) => () => rawMdi(icon);
 
-export const mdi_battery = (topic: string) => (state: State) => {
+export const mdiBattery = (topic: string) => (state: State) => {
   const rawval = state[topic];
-  const val = parseInt(rawval);
+  const val = parseInt(rawval, 10);
   if (isNaN(val)) {
-    return raw_mdi("battery-unknown");
+    return rawMdi("battery-unknown");
   } else if (val > 95) {
-    return raw_mdi("battery");
+    return rawMdi("battery");
   } else if (val > 85) {
-    return raw_mdi("battery-90");
+    return rawMdi("battery-90");
   } else if (val > 75) {
-    return raw_mdi("battery-80");
+    return rawMdi("battery-80");
   } else if (val > 65) {
-    return raw_mdi("battery-70");
+    return rawMdi("battery-70");
   } else if (val > 55) {
-    return raw_mdi("battery-60");
+    return rawMdi("battery-60");
   } else if (val > 45) {
-    return raw_mdi("battery-50");
+    return rawMdi("battery-50");
   } else if (val > 35) {
-    return raw_mdi("battery-40");
+    return rawMdi("battery-40");
   } else if (val > 25) {
-    return raw_mdi("battery-30");
+    return rawMdi("battery-30");
   } else if (val > 15) {
-    return raw_mdi("battery-20");
+    return rawMdi("battery-20");
   } else {
-    return raw_mdi("battery-10");
+    return rawMdi("battery-10");
   }
 };
 

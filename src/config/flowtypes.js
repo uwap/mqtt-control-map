@@ -68,8 +68,6 @@ export type UILink = $ReadOnly<{|
   text: string,
   link: string,
   enableCondition?: (s: State) => boolean,
-
-  // TODO: check if both the following options are implemented
   icon?: Icon
 |}>;
 

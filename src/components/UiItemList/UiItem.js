@@ -3,6 +3,7 @@ import React from "react";
 import keys from "lodash/keys";
 import map from "lodash/map";
 import debounce from "lodash/debounce";
+import { renderIcon } from "config/icon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -77,9 +78,9 @@ export class UiControl<I: UIControl> extends UiItem<I> {
 
   debouncedChange = debounce((next: string) =>
     this.props.onChangeState(this.props.item.topic, next), 50, {
-      leading: true,
-      trailing: true
-    });
+    leading: true,
+    trailing: true
+  });
 
   getValue() {
     const control = this.props.item;
@@ -216,6 +217,8 @@ export class Link extends UiItem<UILink> {
         color="primary"
         disabled={!this.isEnabled()}
       >
+        {this.props.item.icon == null ? ""
+          : renderIcon(this.props.item.icon(this.props.state), "mdi-24px")}
         {this.props.item.text}
       </Button>
     );
