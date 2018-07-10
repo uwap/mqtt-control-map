@@ -50,16 +50,16 @@ class SideBar extends React.PureComponent<Props, SideBarState> {
     return (
       <Drawer open={this.props.open}
         anchor="right"
-        onRequestClose={this.close}
+        onClose={this.close}
         classes={{paper: this.props.classes.drawerPaper}}
         variant="persistent"
       >
         <AppBar position="static">
           <Toolbar>
-            {this.props.icon == null
-              || renderIcon(this.props.icon, "mdi-36px")}
+            <span>{this.props.icon == null
+              || renderIcon(this.props.icon, "mdi-36px")}</span>
             <Typography variant="title" className={this.props.classes.flex}>
-              {this.props.control == null || this.props.control.name}
+              {this.props.control == null ? "" : this.props.control.name}
             </Typography>
             <IconButton onClick={this.close.bind(this)}>
               <i className="mdi mdi-close mdi-36px"></i>
@@ -67,7 +67,7 @@ class SideBar extends React.PureComponent<Props, SideBarState> {
           </Toolbar>
         </AppBar>
         <List id="drawer_uiComponents">
-          {this.props.children}
+          <React.Fragment>{this.props.children}</React.Fragment>
         </List>
       </Drawer>
     );
