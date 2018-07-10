@@ -303,6 +303,8 @@ const config : Config = {
             pre_print: "printing",
             post_print: "printing",
             printing: "printing",
+            idle: "idle",
+            error: "error",
             otherwise: "awaiting_interaction"
           })
         },
