@@ -36,7 +36,8 @@ export default class ControlMap extends React.PureComponent<ControlMapProps> {
     return (
       <Map center={this.center}
         zoom={this.props.zoom}
-        crs={CRS.Simple}>
+        crs={CRS.Simple}
+        leaflet={{}}>
         {this.renderMarkers()}
         {this.renderLayers()}
       </Map>
