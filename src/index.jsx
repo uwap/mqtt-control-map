@@ -10,7 +10,7 @@ import "../css/styles.css";
 
 import type { Config } from "config/flowtypes";
 
-const config : Config = window.config;
+const config: Config = window.config;
 injectTapEventPlugin();
 
 document.title = `${config.space.name} Map`;
