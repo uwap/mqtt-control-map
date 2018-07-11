@@ -3,7 +3,7 @@ import type { Config } from "config/flowtypes";
 import { hex, rgb, rgba, rainbow } from "config/colors";
 import * as types from "config/types";
 import { mdi } from "config/icon";
-import { esper_topics, esper_statistics } from "./utils";
+import { esper_topics, esper_statistics } from "../utils";
 
 const config : Config = {
   space: {
@@ -53,7 +53,7 @@ const config : Config = {
   },
   layers: [
     {
-      image: require("../img/layers/entropia/rooms.svg"),
+      image: require("./assets/layers/rooms.svg"),
       baseLayer: true,
       name: "Entropia",
       defaultVisibility: "visible",

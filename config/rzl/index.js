@@ -3,7 +3,7 @@ import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
 import { mdi, rawMdi, mdiBattery } from "config/icon";
-import { esper_topics, esper_statistics, floalt, tradfri_remote } from "./utils";
+import { esper_topics, esper_statistics, floalt, tradfri_remote } from "../utils";
 
 const config : Config = {
   space: {
@@ -976,7 +976,7 @@ const config : Config = {
   },
   layers: [
     {
-      image: require("../img/layers/rzl/rooms.svg"),
+      image: require("./assets/layers/rooms.svg"),
       baseLayer: true,
       name: "RaumZeitLabor",
       defaultVisibility: "visible",
@@ -987,7 +987,7 @@ const config : Config = {
       }
     },
     {
-      image: require("../img/layers/rzl/details.svg"),
+      image: require("./assets/layers/details.svg"),
       name: "Details",
       defaultVisibility: "visible",
       opacity: 0.4,
@@ -997,7 +997,7 @@ const config : Config = {
       }
     },
     {
-      image: require("../img/layers/rzl/labels.svg"),
+      image: require("./assets/layers/labels.svg"),
       name: "Labels",
       defaultVisibility: "hidden",
       opacity: 0.8,
