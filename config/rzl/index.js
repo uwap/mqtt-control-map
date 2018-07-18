@@ -28,11 +28,11 @@ const config: Config = {
       },
       snackbar: {
         state: {
-          name: "/service/openhab/out/pca301_snackbar/state",
+          name: "stat/sonoff6/POWER",
           type: types.option({ ON: "on", OFF: "off" })
         },
         command: {
-          name: "/service/openhab/in/pca301_snackbar/command",
+          name: "cmnd/sonoff6/power",
           type: types.option({ on: "ON", off: "OFF" })
         },
         defaultValue: "off",
