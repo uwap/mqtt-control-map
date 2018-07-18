@@ -266,7 +266,7 @@ const config: Config = {
     ...onkyo.controls,
     led_stahltrager: {
       name: "LED Stahlträger",
-      position: [380, 590],
+      position: [340, 590],
       icon: mdi("white-balance-iridescent"),
       iconColor: ({led_stahltraeger}) => led_stahltraeger == "on" ? rainbow : hex("#000000"),
       ui: [
@@ -309,7 +309,7 @@ const config: Config = {
     },
     fan: {
       name: "Ventilator",
-      position: [520, 450],
+      position: [530, 440],
       icon: mdi("fan"),
       iconColor: ({fan}) => fan == "on" ? hex("#00FF00") : hex("#000000"),
       ui: [
@@ -323,7 +323,7 @@ const config: Config = {
     },
     cashdesk: {
       name: "Cashdesk",
-      position: [500, 470],
+      position: [510, 467],
       icon: mdi("coin"),
       ui: [
         {
@@ -384,7 +384,7 @@ const config: Config = {
     },
     flyfry: {
       name: "Fliegenbratgerät",
-      position: [450, 590],
+      position: [450, 570],
       icon: mdi("fire"),
       iconColor: ({flyfry}) => flyfry == "on" ? hex("#6666FF") : hex("#000000"),
       ui: esper_statistics("flyfry", [
@@ -398,7 +398,7 @@ const config: Config = {
     },
     projector: {
       name: "Beamer",
-      position: [415, 590],
+      position: [380, 590],
       icon: mdi("projector flip-v"),
       iconColor: ({projector}) =>
         ({
