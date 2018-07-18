@@ -3,7 +3,7 @@ import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
 import { mdi, rawMdi, mdiBattery } from "config/icon";
-import { esper_topics, esper_statistics, floalt, tradfri_remote } from "../utils";
+import { esper_topics, esper_statistics, floalt, tradfri_remote } from "./utils";
 
 import * as onkyo from "./onkyo";
 
