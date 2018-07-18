@@ -12,6 +12,9 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import withStyles from "@material-ui/core/styles/withStyles";
 import * as Colors from "@material-ui/core/colors";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
 
 import SideBar from "components/SideBar";
 import ControlMap from "components/ControlMap";
@@ -30,6 +33,7 @@ export type AppState = {
   mqttState: State,
   mqttSend: (topic: string, value: Buffer) => void,
   mqttConnected: boolean,
+  error: ?string
 };
 
 class App extends React.PureComponent<AppProps & Classes, AppState> {
@@ -48,7 +52,8 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
           filter(keys(this.topics), (x) => this.topics[x].state != null),
           (x) => this.topics[x].state.name)
       }),
-      mqttConnected: false
+      mqttConnected: false,
+      error: null
     };
   }
 
@@ -74,21 +79,25 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
   }
 
   receiveMessage(rawTopic: string, message: Buffer) {
-    const topics = filter(
-      keys(this.topics),
-      (k) => this.topics[k].state != null &&
-        this.topics[k].state.name === rawTopic
-    );
-    if (topics.length === 0) {
-      return;
-    }
-    for (let i in topics) {
-      const topic = topics[i];
-      const stateTopic = this.topics[topic].state;
-      const parseValue = stateTopic ? stateTopic.type : null;
-      const val = parseValue == null ? message.toString() : parseValue(message);
-      this.setState({mqttState: Object.assign({}, merge(this.state.mqttState,
-        { [topic]: val}))});
+    try {
+      const topics = filter(
+        keys(this.topics),
+        (k) => this.topics[k].state != null &&
+          this.topics[k].state.name === rawTopic
+      );
+      if (topics.length === 0) {
+        return;
+      }
+      for (let i in topics) {
+        const topic = topics[i];
+        const stateTopic = this.topics[topic].state;
+        const parseVal = stateTopic ? stateTopic.type : null;
+        const val = parseVal == null ? message.toString() : parseVal(message);
+        this.setState({mqttState: Object.assign({}, merge(this.state.mqttState,
+          { [topic]: val}))});
+      }
+    } catch (err) {
+      this.setState({ error: err.toString() });
     }
   }
 
@@ -101,14 +110,19 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
   }
 
   changeState(topic: string, value: string) {
-    if (this.topics[topic].command == null) {
-      return;
+    try {
+      if (this.topics[topic].command == null) {
+        return;
+      }
+      const rawTopic = this.topics[topic].command.name;
+      const transformValue = this.topics[topic].command.type;
+      const val =
+        transformValue == null ? value : transformValue(Buffer.from(value));
+      this.state.mqttSend(rawTopic, Buffer.from(val));
+      throw new Error("test");
+    } catch (err) {
+      this.setState({ error: err.toString() });
     }
-    const rawTopic = this.topics[topic].command.name;
-    const transformValue = this.topics[topic].command.type;
-    const val =
-      transformValue == null ? value : transformValue(Buffer.from(value));
-    this.state.mqttSend(rawTopic, Buffer.from(val));
   }
 
   render() {
@@ -138,6 +152,30 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
           onChangeControl={this.changeControl.bind(this)}
           state={this.state.mqttState}
         />
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center"
+          }}
+          open={this.state.error != null}
+          autoHideDuration={6000}
+          onClose={() => this.setState({ error: null })}
+          ContentProps={{
+            "aria-describedby": "errormsg"
+          }}
+          message={
+            <Typography color="error" id="errormsg">
+              {this.state.error}
+            </Typography>}
+          action={
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={() => this.setState({ error: null })}>
+              <i className="mdi mdi-close" />
+            </IconButton>
+          } />
       </div>
     );
   }

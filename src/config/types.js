@@ -12,9 +12,16 @@ export const json = (path: string, innerType?: TopicType): TopicType => {
 
 export type TypeOptionParam = { otherwise?: string, [string]: string };
 export const option = (values: TypeOptionParam): TopicType => {
-  // TODO: error
-  const defaultValue = values.otherwise != null ? values.otherwise : "";
-  const mapVal = (x) => (values[x] != null ? values[x] : defaultValue);
+  const defaultValue = (x) => {
+    if (values.otherwise != null) {
+      return values.otherwise;
+    } else {
+      throw new Error(
+        `Value ${x.toString()} cannot by mapped by the option parameters given`
+      );
+    }
+  };
+  const mapVal = (x) => (values[x] != null ? values[x] : defaultValue(x));
   return (x) => mapVal(x.toString());
 };
 
