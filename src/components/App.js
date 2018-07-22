@@ -5,6 +5,7 @@ import mapValues from "lodash/mapValues";
 import filter from "lodash/filter";
 import keys from "lodash/keys";
 import merge from "lodash/merge";
+import throttle from "lodash/throttle";
 
 import type { Config, Control, Topics } from "config/flowtypes";
 
@@ -94,13 +95,16 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         const stateTopic = this.topics[topic].state;
         const parseVal = stateTopic ? stateTopic.type : null;
         const val = parseVal == null ? message.toString() : parseVal(message);
-        this.setState({mqttState: Object.assign({}, merge(this.state.mqttState,
-          { [topic]: val}))});
+        this.setMqttStateDebounced(
+          {mqttState: Object.assign({},
+            merge(this.state.mqttState, { [topic]: val}))});
       }
     } catch (err) {
       this.setState({ error: err.toString() });
     }
   }
+
+  setMqttStateDebounced = throttle(this.setState, 32);
 
   changeControl(control: ?Control = null) {
     this.setState({selectedControl: control, drawerOpened: control != null});

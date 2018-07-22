@@ -67,10 +67,9 @@ export default class ControlMap extends React.PureComponent<ControlMapProps> {
 
   renderMarker(control: Control, key: string) {
     return (
-      <MqttContext.Consumer>
+      <MqttContext.Consumer key={key}>
         {({ state }) => (
           <Marker position={convertPoint(control.position)}
-            key={key}
             icon={this.createLeafletIcon(control, state)}
             onClick={() => this.props.onChangeControl(control)}
           >

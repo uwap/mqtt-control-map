@@ -2,7 +2,7 @@
 import React from "react";
 import keys from "lodash/keys";
 import map from "lodash/map";
-import debounce from "lodash/debounce";
+import throttle from "lodash/throttle";
 import { renderRawIcon } from "config/icon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -76,7 +76,7 @@ export class UiControl<I: UIControl> extends UiItem<I> {
     this.debouncedChange(next);
   }
 
-  debouncedChange = debounce((next: string) =>
+  debouncedChange = throttle((next: string) =>
     this.props.onChangeState(this.props.item.topic, next), 50, {
     leading: true,
     trailing: true

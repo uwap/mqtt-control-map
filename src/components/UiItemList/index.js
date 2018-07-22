@@ -27,6 +27,13 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
           "A control is missing the \"type\" parameter"
         );
       }
+      if (control.type === "section") {
+        return(
+          <MqttContext.Consumer>
+            {this.renderListItem(control, key)}
+          </MqttContext.Consumer>
+        );
+      }
       return (
         <ListItem key={key}>
           <MqttContext.Consumer>
@@ -40,8 +47,7 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
   renderListItem(control: ControlUI, key: number) {
     return (mqtt: MqttContextValue) => {
       const node = this.renderControl(control, key.toString(), mqtt);
-      if (control.icon == null || control.type === "link"
-        || control.type === "section") {
+      if (control.icon == null || control.type === "link") {
         return node;
       } else {
         const listIconNode = (
