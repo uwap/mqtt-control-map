@@ -35,7 +35,7 @@ const config: Config = {
           name: "cmnd/sonoff6/power",
           type: types.option({ on: "ON", off: "OFF" })
         },
-        defaultValue: "off",
+        defaultValue: "off"
       },
       twinkle: {
         state: {
@@ -151,11 +151,11 @@ const config: Config = {
       },
       infoscreen: {
         state: {
-          name: "/service/openhab/out/pca301_infoscreen/state",
+          name: "stat/sonoff7/POWER",
           type: types.option({ ON: "on", OFF: "off" })
         },
         command: {
-          name: "/service/openhab/in/pca301_infoscreen/command",
+          name: "cmnd/sonoff7/power",
           type: types.option({ on: "ON", off: "OFF" })
         },
         defaultValue: "off"
