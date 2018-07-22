@@ -28,7 +28,7 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
         );
       }
       if (control.type === "section") {
-        return(
+        return (
           <MqttContext.Consumer>
             {this.renderListItem(control, key)}
           </MqttContext.Consumer>
