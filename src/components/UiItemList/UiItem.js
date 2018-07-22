@@ -3,7 +3,7 @@ import React from "react";
 import keys from "lodash/keys";
 import map from "lodash/map";
 import debounce from "lodash/debounce";
-import { renderIcon } from "config/icon";
+import { renderRawIcon } from "config/icon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -218,7 +218,7 @@ export class Link extends UiItem<UILink> {
         disabled={!this.isEnabled()}
       >
         {this.props.item.icon == null ? ""
-          : renderIcon(this.props.item.icon(this.props.state), "mdi-24px")}
+          : renderRawIcon(this.props.item.icon(this.props.state), "mdi-24px")}
         {this.props.item.text}
       </Button>
     );

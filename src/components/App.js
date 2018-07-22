@@ -21,6 +21,7 @@ import ControlMap from "components/ControlMap";
 import TopBar from "components/TopBar";
 import UiItemList from "components/UiItemList";
 
+import MqttContext from "mqtt/context";
 import connectMqtt from "../connectMqtt";
 
 export type AppProps = {
@@ -119,7 +120,6 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
       const val =
         transformValue == null ? value : transformValue(Buffer.from(value));
       this.state.mqttSend(rawTopic, Buffer.from(val));
-      throw new Error("test");
     } catch (err) {
       this.setState({ error: err.toString() });
     }
@@ -127,9 +127,12 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
 
   render() {
     return (
-      <div>
+      <MqttContext.Provider value={{
+        state: this.state.mqttState,
+        changeState: this.changeState.bind(this)
+      }}>
         <MuiThemeProvider theme={this.theme}>
-          <div>
+          <React.Fragment>
             <TopBar title={`${this.props.config.space.name} Map`}
               connected={this.state.mqttConnected} />
             <SideBar open={this.state.drawerOpened}
@@ -139,18 +142,14 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
                 this.state.selectedControl.icon(this.state.mqttState)}
             >
               {this.state.selectedControl == null
-                || <UiItemList state={this.state.mqttState}
-                  controls={this.state.selectedControl.ui}
-                  onChangeState={this.changeState.bind(this)}
-                />}
+                || <UiItemList controls={this.state.selectedControl.ui} />}
             </SideBar>
-          </div>
+          </React.Fragment>
         </MuiThemeProvider>
         <ControlMap width={1000} height={700} zoom={0}
           layers={this.props.config.layers}
           controls={this.props.config.controls}
           onChangeControl={this.changeControl.bind(this)}
-          state={this.state.mqttState}
         />
         <Snackbar
           anchorOrigin={{
@@ -176,7 +175,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
               <i className="mdi mdi-close" />
             </IconButton>
           } />
-      </div>
+      </MqttContext.Provider>
     );
   }
 }

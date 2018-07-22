@@ -1,5 +1,6 @@
 // @flow
 import * as React from "react";
+import ReactContext from "mqtt/context";
 
 export opaque type RawIcon: string = string;
 
@@ -39,7 +40,16 @@ export const mdiBattery = (topic: string) => (state: State) => {
   }
 };
 
-export const renderIcon =
+export const renderRawIcon =
   (icon: RawIcon, extraClass?: string): React.Node => {
     return <i className={`${extraClass || ""} ${icon}`}></i>;
+  };
+
+export const renderIcon =
+  (icon: Icon, extraClass?: string): React.Node => {
+    return (
+      <ReactContext.Consumer>
+        {({state}) => renderRawIcon(icon(state), extraClass)}
+      </ReactContext.Consumer>
+    );
   };

@@ -3,7 +3,7 @@ import React from "react";
 import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
 import { CRS, point, divIcon } from "leaflet";
 import map from "lodash/map";
-
+import MqttContext from "mqtt/context";
 import type { Controls, Control } from "config/flowtypes";
 
 export type Point = [number, number];
@@ -16,8 +16,7 @@ export type ControlMapProps = {
   zoom: number,
   layers: Array<Layer>,
   controls: Controls,
-  onChangeControl: (control: Control) => void,
-  state: State
+  onChangeControl: (control: Control) => void
 };
 
 export default class ControlMap extends React.PureComponent<ControlMapProps> {
@@ -48,32 +47,36 @@ export default class ControlMap extends React.PureComponent<ControlMapProps> {
     return map(this.props.controls, this.renderMarker.bind(this));
   }
 
-  createLeafletIcon(control: Control) {
-    const icon = control.icon(this.props.state);
+  createLeafletIcon(control: Control, state: State) {
+    const icon = control.icon(state);
     const iconClass = `${icon} mdi-36px`;
     return divIcon({
       iconSize: point(36, 36),
       iconAnchor: point(18, 18),
       html: `<i class="${iconClass}"
-          style="line-height: 1; color: ${this.iconColor(control)}"></i>`
+          style="line-height: 1; color: ${this.iconColor(control, state)}"></i>`
     });
   }
 
-  iconColor(control: Control): string {
+  iconColor(control: Control, state: State): string {
     if (control.iconColor != null) {
-      return control.iconColor(this.props.state);
+      return control.iconColor(state);
     }
     return "#000";
   }
 
   renderMarker(control: Control, key: string) {
     return (
-      <Marker position={convertPoint(control.position)}
-        key={key}
-        icon={this.createLeafletIcon(control)}
-        onClick={() => this.props.onChangeControl(control)}
-      >
-      </Marker>
+      <MqttContext.Consumer>
+        {({ state }) => (
+          <Marker position={convertPoint(control.position)}
+            key={key}
+            icon={this.createLeafletIcon(control, state)}
+            onClick={() => this.props.onChangeControl(control)}
+          >
+          </Marker>
+        )}
+      </MqttContext.Consumer>
     );
   }
 
