@@ -1,5 +1,5 @@
 // @flow
-import React from "react";
+import * as React from "react";
 import map from "lodash/map";
 import mapValues from "lodash/mapValues";
 import filter from "lodash/filter";
@@ -39,6 +39,8 @@ export type AppState = {
 };
 
 class App extends React.PureComponent<AppProps & Classes, AppState> {
+  controlMap: React.Node
+
   constructor(props: AppProps & Classes) {
     super(props);
     this.state = {
@@ -57,6 +59,12 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
       mqttConnected: false,
       error: null
     };
+    this.controlMap =
+        <ControlMap width={1000} height={700} zoom={0}
+          layers={this.props.config.layers}
+          controls={this.props.config.controls}
+          onChangeControl={this.changeControl}
+        />;
   }
 
   get topics(): Topics {
@@ -72,10 +80,10 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
     };
   }
 
-  get theme() {
+  static theme(config: Config) {
     return createMuiTheme({
       palette: {
-        primary: Colors[this.props.config.space.color]
+        primary: Colors[config.space.color]
       }
     });
   }
@@ -104,17 +112,17 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
     }
   }
 
-  setMqttStateDebounced = throttle(this.setState, 32);
+  setMqttStateDebounced = throttle(this.setState, 16);
 
-  changeControl(control: ?Control = null) {
+  changeControl = (control: ?Control = null) => {
     this.setState({selectedControl: control, drawerOpened: control != null});
   }
 
-  closeDrawer() {
+  closeDrawer = () => {
     this.setState({drawerOpened: false});
   }
 
-  changeState(topic: string, value: string) {
+  changeState = (topic: string, value: string) => {
     try {
       if (this.topics[topic].command == null) {
         return;
@@ -133,28 +141,20 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
     return (
       <MqttContext.Provider value={{
         state: this.state.mqttState,
-        changeState: this.changeState.bind(this)
+        changeState: this.changeState
       }}>
-        <MuiThemeProvider theme={this.theme}>
-          <React.Fragment>
-            <TopBar title={`${this.props.config.space.name} Map`}
-              connected={this.state.mqttConnected} />
-            <SideBar open={this.state.drawerOpened}
-              control={this.state.selectedControl}
-              onCloseRequest={this.closeDrawer.bind(this)}
-              icon={this.state.selectedControl == null ? null :
-                this.state.selectedControl.icon(this.state.mqttState)}
-            >
-              {this.state.selectedControl == null
-                || <UiItemList controls={this.state.selectedControl.ui} />}
-            </SideBar>
-          </React.Fragment>
-        </MuiThemeProvider>
-        <ControlMap width={1000} height={700} zoom={0}
-          layers={this.props.config.layers}
-          controls={this.props.config.controls}
-          onChangeControl={this.changeControl.bind(this)}
-        />
+        <TopBar title={`${this.props.config.space.name} Map`}
+          connected={this.state.mqttConnected} />
+        <SideBar open={this.state.drawerOpened}
+          control={this.state.selectedControl}
+          onCloseRequest={this.closeDrawer}
+          icon={this.state.selectedControl == null ? null :
+            this.state.selectedControl.icon(this.state.mqttState)}
+        >
+          {this.state.selectedControl == null
+            || <UiItemList controls={this.state.selectedControl.ui} />}
+        </SideBar>
+        {this.controlMap}
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",
@@ -184,4 +184,11 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
   }
 }
 
-export default withStyles(App.styles)(App);
+export default (props: AppProps) => {
+  const StyledApp = withStyles(App.styles)(App);
+  return (
+    <MuiThemeProvider theme={App.theme(props.config)}>
+      <StyledApp {...props} />
+    </MuiThemeProvider>
+  );
+};
