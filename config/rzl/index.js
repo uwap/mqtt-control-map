@@ -254,7 +254,7 @@ const config: Config = {
       name: "Snackbar",
       position: [510, 500],
       icon: mdi("fridge"),
-      iconColor: ({snackbar}) => snackbar == "on" ? hex("#E20074") : hex("#000000"),
+      iconColor: tasmota.icon_color("snackbar", hex("#E20074")),
       ui: [
         {
           type: "toggle",
@@ -338,7 +338,7 @@ const config: Config = {
       name: "Drucker",
       position: [335, 90],
       icon: mdi("printer"),
-      iconColor: ({olymp_printer}) => olymp_printer == "on" ? hex("#00FF00") : hex("#000000"),
+      iconColor: tasmota.icon_color("olymp_printer"),
       ui: [
         {
           type: "toggle",
@@ -470,7 +470,7 @@ const config: Config = {
       name: "Infoscreen",
       position: [255, 495],
       icon: mdi("television-guide flip-v"),
-      iconColor: ({infoscreen}) => infoscreen == "on" ? hex("#4444FF") : hex("#000000"),
+      iconColor: tasmota.icon_color("infoscreen", hex("#4444FF")),
       ui: [
         {
           type: "toggle",
