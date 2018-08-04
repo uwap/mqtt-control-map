@@ -42,6 +42,21 @@ export const esper_topics = (chip_id: string, name: string) => ({
   }
 });
 
+export const tasmota = {
+  topics: (id: string, name: string) => ({
+    [name]: {
+      state: {
+        name: `stat/sonoff${id}/POWER`,
+        type: types.option({ ON: "on", OFF: "off" })
+      },
+      command: {
+        name: `cmnd/sonoff${id}/power`,
+        type: types.option({ on: "ON", off: "OFF" })
+      },
+      defaultValue: "off"
+    }
+  })
+}
 export const floalt = {
   color: (light_id: string) => `floalt_${light_id}_color`,
   brightness: (light_id: string) => `floalt_${light_id}_brightness`,
