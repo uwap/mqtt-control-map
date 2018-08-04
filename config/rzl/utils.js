@@ -64,7 +64,7 @@ export const tasmota = {
       defaultValue: "offline"
     },
   }),
-  icon_color: (name: string, on_color: Color = hex("#00FF00")) => (state) => state[`${name}_online`] == "offline" ? hex("#888888") : (state[name] == "on" ? on_color : hex("#000000"))
+  icon_color: (name: string, on_color: Color = hex("#00FF00")) => (state: State) => state[`${name}_online`] == "offline" ? hex("#888888") : (state[name] == "on" ? on_color : hex("#000000"))
 }
 export const floalt = {
   color: (light_id: string) => `floalt_${light_id}_color`,

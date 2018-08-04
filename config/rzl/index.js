@@ -211,9 +211,9 @@ const config: Config = {
       }
     },
     //Tasmota-Dosen
-    tasmota.topics(2, "olymp_printer"),
-    tasmota.topics(6, "snackbar"),
-    tasmota.topics(7, "infoscreen"),
+    tasmota.topics("2", "olymp_printer"),
+    tasmota.topics("6", "snackbar"),
+    tasmota.topics("7", "infoscreen"),
 
     //Kuechen-Floalts
     floalt.topics("65537"),
