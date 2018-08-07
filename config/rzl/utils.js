@@ -59,12 +59,15 @@ export const tasmota = {
     [`${name}_online`]: {
       state: {
         name: `tele/sonoff${id}/LWT`,
-        type: types.option({ online: "online", offline: "offline" })
+        type: types.string
       },
       defaultValue: "offline"
     },
   }),
-  icon_color: (name: string, on_color: Color = hex("#00FF00")) => (state: State) => state[`${name}_online`] == "offline" ? hex("#888888") : (state[name] == "on" ? on_color : hex("#000000"))
+  icon_color: function (name: string, on_color: Color = hex("#00FF00")) {
+    return (state: State) =>
+      state[`${name}_online`] == "offline" ? hex("#888888") : (state[name] == "on" ? on_color : hex("#000000"))
+  }
 }
 export const floalt = {
   color: (light_id: string) => `floalt_${light_id}_color`,
