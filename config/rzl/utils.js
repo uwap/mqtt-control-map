@@ -1,6 +1,7 @@
 // @flow
 import type { ControlUI } from "config/flowtypes";
 import { mdi } from "config/icon";
+import { hex } from "config/colors";
 import * as types from "config/types";
 
 export const esper_topics = (chip_id: string, name: string) => ({
@@ -42,6 +43,39 @@ export const esper_topics = (chip_id: string, name: string) => ({
   }
 });
 
+export const tasmota = {
+  topics: (id: string, name: string) => ({
+    [name]: {
+      state: {
+        name: `stat/sonoff${id}/POWER`,
+        type: types.option({ ON: "on", OFF: "off" })
+      },
+      command: {
+        name: `cmnd/sonoff${id}/power`,
+        type: types.option({ on: "ON", off: "OFF" })
+      },
+      defaultValue: "off"
+    },
+    [`${name}_online`]: {
+      state: {
+        name: `tele/sonoff${id}/LWT`,
+        type: types.string
+      },
+      defaultValue: "offline"
+    },
+  }),
+  icon_color: (name: string, on_color: Color = hex("#00FF00")) => (state: State) => {
+    if (state[`${name}_online`] === "offline") {
+      return hex("#888888");
+    } else {
+      if (state[name] === "on") {
+        return on_color;
+      } else {
+        return hex("#000000");
+      }
+    }
+  }
+}
 export const floalt = {
   color: (light_id: string) => `floalt_${light_id}_color`,
   brightness: (light_id: string) => `floalt_${light_id}_brightness`,
