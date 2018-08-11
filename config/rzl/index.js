@@ -3,7 +3,7 @@ import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rgb, rgba, rainbow } from "config/colors";
 import { mdi, rawMdi, mdiBattery } from "config/icon";
-import { esper_topics, esper_statistics, floalt, tradfri_remote } from "./utils";
+import { esper_topics, esper_statistics, floalt, tradfri_remote, tasmota } from "./utils";
 
 import * as onkyo from "./onkyo";
 
@@ -22,17 +22,6 @@ const config: Config = {
         },
         command: {
           name: "/service/openhab/in/pca301_ledstrips/command",
-          type: types.option({ on: "ON", off: "OFF" })
-        },
-        defaultValue: "off"
-      },
-      snackbar: {
-        state: {
-          name: "stat/sonoff6/POWER",
-          type: types.option({ ON: "on", OFF: "off" })
-        },
-        command: {
-          name: "cmnd/sonoff6/power",
           type: types.option({ on: "ON", off: "OFF" })
         },
         defaultValue: "off"
@@ -77,17 +66,6 @@ const config: Config = {
         },
         command: {
           name: "/service/openhab/in/pca301_olymp_pc/command",
-          type: types.option({ on: "ON", off: "OFF" })
-        },
-        defaultValue: "off"
-      },
-      olymp_printer: {
-        state: {
-          name: "stat/sonoff2/POWER",
-          type: types.option({ ON: "on", OFF: "off" })
-        },
-        command: {
-          name: "cmnd/sonoff2/power",
           type: types.option({ on: "ON", off: "OFF" })
         },
         defaultValue: "off"
@@ -148,17 +126,6 @@ const config: Config = {
           type: types.string
         },
         defaultValue: ""
-      },
-      infoscreen: {
-        state: {
-          name: "stat/sonoff7/POWER",
-          type: types.option({ ON: "on", OFF: "off" })
-        },
-        command: {
-          name: "cmnd/sonoff7/power",
-          type: types.option({ on: "ON", off: "OFF" })
-        },
-        defaultValue: "off"
       },
       projector: {
         state: {
@@ -243,6 +210,11 @@ const config: Config = {
         defaultValue: "0"
       }
     },
+    //Tasmota-Dosen
+    tasmota.topics("2", "olymp_printer"),
+    tasmota.topics("6", "snackbar"),
+    tasmota.topics("7", "infoscreen"),
+
     //Kuechen-Floalts
     floalt.topics("65537"),
     floalt.topics("65538"),
@@ -282,7 +254,7 @@ const config: Config = {
       name: "Snackbar",
       position: [510, 500],
       icon: mdi("fridge"),
-      iconColor: ({snackbar}) => snackbar == "on" ? hex("#E20074") : hex("#000000"),
+      iconColor: tasmota.icon_color("snackbar", hex("#E20074")),
       ui: [
         {
           type: "toggle",
@@ -366,7 +338,7 @@ const config: Config = {
       name: "Drucker",
       position: [335, 90],
       icon: mdi("printer"),
-      iconColor: ({olymp_printer}) => olymp_printer == "on" ? hex("#00FF00") : hex("#000000"),
+      iconColor: tasmota.icon_color("olymp_printer"),
       ui: [
         {
           type: "toggle",
@@ -498,7 +470,7 @@ const config: Config = {
       name: "Infoscreen",
       position: [255, 495],
       icon: mdi("television-guide flip-v"),
-      iconColor: ({infoscreen}) => infoscreen == "on" ? hex("#4444FF") : hex("#000000"),
+      iconColor: tasmota.icon_color("infoscreen", hex("#4444FF")),
       ui: [
         {
           type: "toggle",
