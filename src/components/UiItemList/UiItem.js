@@ -32,7 +32,7 @@ type UiItemProps<I> = {
 
 // eslint-disable-next-line flowtype/no-weak-types
 export default class UiItem<I:Object>
-  extends React.PureComponent<UiItemProps<I>> {
+  extends React.Component<UiItemProps<I>> {
   constructor(props: UiItemProps<I>) {
     super(props);
   }
@@ -81,6 +81,12 @@ export class UiControl<I: UIControl> extends UiItem<I> {
     leading: true,
     trailing: true
   });
+
+  // $FlowFixMe
+  shouldComponentUpdate(nextProps: UiItemProps<I>) { // TODO: Fix Flow
+    return nextProps.state[nextProps.item.topic] !==
+      this.props.state[this.props.item.topic];
+  }
 
   getValue() {
     const control = this.props.item;

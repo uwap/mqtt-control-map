@@ -62,7 +62,7 @@ export default class UiItemList extends React.PureComponent<UiItemListProps> {
 
   renderControl(control: ControlUI, key: string, mqtt: MqttContextValue) {
     const props = {
-      state: mqtt.state,
+      state: Object.assign({}, mqtt.state),
       onChangeState: mqtt.changeState,
       key: `${key}-licontrol`
     };
