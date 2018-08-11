@@ -64,14 +64,14 @@ export const tasmota = {
       defaultValue: "offline"
     },
   }),
-  icon_color: (name: string, on_color: Color = hex("#00FF00")) => function (state: State) {
-    if (state[`${name}_online`] == "offline") {
-      return hex("#888888")
+  icon_color: (name: string, on_color: Color = hex("#00FF00")) => (state: State) => {
+    if (state[`${name}_online`] === "offline") {
+      return hex("#888888");
     } else {
-      if (state[name] == "on") {
-        return on_color
+      if (state[name] === "on") {
+        return on_color;
       } else {
-        return hex("#000000")
+        return hex("#000000");
       }
     }
   }
