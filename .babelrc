@@ -1,12 +1,7 @@
 {
   "presets": [
     ["@babel/preset-env", {
-      modules: false,
-      useBuiltIns: "usage",
-      debug: true,
-      targets: {
-        browsers: ["iOS 5"]
-      }
+      modules: false
     }],
     "@babel/preset-react",
     "@babel/preset-flow"

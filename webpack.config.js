@@ -16,7 +16,7 @@ const configPath = env => {
 
 module.exports = env => ({
   entry: {
-    main: [configPath(env),
+    main: ["@babel/polyfill", configPath(env),
           path.resolve(__dirname, 'src/index.jsx')]
   },
   resolve: {
@@ -35,7 +35,7 @@ module.exports = env => ({
       // TODO: CSS follow imports and minify + sourcemap on production
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
       { test: /\.(woff2?|eot|ttf|svg)$/, loader: "file-loader" },
-      { test: /\.js(x)?$/, exclude: /node_modules/, loader: "babel-loader?cacheDirectory=true" }
+      { test: /\.js(x)?$/, loader: "babel-loader?cacheDirectory=true" }
     ]
   },
   plugins: [
