@@ -3,6 +3,7 @@
     ["@babel/preset-env", {
       modules: false,
       useBuiltIns: "usage",
+      debug: true,
       targets: {
         browsers: ["iOS 5"]
       }
