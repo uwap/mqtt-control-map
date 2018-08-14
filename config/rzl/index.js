@@ -214,6 +214,7 @@ const config: Config = {
     tasmota.topics("2", "olymp_printer"),
     tasmota.topics("6", "snackbar"),
     tasmota.topics("7", "infoscreen"),
+    tasmota.topics("8", "led_olymp"),
 
     //Kuechen-Floalts
     floalt.topics("65537"),
@@ -248,6 +249,20 @@ const config: Config = {
           topic: "led_stahltraeger",
           icon: mdi("power")
         },
+      ]
+    },
+    led_olymp: {
+      name: "LED Olymp",
+      position: [196, 154],
+      icon: mdi("white-balance-iridescent"),
+      iconColor: tasmota.icon_color("led_olymp", rainbow),
+      ui: [
+        {
+          type: "toggle",
+          text: "LED Olymp",
+          topic: "led_olymp",
+          icon: mdi("power")
+        }
       ]
     },
     snackbar: {
