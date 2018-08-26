@@ -208,6 +208,13 @@ const config: Config = {
           type: types.string
         },
         defaultValue: "0"
+      },
+      nebenraum_power_status: {
+        state: {
+          name: "/service/nebenraum-power",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        defaultValue: "off"
       }
     },
     //Tasmota-Dosen
@@ -754,6 +761,22 @@ const config: Config = {
           max: 100,
           text: "Licht Theke 2",
           topic: tradfri_remote.level("65546")
+        }
+      ]
+    },
+    nebenraum_power_status: {
+      name: "Notaus Fablab",
+      position: [613, 537],
+      icon: ({nebenraum_power_status}) =>
+        nebenraum_power_status == "on" ? rawMdi("flash") : rawMdi("flash-off"),
+      iconColor: ({nebenraum_power_status}) =>
+        nebenraum_power_status == "on" ? hex("#00ff00") : hex("#000000"),
+      ui: [
+        {
+          type: "text",
+          icon: mdi("power"),
+          text: "Status Notaus",
+          topic: "nebenraum_power_status"
         }
       ]
     }
