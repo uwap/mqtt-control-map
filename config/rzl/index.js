@@ -254,7 +254,7 @@ const config: Config = {
     led_olymp: {
       name: "LED Olymp",
       position: [196, 154],
-      icon: mdi("white-balance-iridescent"),
+      icon: mdi("white-balance-iridescent rotate-45"),
       iconColor: tasmota.icon_color("led_olymp", rainbow),
       ui: [
         {
