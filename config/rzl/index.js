@@ -335,17 +335,17 @@ const config: Config = {
           text: "Modus",
           topic: "snackbar_scheme",
           options: {
-            0: "Single Color",
-            2: "Cycle RGB",
-            3: "Cycle RBG",
-            4: "Random cycle Random",
-            6: "Incandescent Pattern",
-            7: "RGB Pattern",
-            8: "Christmas Pattern",
-            9: "Hanukkah Pattern",
-            10: "Kwanzaa Pattern",
-            11: "Rainbow Pattern", 
-            12: "Fire Pattern"
+            "0": "Single Color",
+            "2": "Cycle RGB",
+            "3": "Cycle RBG",
+            "4": "Random cycle Random",
+            "6": "Incandescent Pattern",
+            "7": "RGB Pattern",
+            "8": "Christmas Pattern",
+            "9": "Hanukkah Pattern",
+            "10": "Kwanzaa Pattern",
+            "11": "Rainbow Pattern",
+            "12": "Fire Pattern"
           },
           icon: mdi("settings"),
           enableCondition: ({ snackbar_led_online }) => snackbar_led_online != "Offline"
