@@ -780,7 +780,7 @@ const config: Config = {
       ]
     },
     nebenraum_power_status: {
-      name: "Notaus Fablab",
+      name: "Strom Fablab",
       position: [613, 537],
       icon: ({nebenraum_power_status}) =>
         nebenraum_power_status == "on" ? rawMdi("flash") : rawMdi("flash-off"),
@@ -790,7 +790,7 @@ const config: Config = {
         {
           type: "text",
           icon: mdi("power"),
-          text: "Status Notaus",
+          text: "Strom Fablab",
           topic: "nebenraum_power_status"
         }
       ]
