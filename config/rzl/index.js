@@ -26,6 +26,46 @@ const config: Config = {
         },
         defaultValue: "off"
       },
+      snackbar_dimmmer: {
+        state: {
+          name: "/service/snackbar/Dimmer",
+          type: types.string
+        },
+        command: {
+          name: "cmnd/tasmota-snackbar/dimmer",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      snackbar_scheme: {
+        state: {
+          name: "/service/snackbar/Scheme",
+          type: types.string
+        },
+        command: {
+          name: "cmnd/tasmota-snackbar/scheme",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      snackbar_speed: {
+        state: {
+          name: "/service/snackbar/Speed",
+          type: types.string
+        },
+        command: {
+          name: "cmnd/tasmota-snackbar/speed",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      snackbar_led_online: {
+        state: {
+          name: "tele/tasmota-snackbar/LWT",
+          type: types.string
+        },
+        defaultValue: "Offline"
+      },
       twinkle: {
         state: {
           name: "/service/openhab/out/pca301_twinkle/state",
@@ -283,7 +323,51 @@ const config: Config = {
           text: "Snackbar",
           topic: "snackbar",
           icon: mdi("power")
-        }
+        },
+        {
+          type: "text",
+          text: "LED-Streifen",
+          topic: "snackbar_led_online",
+          icon: mdi("white-balance-iridescent")
+        },
+        {
+          type: "dropDown",
+          text: "Modus",
+          topic: "snackbar_scheme",
+          options: {
+            0: "Single Color",
+            2: "Cycle RGB",
+            3: "Cycle RBG",
+            4: "Random cycle Random",
+            6: "Incandescent Pattern",
+            7: "RGB Pattern",
+            8: "Christmas Pattern",
+            9: "Hanukkah Pattern",
+            10: "Kwanzaa Pattern",
+            11: "Rainbow Pattern", 
+            12: "Fire Pattern"
+          },
+          icon: mdi("settings"),
+          enableCondition: ({ snackbar_led_online }) => snackbar_led_online != "Offline"
+        },
+        {
+          type: "slider",
+          text: "Helligkeit",
+          topic: "snackbar_dimmmer",
+          min: 0,
+          max: 100,
+          icon: mdi("brightness-7"),
+          enableCondition: ({ snackbar_led_online }) => snackbar_led_online != "Offline"
+        },
+        {
+          type: "slider",
+          text: "Animations-Geschwindigkeit",
+          topic: "snackbar_speed",
+          min: 0,
+          max: 20,
+          icon: mdi("speedometer"),
+          enableCondition: ({ snackbar_led_online }) => snackbar_led_online != "Offline"
+        },
       ]
     },
     twinkle: {
