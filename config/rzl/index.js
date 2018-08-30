@@ -6,6 +6,7 @@ import { mdi, rawMdi, mdiBattery } from "config/icon";
 import { esper, floalt, tradfri, tasmota } from "./utils";
 
 import * as onkyo from "./onkyo";
+import * as olymp from "./olymp";
 
 const config: Config = {
   space: {
@@ -48,28 +49,6 @@ const config: Config = {
         },
         defaultValue: "off"
       },
-      videogames: {
-        state: {
-          name: "/service/openhab/out/pca301_videogames/state",
-          type: types.option({ ON: "on", OFF: "off" })
-        },
-        command: {
-          name: "/service/openhab/in/pca301_videogames/command",
-          type: types.option({ on: "ON", off: "OFF" })
-        },
-        defaultValue: "off"
-      },
-      olymp_pc: {
-        state: {
-          name: "/service/openhab/out/pca301_olymp_pc/state",
-          type: types.option({ ON: "on", OFF: "off" })
-        },
-        command: {
-          name: "/service/openhab/in/pca301_olymp_pc/command",
-          type: types.option({ on: "ON", off: "OFF" })
-        },
-        defaultValue: "off"
-      },
       flyfry: {
         state: {
           name: "/service/openhab/out/wifi_flyfry/state",
@@ -77,17 +56,6 @@ const config: Config = {
         },
         command: {
           name: "/service/openhab/in/wifi_flyfry/command",
-          type: types.option({ on: "ON", off: "OFF" })
-        },
-        defaultValue: "off"
-      },
-      rundumleuchte: {
-        state: {
-          name: "/service/openhab/out/pca301_rundumleuchte/state",
-          type: types.option({ ON: "on", OFF: "off" })
-        },
-        command: {
-          name: "/service/openhab/in/pca301_rundumleuchte/command",
           type: types.option({ on: "ON", off: "OFF" })
         },
         defaultValue: "off"
@@ -222,10 +190,8 @@ const config: Config = {
       }
     },
     //Tasmota-Dosen
-    tasmota.topics("2", "olymp_printer"),
     tasmota.topics("6", "snackbar"),
     tasmota.topics("7", "infoscreen"),
-    tasmota.topics("8", "led_olymp"),
 
     //Kuechen-Floalts
     floalt.topics("65537"),
@@ -242,12 +208,13 @@ const config: Config = {
     tradfri.remote.topics("65546"),
 
     esper.topics("afba40", "flyfry"),
-    esper.topics("afba45", "alarm"),
 
-    onkyo.topics
+    onkyo.topics,
+    olymp.topics
   ],
   controls: {
     ...onkyo.controls,
+    ...olymp.controls,
     led_stahltrager: {
       name: "LED Stahlträger",
       position: [340, 590],
@@ -259,20 +226,6 @@ const config: Config = {
           type: "toggle",
           text: "Stahlträger LED",
           topic: "ledStahltraeger",
-          icon: mdi("power")
-        }
-      ]
-    },
-    led_olymp: {
-      name: "LED Olymp",
-      position: [196, 154],
-      icon: mdi("white-balance-iridescent rotate-45"),
-      iconColor: tasmota.icon_color("led_olymp", rainbow),
-      ui: [
-        {
-          type: "toggle",
-          text: "LED Olymp",
-          topic: "led_olymp",
           icon: mdi("power")
         }
       ]
@@ -333,56 +286,6 @@ const config: Config = {
         }
       ]
     },
-    videogames: {
-      name: "Videospiele",
-      position: [100, 100],
-      icon: mdi("gamepad-variant"),
-      iconColor: ({videogames}) =>
-        (videogames === "on" ? hex("#00FF00") : hex("#000000")),
-      ui: [
-        {
-          type: "toggle",
-          text: "Videospiele",
-          topic: "videogames",
-          icon: mdi("power")
-        }
-      ]
-    },
-    olymp_pc: {
-      name: "Rechner",
-      position: [297, 90],
-      icon: mdi("desktop-classic"),
-      iconColor: ({olymp_pc}) =>
-        (olymp_pc === "on" ? hex("#00FF00") : hex("#000000")),
-      ui: [
-        {
-          type: "toggle",
-          text: "Rechner",
-          topic: "olymp_pc",
-          icon: mdi("power")
-        }
-      ]
-    },
-    olymp_printer: {
-      name: "Drucker",
-      position: [335, 90],
-      icon: mdi("printer"),
-      iconColor: tasmota.icon_color("olymp_printer"),
-      ui: [
-        {
-          type: "toggle",
-          text: "Drucker",
-          topic: "olymp_printer",
-          icon: mdi("power")
-        },
-        {
-          type: "link",
-          link: "http://annette.rzl/",
-          text: "Open Annette",
-          icon: mdi("open-in-new")
-        }
-      ]
-    },
     flyfry: {
       name: "Fliegenbratgerät",
       position: [450, 570],
@@ -420,21 +323,6 @@ const config: Config = {
         }
       ]
     },
-    rundumleuchte: {
-      name: "Rundumleuchte",
-      position: [310, 275],
-      icon: mdi("alarm-light"),
-      iconColor: ({rundumleuchte}) =>
-        (rundumleuchte === "on" ? hex("#F0DF10") : hex("#000000")),
-      ui: [
-        {
-          type: "toggle",
-          text: "Rundumleuchte",
-          topic: "rundumleuchte",
-          icon: mdi("power")
-        }
-      ]
-    },
     loetarbeitsplatz4: {
       name: "Lötarbeitsplatz",
       position: [205, 455],
@@ -464,13 +352,6 @@ const config: Config = {
           icon: mdi("eyedropper-variant")
         }
       ]
-    },
-    alarm: {
-      name: "Alarm",
-      position: [340, 250],
-      icon: mdi("alarm-bell"),
-      iconColor: () => hex("#000000"),
-      ui: esper.statistics("alarm")
     },
     door: {
       name: "Tür",
