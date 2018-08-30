@@ -5,7 +5,7 @@ import { hex } from "config/colors";
 import * as types from "config/types";
 
 export const topics: Topics = {
-  onkyo_connection: {
+  onkyoConnection: {
     state: {
       name: "/service/onkyo/connected",
       type: types.option({
@@ -16,7 +16,7 @@ export const topics: Topics = {
     },
     defaultValue: "disconnected"
   },
-  onkyo_power: {
+  onkyoPower: {
     state: {
       name: "/service/onkyo/status/system-power",
       type: types.json("onkyo_raw", types.option({
@@ -30,7 +30,7 @@ export const topics: Topics = {
     },
     defaultValue: "off"
   },
-  onkyo_mute: {
+  onkyoMute: {
     state: {
       name: "/service/onkyo/status/audio-muting",
       type: types.json("onkyo_raw", types.option({
@@ -44,7 +44,7 @@ export const topics: Topics = {
     },
     defaultValue: "off"
   },
-  onkyo_volume: {
+  onkyoVolume: {
     state: {
       name: "/service/onkyo/status/volume",
       type: types.json("val")
@@ -55,7 +55,7 @@ export const topics: Topics = {
     },
     defaultValue: "0"
   },
-  onkyo_inputs: {
+  onkyoInputs: {
     state: {
       name: "/service/onkyo/status/input-selector",
       type: types.json("onkyo_raw", types.option({
@@ -80,19 +80,19 @@ export const topics: Topics = {
     },
     defaultValue: "unknown"
   },
-  onkyo_radios: {
+  onkyoRadios: {
     state: {
       name: "/service/onkyo/status/latest-NPR",
       type: types.option({
         NPR01: "mpd",
         NPR02: "kohina",
-        NPR03: "somafm_dronezone",
-        NPR04: "somafm_thetrip",
+        NPR03: "somafmDronezone",
+        NPR04: "somafmThetrip",
         NPR05: "querfunk",
-        NPR06: "somafm_defconradio",
-        NPR07: "somafm_secretagent",
-        NPR08: "somafm_lush",
-        NPR09: "somafm_beatblender",
+        NPR06: "somafmDefconradio",
+        NPR07: "somafmSecretagent",
+        NPR08: "somafmLush",
+        NPR09: "somafmBeatblender",
         NPR0a: "ponyville",
         otherwise: "unknown"
       })
@@ -102,13 +102,13 @@ export const topics: Topics = {
       type: types.option({
         mpd: "NPR01",
         kohina: "NPR02",
-        somafm_dronezone: "NPR03",
-        somafm_thetrip: "NPR04",
+        somafmDronezone: "NPR03",
+        somafmThetrip: "NPR04",
         querfunk: "NPR05",
-        somafm_defconradio: "NPR06",
-        somafm_secretagent: "NPR07",
-        somafm_lush: "NPR08",
-        somafm_beatblender: "NPR09",
+        somafmDefconradio: "NPR06",
+        somafmSecretagent: "NPR07",
+        somafmLush: "NPR08",
+        somafmBeatblender: "NPR09",
         ponyville: "NPR0a",
         otherwise: "NPR00"
       })
@@ -121,17 +121,17 @@ export const controls: Controls = {
   onkyo: {
     name: "Onkyo",
     position: [350, 650],
-    iconColor: ({onkyo_connection, onkyo_power}) =>
-      (onkyo_connection !== "connected" ? hex("#888888") :
-        (onkyo_power === "on" ? hex("#00FF00") : hex("#000000"))),
+    iconColor: ({onkyoConnection, onkyoPower}) =>
+      (onkyoConnection !== "connected" ? hex("#888888") :
+        (onkyoPower === "on" ? hex("#00FF00") : hex("#000000"))),
     icon: mdi("audio-video"),
     ui: [
       {
         type: "toggle",
         text: "Power",
         icon: mdi("power"),
-        topic: "onkyo_power",
-        enableCondition: (state) => state.onkyo_connection === "connected"
+        topic: "onkyoPower",
+        enableCondition: (state) => state.onkyoConnection === "connected"
       },
       {
         type: "section",
@@ -140,18 +140,18 @@ export const controls: Controls = {
       {
         type: "slider",
         text: "Volume",
-        topic: "onkyo_volume",
+        topic: "onkyoVolume",
         min: 0,
         max: 50,
         icon: mdi("volume-high"),
-        enableCondition: (state) => state.onkyo_connection === "connected"
+        enableCondition: (state) => state.onkyoConnection === "connected"
       },
       {
         type: "toggle",
         text: "Mute",
-        topic: "onkyo_mute",
+        topic: "onkyoMute",
         icon: mdi("volume-off"),
-        enableCondition: (state) => state.onkyo_connection === "connected"
+        enableCondition: (state) => state.onkyoConnection === "connected"
       },
       {
         type: "section",
@@ -160,7 +160,7 @@ export const controls: Controls = {
       {
         type: "dropDown",
         text: "Eingang",
-        topic: "onkyo_inputs",
+        topic: "onkyoInputs",
         options: {
           netzwerk: "Netzwerk",
           tisch: "Tisch",
@@ -169,27 +169,27 @@ export const controls: Controls = {
           front: "Front HDMI"
         },
         icon: mdi("usb"),
-        enableCondition: (state) => state.onkyo_connection === "connected"
+        enableCondition: (state) => state.onkyoConnection === "connected"
       },
       {
         type: "dropDown",
         text: "Netzwerksender",
-        topic: "onkyo_radios",
+        topic: "onkyoRadios",
         options: {
           mpd: "MPD",
           kohina: "Kohina",
-          somafm_dronezone: "Drone Zone (SomaFM)",
-          somafm_thetrip: "The Trip (SomaFM)",
+          somafmDronezone: "Drone Zone (SomaFM)",
+          somafmThetrip: "The Trip (SomaFM)",
           querfunk: "Querfunk",
-          somafm_defconradio: "Defcon Radio (SomaFM)",
-          somafm_secretagent: "Secret Agent (SomaFM)",
-          somafm_lush: "Lush (SomaFM)",
-          somafm_beatblender: "Beat Blender (Soma FM)",
+          somafmDefconradio: "Defcon Radio (SomaFM)",
+          somafmSecretagent: "Secret Agent (SomaFM)",
+          somafmLush: "Lush (SomaFM)",
+          somafmBeatblender: "Beat Blender (Soma FM)",
           ponyville: "Ponyville FM"
         },
         icon: mdi("radio"),
-        enableCondition: (state) => state.onkyo_connection === "connected"
-          && state.onkyo_inputs === "netzwerk"
+        enableCondition: (state) => state.onkyoConnection === "connected"
+          && state.onkyoInputs === "netzwerk"
       },
       {
         type: "section",
