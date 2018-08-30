@@ -1,9 +1,9 @@
 // @flow
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
-import { hex, rgb, rgba, rainbow } from "config/colors";
+import { hex, rainbow } from "config/colors";
 import { mdi, rawMdi, mdiBattery } from "config/icon";
-import { esper_topics, esper_statistics, floalt, tradfri_remote, tasmota } from "./utils";
+import { esper, floalt, tradfri, tasmota } from "./utils";
 
 import * as onkyo from "./onkyo";
 
@@ -15,7 +15,7 @@ const config: Config = {
   },
   topics: [
     {
-      led_stahltraeger: {
+      ledStahltraeger: {
         state: {
           name: "/service/openhab/out/pca301_ledstrips/state",
           type: types.option({ ON: "on", OFF: "off" })
@@ -97,23 +97,23 @@ const config: Config = {
           name: "stat/sonoff4/POWER",
           type: types.option({ ON: "on", OFF: "off" })
         },
-        defaultValue: "off",
+        defaultValue: "off"
       },
       loetarbeitsplatz5: {
         state: {
           name: "stat/sonoff5/POWER",
           type: types.option({ ON: "on", OFF: "off" })
         },
-        defaultValue: "off",
+        defaultValue: "off"
       },
-      door_status: {
+      doorStatus: {
         state: {
           name: "/service/status",
           type: types.option({ "\"open\"": "on", "\"closed\"": "off" })
         },
         defaultValue: "off"
       },
-      presence_status: {
+      presenceStatus: {
         state: {
           name: "service/status/presence",
           type: types.jsonArray
@@ -167,22 +167,24 @@ const config: Config = {
             otherwise: "awaiting_interaction"
           })
         },
-        defaultValue: "unavailable",
+        defaultValue: "unavailable"
       },
       printer_3d_progress: {
         state: {
           name: "/service/ultimaker/job",
-          type: msg => JSON.parse(msg.toString()).progress || "0"
+          type: (msg) => JSON.parse(msg.toString()).progress || "0"
         },
         defaultValue: "0"
       },
       kitchen_light_color: {
         state: {
-          name: "/service/openhab/out/kitchen_light_all_color_temperature/state",
+          name: "/service/openhab/out/kitchen_light_all_color_temperature"
+            + "/state",
           type: types.string
         },
         command: {
-          name: "/service/openhab/in/kitchen_light_all_color_temperature/command",
+          name: "/service/openhab/in/kitchen_light_all_color_temperature"
+            + "/command",
           type: types.string
         },
         defaultValue: "0"
@@ -200,16 +202,18 @@ const config: Config = {
       },
       kitchen_sink_light_brightness: {
         state: {
-          name: "/service/openhab/out/tradfri_0100_gwb8d7af2b448f_65545_brightness/state",
+          name: "/service/openhab/out/tradfri_0100_"
+            + "gwb8d7af2b448f_65545_brightness/state",
           type: types.string
         },
         command: {
-          name: "/service/openhab/in/tradfri_0100_gwb8d7af2b448f_65545_brightness/command",
+          name: "/service/openhab/in/tradfri_0100_"
+            + "gwb8d7af2b448f_65545_brightness/command",
           type: types.string
         },
         defaultValue: "0"
       },
-      nebenraum_power_status: {
+      nebenraumPowerStatus: {
         state: {
           name: "/service/nebenraum-power",
           type: types.option({ ON: "on", OFF: "off" })
@@ -228,17 +232,17 @@ const config: Config = {
     floalt.topics("65538"),
     floalt.topics("65539"),
     floalt.topics("65540"),
-    tradfri_remote.topics("65536"),
-    tradfri_remote.topics("65547"),
+    tradfri.remote.topics("65536"),
+    tradfri.remote.topics("65547"),
 
     //Theken-Floalts
     floalt.topics("65543"),
     floalt.topics("65544"),
-    tradfri_remote.topics("65542"),
-    tradfri_remote.topics("65546"),
+    tradfri.remote.topics("65542"),
+    tradfri.remote.topics("65546"),
 
-    esper_topics("afba40", "flyfry"),
-    esper_topics("afba45", "alarm"),
+    esper.topics("afba40", "flyfry"),
+    esper.topics("afba45", "alarm"),
 
     onkyo.topics
   ],
@@ -248,14 +252,15 @@ const config: Config = {
       name: "LED Stahlträger",
       position: [340, 590],
       icon: mdi("white-balance-iridescent"),
-      iconColor: ({led_stahltraeger}) => led_stahltraeger == "on" ? rainbow : hex("#000000"),
+      iconColor: ({ledStahltraeger}) =>
+        (ledStahltraeger === "on" ? rainbow : hex("#000000")),
       ui: [
         {
           type: "toggle",
           text: "Stahlträger LED",
-          topic: "led_stahltraeger",
+          topic: "ledStahltraeger",
           icon: mdi("power")
-        },
+        }
       ]
     },
     led_olymp: {
@@ -290,8 +295,8 @@ const config: Config = {
       name: "Twinkle",
       position: [530, 560],
       icon: ({twinkle}) =>
-        twinkle == "on" ? rawMdi("led-on flip-v") : rawMdi("led-off flip-v"),
-      iconColor: ({twinkle}) => twinkle == "on" ? rainbow : hex("#000000"),
+        (twinkle === "on" ? rawMdi("led-on flip-v") : rawMdi("led-off flip-v")),
+      iconColor: ({twinkle}) => (twinkle === "on" ? rainbow : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -305,7 +310,7 @@ const config: Config = {
       name: "Ventilator",
       position: [530, 440],
       icon: mdi("fan"),
-      iconColor: ({fan}) => fan == "on" ? hex("#00FF00") : hex("#000000"),
+      iconColor: ({fan}) => (fan === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -332,7 +337,8 @@ const config: Config = {
       name: "Videospiele",
       position: [100, 100],
       icon: mdi("gamepad-variant"),
-      iconColor: ({videogames}) => videogames == "on" ? hex("#00FF00") : hex("#000000"),
+      iconColor: ({videogames}) =>
+        (videogames === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -346,7 +352,8 @@ const config: Config = {
       name: "Rechner",
       position: [297, 90],
       icon: mdi("desktop-classic"),
-      iconColor: ({olymp_pc}) => olymp_pc == "on" ? hex("#00FF00") : hex("#000000"),
+      iconColor: ({olymp_pc}) =>
+        (olymp_pc === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -380,8 +387,9 @@ const config: Config = {
       name: "Fliegenbratgerät",
       position: [450, 570],
       icon: mdi("fire"),
-      iconColor: ({flyfry}) => flyfry == "on" ? hex("#6666FF") : hex("#000000"),
-      ui: esper_statistics("flyfry", [
+      iconColor: ({flyfry}) =>
+        (flyfry === "on" ? hex("#6666FF") : hex("#000000")),
+      ui: esper.statistics("flyfry", [
         {
           type: "toggle",
           text: "Fliegenbratgerät",
@@ -400,23 +408,24 @@ const config: Config = {
           transient_off: hex("#b3b300"),
           on: hex("#00ff00"),
           off: hex("#000000"),
-          unknown: hex("#888888"),
+          unknown: hex("#888888")
         })[projector],
       ui: [
         {
           type: "toggle",
           text: "Beamer",
           topic: "projector",
-          toggled: val => val == "transient_on" || val == "on",
+          toggled: (val) => val === "transient_on" || val === "on",
           icon: mdi("power")
         }
       ]
     },
     rundumleuchte: {
       name: "Rundumleuchte",
-      position: [310,275],
+      position: [310, 275],
       icon: mdi("alarm-light"),
-      iconColor: ({rundumleuchte}) => rundumleuchte == "on" ? hex("#F0DF10") : hex("#000000"),
+      iconColor: ({rundumleuchte}) =>
+        (rundumleuchte === "on" ? hex("#F0DF10") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -430,7 +439,8 @@ const config: Config = {
       name: "Lötarbeitsplatz",
       position: [205, 455],
       icon: mdi("eyedropper-variant"),
-      iconColor: ({loetarbeitsplatz4}) => loetarbeitsplatz4 == "on" ? hex("#FF0000") : hex("#000000"),
+      iconColor: ({loetarbeitsplatz4}) =>
+        (loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000")),
       ui: [
         {
           type: "text",
@@ -444,7 +454,8 @@ const config: Config = {
       name: "Lötarbeitsplatz",
       position: [205, 405],
       icon: mdi("eyedropper-variant"),
-      iconColor: ({loetarbeitsplatz5}) => loetarbeitsplatz5 == "on" ? hex("#FF0000") : hex("#000000"),
+      iconColor: ({loetarbeitsplatz5}) =>
+        (loetarbeitsplatz5 === "on" ? hex("#FF0000") : hex("#000000")),
       ui: [
         {
           type: "text",
@@ -459,13 +470,14 @@ const config: Config = {
       position: [340, 250],
       icon: mdi("alarm-bell"),
       iconColor: () => hex("#000000"),
-      ui: esper_statistics("alarm")
+      ui: esper.statistics("alarm")
     },
     door: {
       name: "Tür",
-      position: [455,350],
+      position: [455, 350],
       icon: mdi("swap-vertical"),
-      iconColor: ({door_status}) => door_status == "on" ? hex("#00FF00") : hex("#FF0000"),
+      iconColor: ({doorStatus}) =>
+        (doorStatus === "on" ? hex("#00FF00") : hex("#FF0000")),
       ui: [
         {
           type: "link",
@@ -476,7 +488,7 @@ const config: Config = {
         {
           type: "text",
           text: "Anwesend",
-          topic: "presence_status",
+          topic: "presenceStatus",
           icon: mdi("account")
         },
         {
@@ -512,7 +524,7 @@ const config: Config = {
       name: "Ultimaker 3",
       position: [754, 560],
       icon: mdi("printer-3d"),
-      iconColor: ({printer_3d_status}) => 
+      iconColor: ({printer_3d_status}) =>
         ({
           awaiting_interaction: hex("#b3b300"),
           printing: hex("#00ff00"),
@@ -563,7 +575,7 @@ const config: Config = {
           type: "toggle",
           on: "50",
           off: "0",
-          toggled: n => parseInt(n) > 0,
+          toggled: (n) => parseInt(n) > 0,
           topic: "kitchen_light_brightness",
           text: "Ein/Ausschalten",
           icon: mdi("power")
@@ -675,7 +687,7 @@ const config: Config = {
           type: "toggle",
           on: "50",
           off: "0",
-          toggled: n => parseInt(n) > 0,
+          toggled: (n) => parseInt(n) > 0,
           topic: "kitchen_sink_light_brightness",
           text: "Ein/Ausschalten",
           icon: mdi("power")
@@ -742,56 +754,57 @@ const config: Config = {
       position: [400, 344],
       icon: mdi("light-switch"),
       iconColor: (state) => //if any remote is low make icon red
-        ["65536", "65542", "65546", "65547"].some(
-          x => state[tradfri_remote.low(x)] == "true") ? hex("#ff0000") : hex("#000000"),
+        (["65536", "65542", "65546", "65547"]
+          .some((x) => state[tradfri.remote.low(x)] === "true")
+          ? hex("#ff0000") : hex("#000000")),
       ui: [
         {
           type: "progress",
-          icon: mdiBattery(tradfri_remote.level("65536")),
+          icon: mdiBattery(tradfri.remote.level("65536")),
           min: 0,
           max: 100,
           text: "Licht Tisch 1",
-          topic: tradfri_remote.level("65536")
+          topic: tradfri.remote.level("65536")
         },
         {
           type: "progress",
-          icon: mdiBattery(tradfri_remote.level("65547")),
+          icon: mdiBattery(tradfri.remote.level("65547")),
           min: 0,
           max: 100,
           text: "Licht Tisch 2",
-          topic: tradfri_remote.level("65547")
+          topic: tradfri.remote.level("65547")
         },
         {
           type: "progress",
-          icon: mdiBattery(tradfri_remote.level("65542")),
+          icon: mdiBattery(tradfri.remote.level("65542")),
           min: 0,
           max: 100,
           text: "Licht Theke 1",
-          topic: tradfri_remote.level("65542")
+          topic: tradfri.remote.level("65542")
         },
         {
           type: "progress",
-          icon: mdiBattery(tradfri_remote.level("65546")),
+          icon: mdiBattery(tradfri.remote.level("65546")),
           min: 0,
           max: 100,
           text: "Licht Theke 2",
-          topic: tradfri_remote.level("65546")
+          topic: tradfri.remote.level("65546")
         }
       ]
     },
-    nebenraum_power_status: {
+    nebenraumPowerStatus: {
       name: "Strom Fablab",
       position: [613, 537],
-      icon: ({nebenraum_power_status}) =>
-        nebenraum_power_status == "on" ? rawMdi("flash") : rawMdi("flash-off"),
-      iconColor: ({nebenraum_power_status}) =>
-        nebenraum_power_status == "on" ? hex("#00ff00") : hex("#000000"),
+      icon: ({nebenraumPowerStatus}) =>
+        (nebenraumPowerStatus === "on" ? rawMdi("flash") : rawMdi("flash-off")),
+      iconColor: ({nebenraumPowerStatus}) =>
+        (nebenraumPowerStatus === "on" ? hex("#00ff00") : hex("#000000")),
       ui: [
         {
           type: "text",
           icon: mdi("power"),
           text: "Strom Fablab",
-          topic: "nebenraum_power_status"
+          topic: "nebenraumPowerStatus"
         }
       ]
     }

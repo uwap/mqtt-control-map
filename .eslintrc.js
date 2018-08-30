@@ -19,6 +19,9 @@ module.exports = {
   "plugins": [
     "react", "flowtype"
   ],
+  "globals": {
+    "require": false
+  },
   "rules": {
     // possible errors
     "getter-return": "error",

@@ -78,7 +78,7 @@ export const topics: Topics = {
         unknown: "SLI00"
       })
     },
-    defaultValue: "unknown",
+    defaultValue: "unknown"
   },
   onkyo_radios: {
     state: {
@@ -118,87 +118,89 @@ export const topics: Topics = {
 };
 
 export const controls: Controls = {
-    onkyo: {
-      name: "Onkyo",
-      position: [350, 650],
-      iconColor: ({onkyo_connection, onkyo_power}) =>
-        onkyo_connection != "connected" ? hex("#888888") : (onkyo_power == "on" ? hex("#00FF00") : hex("#000000")),
-      icon: mdi("audio-video"),
-      ui: [
-        {
-          type: "toggle",
-          text: "Power",
-          icon: mdi("power"),
-          topic: "onkyo_power",
-          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
+  onkyo: {
+    name: "Onkyo",
+    position: [350, 650],
+    iconColor: ({onkyo_connection, onkyo_power}) =>
+      (onkyo_connection !== "connected" ? hex("#888888") :
+        (onkyo_power === "on" ? hex("#00FF00") : hex("#000000"))),
+    icon: mdi("audio-video"),
+    ui: [
+      {
+        type: "toggle",
+        text: "Power",
+        icon: mdi("power"),
+        topic: "onkyo_power",
+        enableCondition: (state) => state.onkyo_connection === "connected"
+      },
+      {
+        type: "section",
+        text: "Lautstärkeregelung"
+      },
+      {
+        type: "slider",
+        text: "Volume",
+        topic: "onkyo_volume",
+        min: 0,
+        max: 50,
+        icon: mdi("volume-high"),
+        enableCondition: (state) => state.onkyo_connection === "connected"
+      },
+      {
+        type: "toggle",
+        text: "Mute",
+        topic: "onkyo_mute",
+        icon: mdi("volume-off"),
+        enableCondition: (state) => state.onkyo_connection === "connected"
+      },
+      {
+        type: "section",
+        text: "Eingänge"
+      },
+      {
+        type: "dropDown",
+        text: "Eingang",
+        topic: "onkyo_inputs",
+        options: {
+          netzwerk: "Netzwerk",
+          tisch: "Tisch",
+          chromecast: "Chromecast",
+          pult: "Pult",
+          front: "Front HDMI"
         },
-        {
-          type: "section",
-          text: "Lautstärkeregelung"
+        icon: mdi("usb"),
+        enableCondition: (state) => state.onkyo_connection === "connected"
+      },
+      {
+        type: "dropDown",
+        text: "Netzwerksender",
+        topic: "onkyo_radios",
+        options: {
+          mpd: "MPD",
+          kohina: "Kohina",
+          somafm_dronezone: "Drone Zone (SomaFM)",
+          somafm_thetrip: "The Trip (SomaFM)",
+          querfunk: "Querfunk",
+          somafm_defconradio: "Defcon Radio (SomaFM)",
+          somafm_secretagent: "Secret Agent (SomaFM)",
+          somafm_lush: "Lush (SomaFM)",
+          somafm_beatblender: "Beat Blender (Soma FM)",
+          ponyville: "Ponyville FM"
         },
-        {
-          type: "slider",
-          text: "Volume",
-          topic: "onkyo_volume",
-          min: 0,
-          max: 50,
-          icon: mdi("volume-high"),
-          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
-        },
-        {
-          type: "toggle",
-          text: "Mute",
-          topic: "onkyo_mute",
-          icon: mdi("volume-off"),
-          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
-        },
-        {
-          type: "section",
-          text: "Eingänge"
-        },
-        {
-          type: "dropDown",
-          text: "Eingang",
-          topic: "onkyo_inputs",
-          options: {
-            netzwerk: "Netzwerk",
-            tisch: "Tisch",
-            chromecast: "Chromecast",
-            pult: "Pult",
-            front: "Front HDMI"
-          },
-          icon: mdi("usb"),
-          enableCondition: ({ onkyo_connection }) => onkyo_connection == "connected"
-        },
-        {
-          type: "dropDown",
-          text: "Netzwerksender",
-          topic: "onkyo_radios",
-          options: {
-            mpd: "MPD",
-            kohina: "Kohina",
-            somafm_dronezone: "Drone Zone (SomaFM)",
-            somafm_thetrip: "The Trip (SomaFM)",
-            querfunk: "Querfunk",
-            somafm_defconradio: "Defcon Radio (SomaFM)",
-            somafm_secretagent: "Secret Agent (SomaFM)",
-            somafm_lush: "Lush (SomaFM)",
-            somafm_beatblender: "Beat Blender (Soma FM)",
-            ponyville: "Ponyville FM"
-          },
-          icon: mdi("radio"),
-          enableCondition: (state) => state.onkyo_connection == "connected" && state.onkyo_inputs == "netzwerk"
-        },
-        {
-          type: "section",
-          text: "External"
-        },
-        {
-          type: "link",
-          link: "http://mpd.rzl/mpd/player/index.php",
-          text: "Open MPD Interface",
-          icon: mdi("open-in-new")
-        }
-      ]
-    }
+        icon: mdi("radio"),
+        enableCondition: (state) => state.onkyo_connection === "connected"
+          && state.onkyo_inputs === "netzwerk"
+      },
+      {
+        type: "section",
+        text: "External"
+      },
+      {
+        type: "link",
+        link: "http://mpd.rzl/mpd/player/index.php",
+        text: "Open MPD Interface",
+        icon: mdi("open-in-new")
+      }
+    ]
+  }
 };
