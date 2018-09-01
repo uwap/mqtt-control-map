@@ -2,11 +2,12 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rainbow } from "config/colors";
-import { mdi, rawMdi, mdiBattery } from "config/icon";
-import { esper, floalt, tradfri, tasmota } from "./utils";
+import { mdi, rawMdi } from "config/icon";
+import { esper, tasmota } from "./utils";
 
 import * as onkyo from "./onkyo";
 import * as olymp from "./olymp";
+import * as kitchen from "./kitchen";
 
 const config: Config = {
   space: {
@@ -88,7 +89,7 @@ const config: Config = {
         },
         defaultValue: ""
       },
-      devices_status: {
+      devicesStatus: {
         state: {
           name: "/service/status/devices",
           type: types.string
@@ -144,43 +145,6 @@ const config: Config = {
         },
         defaultValue: "0"
       },
-      kitchen_light_color: {
-        state: {
-          name: "/service/openhab/out/kitchen_light_all_color_temperature"
-            + "/state",
-          type: types.string
-        },
-        command: {
-          name: "/service/openhab/in/kitchen_light_all_color_temperature"
-            + "/command",
-          type: types.string
-        },
-        defaultValue: "0"
-      },
-      kitchen_light_brightness: {
-        state: {
-          name: "/service/openhab/out/kitchen_light_all_brightness/state",
-          type: types.string
-        },
-        command: {
-          name: "/service/openhab/in/kitchen_light_all_brightness/command",
-          type: types.string
-        },
-        defaultValue: "0"
-      },
-      kitchen_sink_light_brightness: {
-        state: {
-          name: "/service/openhab/out/tradfri_0100_"
-            + "gwb8d7af2b448f_65545_brightness/state",
-          type: types.string
-        },
-        command: {
-          name: "/service/openhab/in/tradfri_0100_"
-            + "gwb8d7af2b448f_65545_brightness/command",
-          type: types.string
-        },
-        defaultValue: "0"
-      },
       nebenraumPowerStatus: {
         state: {
           name: "/service/nebenraum-power",
@@ -193,28 +157,16 @@ const config: Config = {
     tasmota.topics("6", "snackbar"),
     tasmota.topics("7", "infoscreen"),
 
-    //Kuechen-Floalts
-    floalt.topics("65537"),
-    floalt.topics("65538"),
-    floalt.topics("65539"),
-    floalt.topics("65540"),
-    tradfri.remote.topics("65536"),
-    tradfri.remote.topics("65547"),
-
-    //Theken-Floalts
-    floalt.topics("65543"),
-    floalt.topics("65544"),
-    tradfri.remote.topics("65542"),
-    tradfri.remote.topics("65546"),
-
     esper.topics("afba40", "flyfry"),
 
     onkyo.topics,
-    olymp.topics
+    olymp.topics,
+    kitchen.topics
   ],
   controls: {
     ...onkyo.controls,
     ...olymp.controls,
+    ...kitchen.controls,
     led_stahltrager: {
       name: "LED Stahlträger",
       position: [340, 590],
@@ -375,7 +327,7 @@ const config: Config = {
         {
           type: "text",
           text: "Devices",
-          topic: "devices_status",
+          topic: "devicesStatus",
           icon: mdi("wifi")
         }
 
@@ -444,232 +396,6 @@ const config: Config = {
           link: "http://partkeepr.rzl/",
           text: "Open Partkeepr",
           icon: mdi("open-in-new")
-        }
-      ]
-    },
-    kitchen_light: {
-      name: "Deckenlicht Küche",
-      position: [325, 407],
-      icon: mdi("ceiling-light"),
-      ui: [
-        {
-          type: "toggle",
-          on: "50",
-          off: "0",
-          toggled: (n) => parseInt(n) > 0,
-          topic: "kitchen_light_brightness",
-          text: "Ein/Ausschalten",
-          icon: mdi("power")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: "kitchen_light_brightness"
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: "kitchen_light_color"
-        },
-        {
-          type: "section",
-          text: "Lampe Eingang"
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: floalt.brightness("65537")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65537")
-        },
-        {
-          type: "section",
-          text: "Lampe Hauptraum"
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: floalt.brightness("65538")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65538")
-        },
-        {
-          type: "section",
-          text: "Lampe Spüle"
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: floalt.brightness("65539")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65539")
-        },
-        {
-          type: "section",
-          text: "Lampe Herd"
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: floalt.brightness("65540")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65540")
-        }
-      ]
-    },
-    kitchen_sink_light: {
-      name: "Licht Spüle",
-      position: [300, 345],
-      icon: mdi("wall-sconce-flat"),
-      ui: [
-        {
-          type: "toggle",
-          on: "50",
-          off: "0",
-          toggled: (n) => parseInt(n) > 0,
-          topic: "kitchen_sink_light_brightness",
-          text: "Ein/Ausschalten",
-          icon: mdi("power")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: "kitchen_sink_light_brightness"
-        }
-      ]
-    },
-    kitchen_counter_light: {
-      name: "Deckenlicht Theke",
-      position: [400, 440],
-      icon: mdi("ceiling-light"),
-      ui: [
-        {
-          type: "section",
-          text: "Lampe Eingang"
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: floalt.brightness("65544")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65544")
-        },
-        {
-          type: "section",
-          text: "Lampe Hauptraum"
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Helligkeit",
-          icon: mdi("brightness-7"),
-          topic: floalt.brightness("65543")
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 100,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: floalt.color("65543")
-        }
-      ]
-    },
-    remotes: {
-      name: "Fernbedinungen",
-      position: [400, 344],
-      icon: mdi("light-switch"),
-      iconColor: (state) => //if any remote is low make icon red
-        (["65536", "65542", "65546", "65547"]
-          .some((x) => state[tradfri.remote.low(x)] === "true")
-          ? hex("#ff0000") : hex("#000000")),
-      ui: [
-        {
-          type: "progress",
-          icon: mdiBattery(tradfri.remote.level("65536")),
-          min: 0,
-          max: 100,
-          text: "Licht Tisch 1",
-          topic: tradfri.remote.level("65536")
-        },
-        {
-          type: "progress",
-          icon: mdiBattery(tradfri.remote.level("65547")),
-          min: 0,
-          max: 100,
-          text: "Licht Tisch 2",
-          topic: tradfri.remote.level("65547")
-        },
-        {
-          type: "progress",
-          icon: mdiBattery(tradfri.remote.level("65542")),
-          min: 0,
-          max: 100,
-          text: "Licht Theke 1",
-          topic: tradfri.remote.level("65542")
-        },
-        {
-          type: "progress",
-          icon: mdiBattery(tradfri.remote.level("65546")),
-          min: 0,
-          max: 100,
-          text: "Licht Theke 2",
-          topic: tradfri.remote.level("65546")
         }
       ]
     },
