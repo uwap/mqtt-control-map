@@ -25,13 +25,13 @@ export const tasmota = {
       defaultValue: "offline"
     }
   }),
-  icon_color: (name: string, on_color: Color = hex("#00FF00")) =>
+  iconColor: (name: string, onColor: Color = hex("#00FF00")) =>
     (state: State) => {
       if (state[`${name}_online`] === "offline") {
         return hex("#888888");
       } else {
         if (state[name] === "on") {
-          return on_color;
+          return onColor;
         } else {
           return hex("#000000");
         }
@@ -99,8 +99,8 @@ export const tradfri = {
 };
 
 const esperStatistics = (name: string,
-  prev_ui: Array<ControlUI> = []): Array<ControlUI> => (
-  prev_ui.concat([
+  prevUI: Array<ControlUI> = []): Array<ControlUI> => (
+  prevUI.concat([
     {
       type: "section",
       text: "Funkdose"

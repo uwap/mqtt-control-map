@@ -186,7 +186,7 @@ const config: Config = {
       name: "Snackbar",
       position: [510, 500],
       icon: mdi("fridge"),
-      iconColor: tasmota.icon_color("snackbar", hex("#E20074")),
+      iconColor: tasmota.iconColor("snackbar", hex("#E20074")),
       ui: [
         {
           type: "toggle",
@@ -337,7 +337,7 @@ const config: Config = {
       name: "Infoscreen",
       position: [255, 495],
       icon: mdi("television-guide flip-v"),
-      iconColor: tasmota.icon_color("infoscreen", hex("#4444FF")),
+      iconColor: tasmota.iconColor("infoscreen", hex("#4444FF")),
       ui: [
         {
           type: "toggle",

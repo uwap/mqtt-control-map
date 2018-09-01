@@ -49,7 +49,7 @@ export const controls: Controls = {
     name: "LED Olymp",
     position: [196, 154],
     icon: mdi("white-balance-iridescent rotate-45"),
-    iconColor: tasmota.icon_color("ledOlymp", rainbow),
+    iconColor: tasmota.iconColor("ledOlymp", rainbow),
     ui: [
       {
         type: "toggle",
@@ -93,7 +93,7 @@ export const controls: Controls = {
     name: "Drucker",
     position: [335, 90],
     icon: mdi("printer"),
-    iconColor: tasmota.icon_color("printerOlymp"),
+    iconColor: tasmota.iconColor("printerOlymp"),
     ui: [
       {
         type: "toggle",
