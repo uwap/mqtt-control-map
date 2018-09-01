@@ -185,7 +185,8 @@ export const controls: Controls = {
           somafmSecretagent: "Secret Agent (SomaFM)",
           somafmLush: "Lush (SomaFM)",
           somafmBeatblender: "Beat Blender (Soma FM)",
-          ponyville: "Ponyville FM"
+          ponyville: "Ponyville FM",
+          unknown: "Unknown"
         },
         icon: mdi("radio"),
         enableCondition: (state) => state.onkyoConnection === "connected"
