@@ -28,7 +28,7 @@ const config: Config = {
         },
         defaultValue: "off"
       },
-      snackbar_dimmmer: {
+      snackbarDimmmer: {
         state: {
           name: "/service/snackbar/Dimmer",
           type: types.string
@@ -39,7 +39,7 @@ const config: Config = {
         },
         defaultValue: "0"
       },
-      snackbar_scheme: {
+      snackbarScheme: {
         state: {
           name: "/service/snackbar/Scheme",
           type: types.string
@@ -50,7 +50,7 @@ const config: Config = {
         },
         defaultValue: "0"
       },
-      snackbar_speed: {
+      snackbarSpeed: {
         state: {
           name: "/service/snackbar/Speed",
           type: types.string
@@ -61,7 +61,7 @@ const config: Config = {
         },
         defaultValue: "0"
       },
-      snackbar_led_online: {
+      snackbarLedOnline: {
         state: {
           name: "tele/tasmota-snackbar/LWT",
           type: types.option({ Online: "on", online: "on", Offline: "off", offline: "off" })
@@ -241,13 +241,13 @@ const config: Config = {
         {
           type: "text",
           text: "LED-Streifen",
-          topic: "snackbar_led_online",
+          topic: "snackbarLedOnline",
           icon: mdi("white-balance-iridescent")
         },
         {
           type: "dropDown",
           text: "Modus",
-          topic: "snackbar_scheme",
+          topic: "snackbarScheme",
           options: {
             "0": "Single Color",
             "2": "Cycle RGB",
@@ -262,25 +262,25 @@ const config: Config = {
             "12": "Fire Pattern"
           },
           icon: mdi("settings"),
-          enableCondition: ({ snackbar_led_online }) => snackbar_led_online == "on"
+          enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline == "on"
         },
         {
           type: "slider",
           text: "Helligkeit",
-          topic: "snackbar_dimmmer",
+          topic: "snackbarDimmmer",
           min: 0,
           max: 100,
           icon: mdi("brightness-7"),
-          enableCondition: ({ snackbar_led_online }) => snackbar_led_online == "on"
+          enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline == "on"
         },
         {
           type: "slider",
           text: "Animations-Geschwindigkeit",
-          topic: "snackbar_speed",
+          topic: "snackbarSpeed",
           min: 0,
           max: 20,
           icon: mdi("speedometer"),
-          enableCondition: ({ snackbar_led_online }) => snackbar_led_online == "on"
+          enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline == "on"
         },
       ]
     },
