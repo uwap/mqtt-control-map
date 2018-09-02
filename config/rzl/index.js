@@ -145,6 +145,21 @@ const config: Config = {
         },
         defaultValue: "0"
       },
+      printer3Dremaining: {
+        state: {
+          name: "/service/ultimaker/job",
+          type: (msg) => {
+            const json = JSON.parse(msg.toString())
+            if(!json || !json["time_elapsed"] || !json["time_total"]) {
+              return ""
+            } else {
+              const secondsLeft = json["time_total"] - json["time_elapsed"]
+              return new Date(secondsLeft * 1000).toISOString().substr(11, 8);
+            }
+          }
+        },
+        defaultValue: ""
+      },
       nebenraumPowerStatus: {
         state: {
           name: "/service/nebenraum-power",
@@ -383,6 +398,12 @@ const config: Config = {
           max: 1,
           text: "Printing Progress",
           topic: "printer_3d_progress"
+        },
+        {
+          type: "text",
+          text: "Time Left",
+          icon: mdi("clock"),
+          topic: "printer3Dremaining"
         }
       ]
     },
