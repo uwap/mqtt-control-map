@@ -20,10 +20,11 @@ export const tasmota = {
     [`${name}_online`]: {
       state: {
         name: `tele/sonoff${id}/LWT`,
-        type: types.option({ Online: "on", online: "on", Offline: "off", offline: "off" })
+        type: types.option({ Online: "on",   online: "on",
+                             Offline: "off", offline: "off" })
       },
       defaultValue: "off"
-    },
+    }
   }),
   iconColor: (name: string, onColor: Color = hex("#00FF00")) =>
     (state: State) => {
