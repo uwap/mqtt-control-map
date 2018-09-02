@@ -20,8 +20,8 @@ export const tasmota = {
     [`${name}_online`]: {
       state: {
         name: `tele/sonoff${id}/LWT`,
-        type: types.option({ Online: "on",   online: "on",
-                             Offline: "off", offline: "off" })
+        type: types.option({ Online: "on", online: "on",
+          Offline: "off", offline: "off" })
       },
       defaultValue: "off"
     }
@@ -30,13 +30,10 @@ export const tasmota = {
     (state: State) => {
       if (state[`${name}_online`] === "off") {
         return hex("#888888");
-      } else {
-        if (state[name] === "on") {
-          return onColor;
-        } else {
-          return hex("#000000");
-        }
+      } else if (state[name] === "on") {
+        return onColor;
       }
+      return hex("#000000");
     }
 };
 export const floalt = {
