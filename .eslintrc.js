@@ -17,8 +17,11 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react", "flowtype"
+    "react", "flowtype", "fp"
   ],
+  "globals": {
+    "require": false
+  },
   "rules": {
     // possible errors
     "getter-return": "error",
@@ -137,6 +140,27 @@ module.exports = {
     // flow
     "flowtype/no-dupe-keys": "error",
     "flowtype/no-weak-types": "warn",
-    "flowtype/require-variable-type": "off" // wait for https://github.com/gajus/eslint-plugin-flowtype/issues/198 to be resolved
+    "flowtype/require-variable-type": "off", // wait for https://github.com/gajus/eslint-plugin-flowtype/issues/198 to be resolved
+
+    // fp
+    // TODO: Import fp/recommended after resolving the warnings
+    "fp/no-arguments": "warn",
+    "fp/no-class": "warn",
+    "fp/no-delete": "warn",
+    "fp/no-events": "warn",
+    "fp/no-get-set": "warn",
+    "fp/no-let": "warn",
+    "fp/no-loops": "warn",
+    "fp/no-mutating-assign": "warn",
+    "fp/no-mutating-methods": "warn",
+    "fp/no-mutation": "warn",
+    "fp/no-nil": "warn",
+    "fp/no-proxy": "warn",
+    "fp/no-rest-parameters": "warn",
+    "fp/no-this": "warn",
+    "fp/no-throw": "warn",
+    "fp/no-unused-expression": "warn",
+    "fp/no-valueof-field": "warn",
+    "no-var": "warn" 
   }
 };

@@ -1,10 +1,10 @@
 // @flow
 import type { Config } from "config/flowtypes";
-import { hex, rgb, rgba, rainbow } from "config/colors";
+import { hex } from "config/colors";
 import * as types from "config/types";
 import { mdi } from "config/icon";
 
-const config : Config = {
+const config: Config = {
   space: {
     name: "Entropia",
     color: "orange",
@@ -18,7 +18,7 @@ const config : Config = {
           type: types.option({ "A1 ON": "on", "A1 OFF": "off" })
         },
         defaultValue: "off"
-      }, 
+      },
       hauptraum_table_light_on_hack: {
         command: {
           name: "/public/sensoren/TPH/leinwand/control",
