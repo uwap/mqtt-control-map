@@ -21,57 +21,41 @@ export type SideBarProps = {
   children?: React.Node
 };
 
-export type SideBarState = {
-};
-
 type Props = SideBarProps & Classes;
 
-class SideBar extends React.PureComponent<Props, SideBarState> {
-  constructor(props: Props) {
-    super(props);
-  }
+const SideBar = (props: Props) => (
+  <Drawer open={props.open}
+    anchor="right"
+    onClose={props.onCloseRequest()}
+    classes={{paper: props.classes.drawerPaper}}
+    variant="persistent"
+  >
+    <AppBar position="static">
+      <Toolbar>
+        <span>
+          {props.icon == null || renderRawIcon(props.icon, "mdi-36px")}
+        </span>
+        <Typography variant="title" className={props.classes.flex}>
+          {props.control == null ? "" : props.control.name}
+        </Typography>
+        <IconButton onClick={props.onCloseRequest}>
+          <i className="mdi mdi-close mdi-36px"></i>
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+    <List id="drawer_uiComponents">
+      <React.Fragment>{props.children}</React.Fragment>
+    </List>
+  </Drawer>
+);
 
-  static styles(): Object {
-    return {
-      drawerPaper: {
-        width: 340
-      },
-      flex: {
-        flex: 1
-      }
-    };
+const styles = {
+  drawerPaper: {
+    width: 340
+  },
+  flex: {
+    flex: 1
   }
+};
 
-  close() {
-    this.props.onCloseRequest();
-  }
-
-  render() {
-    return (
-      <Drawer open={this.props.open}
-        anchor="right"
-        onClose={this.close}
-        classes={{paper: this.props.classes.drawerPaper}}
-        variant="persistent"
-      >
-        <AppBar position="static">
-          <Toolbar>
-            <span>{this.props.icon == null
-              || renderRawIcon(this.props.icon, "mdi-36px")}</span>
-            <Typography variant="title" className={this.props.classes.flex}>
-              {this.props.control == null ? "" : this.props.control.name}
-            </Typography>
-            <IconButton onClick={this.close.bind(this)}>
-              <i className="mdi mdi-close mdi-36px"></i>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <List id="drawer_uiComponents">
-          <React.Fragment>{this.props.children}</React.Fragment>
-        </List>
-      </Drawer>
-    );
-  }
-}
-
-export default withStyles(SideBar.styles)(SideBar);
+export default withStyles(styles)(SideBar);

@@ -11,33 +11,22 @@ export type TopBarProps = {
   connected: boolean
 };
 
-export type TopBarState = {
-
+const renderConnectionIndicator = (connected: boolean) => {
+  if (connected) {
+    return (<i style={{fontSize: 48}} className="mdi mdi-map"></i>);
+  }
+  return (
+    <CircularProgress size={48} style={{color: "rgba(0, 0, 0, 0.54)"}} />
+  );
 };
 
-export default class TopBar
-  extends React.PureComponent<TopBarProps, TopBarState> {
-  constructor(props: TopBarProps) {
-    super(props);
-  }
+const TopBar = (props: TopBarProps) => (
+  <AppBar position="static">
+    <Toolbar>
+      {renderConnectionIndicator(props.connected)}
+      <Typography variant="title">{props.title}</Typography>
+    </Toolbar>
+  </AppBar>
+);
 
-  render() {
-    return (
-      <AppBar position="static">
-        <Toolbar>
-          {this.renderConnectionIndicator()}
-          <Typography variant="title">{this.props.title}</Typography>
-        </Toolbar>
-      </AppBar>
-    );
-  }
-
-  renderConnectionIndicator() {
-    if (this.props.connected) {
-      return (<i style={{fontSize: 48}} className="mdi mdi-map"></i>);
-    }
-    return (
-      <CircularProgress size={48} style={{color: "rgba(0, 0, 0, 0.54)"}} />
-    );
-  }
-}
+export default TopBar;
