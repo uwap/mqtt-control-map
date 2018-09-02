@@ -149,11 +149,11 @@ const config: Config = {
         state: {
           name: "/service/ultimaker/job",
           type: (msg) => {
-            const json = JSON.parse(msg.toString())
+            const json = JSON.parse(msg.toString());
             if(!json || !json["time_elapsed"] || !json["time_total"]) {
-              return ""
+              return "";
             } else {
-              const secondsLeft = json["time_total"] - json["time_elapsed"]
+              const secondsLeft = json["time_total"] - json["time_elapsed"];
               return new Date(secondsLeft * 1000).toISOString().substr(11, 8);
             }
           }
