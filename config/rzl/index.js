@@ -62,9 +62,9 @@ const config: Config = {
       snackbar_led_online: {
         state: {
           name: "tele/tasmota-snackbar/LWT",
-          type: types.string
+          type: types.option({ Online: "on", online: "on", Offline: "off", offline: "off" })
         },
-        defaultValue: "Offline"
+        defaultValue: "off"
       },
       twinkle: {
         state: {
@@ -348,7 +348,7 @@ const config: Config = {
             "12": "Fire Pattern"
           },
           icon: mdi("settings"),
-          enableCondition: ({ snackbar_led_online }) => snackbar_led_online != "Offline"
+          enableCondition: ({ snackbar_led_online }) => snackbar_led_online == "on"
         },
         {
           type: "slider",
@@ -357,7 +357,7 @@ const config: Config = {
           min: 0,
           max: 100,
           icon: mdi("brightness-7"),
-          enableCondition: ({ snackbar_led_online }) => snackbar_led_online != "Offline"
+          enableCondition: ({ snackbar_led_online }) => snackbar_led_online == "on"
         },
         {
           type: "slider",
@@ -366,7 +366,7 @@ const config: Config = {
           min: 0,
           max: 20,
           icon: mdi("speedometer"),
-          enableCondition: ({ snackbar_led_online }) => snackbar_led_online != "Offline"
+          enableCondition: ({ snackbar_led_online }) => snackbar_led_online == "on"
         },
       ]
     },
