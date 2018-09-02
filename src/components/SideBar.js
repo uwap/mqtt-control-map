@@ -26,7 +26,7 @@ type Props = SideBarProps & Classes;
 const SideBar = (props: Props) => (
   <Drawer open={props.open}
     anchor="right"
-    onClose={props.onCloseRequest()}
+    onClose={props.onCloseRequest}
     classes={{paper: props.classes.drawerPaper}}
     variant="persistent"
   >
