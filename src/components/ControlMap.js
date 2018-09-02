@@ -19,93 +19,84 @@ export type ControlMapProps = {
   onChangeControl: (control: Control) => void
 };
 
-export default class ControlMap extends React.PureComponent<ControlMapProps> {
-  constructor(props: ControlMapProps) {
-    super(props);
-  }
+const center = (props: ControlMapProps): Point =>
+  convertPoint([
+    props.width / 2,
+    props.height / 2
+  ]);
 
-  get center(): Point {
-    return convertPoint([
-      this.props.width / 2,
-      this.props.height / 2
-    ]);
+const iconColor = (control: Control, state: State): string => {
+  if (control.iconColor != null) {
+    return control.iconColor(state);
   }
+  return "#000";
+};
 
-  render() {
-    return (
-      <Map center={this.center}
-        zoom={this.props.zoom}
-        crs={CRS.Simple}
-        leaflet={{}}>
-        {this.renderMarkers()}
-        {this.renderLayers()}
-      </Map>
-    );
-  }
+const createLeafletIcon = (control: Control, state: State) => {
+  const icon = control.icon(state);
+  const iconClass = `${icon} mdi-36px`;
+  return divIcon({
+    iconSize: point(36, 36),
+    iconAnchor: point(18, 18),
+    html: `<i class="${iconClass}"
+        style="line-height: 1; color: ${iconColor(control, state)}"></i>`
+  });
+};
 
-  renderMarkers() {
-    return map(this.props.controls, this.renderMarker.bind(this));
-  }
+const renderMarker = (props: ControlMapProps) =>
+  (control: Control, key: string) => (
+    <MqttContext.Consumer key={key}>
+      {({ state }) => (
+        <Marker position={convertPoint(control.position)}
+          icon={createLeafletIcon(control, state)}
+          onClick={() => props.onChangeControl(control)}
+        >
+        </Marker>
+      )}
+    </MqttContext.Consumer>
+  );
 
-  createLeafletIcon(control: Control, state: State) {
-    const icon = control.icon(state);
-    const iconClass = `${icon} mdi-36px`;
-    return divIcon({
-      iconSize: point(36, 36),
-      iconAnchor: point(18, 18),
-      html: `<i class="${iconClass}"
-          style="line-height: 1; color: ${this.iconColor(control, state)}"></i>`
-    });
-  }
+const renderMarkers = (props: ControlMapProps) =>
+  map(props.controls, renderMarker(props));
 
-  iconColor(control: Control, state: State): string {
-    if (control.iconColor != null) {
-      return control.iconColor(state);
-    }
-    return "#000";
-  }
+const renderLayer = (layer: Layer) => {
+  const LayersControlType =
+    layer.baseLayer ? LayersControl.BaseLayer : LayersControl.Overlay;
+  return (
+    <LayersControlType
+      key={layer.name}
+      name={layer.name}
+      checked={layer.defaultVisibility === "visible"}
+      removeLayer={(_layer) => {}} // eslint-disable-line fp/no-nil
+      removeLayerControl={(_layer) => {}} // eslint-disable-line fp/no-nil
+      // eslint-disable-next-line fp/no-nil
+      addOverlay={(_layer, _name, _checked) => {}}
+      // eslint-disable-next-line fp/no-nil
+      addBaseLayer={(_layer, _name, _checked) => {}}>
+      <ImageOverlay url={layer.image}
+        bounds={[
+          convertPoint(layer.bounds.topLeft),
+          convertPoint(layer.bounds.bottomRight)
+        ]}
+        opacity={layer.opacity || 1} />
+    </LayersControlType>
+  );
+};
 
-  renderMarker(control: Control, key: string) {
-    return (
-      <MqttContext.Consumer key={key}>
-        {({ state }) => (
-          <Marker position={convertPoint(control.position)}
-            icon={this.createLeafletIcon(control, state)}
-            onClick={() => this.props.onChangeControl(control)}
-          >
-          </Marker>
-        )}
-      </MqttContext.Consumer>
-    );
-  }
+const renderLayers = (props: ControlMapProps) => (
+  <LayersControl position="topright">
+    {props.layers.map(renderLayer)}
+  </LayersControl>
+);
 
-  renderLayers() {
-    return (
-      <LayersControl position="topright">
-        {this.props.layers.map(this.renderLayer)}
-      </LayersControl>
-    );
-  }
+const ControlMap = (props: ControlMapProps) => (
+  <Map center={center(props)}
+    zoom={props.zoom}
+    crs={CRS.Simple}
+    leaflet={{}}>
+    {renderMarkers(props)}
+    {renderLayers(props)}
+  </Map>
+);
 
-  renderLayer(layer: Layer) {
-    const LayersControlType =
-      layer.baseLayer ? LayersControl.BaseLayer : LayersControl.Overlay;
-    return (
-      <LayersControlType
-        key={layer.name}
-        name={layer.name}
-        checked={layer.defaultVisibility === "visible"}
-        removeLayer={(_layer) => {}}
-        removeLayerControl={(_layer) => {}}
-        addOverlay={(_layer, _name, _checked) => {}}
-        addBaseLayer={(_layer, _name, _checked) => {}}>
-        <ImageOverlay url={layer.image}
-          bounds={[
-            convertPoint(layer.bounds.topLeft),
-            convertPoint(layer.bounds.bottomRight)
-          ]}
-          opacity={layer.opacity || 1} />
-      </LayersControlType>
-    );
-  }
-}
+export default ControlMap;
