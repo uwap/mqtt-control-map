@@ -151,14 +151,14 @@ const config: Config = {
           type: (msg) => {
             const json = JSON.parse(msg.toString());
             if(!json || !json["time_elapsed"] || !json["time_total"]) {
-              return "";
+              return "unavailable";
             } else {
               const secondsLeft = json["time_total"] - json["time_elapsed"];
               return new Date(secondsLeft * 1000).toISOString().substr(11, 8);
             }
           }
         },
-        defaultValue: ""
+        defaultValue: "unavailable"
       },
       nebenraumPowerStatus: {
         state: {
