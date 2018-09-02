@@ -325,6 +325,10 @@ const config: Config = {
           icon: mdi("power")
         },
         {
+          type: "section",
+          text: "LED-Streifen"
+        },
+        {
           type: "text",
           text: "LED-Streifen",
           topic: "snackbar_led_online",
