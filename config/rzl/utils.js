@@ -20,14 +20,15 @@ export const tasmota = {
     [`${name}_online`]: {
       state: {
         name: `tele/sonoff${id}/LWT`,
-        type: types.string
+        type: types.option({ Online: "on",   online: "on",
+                             Offline: "off", offline: "off" })
       },
-      defaultValue: "offline"
+      defaultValue: "off"
     }
   }),
   iconColor: (name: string, onColor: Color = hex("#00FF00")) =>
     (state: State) => {
-      if (state[`${name}_online`] === "offline") {
+      if (state[`${name}_online`] === "off") {
         return hex("#888888");
       } else {
         if (state[name] === "on") {

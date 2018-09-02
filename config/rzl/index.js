@@ -28,6 +28,47 @@ const config: Config = {
         },
         defaultValue: "off"
       },
+      snackbarDimmmer: {
+        state: {
+          name: "/service/snackbar/Dimmer",
+          type: types.string
+        },
+        command: {
+          name: "cmnd/tasmota-snackbar/dimmer",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      snackbarScheme: {
+        state: {
+          name: "/service/snackbar/Scheme",
+          type: types.string
+        },
+        command: {
+          name: "cmnd/tasmota-snackbar/scheme",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      snackbarSpeed: {
+        state: {
+          name: "/service/snackbar/Speed",
+          type: types.string
+        },
+        command: {
+          name: "cmnd/tasmota-snackbar/speed",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      snackbarLedOnline: {
+        state: {
+          name: "tele/tasmota-snackbar/LWT",
+          type: types.option({ Online: "on",   online: "on",
+                               Offline: "off", offline: "off" })
+        },
+        defaultValue: "off"
+      },
       twinkle: {
         state: {
           name: "/service/openhab/out/pca301_twinkle/state",
@@ -193,6 +234,54 @@ const config: Config = {
           text: "Snackbar",
           topic: "snackbar",
           icon: mdi("power")
+        },
+        {
+          type: "section",
+          text: "LED-Streifen"
+        },
+        {
+          type: "text",
+          text: "LED-Streifen",
+          topic: "snackbarLedOnline",
+          icon: mdi("white-balance-iridescent")
+        },
+        {
+          type: "dropDown",
+          text: "Modus",
+          topic: "snackbarScheme",
+          options: {
+            "0": "Single Color",
+            "2": "Cycle RGB",
+            "3": "Cycle RBG",
+            "4": "Random cycle Random",
+            "6": "Incandescent Pattern",
+            "7": "RGB Pattern",
+            "8": "Christmas Pattern",
+            "9": "Hanukkah Pattern",
+            "10": "Kwanzaa Pattern",
+            "11": "Rainbow Pattern",
+            "12": "Fire Pattern"
+          },
+          icon: mdi("settings"),
+          enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline === "on"
+        },
+        {
+          type: "slider",
+          text: "Helligkeit",
+          topic: "snackbarDimmmer",
+          min: 0,
+          max: 100,
+          icon: mdi("brightness-7"),
+          enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline === "on"
+        },
+        {
+          type: "slider",
+          text: "Animations-Geschwindigkeit",
+          topic: "snackbarSpeed",
+          min: 0,
+          max: 20,
+          icon: mdi("speedometer"),
+          enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline === "on"
         }
       ]
     },
