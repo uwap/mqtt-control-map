@@ -64,8 +64,8 @@ const config: Config = {
       snackbarLedOnline: {
         state: {
           name: "tele/tasmota-snackbar/LWT",
-          type: types.option({ Online: "on",   online: "on",
-                               Offline: "off", offline: "off" })
+          type: types.option({ Online: "on", online: "on",
+            Offline: "off", offline: "off" })
         },
         defaultValue: "off"
       },
@@ -141,10 +141,10 @@ const config: Config = {
         state: {
           name: "/service/beamer/state",
           type: types.option({
-            START_UP: "transient_on",
-            START_UP_LAMP: "transient_on",
-            COOLING: "transient_off",
-            COOLING2: "transient_off",
+            START_UP: "transientOn",
+            START_UP_LAMP: "transientOn",
+            COOLING: "transientOff",
+            COOLING2: "transientOff",
             POWER_ON: "on",
             STANDBY: "off",
             unknown: "unknown",
@@ -156,30 +156,30 @@ const config: Config = {
           type: types.option({
             on: "ON",
             off: "OFF",
-            transient_off: "OFF",
-            transient_on: "ON",
+            transientOff: "OFF",
+            transientOn: "ON",
             unknown: "OFF"
           })
         },
         defaultValue: "unknown"
       },
-      printer_3d_status: {
+      printer3DStatus: {
         state: {
           name: "/service/ultimaker/state",
           type: types.option({
             unreachable: "unavailable",
             booting: "unavailable",
-            pre_print: "printing",
-            post_print: "printing",
+            prePrint: "printing",
+            postPrint: "printing",
             printing: "printing",
             idle: "idle",
             error: "error",
-            otherwise: "awaiting_interaction"
+            otherwise: "awaitingInteraction"
           })
         },
         defaultValue: "unavailable"
       },
-      printer_3d_progress: {
+      printer3DProgresss: {
         state: {
           name: "/service/ultimaker/job",
           type: (msg) => JSON.parse(msg.toString()).progress || "0"
@@ -191,12 +191,11 @@ const config: Config = {
           name: "/service/ultimaker/job",
           type: (msg) => {
             const json = JSON.parse(msg.toString());
-            if(!json || !json["time_elapsed"] || !json["time_total"]) {
+            if (!json || !json["time_elapsed"] || !json["time_total"]) {
               return "unavailable";
-            } else {
-              const secondsLeft = json["time_total"] - json["time_elapsed"];
-              return new Date(secondsLeft * 1000).toISOString().substr(11, 8);
             }
+            const secondsLeft = json["time_total"] - json["time_elapsed"];
+            return new Date(secondsLeft * 1000).toISOString().substr(11, 8);
           }
         },
         defaultValue: "unavailable"
@@ -223,7 +222,7 @@ const config: Config = {
     ...onkyo.controls,
     ...olymp.controls,
     ...kitchen.controls,
-    led_stahltrager: {
+    ledStahltrager: {
       name: "LED Stahlträger",
       position: [340, 590],
       icon: mdi("white-balance-iridescent"),
@@ -363,8 +362,8 @@ const config: Config = {
       icon: mdi("projector flip-v"),
       iconColor: ({projector}) =>
         ({
-          transient_on: hex("#b3b300"),
-          transient_off: hex("#b3b300"),
+          transientOn: hex("#b3b300"),
+          transientOff: hex("#b3b300"),
           on: hex("#00ff00"),
           off: hex("#000000"),
           unknown: hex("#888888")
@@ -374,7 +373,7 @@ const config: Config = {
           type: "toggle",
           text: "Beamer",
           topic: "projector",
-          toggled: (val) => val === "transient_on" || val === "on",
+          toggled: (val) => val === "transientOn" || val === "on",
           icon: mdi("power")
         }
       ]
@@ -457,18 +456,18 @@ const config: Config = {
         }
       ]
     },
-    printer_3d: {
+    printer3D: {
       name: "Ultimaker 3",
       position: [754, 560],
       icon: mdi("printer-3d"),
-      iconColor: ({printer_3d_status}) =>
+      iconColor: ({printer3DStatus}) =>
         ({
-          awaiting_interaction: hex("#b3b300"),
+          awaitingInteraction: hex("#b3b300"),
           printing: hex("#00ff00"),
           idle: hex("#000000"),
           unavailable: hex("#888888"),
           error: hex("#ff0000")
-        })[printer_3d_status],
+        })[printer3DStatus],
       ui: [
         {
           type: "link",
@@ -486,7 +485,7 @@ const config: Config = {
           min: 0,
           max: 1,
           text: "Printing Progress",
-          topic: "printer_3d_progress"
+          topic: "printer3DProgresss"
         },
         {
           type: "text",

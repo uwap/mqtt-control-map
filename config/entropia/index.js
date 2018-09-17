@@ -12,14 +12,14 @@ const config: Config = {
   },
   topics: [
     {
-      hauptraum_table_light: {
+      hauptraumTableLight: {
         command: {
           name: "/public/sensoren/TPH/leinwand/control",
           type: types.option({ "A1 ON": "on", "A1 OFF": "off" })
         },
         defaultValue: "off"
       },
-      hauptraum_table_light_on_hack: {
+      hauptraumTableLightOnHack: {
         command: {
           name: "/public/sensoren/TPH/leinwand/control",
           type: types.option({ "A1 ON": "on", "A1 OFF": "off" })
@@ -29,7 +29,7 @@ const config: Config = {
     }
   ],
   controls: {
-    hauptraum_table_light: {
+    hauptraumTableLight: {
       name: "Hauptraum Tisch",
       position: [450, 450],
       icon: mdi("white-balance-iridescent"),
@@ -38,13 +38,13 @@ const config: Config = {
         {
           type: "toggle",
           text: "Licht",
-          topic: "hauptraum_table_light",
+          topic: "hauptraumTableLight",
           icon: mdi("power")
         },
         {
           type: "toggle",
           text: "Licht",
-          topic: "hauptraum_table_light_on_hack",
+          topic: "hauptraumTableLightOnHack",
           icon: mdi("power")
         }
       ]
