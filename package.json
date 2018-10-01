@@ -43,7 +43,7 @@
     "eslint-plugin-react": "^7.6.1",
     "file-loader": "^1.1.5",
     "flow": "^0.2.3",
-    "flow-bin": "^0.81.0",
+    "flow-bin": "^0.82.0",
     "flow-typed": "^2.3.0",
     "html-webpack-plugin": "^3.1.0",
     "husky": "^0.14.3",
