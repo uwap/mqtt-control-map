@@ -38,7 +38,7 @@
     "clean-webpack-plugin": "^0.1.18",
     "css-loader": "^1.0.0",
     "eslint": "^5.0.1",
-    "eslint-plugin-flowtype": "^2.42.0",
+    "eslint-plugin-flowtype": "^3.0.0",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-react": "^7.6.1",
     "file-loader": "^1.1.5",
