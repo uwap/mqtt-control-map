@@ -4,8 +4,9 @@ import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
 import { CRS, point, divIcon } from "leaflet";
 import map from "lodash/map";
 import filter from "lodash/filter";
+import reduce from "lodash/reduce";
 import MqttContext from "mqtt/context";
-import type { Controls, Control } from "config/flowtypes";
+import type { Controls, Control, UIControl, ControlUI } from "config/flowtypes";
 
 export type Point = [number, number];
 
@@ -58,7 +59,7 @@ const renderMarker = (props: ControlMapProps) =>
     </MqttContext.Consumer>
   );
 
-const safeIncludes = (o: {type?: string, text?: string, topic?: string},
+const safeIncludes = (o: {+type?: string, +text?: string, +topic?: string},
   s: string) => {
   if (o.type != null) {
     if (o.type.toLowerCase().includes(s)) {
@@ -78,16 +79,14 @@ const safeIncludes = (o: {type?: string, text?: string, topic?: string},
   return false;
 };
 
-const isVisible = (props: ControlMapProps) => (c: UIControl) => {
+const isVisible = (props: ControlMapProps) =>
+  (c: UIControl & {ui?: Array<ControlUI>}) => {
   if (safeIncludes(c, props.search.toLowerCase())) {
     return true;
   }
   if (c.ui != null) {
-    for (let k in c.ui) {
-      if (safeIncludes(c.ui[k], props.search.toLowerCase())) {
-        return true;
-      }
-    }
+    return reduce(c.ui,
+      (b, e) => b || safeIncludes(e, props.search.toLowerCase()), false);
   }
   return false;
 };

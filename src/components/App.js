@@ -61,14 +61,15 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
       search: "",
       error: null
     };
-    this.controlMap = (search: string) =>
-      <ControlMap width={1000} height={700} zoom={0}
-        layers={this.props.config.layers}
-        controls={this.props.config.controls}
-        onChangeControl={this.changeControl}
-        search={search}
-      />;
   }
+
+  controlMap = (search: string) =>
+    <ControlMap width={1000} height={700} zoom={0}
+      layers={this.props.config.layers}
+      controls={this.props.config.controls}
+      onChangeControl={this.changeControl}
+      search={search}
+    />;
 
   get topics(): Topics {
     return Array.isArray(this.props.config.topics) ?

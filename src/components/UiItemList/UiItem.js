@@ -84,8 +84,9 @@ export class UiControl<I: UIControl> extends UiItem<I> {
 
   // $FlowFixMe
   shouldComponentUpdate(nextProps: UiItemProps<I>) { // TODO: Fix Flow
-    return nextProps.state[nextProps.item.topic] !==
-      this.props.state[this.props.item.topic];
+    return nextProps.item.topic !== this.props.item.topic
+      || nextProps.state[nextProps.item.topic] !==
+        this.props.state[this.props.item.topic];
   }
 
   getValue() {
