@@ -50,15 +50,19 @@ export default class UiItem<I:Object>
    * any function type or if it is a TopicDependentOption or a
    * StateDependentOption. This should be fixed.
    */
-  isEnabled() {
-    if (Object.keys(this.props.item).includes("enableCondition") &&
-      typeof this.props.item.enableCondition == "function") {
-      const enableCondition = this.props.item.enableCondition;
-      const state = this.props.state;
+  rawIsEnabled(props: UiItemProps<I>) {
+    if (Object.keys(props.item).includes("enableCondition") &&
+      typeof props.item.enableCondition == "function") {
+      const enableCondition = props.item.enableCondition;
+      const state = props.state;
       return enableCondition(state);
     } else {
       return true;
     }
+  }
+
+  isEnabled() {
+    return this.rawIsEnabled(this.props);
   }
 }
 
@@ -86,7 +90,8 @@ export class UiControl<I: UIControl> extends UiItem<I> {
   shouldComponentUpdate(nextProps: UiItemProps<I>) { // TODO: Fix Flow
     return nextProps.item.topic !== this.props.item.topic
       || nextProps.state[nextProps.item.topic] !==
-        this.props.state[this.props.item.topic];
+        this.props.state[this.props.item.topic]
+      || this.isEnabled() !== this.rawIsEnabled(nextProps);
   }
 
   getValue() {
