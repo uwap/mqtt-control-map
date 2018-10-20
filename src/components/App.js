@@ -35,6 +35,7 @@ export type AppState = {
   mqttState: State,
   mqttSend: (topic: string, value: Buffer) => void,
   mqttConnected: boolean,
+  search: string,
   error: ?string
 };
 
@@ -57,14 +58,16 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
           (x) => this.topics[x].state.name)
       }),
       mqttConnected: false,
+      search: "",
       error: null
     };
-    this.controlMap =
-        <ControlMap width={1000} height={700} zoom={0}
-          layers={this.props.config.layers}
-          controls={this.props.config.controls}
-          onChangeControl={this.changeControl}
-        />;
+    this.controlMap = (search: string) =>
+      <ControlMap width={1000} height={700} zoom={0}
+        layers={this.props.config.layers}
+        controls={this.props.config.controls}
+        onChangeControl={this.changeControl}
+        search={search}
+      />;
   }
 
   get topics(): Topics {
@@ -144,7 +147,8 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         changeState: this.changeState
       }}>
         <TopBar title={`${this.props.config.space.name} Map`}
-          connected={this.state.mqttConnected} />
+          connected={this.state.mqttConnected}
+          onSearch={(s) => this.setState({ search: s })} />
         <SideBar open={this.state.drawerOpened}
           control={this.state.selectedControl}
           onCloseRequest={this.closeDrawer}
@@ -154,7 +158,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
           {this.state.selectedControl == null
             || <UiItemList controls={this.state.selectedControl.ui} />}
         </SideBar>
-        {this.controlMap}
+        {this.controlMap(this.state.search)}
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",

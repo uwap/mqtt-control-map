@@ -3,6 +3,7 @@ import React from "react";
 import { Map, ImageOverlay, Marker, LayersControl } from "react-leaflet";
 import { CRS, point, divIcon } from "leaflet";
 import map from "lodash/map";
+import filter from "lodash/filter";
 import MqttContext from "mqtt/context";
 import type { Controls, Control } from "config/flowtypes";
 
@@ -16,6 +17,7 @@ export type ControlMapProps = {
   zoom: number,
   layers: Array<Layer>,
   controls: Controls,
+  search: string,
   onChangeControl: (control: Control) => void
 };
 
@@ -56,8 +58,42 @@ const renderMarker = (props: ControlMapProps) =>
     </MqttContext.Consumer>
   );
 
+const safeIncludes = (o: {type?: string, text?: string, topic?: string},
+  s: string) => {
+  if (o.type != null) {
+    if (o.type.toLowerCase().includes(s)) {
+      return true;
+    }
+  }
+  if (o.text != null) {
+    if (o.text.toLowerCase().includes(s)) {
+      return true;
+    }
+  }
+  if (o.topic != null) {
+    if (o.topic.toLowerCase().includes(s)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const isVisible = (props: ControlMapProps) => (c: UIControl) => {
+  if (safeIncludes(c, props.search.toLowerCase())) {
+    return true;
+  }
+  if (c.ui != null) {
+    for (let k in c.ui) {
+      if (safeIncludes(c.ui[k], props.search.toLowerCase())) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
 const renderMarkers = (props: ControlMapProps) =>
-  map(props.controls, renderMarker(props));
+  map(filter(props.controls, isVisible(props)), renderMarker(props));
 
 const renderLayer = (layer: Layer) => {
   const LayersControlType =

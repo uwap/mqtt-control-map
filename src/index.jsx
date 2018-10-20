@@ -1,7 +1,6 @@
 // @flow
 import React from "react";
 import ReactDOM from "react-dom";
-import injectTapEventPlugin from "react-tap-event-plugin";
 
 import App from "components/App";
 
@@ -11,7 +10,6 @@ import "../css/styles.css";
 import type { Config } from "config/flowtypes";
 
 const config: Config = window.config;
-injectTapEventPlugin();
 
 document.title = `${config.space.name} Map`;
 
