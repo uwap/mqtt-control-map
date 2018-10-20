@@ -81,15 +81,15 @@ const safeIncludes = (o: {+type?: string, +text?: string, +topic?: string},
 
 const isVisible = (props: ControlMapProps) =>
   (c: UIControl & {ui?: Array<ControlUI>}) => {
-  if (safeIncludes(c, props.search.toLowerCase())) {
-    return true;
-  }
-  if (c.ui != null) {
-    return reduce(c.ui,
-      (b, e) => b || safeIncludes(e, props.search.toLowerCase()), false);
-  }
-  return false;
-};
+    if (safeIncludes(c, props.search.toLowerCase())) {
+      return true;
+    }
+    if (c.ui != null) {
+      return reduce(c.ui,
+        (b, e) => b || safeIncludes(e, props.search.toLowerCase()), false);
+    }
+    return false;
+  };
 
 const renderMarkers = (props: ControlMapProps) =>
   map(filter(props.controls, isVisible(props)), renderMarker(props));
