@@ -206,6 +206,17 @@ const config: Config = {
           type: types.option({ ON: "on", OFF: "off" })
         },
         defaultValue: "off"
+      },
+      deko: {
+        state: {
+          name: "/service/deko",
+          type: types.option({ ON: "on", OFF: "off" })
+        },
+        command: {
+          name: "/service/deko/set",
+          type: types.option({ on: "ON", off: "OFF" })
+        },
+        defaultValue: "off"
       }
     },
     //Tasmota-Dosen
@@ -432,6 +443,12 @@ const config: Config = {
           text: "Devices",
           topic: "devicesStatus",
           icon: mdi("wifi")
+        },
+        {
+          type: "toggle",
+          text: "Deko",
+          topic: "deko",
+          icon: mdi("invert-colors")
         }
 
       ]
