@@ -22,9 +22,9 @@ export interface UIControl {
   +topic: string
 }
 
-export interface Enableable {
+export type Enableable = $ReadOnly<{
   enableCondition?: (s: State) => boolean
-}
+}>;
 
 export type UIToggle = $ReadOnly<{|
   type: "toggle",
