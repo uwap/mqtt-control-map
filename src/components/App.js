@@ -147,8 +147,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         state: this.state.mqttState,
         changeState: this.changeState
       }}>
-        <TopBar title={`${this.props.config.space.name} Map`}
-          connected={this.state.mqttConnected}
+        <TopBar connected={this.state.mqttConnected}
           onSearch={(s) => this.setState({ search: s })} />
         <SideBar open={this.state.drawerOpened}
           control={this.state.selectedControl}

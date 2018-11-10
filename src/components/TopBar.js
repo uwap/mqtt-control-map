@@ -3,14 +3,14 @@ import React from "react";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 
 export type TopBarProps = {
-  title: string,
   connected: boolean,
   onSearch: string => void
 };
@@ -85,13 +85,27 @@ const RawSearch = (props: SearchBarProps & Classes) => (
 
 const Search = withStyles(searchStyles)(RawSearch);
 
+const openOnGithub = () => window.open(
+  "https://github.com/uwap/mqtt-control-map", "_blank");
+
+const sendFeedback = () => window.open("mailto:mail+feedback@uwap.name");
+
 const TopBar = (props: TopBarProps) => (
   <AppBar position="static">
     <Toolbar>
       {renderConnectionIndicator(props.connected)}
       <Search onSearch={props.onSearch} />
       <span style={{flex: 1}}></span>
-      <Typography variant="title">{props.title}</Typography>
+      <Tooltip title="Github">
+        <IconButton onClick={openOnGithub} style={{ fontSize: "28px" }}>
+          <i className="mdi mdi-github-circle"></i>
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Send me feedback">
+        <IconButton onClick={sendFeedback} style={{ fontSize: "28px" }}>
+          <i className="mdi mdi-email-plus"></i>
+        </IconButton>
+      </Tooltip>
     </Toolbar>
   </AppBar>
 );
