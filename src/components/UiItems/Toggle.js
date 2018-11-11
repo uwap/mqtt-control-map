@@ -14,7 +14,7 @@ const isToggled = (item: UIToggle, state: State) => {
   return checked;
 };
 
-const doToggle = (item: UIToggle, state: State, changeState) => {
+const doToggle = (item: UIToggle, state: State, changeState) => () => {
   if (isEnabled(item, state)) {
     const toggled = isToggled(item, state);
     const on = item.on == null ? "on" : item.on;

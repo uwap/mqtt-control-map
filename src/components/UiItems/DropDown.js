@@ -14,7 +14,7 @@ import Input from "@material-ui/core/Input";
 
 const componentId = (item: UIDropDown) => `dropdown-${item.topic}`;
 
-const DropDownOptions = ({options}) =>
+const DropDownOptions = (options) =>
   map(options, (v, k) => <MenuItem value={k} key={k}>{v}</MenuItem>);
 
 const onChangeEvent = (item: UIDropDown, changeState) =>
@@ -30,7 +30,7 @@ const BaseComponent = ({Icon}, item, state, changeState) => (
         disabled={isDisabled(item, state)}
         input={<Input id={componentId(item)} />}
       >
-        <DropDownOptions options={item.options} />
+        {DropDownOptions(item.options)}
       </Select>
     </FormControl>
   </React.Fragment>
