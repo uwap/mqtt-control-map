@@ -76,10 +76,20 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
       Object.assign({}, ...this.props.config.topics) : this.props.config.topics;
   }
 
-  static styles() {
+  static styles(theme) {
     return {
-      drawerPaper: {
-        width: 320
+      contentElement: {
+        transition: theme.transitions.create(["width"], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen
+        })
+      },
+      contentElementShifted: {
+        width: "calc(100% - 340px)",
+        transition: theme.transitions.create(["width"], {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen
+        })
       }
     };
   }
@@ -147,8 +157,15 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         state: this.state.mqttState,
         changeState: this.changeState
       }}>
-        <TopBar connected={this.state.mqttConnected}
-          onSearch={(s) => this.setState({ search: s })} />
+        <div className={
+          this.state.drawerOpened
+            ? this.props.classes.contentElementShifted
+            : this.props.classes.contentElement
+        }>
+          <TopBar connected={this.state.mqttConnected}
+            onSearch={(s) => this.setState({ search: s })} />
+          {this.controlMap(this.state.search)}
+        </div>
         <SideBar open={this.state.drawerOpened}
           control={this.state.selectedControl}
           onCloseRequest={this.closeDrawer}
@@ -158,7 +175,6 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
           {this.state.selectedControl == null
             || <UiItemList controls={this.state.selectedControl.ui} />}
         </SideBar>
-        {this.controlMap(this.state.search)}
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",

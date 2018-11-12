@@ -35,11 +35,11 @@ const SideBar = (props: Props) => (
         <span>
           {props.icon == null || renderRawIcon(props.icon, "mdi-36px")}
         </span>
-        <Typography variant="title" className={props.classes.flex}>
+        <Typography variant="title" className={props.classes.title}>
           {props.control == null ? "" : props.control.name}
         </Typography>
         <IconButton onClick={props.onCloseRequest}>
-          <i className="mdi mdi-close mdi-36px"></i>
+          <i className="mdi mdi-close"></i>
         </IconButton>
       </Toolbar>
     </AppBar>
@@ -49,13 +49,14 @@ const SideBar = (props: Props) => (
   </Drawer>
 );
 
-const styles = {
+const styles = (theme) => ({
   drawerPaper: {
     width: 340
   },
-  flex: {
-    flex: 1
+  title: {
+    flex: 1,
+    marginLeft: theme.spacing.unit
   }
-};
+});
 
 export default withStyles(styles)(SideBar);
