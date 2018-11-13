@@ -551,7 +551,7 @@ const config: Config = {
       opacity: 0.7,
       bounds: {
         topLeft: [0, 0],
-        bottomRight: [1000, 700]
+        bottomRight: [1320, 720]
       }
     },
     {
@@ -561,7 +561,7 @@ const config: Config = {
       opacity: 0.4,
       bounds: {
         topLeft: [0, 0],
-        bottomRight: [1000, 700]
+        bottomRight: [1320, 720]
       }
     },
     {
@@ -571,7 +571,7 @@ const config: Config = {
       opacity: 0.8,
       bounds: {
         topLeft: [0, 0],
-        bottomRight: [1000, 700]
+        bottomRight: [1320, 720]
       }
     }
   ]
