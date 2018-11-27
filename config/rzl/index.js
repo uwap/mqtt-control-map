@@ -222,6 +222,8 @@ const config: Config = {
     //Tasmota-Dosen
     tasmota.topics("6", "snackbar"),
     tasmota.topics("7", "infoscreen"),
+    tasmota.topics("9", "tischMitte"),
+    tasmota.topics("10", "tischTafel"),
 
     esper.topics("afba40", "flyfry"),
 
@@ -233,6 +235,34 @@ const config: Config = {
     ...onkyo.controls,
     ...olymp.controls,
     ...kitchen.controls,
+    tischTafel: {
+      name: "Lampe Tisch Tafel",
+      position: [126, 590],
+      icon: mdi("floor-lamp"),
+      iconColor: tasmota.iconColor("tischTafel"),
+      ui: [
+        {
+          type: "toggle",
+          text: "Lampe Tisch Tafel",
+          topic: "tischTafel",
+          icon: mdi("power")
+        }
+      ]
+    },
+    tischMitte: {
+      name: "Lampe Tisch Mitte",
+      position: [300, 590],
+      icon: mdi("floor-lamp"),
+      iconColor: tasmota.iconColor("tischMitte"),
+      ui: [
+        {
+          type: "toggle",
+          text: "Lampe Tisch Mitte",
+          topic: "tischMitte",
+          icon: mdi("power")
+        }
+      ]
+    },
     ledStahltrager: {
       name: "LED Stahlträger",
       position: [340, 590],
