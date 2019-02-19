@@ -222,6 +222,7 @@ const config: Config = {
     //Tasmota-Dosen
     tasmota.topics("6", "snackbar"),
     tasmota.topics("7", "infoscreen"),
+    tasmota.topics("9", "pilze"),
 
     esper.topics("afba40", "flyfry"),
 
@@ -470,6 +471,21 @@ const config: Config = {
           link: "http://cashdesk.rzl:3030/rzl",
           text: "Open Infoscreen",
           icon: mdi("open-in-new")
+        }
+      ]
+    },
+    pilze: {
+      name: "Pilze",
+      position: [48, 499],
+      icon: ({pilze}) =>
+        (pilze === "on" ? rawMdi("led-on") : rawMdi("led-off")),
+      iconColor: tasmota.iconColor("pilze", rainbow),
+      ui: [
+        {
+          type: "toggle",
+          text: "Pilze",
+          topic: "pilze",
+          icon: mdi("power")
         }
       ]
     },
