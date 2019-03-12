@@ -220,6 +220,7 @@ const config: Config = {
       }
     },
     //Tasmota-Dosen
+    tasmota.topics("2", "printerOlymp"),
     tasmota.topics("6", "snackbar"),
     tasmota.topics("7", "infoscreen"),
     tasmota.topics("9", "pilze"),
@@ -537,6 +538,26 @@ const config: Config = {
           type: "link",
           link: "http://partkeepr.rzl/",
           text: "Open Partkeepr",
+          icon: mdi("open-in-new")
+        }
+      ]
+    },
+    printerOlymp: {
+      name: "Drucker",
+      position: [800, 350],
+      icon: mdi("printer"),
+      iconColor: tasmota.iconColor("printerOlymp"),
+      ui: [
+        {
+          type: "toggle",
+          text: "Drucker",
+          topic: "printerOlymp",
+          icon: mdi("power")
+        },
+        {
+          type: "link",
+          link: "http://annette.rzl/",
+          text: "Open Annette",
           icon: mdi("open-in-new")
         }
       ]
