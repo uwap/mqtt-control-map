@@ -39,7 +39,6 @@ export const topics: Topics = {
     },
     defaultValue: "off"
   },
-  ...tasmota.topics("2", "printerOlymp"),
   ...tasmota.topics("8", "ledOlymp"),
   ...esper.topics("afba45", "alarm")
 };
@@ -86,26 +85,6 @@ export const controls: Controls = {
         text: "Rechner",
         topic: "olympPC",
         icon: mdi("power")
-      }
-    ]
-  },
-  printerOlymp: {
-    name: "Drucker",
-    position: [335, 90],
-    icon: mdi("printer"),
-    iconColor: tasmota.iconColor("printerOlymp"),
-    ui: [
-      {
-        type: "toggle",
-        text: "Drucker",
-        topic: "printerOlymp",
-        icon: mdi("power")
-      },
-      {
-        type: "link",
-        link: "http://annette.rzl/",
-        text: "Open Annette",
-        icon: mdi("open-in-new")
       }
     ]
   },
