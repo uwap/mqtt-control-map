@@ -220,7 +220,7 @@ const config: Config = {
       }
     },
     //Tasmota-Dosen
-    tasmota.topics("2", "printerOlymp"),
+    tasmota.topics("2", "printerAnnette"),
     tasmota.topics("6", "snackbar"),
     tasmota.topics("7", "infoscreen"),
     tasmota.topics("9", "pilze"),
@@ -542,16 +542,16 @@ const config: Config = {
         }
       ]
     },
-    printerOlymp: {
+    printerAnnette: {
       name: "Drucker",
       position: [800, 350],
       icon: mdi("printer"),
-      iconColor: tasmota.iconColor("printerOlymp"),
+      iconColor: tasmota.iconColor("printerAnnette"),
       ui: [
         {
           type: "toggle",
           text: "Drucker",
-          topic: "printerOlymp",
+          topic: "printerAnnette",
           icon: mdi("power")
         },
         {
