@@ -137,6 +137,14 @@ const config: Config = {
         },
         defaultValue: ""
       },
+      powerConsumption: {
+        state: {
+          name: "/service/power/hauptraum/power",
+          type: (msg) =>
+            (Number.parseFloat(msg.toString()) / 1000).toFixed(2) + " kW"
+        },
+        defaultValue: ""
+      },
       projector: {
         state: {
           name: "/service/beamer/state",
@@ -435,6 +443,12 @@ const config: Config = {
           icon: mdi("open-in-new")
         },
         {
+          type: "link", // eslint-disable-next-line max-len
+          link: "http://kunterbunt.vm.rzl/dashboard/db/allgemeines-copy-ranlvor?orgId=1",
+          text: "RZL-Dashboard",
+          icon: mdi("open-in-new")
+        },
+        {
           type: "text",
           text: "Anwesend",
           topic: "presenceStatus",
@@ -451,6 +465,12 @@ const config: Config = {
           text: "Deko",
           topic: "deko",
           icon: mdi("invert-colors")
+        },
+        {
+          type: "text",
+          text: "Power Hauptraum",
+          topic: "powerConsumption",
+          icon: mdi("speedometer")
         }
 
       ]
