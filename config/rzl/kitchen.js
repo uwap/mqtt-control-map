@@ -22,12 +22,12 @@ export const topics: Topics = {
 
   kitchenLightColor: {
     state: {
-      name: "/service/openhab/out/kitchenLight_allColor_temperature"
+      name: "/service/openhab/out/kitchen_light_all_color_temperature"
         + "/state",
       type: types.string
     },
     command: {
-      name: "/service/openhab/in/kitchenLight_allColor_temperature"
+      name: "/service/openhab/in/kitchen_light_all_color_temperature"
         + "/command",
       type: types.string
     },
@@ -35,11 +35,11 @@ export const topics: Topics = {
   },
   kitchenLightBrightness: {
     state: {
-      name: "/service/openhab/out/kitchenLight_allBrightness/state",
+      name: "/service/openhab/out/kitchen_light_all_brightness/state",
       type: types.string
     },
     command: {
-      name: "/service/openhab/in/kitchenLight_allBrightness/command",
+      name: "/service/openhab/in/kitchen_light_all_brightness/command",
       type: types.string
     },
     defaultValue: "0"
@@ -47,12 +47,12 @@ export const topics: Topics = {
   kitchenSinkLightBrightness: {
     state: {
       name: "/service/openhab/out/tradfri_0100_"
-        + "gwb8d7af2b448f_65545Brightness/state",
+        + "gwb8d7af2b448f_65545_brightness/state",
       type: types.string
     },
     command: {
       name: "/service/openhab/in/tradfri_0100_"
-        + "gwb8d7af2b448f_65545Brightness/command",
+        + "gwb8d7af2b448f_65545_brightness/command",
       type: types.string
     },
     defaultValue: "0"
