@@ -443,7 +443,8 @@ const config: Config = {
           icon: mdi("open-in-new")
         },
         {
-          type: "link", // eslint-disable-next-line max-len
+          type: "link",
+          // eslint-disable-next-line max-len
           link: "http://kunterbunt.vm.rzl/dashboard/db/allgemeines-copy-ranlvor?orgId=1",
           text: "RZL-Dashboard",
           icon: mdi("open-in-new")
