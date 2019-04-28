@@ -225,6 +225,35 @@ const config: Config = {
           type: types.option({ on: "ON", off: "OFF" })
         },
         defaultValue: "off"
+      },
+      whirlpoolTemperatureSetpoint: {
+        state: {
+          name: "/service/whirlpool/state",
+          type: types.json("temperatureSetpointC")
+        },
+        command: {
+          name: "/service/whirlpool/set/temperature",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      whirlpoolBubbles: {
+        state: {
+          name: "/service/whirlpool/state",
+          type: types.json("bubbles")
+        },
+        command: {
+          name: "/service/whirlpool/set/bubbles",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      whirlpoolTemperature: {
+        state: {
+          name: "/service/whirlpool/state",
+          type: types.json("waterTemperatureC")
+        },
+        defaultValue: "0"
       }
     },
     //Tasmota-Dosen
@@ -596,6 +625,43 @@ const config: Config = {
           icon: mdi("power"),
           text: "Strom Fablab",
           topic: "nebenraumPowerStatus"
+        }
+      ]
+    },
+    whirlpool: {
+      name: "Vorstandswhirlpool",
+      position: [1413, 500],
+      icon: mdi("pool"),
+      iconColor: ({whirlpoolBubbles}) =>
+        (whirlpoolBubbles > 0 ? hex("#00ff00") : hex("#000000")),
+      ui: [
+        {
+          type: "text",
+          icon: mdi("oil-temperature"),
+          text: "Temperatur",
+          topic: "whirlpoolTemperature"
+        },
+        {
+          type: "text",
+          icon: mdi("oil-temperature"),
+          text: "Temperatur Sollwert",
+          topic: "whirlpoolTemperatureSetpoint"
+        },
+        {
+          type: "slider",
+          min: 4,
+          max: 100,
+          text: "Temperatur Sollwert",
+          icon: mdi("oil-temperature"),
+          topic: "whirlpoolTemperatureSetpoint"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 9,
+          text: "Bubbles",
+          icon: mdi("chart-bubble"),
+          topic: "whirlpoolBubbles"
         }
       ]
     }
