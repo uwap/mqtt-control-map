@@ -3,7 +3,7 @@ import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { mdi } from "config/icon";
 
-const topic_bulb = (bulb: string, argument: string) => ({
+const topicBulb = (bulb: string, argument: string) => ({
   [`${bulb}${argument}`]: {
     state: {
       name: `home-rust/bulb/${bulb}/${argument}`,
@@ -17,7 +17,7 @@ const topic_bulb = (bulb: string, argument: string) => ({
   }
 });
 
-const slider_rgb = (bulb: string, argument: string) => (
+const sliderRGB = (bulb: string, argument: string) => (
   [{
     type: "slider",
     min: 0,
@@ -27,7 +27,7 @@ const slider_rgb = (bulb: string, argument: string) => (
     topic: `${bulb}${argument}`
   }]
 );
-const slider_h = (bulb: string, argument: string) => (
+const sliderH = (bulb: string, argument: string) => (
   [{
     type: "slider",
     min: 0,
@@ -37,7 +37,7 @@ const slider_h = (bulb: string, argument: string) => (
     topic: `${bulb}${argument}`
   }]
 );
-const slider_svxy = (bulb: string, argument: string) => (
+const sliderSVXY = (bulb: string, argument: string) => (
   [{
     type: "slider",
     min: 0,
@@ -64,16 +64,16 @@ const config: Config = {
        *zigbee2mqtt/bulb_bedroom
        */
 
-      ...topic_bulb("livingroom", "r"),
-      ...topic_bulb("livingroom", "g"),
-      ...topic_bulb("livingroom", "b"),
-      ...topic_bulb("livingroom", "h"),
-      ...topic_bulb("livingroom", "s"),
-      ...topic_bulb("livingroom", "v"),
-      ...topic_bulb("livingroom", "x"),
-      ...topic_bulb("livingroom", "y"),
-      ...topic_bulb("livingroom", "animation-speed"),
-      ...topic_bulb("livingroom", "mode"),
+      ...topicBulb("livingroom", "r"),
+      ...topicBulb("livingroom", "g"),
+      ...topicBulb("livingroom", "b"),
+      ...topicBulb("livingroom", "h"),
+      ...topicBulb("livingroom", "s"),
+      ...topicBulb("livingroom", "v"),
+      ...topicBulb("livingroom", "x"),
+      ...topicBulb("livingroom", "y"),
+      ...topicBulb("livingroom", "animation-speed"),
+      ...topicBulb("livingroom", "mode"),
       livingroomBrightness: {
         state: {
           name: "home-rust/bulb/livingroom/brightness",
@@ -257,24 +257,24 @@ const config: Config = {
           type: "section",
           text: "RGB"
         }
-      ]).concat(slider_rgb("livingroom", "r"))
-        .concat(slider_rgb("livingroom", "g"))
-        .concat(slider_rgb("livingroom", "b"))
+      ]).concat(sliderRGB("livingroom", "r"))
+        .concat(sliderRGB("livingroom", "g"))
+        .concat(sliderRGB("livingroom", "b"))
         .concat([
           {
             type: "section",
             text: "HSV"
           }
-        ]).concat(slider_h("livingroom", "h"))
-        .concat(slider_svxy("livingroom", "s"))
-        .concat(slider_svxy("livingroom", "v"))
+        ]).concat(sliderH("livingroom", "h"))
+        .concat(sliderSVXY("livingroom", "s"))
+        .concat(sliderSVXY("livingroom", "v"))
         .concat([
           {
             type: "section",
             text: "XY"
           }
-        ]).concat(slider_svxy("livingroom", "x"))
-        .concat(slider_svxy("livingroom", "y"))
+        ]).concat(sliderSVXY("livingroom", "x"))
+        .concat(sliderSVXY("livingroom", "y"))
     }
   },
   layers: [
