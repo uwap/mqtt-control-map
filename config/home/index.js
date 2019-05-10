@@ -99,6 +99,17 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      bedroomWakeup: {
+        state: {
+          name: "home-rust/wakeup",
+          type: types.option({ true: "on", false: "off" })
+        },
+        command: {
+          name: "home-rust/wakeup/set",
+          type: types.option({ on: "true", off: "false" })
+        },
+        defaultValue: "OFF"
+      },
       bedroomBrightness: {
         state: {
           name: "zigbee2mqtt/bulb_bedroom",
@@ -170,6 +181,12 @@ const config: Config = {
           text: "Helligkeit",
           icon: mdi("brightness-7"),
           topic: "bedroomBrightness"
+        },
+        {
+          type: "toggle",
+          topic: "bedroomWakeup",
+          text: "Lichtwecker",
+          icon: mdi("power")
         }
       ]
     },
