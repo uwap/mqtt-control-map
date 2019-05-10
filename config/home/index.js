@@ -3,6 +3,52 @@ import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { mdi } from "config/icon";
 
+const topic_bulb = (bulb: string, argument: string) => ({
+  [`${bulb}${argument}`]: {
+    state: {
+      name: `home-rust/bulb/${bulb}/${argument}`,
+      type: types.string
+    },
+    command: {
+      name: `home-rust/bulb/${bulb}/${argument}/set`,
+      type: types.string
+    },
+    defaultValue: "0"
+  },
+});
+
+const slider_rgb = (bulb: string, argument: string) => ( 
+  [{
+    type: "slider",
+    min: 0,
+    max: 255,
+    text: argument,
+    icon: mdi("brightness-7"),
+    topic: `${bulb}${argument}`
+  }]
+);
+const slider_h = (bulb: string, argument: string) => ( 
+  [{
+    type: "slider",
+    min: 0,
+    max: 360,
+    text: argument,
+    icon: mdi("brightness-7"),
+    topic: `${bulb}${argument}`
+  }]
+);
+const slider_svxy = (bulb: string, argument: string) => ( 
+  [{
+    type: "slider",
+    min: 0,
+    max: 1,
+    step: 0.01,
+    text: argument,
+    icon: mdi("brightness-7"),
+    topic: `${bulb}${argument}`
+  }]
+);
+
 const config: Config = {
   space: {
     name: "Home",
@@ -18,10 +64,20 @@ const config: Config = {
        *zigbee2mqtt/bulb_bedroom
        */
 
+      ...topic_bulb("livingroom","r"),
+      ...topic_bulb("livingroom","g"),
+      ...topic_bulb("livingroom","b"),
+      ...topic_bulb("livingroom","h"),
+      ...topic_bulb("livingroom","s"),
+      ...topic_bulb("livingroom","v"),
+      ...topic_bulb("livingroom","x"),
+      ...topic_bulb("livingroom","y"),
+      ...topic_bulb("livingroom","animation-speed"),
+      ...topic_bulb("livingroom","mode"),
       livingroomBrightness: {
         state: {
-          name: "zigbee2mqtt/bulb_livingroom",
-          type: types.json("brightness")
+          name: "home-rust/bulb/livingroom/brightness",
+          type: types.string
         },
         command: {
           name: "zigbee2mqtt/bulb_livingroom/set",
@@ -29,24 +85,13 @@ const config: Config = {
         },
         defaultValue: "0"
       },
-      livingroomColorTemperature: {
-        state: {
-          name: "zigbee2mqtt/bulb_livingroom",
-          type: types.json("color_temp")
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_livingroom/set",
-          type: (value) => JSON.stringify({ "color_temp": value.toString() })
-        },
-        defaultValue: "250"
-      },
       livingroomState: {
         state: {
-          name: "zigbee2mqtt/bulb_livingroom",
-          type: types.json("state", types.option({
+          name: "home-rust/bulb/livingroom/state",
+          type: types.option({
             OFF: "off",
             ON: "on"
-          }))
+          })
         },
         command: {
           name: "zigbee2mqtt/bulb_livingroom/set",
@@ -153,7 +198,7 @@ const config: Config = {
       name: "Wohnzimmer",
       position: [300, 200],
       icon: mdi("ceiling-light"),
-      ui: [
+      ui: ([
         {
           type: "toggle",
           topic: "livingroomState",
@@ -170,13 +215,49 @@ const config: Config = {
         },
         {
           type: "slider",
-          min: 250,
-          max: 454,
-          text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
-          topic: "livingroomColorTemperature"
+          max: 1,
+          min: 300,
+          step: -1,
+          text: "Speed",
+          icon: mdi("speedometer"),
+          topic: "livingroomanimation-speed"
+        },
+        {
+          type: "dropDown",
+          text: "Modus",
+          topic: "livingroommode",
+          options: {
+            "-1": "Cancel Animation",
+            "0": "Pink",
+            "1": "Kodi",
+            "2": "Sleep",
+            "3": "RGB Fade",
+            "4": "Work"
+          },
+          icon: mdi("settings"),
+        },
+        {
+          type: "section",
+          text: "RGB"
         }
-      ]
+      ]).concat(slider_rgb("livingroom", "r"))
+        .concat(slider_rgb("livingroom", "g"))
+        .concat(slider_rgb("livingroom", "b"))
+        .concat([
+        {
+          type: "section",
+          text: "HSV"
+        }
+      ]).concat(slider_h("livingroom", "h"))
+        .concat(slider_svxy("livingroom", "s"))
+        .concat(slider_svxy("livingroom", "v"))
+        .concat([
+        {
+          type: "section",
+          text: "XY"
+        }
+      ]).concat(slider_svxy("livingroom", "x"))
+        .concat(slider_svxy("livingroom", "y"))
     }
   },
   layers: [
