@@ -14,10 +14,10 @@ const topic_bulb = (bulb: string, argument: string) => ({
       type: types.string
     },
     defaultValue: "0"
-  },
+  }
 });
 
-const slider_rgb = (bulb: string, argument: string) => ( 
+const slider_rgb = (bulb: string, argument: string) => (
   [{
     type: "slider",
     min: 0,
@@ -27,7 +27,7 @@ const slider_rgb = (bulb: string, argument: string) => (
     topic: `${bulb}${argument}`
   }]
 );
-const slider_h = (bulb: string, argument: string) => ( 
+const slider_h = (bulb: string, argument: string) => (
   [{
     type: "slider",
     min: 0,
@@ -37,7 +37,7 @@ const slider_h = (bulb: string, argument: string) => (
     topic: `${bulb}${argument}`
   }]
 );
-const slider_svxy = (bulb: string, argument: string) => ( 
+const slider_svxy = (bulb: string, argument: string) => (
   [{
     type: "slider",
     min: 0,
@@ -64,16 +64,16 @@ const config: Config = {
        *zigbee2mqtt/bulb_bedroom
        */
 
-      ...topic_bulb("livingroom","r"),
-      ...topic_bulb("livingroom","g"),
-      ...topic_bulb("livingroom","b"),
-      ...topic_bulb("livingroom","h"),
-      ...topic_bulb("livingroom","s"),
-      ...topic_bulb("livingroom","v"),
-      ...topic_bulb("livingroom","x"),
-      ...topic_bulb("livingroom","y"),
-      ...topic_bulb("livingroom","animation-speed"),
-      ...topic_bulb("livingroom","mode"),
+      ...topic_bulb("livingroom", "r"),
+      ...topic_bulb("livingroom", "g"),
+      ...topic_bulb("livingroom", "b"),
+      ...topic_bulb("livingroom", "h"),
+      ...topic_bulb("livingroom", "s"),
+      ...topic_bulb("livingroom", "v"),
+      ...topic_bulb("livingroom", "x"),
+      ...topic_bulb("livingroom", "y"),
+      ...topic_bulb("livingroom", "animation-speed"),
+      ...topic_bulb("livingroom", "mode"),
       livingroomBrightness: {
         state: {
           name: "home-rust/bulb/livingroom/brightness",
@@ -234,7 +234,7 @@ const config: Config = {
             "3": "RGB Fade",
             "4": "Work"
           },
-          icon: mdi("settings"),
+          icon: mdi("settings")
         },
         {
           type: "section",
@@ -244,19 +244,19 @@ const config: Config = {
         .concat(slider_rgb("livingroom", "g"))
         .concat(slider_rgb("livingroom", "b"))
         .concat([
-        {
-          type: "section",
-          text: "HSV"
-        }
-      ]).concat(slider_h("livingroom", "h"))
+          {
+            type: "section",
+            text: "HSV"
+          }
+        ]).concat(slider_h("livingroom", "h"))
         .concat(slider_svxy("livingroom", "s"))
         .concat(slider_svxy("livingroom", "v"))
         .concat([
-        {
-          type: "section",
-          text: "XY"
-        }
-      ]).concat(slider_svxy("livingroom", "x"))
+          {
+            type: "section",
+            text: "XY"
+          }
+        ]).concat(slider_svxy("livingroom", "x"))
         .concat(slider_svxy("livingroom", "y"))
     }
   },
