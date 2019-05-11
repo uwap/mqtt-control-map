@@ -99,6 +99,17 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      livingroomKodiControlled: {
+        state: {
+          name: "home-rust/bulb/livingroom/kodi-controlled",
+          type: types.option({ true: "on", false: "off" })
+        },
+        command: {
+          name: "home-rust/bulb/livingroom/kodi-controlled/set",
+          type: types.option({ on: "true", off: "false" })
+        },
+        defaultValue: "OFF"
+      },
       bedroomWakeup: {
         state: {
           name: "home-rust/wakeup",
@@ -240,6 +251,12 @@ const config: Config = {
           topic: "livingroomState",
           text: "Ein/Ausschalten",
           icon: mdi("power")
+        },
+        {
+          type: "toggle",
+          topic: "livingroomKodiControlled",
+          text: "Kodi Einbindung",
+          icon: mdi("brightness-auto")
         },
         {
           type: "slider",
