@@ -208,7 +208,7 @@ const config: Config = {
           type: "toggle",
           topic: "bedroomWakeup",
           text: "Lichtwecker",
-          icon: mdi("power")
+          icon: mdi("weather-sunset-up")
         },
         {
           type: "slider",
