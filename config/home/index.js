@@ -112,8 +112,8 @@ const config: Config = {
       },
       bedroomBrightness: {
         state: {
-          name: "zigbee2mqtt/bulb_bedroom",
-          type: types.json("brightness")
+          name: "home-rust/bulb/bedroom/brightness",
+          type: types.string
         },
         command: {
           name: "zigbee2mqtt/bulb_bedroom/set",
@@ -123,11 +123,11 @@ const config: Config = {
       },
       bedroomState: {
         state: {
-          name: "zigbee2mqtt/bulb_bedroom",
-          type: types.json("state", types.option({
+          name: "home-rust/bulb/bedroom/state",
+          type: types.option({
             OFF: "off",
             ON: "on"
-          }))
+          })
         },
         command: {
           name: "zigbee2mqtt/bulb_bedroom/set",
@@ -137,8 +137,8 @@ const config: Config = {
       },
       hallwayBrightness: {
         state: {
-          name: "zigbee2mqtt/bulb_hallway",
-          type: types.json("brightness")
+          name: "home-rust/bulb/hallway/brightness",
+          type: types.string
         },
         command: {
           name: "zigbee2mqtt/bulb_hallway/set",
@@ -148,11 +148,11 @@ const config: Config = {
       },
       hallwayState: {
         state: {
-          name: "zigbee2mqtt/bulb_hallway",
-          type: types.json("state", types.option({
+          name: "home-rust/bulb/hallway/state",
+          type: types.option({
             OFF: "off",
             ON: "on"
-          }))
+          })
         },
         command: {
           name: "zigbee2mqtt/bulb_hallway/set",
