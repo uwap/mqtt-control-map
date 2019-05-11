@@ -121,6 +121,17 @@ const config: Config = {
         },
         defaultValue: "0"
       },
+      bedroomColorTemp: {
+        state: {
+          name: "home-rust/bulb/bedroom/color_temp",
+          type: types.string
+        },
+        command: {
+          name: "zigbee2mqtt/bulb_bedroom/set",
+          type: (value) => JSON.stringify({ "color_temp": value.toString() })
+        },
+        defaultValue: "0"
+      },
       bedroomState: {
         state: {
           name: "home-rust/bulb/bedroom/state",
@@ -187,6 +198,14 @@ const config: Config = {
           topic: "bedroomWakeup",
           text: "Lichtwecker",
           icon: mdi("power")
+        },
+        {
+          type: "slider",
+          min: 250,
+          max: 454,
+          text: "Farbtemperatur",
+          icon: mdi("weather-sunset-down"),
+          topic: "bedroomColorTemp"
         }
       ]
     },
