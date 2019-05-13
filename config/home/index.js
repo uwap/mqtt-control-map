@@ -2,6 +2,7 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { mdi } from "config/icon";
+import { hex } from "config/colors";
 
 const topicBulb = (bulb: string, argument: string) => ({
   [`${bulb}${argument}`]: {
@@ -157,6 +158,31 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      fanBedroomState: {
+        state: {
+          name: "stat/sonoff-bedroom-fan/POWER",
+          type: types.option({
+            OFF: "off",
+            ON: "on"
+          })
+        },
+        command: {
+          name: "cmnd/sonoff-bedroom-fan/POWER",
+          type: types.string
+        },
+        defaultValue: "OFF"
+      },
+      fanBedroomAuto: {
+        state: {
+          name: "home-rust/temperature-control/bedroom",
+          type: types.option({ true: "on", false: "off" })
+        },
+        command: {
+          name: "home-rust/temperature-control/bedroom/set",
+          type: types.option({ on: "true", off: "false" })
+        },
+        defaultValue: "OFF"
+      },
       hallwayBrightness: {
         state: {
           name: "home-rust/bulb/hallway/brightness",
@@ -217,6 +243,27 @@ const config: Config = {
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
           topic: "bedroomColorTemp"
+        }
+      ]
+    },
+    bedroomFan: {
+      name: "Lüftung Schlafzimmer",
+      position: [200, 400],
+      icon: mdi("fan"),
+      iconColor: ({fanBedroomState}) =>
+        (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      ui: [
+        {
+          type: "toggle",
+          topic: "fanBedroomState",
+          text: "Ein/Ausschalten",
+          icon: mdi("power")
+        },
+        {
+          type: "toggle",
+          topic: "fanBedroomAuto",
+          text: "Automatik",
+          icon: mdi("air-conditioner")
         }
       ]
     },
