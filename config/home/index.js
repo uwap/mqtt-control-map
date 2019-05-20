@@ -183,6 +183,31 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      fanOfficeState: {
+        state: {
+          name: "stat/sonoff-office-fan/POWER",
+          type: types.option({
+            OFF: "off",
+            ON: "on"
+          })
+        },
+        command: {
+          name: "cmnd/sonoff-office-fan/POWER",
+          type: types.string
+        },
+        defaultValue: "OFF"
+      },
+      fanOfficeAuto: {
+        state: {
+          name: "home-rust/temperature-control/office",
+          type: types.option({ true: "on", false: "off" })
+        },
+        command: {
+          name: "home-rust/temperature-control/office/set",
+          type: types.option({ on: "true", off: "false" })
+        },
+        defaultValue: "OFF"
+      },
       hallwayBrightness: {
         state: {
           name: "home-rust/bulb/hallway/brightness",
@@ -267,9 +292,30 @@ const config: Config = {
         }
       ]
     },
+    officeFan: {
+      name: "Lüftung Büro",
+      position: [600, 400],
+      icon: mdi("fan"),
+      iconColor: ({fanOfficeState}) =>
+        (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")),
+      ui: [
+        {
+          type: "toggle",
+          topic: "fanOfficeState",
+          text: "Ein/Ausschalten",
+          icon: mdi("power")
+        },
+        {
+          type: "toggle",
+          topic: "fanOfficeAuto",
+          text: "Automatik",
+          icon: mdi("air-conditioner")
+        }
+      ]
+    },
     hallwayLight: {
       name: "Flur",
-      position: [500, 200],
+      position: [400, 200],
       icon: mdi("ceiling-light"),
       ui: [
         {
