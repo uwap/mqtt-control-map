@@ -1,7 +1,7 @@
 // @flow
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
-import { mdi } from "config/icon";
+import { mdi, rawMdi } from "config/icon";
 import { hex } from "config/colors";
 
 const topicBulb = (bulb: string, argument: string) => ({
@@ -131,7 +131,8 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
-      ...topicHomeBoolean("livingroomKodiControlled", "bulb/livingroom/kodi-controlled"),
+      ...topicHomeBoolean("livingroomKodiControlled",
+        "bulb/livingroom/kodi-controlled"),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
       bedroomBrightness: {
         state: {
@@ -197,7 +198,8 @@ const config: Config = {
           type: (value) => JSON.stringify({ state: value.toString() })
         },
         defaultValue: "OFF"
-      }
+      },
+      ...topicTasmota("speakerOffice", "sonoff-office-speaker")
     }
   ],
   controls: {
@@ -254,6 +256,22 @@ const config: Config = {
           topic: "fanBedroomAuto",
           text: "Automatik",
           icon: mdi("air-conditioner")
+        }
+      ]
+    },
+    officeSpeaker: {
+      name: "Lautsprecher",
+      position: [550, 400],
+      icon: ({speakerOfficeState}) =>
+        (speakerOfficeState === "on" ? rawMdi("volume-high") : rawMdi("volume-off")),
+      iconColor: ({speakerOfficeState}) =>
+        (speakerOfficeState === "on" ? hex("#00FF00") : hex("#000000")),
+      ui: [
+        {
+          type: "toggle",
+          topic: "speakerOfficeState",
+          text: "Ein/Ausschalten",
+          icon: mdi("power")
         }
       ]
     },
