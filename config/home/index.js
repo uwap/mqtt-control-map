@@ -18,6 +18,20 @@ const topicBulb = (bulb: string, argument: string) => ({
   }
 });
 
+const topicHomeBoolean = (name: string, topic: string) => ({
+  [`${name}`]: {
+    state: {
+      name: `home-rust/${topic}`,
+      type: types.option({ true: "on", false: "off" })
+    },
+    command: {
+      name: `home-rust/${topic}/set`,
+      type: types.option({ on: "true", off: "false" })
+    },
+    defaultValue: "OFF"
+  }
+});
+
 const topicTasmota = (name: string, topic: string) => ({
   [`${name}State`]: {
     state: {
@@ -117,28 +131,8 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
-      livingroomKodiControlled: {
-        state: {
-          name: "home-rust/bulb/livingroom/kodi-controlled",
-          type: types.option({ true: "on", false: "off" })
-        },
-        command: {
-          name: "home-rust/bulb/livingroom/kodi-controlled/set",
-          type: types.option({ on: "true", off: "false" })
-        },
-        defaultValue: "OFF"
-      },
-      bedroomWakeup: {
-        state: {
-          name: "home-rust/wakeup",
-          type: types.option({ true: "on", false: "off" })
-        },
-        command: {
-          name: "home-rust/wakeup/set",
-          type: types.option({ on: "true", off: "false" })
-        },
-        defaultValue: "OFF"
-      },
+      ...topicHomeBoolean("livingroomKodiControlled", "bulb/livingroom/kodi-controlled"),
+      ...topicHomeBoolean("bedroomWakeup", "wakeup"),
       bedroomBrightness: {
         state: {
           name: "home-rust/bulb/bedroom/brightness",
@@ -176,29 +170,9 @@ const config: Config = {
         defaultValue: "OFF"
       },
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
-      fanBedroomAuto: {
-        state: {
-          name: "home-rust/temperature-control/bedroom",
-          type: types.option({ true: "on", false: "off" })
-        },
-        command: {
-          name: "home-rust/temperature-control/bedroom/set",
-          type: types.option({ on: "true", off: "false" })
-        },
-        defaultValue: "OFF"
-      },
+      ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
-      fanOfficeAuto: {
-        state: {
-          name: "home-rust/temperature-control/office",
-          type: types.option({ true: "on", false: "off" })
-        },
-        command: {
-          name: "home-rust/temperature-control/office/set",
-          type: types.option({ on: "true", off: "false" })
-        },
-        defaultValue: "OFF"
-      },
+      ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
       hallwayBrightness: {
         state: {
           name: "home-rust/bulb/hallway/brightness",
