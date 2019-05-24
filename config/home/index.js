@@ -18,6 +18,23 @@ const topicBulb = (bulb: string, argument: string) => ({
   }
 });
 
+const topicTasmota = (name: string, topic: string) => ({
+  [`${name}State`]: {
+    state: {
+      name: `stat/${topic}/POWER`,
+      type: types.option({
+        OFF: "off",
+        ON: "on"
+      })
+    },
+    command: {
+      name: `cmnd/${topic}/POWER`,
+      type: types.string
+    },
+    defaultValue: "OFF"
+  }
+});
+
 const sliderRGB = (bulb: string, argument: string) => (
   [{
     type: "slider",
@@ -158,20 +175,7 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
-      fanBedroomState: {
-        state: {
-          name: "stat/sonoff-bedroom-fan/POWER",
-          type: types.option({
-            OFF: "off",
-            ON: "on"
-          })
-        },
-        command: {
-          name: "cmnd/sonoff-bedroom-fan/POWER",
-          type: types.string
-        },
-        defaultValue: "OFF"
-      },
+      ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       fanBedroomAuto: {
         state: {
           name: "home-rust/temperature-control/bedroom",
@@ -183,20 +187,7 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
-      fanOfficeState: {
-        state: {
-          name: "stat/sonoff-office-fan/POWER",
-          type: types.option({
-            OFF: "off",
-            ON: "on"
-          })
-        },
-        command: {
-          name: "cmnd/sonoff-office-fan/POWER",
-          type: types.string
-        },
-        defaultValue: "OFF"
-      },
+      ...topicTasmota("fanOffice", "sonoff-office-fan"),
       fanOfficeAuto: {
         state: {
           name: "home-rust/temperature-control/office",
