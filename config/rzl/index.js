@@ -177,8 +177,8 @@ const config: Config = {
           type: types.option({
             unreachable: "unavailable",
             booting: "unavailable",
-            prePrint: "printing",
-            postPrint: "printing",
+            "pre_print": "printing",
+            "post_print": "printing",
             printing: "printing",
             idle: "idle",
             error: "error",
