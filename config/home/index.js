@@ -263,7 +263,8 @@ const config: Config = {
       name: "Lautsprecher",
       position: [550, 400],
       icon: ({speakerOfficeState}) =>
-        (speakerOfficeState === "on" ? rawMdi("volume-high") : rawMdi("volume-off")),
+        (speakerOfficeState === "on" ? rawMdi("volume-high")
+          : rawMdi("volume-off")),
       iconColor: ({speakerOfficeState}) =>
         (speakerOfficeState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
