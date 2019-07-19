@@ -186,10 +186,12 @@ const config: Config = {
       },
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
-      ...topicHomeNumber("fanBedroomTarget", "temperature-control/bedroom/target"),
+      ...topicHomeNumber("fanBedroomTarget",
+        "temperature-control/bedroom/target"),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
       ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
-      ...topicHomeNumber("fanOfficeTarget", "temperature-control/office/target"),
+      ...topicHomeNumber("fanOfficeTarget",
+        "temperature-control/office/target"),
       hallwayBrightness: {
         state: {
           name: "home-rust/bulb/hallway/brightness",
