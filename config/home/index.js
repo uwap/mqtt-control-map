@@ -32,6 +32,20 @@ const topicHomeBoolean = (name: string, topic: string) => ({
   }
 });
 
+const topicHomeNumber = (name: string, topic: string) => ({
+  [`${name}`]: {
+    state: {
+      name: `home-rust/${topic}`,
+      type: types.string
+    },
+    command: {
+      name: `home-rust/${topic}/set`,
+      type: types.string
+    },
+    defaultValue: 0
+  }
+});
+
 const topicTasmota = (name: string, topic: string) => ({
   [`${name}State`]: {
     state: {
@@ -172,8 +186,10 @@ const config: Config = {
       },
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
+      ...topicHomeNumber("fanBedroomTarget", "temperature-control/bedroom/target"),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
       ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
+      ...topicHomeNumber("fanOfficeTarget", "temperature-control/office/target"),
       hallwayBrightness: {
         state: {
           name: "home-rust/bulb/hallway/brightness",
@@ -256,6 +272,20 @@ const config: Config = {
           topic: "fanBedroomAuto",
           text: "Automatik",
           icon: mdi("air-conditioner")
+        },
+        {
+          type: "text",
+          text: "Zieltemperatur",
+          icon: mdi("temperature-celsius"),
+          topic: "fanBedroomTarget"
+        },
+        {
+          type: "slider",
+          min: 10,
+          max: 21.5,
+          text: "Zieltemperatur",
+          icon: mdi("oil-temperature"),
+          topic: "fanBedroomTarget"
         }
       ]
     },
@@ -294,6 +324,20 @@ const config: Config = {
           topic: "fanOfficeAuto",
           text: "Automatik",
           icon: mdi("air-conditioner")
+        },
+        {
+          type: "text",
+          text: "Zieltemperatur",
+          icon: mdi("temperature-celsius"),
+          topic: "fanOfficeTarget"
+        },
+        {
+          type: "slider",
+          min: 10,
+          max: 21.5,
+          text: "Zieltemperatur",
+          icon: mdi("oil-temperature"),
+          topic: "fanOfficeTarget"
         }
       ]
     },
