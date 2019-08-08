@@ -223,7 +223,7 @@ const config: Config = {
   controls: {
     bedroomLight: {
       name: "Schlafzimmer",
-      position: [300, 400],
+      position: [180, 130],
       icon: mdi("ceiling-light"),
       ui: [
         {
@@ -258,7 +258,7 @@ const config: Config = {
     },
     bedroomFan: {
       name: "Lüftung Schlafzimmer",
-      position: [200, 400],
+      position: [140, 25],
       icon: mdi("fan"),
       iconColor: ({fanBedroomState}) =>
         (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")),
@@ -293,7 +293,7 @@ const config: Config = {
     },
     officeSpeaker: {
       name: "Lautsprecher",
-      position: [550, 400],
+      position: [245, 658],
       icon: ({speakerOfficeState}) =>
         (speakerOfficeState === "on" ? rawMdi("volume-high")
           : rawMdi("volume-off")),
@@ -310,7 +310,7 @@ const config: Config = {
     },
     officeFan: {
       name: "Lüftung Büro",
-      position: [600, 400],
+      position: [140, 658],
       icon: mdi("fan"),
       iconColor: ({fanOfficeState}) =>
         (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")),
@@ -345,7 +345,7 @@ const config: Config = {
     },
     hallwayLight: {
       name: "Flur",
-      position: [400, 200],
+      position: [520, 370],
       icon: mdi("ceiling-light"),
       ui: [
         {
@@ -366,7 +366,7 @@ const config: Config = {
     },
     livingroomLight: {
       name: "Wohnzimmer",
-      position: [300, 200],
+      position: [450, 200],
       icon: mdi("ceiling-light"),
       ui: ([
         {
@@ -440,7 +440,7 @@ const config: Config = {
     {
       image: require("./assets/layers/rooms.svg"),
       baseLayer: true,
-      name: "Entropia",
+      name: "Uwap Home",
       defaultVisibility: "visible",
       opacity: 0.7,
       bounds: {
