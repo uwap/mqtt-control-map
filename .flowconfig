@@ -1,5 +1,8 @@
 [ignore]
 
+[untyped]
+.*/node_modules/react-leaflet
+
 [include]
 
 [libs]
