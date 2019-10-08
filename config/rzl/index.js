@@ -356,7 +356,7 @@ const config: Config = {
       ui: [
         {
           type: "link",
-          link: "http://cashdesk.rzl:8081/",
+          link: "http://cashdesk.rzl:8000/",
           text: "Open Cashdesk",
           icon: mdi("open-in-new")
         }
