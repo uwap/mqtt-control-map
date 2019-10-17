@@ -285,6 +285,7 @@ const config: Config = {
           type: "slider",
           min: 10,
           max: 21.5,
+          step: 0.1,
           text: "Zieltemperatur",
           icon: mdi("oil-temperature"),
           topic: "fanBedroomTarget"
@@ -337,6 +338,7 @@ const config: Config = {
           type: "slider",
           min: 10,
           max: 21.5,
+          step: 0.1,
           text: "Zieltemperatur",
           icon: mdi("oil-temperature"),
           topic: "fanOfficeTarget"
