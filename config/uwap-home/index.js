@@ -217,6 +217,31 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      officeBrightness: {
+        state: {
+          name: "home-rust/bulb/office/brightness",
+          type: types.string
+        },
+        command: {
+          name: "zigbee2mqtt/bulb_office/set",
+          type: (value) => JSON.stringify({ brightness: value.toString() })
+        },
+        defaultValue: "0"
+      },
+      officeState: {
+        state: {
+          name: "home-rust/bulb/office/state",
+          type: types.option({
+            OFF: "off",
+            ON: "on"
+          })
+        },
+        command: {
+          name: "zigbee2mqtt/bulb_office/set",
+          type: (value) => JSON.stringify({ state: value.toString() })
+        },
+        defaultValue: "OFF"
+      },
       ...topicTasmota("speakerOffice", "sonoff-office-speaker")
     }
   ],
@@ -342,6 +367,27 @@ const config: Config = {
           text: "Zieltemperatur",
           icon: mdi("oil-temperature"),
           topic: "fanOfficeTarget"
+        }
+      ]
+    },
+    officeLight: {
+      name: "Büro",
+      position: [210, 570],
+      icon: mdi("ceiling-light"),
+      ui: [
+        {
+          type: "toggle",
+          topic: "officeState",
+          text: "Ein/Ausschalten",
+          icon: mdi("power")
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: mdi("brightness-7"),
+          topic: "officeBrightness"
         }
       ]
     },
