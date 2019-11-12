@@ -3,7 +3,7 @@ import type { Topics, Controls } from "config/flowtypes";
 import { mdi, mdiBattery } from "config/icon";
 import { hex } from "config/colors";
 import * as types from "config/types";
-import { floalt, tradfri } from "./utils";
+import { floalt, tradfri, tasmota } from "./utils";
 
 export const topics: Topics = {
   //Kuechen-Floalts
@@ -19,6 +19,8 @@ export const topics: Topics = {
   ...floalt.topics("65544"),
   ...tradfri.remote.topics("65542"),
   ...tradfri.remote.topics("65546"),
+
+  ...tasmota.topics("10", "lichtDunstabzug"),
 
   kitchenLightColor: {
     state: {
@@ -240,6 +242,20 @@ export const controls: Controls = {
         text: "Farbtemperatur",
         icon: mdi("weather-sunset-down"),
         topic: floalt.color("65543")
+      }
+    ]
+  },
+  lichtDunstabzug: {
+    name: "Licht Dunstabzugshaube",
+    position: [252, 405],
+    icon: mdi("ceiling-light"),
+    iconColor: tasmota.iconColor("lichtDunstabzug"),
+    ui: [
+      {
+        type: "toggle",
+        text: "Licht Dunstabzugshaube",
+        topic: "lichtDunstabzug",
+        icon: mdi("power")
       }
     ]
   },
