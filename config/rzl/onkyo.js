@@ -94,6 +94,10 @@ export const topics: Topics = {
         NPR08: "somafmLush",
         NPR09: "somafmBeatblender",
         NPR0a: "ponyville",
+        NPR0b: "deutschlandradio",
+        NPR0c: "somafmSuburbsOfGoa",
+        NPR0d: "somafmSonicUniverse",
+        NPR0e: "somafmChrismasLounge",
         otherwise: "unknown"
       })
     },
@@ -110,6 +114,10 @@ export const topics: Topics = {
         somafmLush: "NPR08",
         somafmBeatblender: "NPR09",
         ponyville: "NPR0a",
+        deutschlandradio: "NPR0b",
+        somafmSuburbsOfGoa: "NPR0c",
+        somafmSonicUniverse: "NPR0d",
+        somafmChrismasLounge: "NPR0e",
         otherwise: "NPR00"
       })
     },
@@ -186,6 +194,10 @@ export const controls: Controls = {
           somafmLush: "Lush (SomaFM)",
           somafmBeatblender: "Beat Blender (Soma FM)",
           ponyville: "Ponyville FM",
+          deutschlandradio: "Deutschlandradio",
+          somafmSuburbsOfGoa: "Suburbs of Goa (SomaFM)",
+          somafmSonicUniverse: "Sonic Universe (SomaFM)",
+          somafmChrismasLounge: "Christmas Lounge (SomaFM)",
           unknown: "Unknown"
         },
         icon: mdi("radio"),
