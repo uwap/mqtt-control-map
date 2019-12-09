@@ -14,7 +14,7 @@
   "dependencies": {
     "@material-ui/core": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.16",
-    "@mdi/font": "^3.8.95",
+    "@mdi/font": "^4.0.96",
     "leaflet": "^1.5.1",
     "lodash-es": "^4.17.15",
     "mqtt": "^3.0.0",
