@@ -217,6 +217,31 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      hallway2Brightness: {
+        state: {
+          name: "home-rust/bulb/hallway2/brightness",
+          type: types.string
+        },
+        command: {
+          name: "zigbee2mqtt/bulb_hallway2/set",
+          type: (value) => JSON.stringify({ brightness: value.toString() })
+        },
+        defaultValue: "0"
+      },
+      hallway2State: {
+        state: {
+          name: "home-rust/bulb/hallway2/state",
+          type: types.option({
+            OFF: "off",
+            ON: "on"
+          })
+        },
+        command: {
+          name: "zigbee2mqtt/bulb_hallway2/set",
+          type: (value) => JSON.stringify({ state: value.toString() })
+        },
+        defaultValue: "OFF"
+      },
       officeBrightness: {
         state: {
           name: "home-rust/bulb/office/brightness",
@@ -409,6 +434,27 @@ const config: Config = {
           text: "Helligkeit",
           icon: mdi("brightness-7"),
           topic: "hallwayBrightness"
+        }
+      ]
+    },
+    hallway2Light: {
+      name: "Flur",
+      position: [250, 370],
+      icon: mdi("ceiling-light"),
+      ui: [
+        {
+          type: "toggle",
+          topic: "hallway2State",
+          text: "Ein/Ausschalten",
+          icon: mdi("power")
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: mdi("brightness-7"),
+          topic: "hallway2Brightness"
         }
       ]
     },
