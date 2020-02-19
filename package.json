@@ -40,7 +40,7 @@
     "eslint-plugin-flowtype": "^4.0.0",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-react": "^7.14.3",
-    "file-loader": "^5.0.0",
+    "file-loader": "^5.1.0",
     "flow": "^0.2.3",
     "flow-bin": "^0.82.0",
     "flow-typed": "^2.3.0",
