@@ -275,6 +275,8 @@ const config: Config = {
       name: "Schlafzimmer",
       position: [180, 130],
       icon: mdi("ceiling-light"),
+      iconColor: ({bedroomState}) =>
+        (bedroomState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -399,6 +401,8 @@ const config: Config = {
       name: "Büro",
       position: [210, 570],
       icon: mdi("ceiling-light"),
+      iconColor: ({officeState}) =>
+        (officeState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -420,6 +424,8 @@ const config: Config = {
       name: "Flur",
       position: [520, 370],
       icon: mdi("ceiling-light"),
+      iconColor: ({hallwayState}) =>
+        (hallwayState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -441,6 +447,8 @@ const config: Config = {
       name: "Flur",
       position: [250, 370],
       icon: mdi("ceiling-light"),
+      iconColor: ({hallway2State}) =>
+        (hallway2State === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
@@ -462,6 +470,8 @@ const config: Config = {
       name: "Wohnzimmer",
       position: [450, 200],
       icon: mdi("ceiling-light"),
+      iconColor: ({livingroomState}) =>
+        (livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: ([
         {
           type: "toggle",
