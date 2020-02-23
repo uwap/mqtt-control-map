@@ -145,6 +145,17 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      nasPower: {
+        state: {
+          name: "nas/online",
+          type: types.string
+        },
+        command: {
+          name: "home-rust/wake/nas",
+          type: types.string
+        },
+        defaultValue: "OFF"
+      },
       ...topicHomeBoolean("livingroomKodiControlled",
         "bulb/livingroom/kodi-controlled"),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
@@ -463,6 +474,21 @@ const config: Config = {
           text: "Helligkeit",
           icon: mdi("brightness-7"),
           topic: "hallway2Brightness"
+        }
+      ]
+    },
+    nas: {
+      name: "NAS",
+      position: [550, 100],
+      icon: mdi("nas"),
+      iconColor: ({nasPower}) =>
+        (nasPower === "on" ? hex("#00FF00") : hex("#000000")),
+      ui: [
+        {
+          type: "toggle",
+          topic: "nasPower",
+          text: "Einschalten",
+          icon: mdi("power")
         }
       ]
     },
