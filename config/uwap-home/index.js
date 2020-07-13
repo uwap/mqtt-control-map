@@ -122,7 +122,7 @@ const config: Config = {
       ...topicBulb("livingroom", "mode"),
       livingroomBrightness: {
         state: {
-          name: "home-rust/bulb/livingroom/brightness",
+          name: "zigbee2mqtt/bulb_livingroom/brightness",
           type: types.string
         },
         command: {
@@ -133,7 +133,7 @@ const config: Config = {
       },
       livingroomState: {
         state: {
-          name: "home-rust/bulb/livingroom/state",
+          name: "zigbee2mqtt/bulb_livingroom/state",
           type: types.option({
             OFF: "off",
             ON: "on"
@@ -161,7 +161,7 @@ const config: Config = {
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
       bedroomBrightness: {
         state: {
-          name: "home-rust/bulb/bedroom/brightness",
+          name: "zigbee2mqtt/bulb_bedroom/brightness",
           type: types.string
         },
         command: {
@@ -172,7 +172,7 @@ const config: Config = {
       },
       bedroomColorTemp: {
         state: {
-          name: "home-rust/bulb/bedroom/color_temp",
+          name: "zigbee2mqtt/bulb_bedroom/color_temp",
           type: types.string
         },
         command: {
@@ -183,7 +183,7 @@ const config: Config = {
       },
       bedroomState: {
         state: {
-          name: "home-rust/bulb/bedroom/state",
+          name: "zigbee2mqtt/bulb_bedroom/state",
           type: types.option({
             OFF: "off",
             ON: "on"
@@ -205,7 +205,7 @@ const config: Config = {
         "temperature-control/office/target"),
       hallwayBrightness: {
         state: {
-          name: "home-rust/bulb/hallway/brightness",
+          name: "zigbee2mqtt/bulb_hallway/brightness",
           type: types.string
         },
         command: {
@@ -216,7 +216,7 @@ const config: Config = {
       },
       hallwayState: {
         state: {
-          name: "home-rust/bulb/hallway/state",
+          name: "zigbee2mqtt/bulb_hallway/state",
           type: types.option({
             OFF: "off",
             ON: "on"
@@ -230,7 +230,7 @@ const config: Config = {
       },
       hallway2Brightness: {
         state: {
-          name: "home-rust/bulb/hallway2/brightness",
+          name: "zigbee2mqtt/bulb_hallway2/brightness",
           type: types.string
         },
         command: {
@@ -241,7 +241,7 @@ const config: Config = {
       },
       hallway2State: {
         state: {
-          name: "home-rust/bulb/hallway2/state",
+          name: "zigbee2mqtt/bulb_hallway2/state",
           type: types.option({
             OFF: "off",
             ON: "on"
@@ -255,7 +255,7 @@ const config: Config = {
       },
       officeBrightness: {
         state: {
-          name: "home-rust/bulb/office/brightness",
+          name: "zigbee2mqtt/bulb_office/brightness",
           type: types.string
         },
         command: {
@@ -266,7 +266,7 @@ const config: Config = {
       },
       officeState: {
         state: {
-          name: "home-rust/bulb/office/state",
+          name: "zigbee2mqtt/bulb_office/state",
           type: types.option({
             OFF: "off",
             ON: "on"
