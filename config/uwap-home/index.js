@@ -4,7 +4,7 @@ import * as types from "config/types";
 import { mdi, rawMdi } from "config/icon";
 import { hex } from "config/colors";
 
-const topicBulb = (bulb: string, argument: string) => ({
+const topicBulbHomeRust = (bulb: string, argument: string) => ({
   [`${bulb}${argument}`]: {
     state: {
       name: `home-rust/bulb/${bulb}/${argument}`,
@@ -12,6 +12,37 @@ const topicBulb = (bulb: string, argument: string) => ({
     },
     command: {
       name: `home-rust/bulb/${bulb}/${argument}/set`,
+      type: types.string
+    },
+    defaultValue: "0"
+  }
+});
+
+const topicBulbState = (bulb: string) => ({
+  [`${bulb}State`]: {
+    state: {
+      name: `zigbee2mqtt/bulb_${bulb}/state`,
+      type: types.option({
+        OFF: "off",
+        ON: "on"
+      })
+    },
+    command: {
+      name: `zigbee2mqtt/bulb_${bulb}/set/state`,
+      type: types.string
+    },
+    defaultValue: "OFF"
+  }
+});
+
+const topicBulbNumber = (bulb: string, parameter: string) => ({
+  [`${bulb}${parameter}`]: {
+    state: {
+      name: `zigbee2mqtt/bulb_${bulb}/${parameter}`,
+      type: types.string
+    },
+    command: {
+      name: `zigbee2mqtt/bulb_${bulb}/set/${parameter}`,
       type: types.string
     },
     defaultValue: "0"
@@ -103,48 +134,18 @@ const config: Config = {
   },
   topics: [
     {
-
-      /*
-       *zigbee2mqtt/bulb_livingroom
-       *zigbee2mqtt/bulb_hallway
-       *zigbee2mqtt/bulb_bedroom
-       */
-
-      ...topicBulb("livingroom", "r"),
-      ...topicBulb("livingroom", "g"),
-      ...topicBulb("livingroom", "b"),
-      ...topicBulb("livingroom", "h"),
-      ...topicBulb("livingroom", "s"),
-      ...topicBulb("livingroom", "v"),
-      ...topicBulb("livingroom", "x"),
-      ...topicBulb("livingroom", "y"),
-      ...topicBulb("livingroom", "animation-speed"),
-      ...topicBulb("livingroom", "mode"),
-      livingroomBrightness: {
-        state: {
-          name: "zigbee2mqtt/bulb_livingroom/brightness",
-          type: types.string
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_livingroom/set",
-          type: (value) => JSON.stringify({ brightness: value.toString() })
-        },
-        defaultValue: "0"
-      },
-      livingroomState: {
-        state: {
-          name: "zigbee2mqtt/bulb_livingroom/state",
-          type: types.option({
-            OFF: "off",
-            ON: "on"
-          })
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_livingroom/set",
-          type: (value) => JSON.stringify({ state: value.toString() })
-        },
-        defaultValue: "OFF"
-      },
+      ...topicBulbHomeRust("livingroom", "r"),
+      ...topicBulbHomeRust("livingroom", "g"),
+      ...topicBulbHomeRust("livingroom", "b"),
+      ...topicBulbHomeRust("livingroom", "h"),
+      ...topicBulbHomeRust("livingroom", "s"),
+      ...topicBulbHomeRust("livingroom", "v"),
+      ...topicBulbHomeRust("livingroom", "x"),
+      ...topicBulbHomeRust("livingroom", "y"),
+      ...topicBulbHomeRust("livingroom", "animation-speed"),
+      ...topicBulbHomeRust("livingroom", "mode"),
+      ...topicBulbNumber("livingroom", "brightness"),
+      ...topicBulbState("livingroom"),
       nasPower: {
         state: {
           name: "nas/online",
@@ -175,42 +176,10 @@ const config: Config = {
       ...topicHomeBoolean("livingroomKodiControlled",
         "bulb/livingroom/kodi-controlled"),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
-      bedroomBrightness: {
-        state: {
-          name: "zigbee2mqtt/bulb_bedroom/brightness",
-          type: types.string
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_bedroom/set",
-          type: (value) => JSON.stringify({ brightness: value.toString() })
-        },
-        defaultValue: "0"
-      },
-      bedroomColorTemp: {
-        state: {
-          name: "zigbee2mqtt/bulb_bedroom/color_temp",
-          type: types.string
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_bedroom/set",
-          type: (value) => JSON.stringify({ "color_temp": value.toString() })
-        },
-        defaultValue: "0"
-      },
-      bedroomState: {
-        state: {
-          name: "zigbee2mqtt/bulb_bedroom/state",
-          type: types.option({
-            OFF: "off",
-            ON: "on"
-          })
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_bedroom/set",
-          type: (value) => JSON.stringify({ state: value.toString() })
-        },
-        defaultValue: "OFF"
-      },
+      ...topicBulbNumber("bedroom", "brightness"),
+      ...topicBulbNumber("bedroom", "color_temp"),
+      ...topicBulbNumber("hallway", "brightness"),
+      ...topicBulbState("bedroom"),
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
       ...topicHomeNumber("fanBedroomTarget",
@@ -220,81 +189,12 @@ const config: Config = {
       ...topicHomeBoolean("lueftenHint", "lueften"),
       ...topicHomeNumber("fanOfficeTarget",
         "temperature-control/office/target"),
-      hallwayBrightness: {
-        state: {
-          name: "zigbee2mqtt/bulb_hallway/brightness",
-          type: types.string
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_hallway/set",
-          type: (value) => JSON.stringify({ brightness: value.toString() })
-        },
-        defaultValue: "0"
-      },
-      hallwayState: {
-        state: {
-          name: "zigbee2mqtt/bulb_hallway/state",
-          type: types.option({
-            OFF: "off",
-            ON: "on"
-          })
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_hallway/set",
-          type: (value) => JSON.stringify({ state: value.toString() })
-        },
-        defaultValue: "OFF"
-      },
-      hallway2Brightness: {
-        state: {
-          name: "zigbee2mqtt/bulb_hallway2/brightness",
-          type: types.string
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_hallway2/set",
-          type: (value) => JSON.stringify({ brightness: value.toString() })
-        },
-        defaultValue: "0"
-      },
-      hallway2State: {
-        state: {
-          name: "zigbee2mqtt/bulb_hallway2/state",
-          type: types.option({
-            OFF: "off",
-            ON: "on"
-          })
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_hallway2/set",
-          type: (value) => JSON.stringify({ state: value.toString() })
-        },
-        defaultValue: "OFF"
-      },
-      officeBrightness: {
-        state: {
-          name: "zigbee2mqtt/bulb_office/brightness",
-          type: types.string
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_office/set",
-          type: (value) => JSON.stringify({ brightness: value.toString() })
-        },
-        defaultValue: "0"
-      },
-      officeState: {
-        state: {
-          name: "zigbee2mqtt/bulb_office/state",
-          type: types.option({
-            OFF: "off",
-            ON: "on"
-          })
-        },
-        command: {
-          name: "zigbee2mqtt/bulb_office/set",
-          type: (value) => JSON.stringify({ state: value.toString() })
-        },
-        defaultValue: "OFF"
-      },
+      ...topicBulbNumber("hallway", "brightness"),
+      ...topicBulbState("hallway"),
+      ...topicBulbNumber("hallway2", "brightness"),
+      ...topicBulbState("hallway2"),
+      ...topicBulbState("office"),
+      ...topicBulbNumber("office", "brightness"),
       ...topicTasmota("speakerOffice", "sonoff-office-speaker")
     }
   ],
@@ -318,7 +218,7 @@ const config: Config = {
           max: 255,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: "bedroomBrightness"
+          topic: "bedroombrightness"
         },
         {
           type: "toggle",
@@ -332,7 +232,7 @@ const config: Config = {
           max: 454,
           text: "Farbtemperatur",
           icon: mdi("weather-sunset-down"),
-          topic: "bedroomColorTemp"
+          topic: "bedroomcolor_temp"
         }
       ]
     },
@@ -471,7 +371,7 @@ const config: Config = {
           max: 255,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: "officeBrightness"
+          topic: "officebrightness"
         }
       ]
     },
@@ -494,7 +394,7 @@ const config: Config = {
           max: 255,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: "hallwayBrightness"
+          topic: "hallwaybrightness"
         }
       ]
     },
@@ -517,7 +417,7 @@ const config: Config = {
           max: 255,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: "hallway2Brightness"
+          topic: "hallway2brightness"
         }
       ]
     },
@@ -574,7 +474,7 @@ const config: Config = {
           max: 255,
           text: "Helligkeit",
           icon: mdi("brightness-7"),
-          topic: "livingroomBrightness"
+          topic: "livingroombrightness"
         },
         {
           type: "slider",
