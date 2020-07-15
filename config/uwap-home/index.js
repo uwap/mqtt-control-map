@@ -156,6 +156,22 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      tucanaPower: {
+        state: {
+          name: "home-rust/switch/office/8",
+          type: types.option({
+            "0": "Link Down",
+            "6": "1000M",
+            "5": "100M",
+            "3": "10M"
+          })
+        },
+        command: {
+          name: "home-rust/wake/tucana",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
       ...topicHomeBoolean("livingroomKodiControlled",
         "bulb/livingroom/kodi-controlled"),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
@@ -201,6 +217,7 @@ const config: Config = {
         "temperature-control/bedroom/target"),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
       ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
+      ...topicHomeBoolean("lueftenHint", "lueften"),
       ...topicHomeNumber("fanOfficeTarget",
         "temperature-control/office/target"),
       hallwayBrightness: {
@@ -408,6 +425,33 @@ const config: Config = {
         }
       ]
     },
+    tucana: {
+      name: "tucana",
+      position: [110, 658],
+      icon: mdi("desktop-tower"),
+      iconColor: ({tucanaPower}) =>
+        ({
+          "Link Down": hex("#888888"),
+          "1000M": hex("#00ff00"),
+          "100M": hex("#ff0000"),
+          "10M": hex("#000000")
+        })[tucanaPower],
+      ui: [
+        {
+          type: "toggle",
+          topic: "tucanaPower",
+          text: "Einschalten",
+          icon: mdi("power"),
+          on: "1000M"
+        },
+        {
+          type: "text",
+          text: "Link Speed",
+          icon: mdi("ethernet"),
+          topic: "tucanaPower"
+        }
+      ]
+    },
     officeLight: {
       name: "Büro",
       position: [210, 570],
@@ -474,6 +518,19 @@ const config: Config = {
           text: "Helligkeit",
           icon: mdi("brightness-7"),
           topic: "hallway2Brightness"
+        }
+      ]
+    },
+    pi: {
+      name: "Pi",
+      position: [550, 75],
+      icon: mdi("raspberrypi"),
+      ui: [
+        {
+          type: "toggle",
+          topic: "lueftenHint",
+          text: "Lüften Erinnerung",
+          icon: mdi("fan")
         }
       ]
     },
