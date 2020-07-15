@@ -195,7 +195,8 @@ const config: Config = {
       ...topicBulbState("hallway2"),
       ...topicBulbState("office"),
       ...topicBulbNumber("office", "brightness"),
-      ...topicTasmota("speakerOffice", "sonoff-office-speaker")
+      ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
+      ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling")
     }
   ],
   controls: {
@@ -352,6 +353,26 @@ const config: Config = {
         }
       ]
     },
+    officeSwitch: {
+      name: "Switch Büro",
+      position: [200, 540],
+      icon: mdi("lan"),
+      ui: [
+        {
+          type: "toggle",
+          topic: "officeSwitchPollingActive",
+          text: "Poll switch status",
+          icon: mdi("power")
+        },
+        {
+          type: "link",
+          link: "http://192.168.0.189/",
+          text: "Open Webinterface",
+          icon: mdi("open-in-new")
+        }
+
+      ]
+    },
     officeLight: {
       name: "Büro",
       position: [210, 570],
@@ -431,6 +452,12 @@ const config: Config = {
           topic: "lueftenHint",
           text: "Lüften Erinnerung",
           icon: mdi("fan")
+        },
+        {
+          type: "link",
+          link: "http://192.168.0.12:3000/",
+          text: "Grafana",
+          icon: mdi("open-in-new")
         }
       ]
     },
