@@ -164,7 +164,9 @@ const config: Config = {
             "0": "Link Down",
             "6": "1000M",
             "5": "100M",
-            "3": "10M"
+            "4": "100M (Half Duplex)",
+            "3": "10M",
+            "2": "10M (Half Duplex)"
           })
         },
         command: {
@@ -334,9 +336,8 @@ const config: Config = {
         ({
           "Link Down": hex("#888888"),
           "1000M": hex("#00ff00"),
-          "100M": hex("#ff0000"),
           "10M": hex("#000000")
-        })[tucanaPower],
+        })[tucanaPower] || hex("#ff0000"),
       ui: [
         {
           type: "toggle",
