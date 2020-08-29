@@ -266,8 +266,8 @@ const config: Config = {
         },
         {
           type: "slider",
-          min: 10,
-          max: 21.5,
+          min: 15,
+          max: 25,
           step: 0.1,
           text: "Zieltemperatur",
           icon: mdi("oil-temperature"),
@@ -319,8 +319,8 @@ const config: Config = {
         },
         {
           type: "slider",
-          min: 10,
-          max: 21.5,
+          min: 15,
+          max: 25,
           step: 0.1,
           text: "Zieltemperatur",
           icon: mdi("oil-temperature"),
