@@ -6,6 +6,8 @@ import * as types from "config/types";
 import { tasmota, esper } from "./utils";
 
 export const topics: Topics = {
+  ...tasmota.topics("8", "ledOlymp"),
+  ...esper.topics("afba45", "alarm"),
   videogames: {
     state: {
       name: "/service/openhab/out/pca301_videogames/state",
@@ -38,9 +40,7 @@ export const topics: Topics = {
       type: types.option({ on: "ON", off: "OFF" })
     },
     defaultValue: "off"
-  },
-  ...tasmota.topics("8", "ledOlymp"),
-  ...esper.topics("afba45", "alarm")
+  }
 };
 
 export const controls: Controls = {

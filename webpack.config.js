@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const preBuildScripts = process.env.NO_FLOW == undefined ?
   process.env.FLOW_PATH != undefined ? [process.env.FLOW_PATH] : ['flow']
   : [];
@@ -16,7 +16,7 @@ const configPath = env => {
 
 module.exports = env => ({
   entry: {
-    main: ["@babel/polyfill", configPath(env),
+    main: ["core-js/stable", "regenerator-runtime/runtime", configPath(env),
           path.resolve(__dirname, 'src/index.jsx')]
   },
   resolve: {
@@ -34,7 +34,7 @@ module.exports = env => ({
     rules: [
       // TODO: CSS follow imports and minify + sourcemap on production
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
-      { test: /\.(woff2?|eot|ttf|svg)$/, loader: "file-loader" },
+      { test: /\.(woff2?|eot|ttf|svg)$/, use: [ { loader: "file-loader", options: { esModule: false } } ] },
       { test: /\.js(x)?$/, loader: "babel-loader?cacheDirectory=true" }
     ]
   },

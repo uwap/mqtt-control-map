@@ -1,11 +1,11 @@
 // @flow
-import type { ControlUI } from "config/flowtypes";
+import type { ControlUI, Topics } from "config/flowtypes";
 import { mdi } from "config/icon";
-import { hex } from "config/colors";
+import { hex, type Color } from "config/colors";
 import * as types from "config/types";
 
 export const tasmota = {
-  topics: (id: string, name: string) => ({
+  topics: (id: string, name: string): Topics => ({
     [name]: {
       state: {
         name: `stat/sonoff${id}/POWER`,
@@ -26,20 +26,20 @@ export const tasmota = {
       defaultValue: "off"
     }
   }),
-  iconColor: (name: string, onColor: Color = hex("#00FF00")) =>
-    (state: State) => {
+  iconColor: (name: string, onCol: Color = hex("#00FF00")): (State => Color) =>
+    (state: State): Color => {
       if (state[`${name}_online`] === "off") {
         return hex("#888888");
       } else if (state[name] === "on") {
-        return onColor;
+        return onCol;
       }
       return hex("#000000");
     }
 };
 export const floalt = {
-  color: (lightId: string) => `floalt_${lightId}_color`,
-  brightness: (lightId: string) => `floalt_${lightId}_brightness`,
-  topics: (lightId: string) => ({
+  color: (lightId: string): string => `floalt_${lightId}_color`,
+  brightness: (lightId: string): string => `floalt_${lightId}_brightness`,
+  topics: (lightId: string): Topics => ({
     [`floalt_${lightId}_color`]: {
       state: {
         name: `/service/openhab/out/tradfri_0220_gwb8d7af2b448f_${lightId}` +
@@ -70,9 +70,9 @@ export const floalt = {
 };
 
 const tradfriRemote = {
-  level: (remoteId: string) => `tradfri_remote_${remoteId}_level`,
-  low: (remoteId: string) => `tradfri_remote_${remoteId}_low`,
-  topics: (remoteId: string) => ({
+  level: (remoteId: string): string => `tradfri_remote_${remoteId}_level`,
+  low: (remoteId: string): string => `tradfri_remote_${remoteId}_low`,
+  topics: (remoteId: string): Topics => ({
     [`tradfri_remote_${remoteId}_level`]: {
       state: {
         name: `/service/openhab/out/tradfri_0830_gwb8d7af2b448f_${remoteId}` +
@@ -135,7 +135,7 @@ const esperStatistics = (name: string,
     }
   ])
 );
-const esperTopics = (chipId: string, name: string) => ({
+const esperTopics = (chipId: string, name: string): Topics => ({
   [`esper_${name}_version`]: {
     state: {
       name: `/service/esper/${chipId}/info`,

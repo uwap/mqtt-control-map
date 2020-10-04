@@ -5,7 +5,7 @@ import { isDisabled, getValue } from "./utils";
 
 import type { UISlider } from "config/flowtypes";
 
-import SliderComponent from "@material-ui/lab/Slider";
+import SliderComponent from "@material-ui/core/Slider";
 
 const changeSliderValue = (item: UISlider, changeState) => (_e, v) =>
   changeState(item, v.toString());
@@ -36,5 +36,3 @@ export default createComponent({
   },
   baseComponent: BaseComponent
 });
-
-

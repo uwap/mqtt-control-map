@@ -9,9 +9,9 @@ import throttle from "lodash/throttle";
 
 import type { Config, Control, Topics } from "config/flowtypes";
 
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import withStyles from "@material-ui/core/styles/withStyles";
+import {
+  MuiThemeProvider, createMuiTheme, withStyles
+} from "@material-ui/core/styles";
 import * as Colors from "@material-ui/core/colors";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -55,7 +55,8 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         onDisconnect: () => this.setState({ mqttConnected: false }),
         subscribe: map(
           filter(keys(this.topics), (x) => this.topics[x].state != null),
-          (x) => this.topics[x].state.name)
+          (x) => (this.topics[x].state != null ? this.topics[x].state.name : "")
+        )
       }),
       mqttConnected: false,
       search: "",
