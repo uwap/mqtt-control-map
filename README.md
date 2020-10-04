@@ -1,7 +1,6 @@
 # MQTT Control Map
 
 [![Build Status](https://travis-ci.org/uwap/mqtt-control-map.svg?branch=master)](https://travis-ci.org/uwap/mqtt-control-map)
-[![Greenkeeper badge](https://badges.greenkeeper.io/uwap/mqtt-control-map.svg)](https://greenkeeper.io/)
 
 ## Development / Configuration
 
