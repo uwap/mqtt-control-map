@@ -446,7 +446,7 @@ const config: Config = {
     pi: {
       name: "Pi",
       position: [550, 75],
-      icon: mdi("raspberrypi"),
+      icon: mdi("raspberry-pi"),
       ui: [
         {
           type: "toggle",
