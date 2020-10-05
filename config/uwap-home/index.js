@@ -146,6 +146,16 @@ const config: Config = {
       ...topicBulbHomeRust("livingroom", "mode"),
       ...topicBulbNumber("livingroom", "brightness"),
       ...topicBulbState("livingroom"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "r"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "g"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "b"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "h"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "s"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "v"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "x"),
+      ...topicBulbHomeRust("ledstrip_livingroom", "y"),
+      ...topicBulbNumber("ledstrip_livingroom", "brightness"),
+      ...topicBulbState("ledstrip_livingroom"),
       nasPower: {
         state: {
           name: "nas/online",
@@ -549,6 +559,64 @@ const config: Config = {
           }
         ]).concat(sliderSVXY("livingroom", "x"))
         .concat(sliderSVXY("livingroom", "y"))
+    },
+    livingroomLedStrip: {
+      name: "Ledstreifen Wohnzimmer",
+      position: [450, 73],
+      icon: mdi("white-balance-iridescent"),
+      iconColor: ({ledstrip_livingroomState}) =>
+        (ledstrip_livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      ui: ([
+        {
+          type: "toggle",
+          topic: "ledstrip_livingroomState",
+          text: "Ein/Ausschalten",
+          icon: mdi("power")
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: mdi("brightness-7"),
+          topic: "ledstrip_livingroombrightness"
+        },
+        {
+          type: "dropDown",
+          text: "Modus",
+          topic: "livingroommode",
+          options: {
+            "-1": "Cancel Animation",
+            "0": "Pink",
+            "1": "Kodi",
+            "2": "Sleep",
+            "3": "RGB Fade",
+            "4": "Work"
+          },
+          icon: mdi("settings")
+        },
+        {
+          type: "section",
+          text: "RGB"
+        }
+      ]).concat(sliderRGB("ledstrip_livingroom", "r"))
+        .concat(sliderRGB("ledstrip_livingroom", "g"))
+        .concat(sliderRGB("ledstrip_livingroom", "b"))
+        .concat([
+          {
+            type: "section",
+            text: "HSV"
+          }
+        ]).concat(sliderH("ledstrip_livingroom", "h"))
+        .concat(sliderSVXY("ledstrip_livingroom", "s"))
+        .concat(sliderSVXY("ledstrip_livingroom", "v"))
+        .concat([
+          {
+            type: "section",
+            text: "XY"
+          }
+        ]).concat(sliderSVXY("ledstrip_livingroom", "x"))
+        .concat(sliderSVXY("ledstrip_livingroom", "y"))
     }
   },
   layers: [
