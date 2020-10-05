@@ -35,9 +35,8 @@ export const mdiBattery = (topic: string) => (state: State) => {
     return rawMdi("battery-30");
   } else if (val > 15) {
     return rawMdi("battery-20");
-  } else {
-    return rawMdi("battery-10");
   }
+  return rawMdi("battery-10");
 };
 
 export const renderRawIcon =

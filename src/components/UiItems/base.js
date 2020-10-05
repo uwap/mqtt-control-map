@@ -11,9 +11,9 @@ import { renderRawIcon } from "config/icon";
 import type { Icon } from "config/icon";
 
 export type Helpers = {
-  Icon: (props: Object) => React.Node,
-  Label: (props: Object) => React.Node,
-  Action: (props: Object) => React.Node
+  Icon: (props: { item: { +icon?: Icon }, state: State }) => React.Node,
+  Label: (props: {}) => React.Node,
+  Action: (props: {}) => React.Node
 };
 
 export type BaseComponent<T> = (

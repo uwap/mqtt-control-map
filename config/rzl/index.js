@@ -633,7 +633,7 @@ const config: Config = {
       position: [1413, 500],
       icon: mdi("pool"),
       iconColor: ({whirlpoolBubbles}) =>
-        (parseInt(whirlpoolBubbles) > 0 ? hex("#00ff00") : hex("#000000")),
+        (parseInt(whirlpoolBubbles, 10) > 0 ? hex("#00ff00") : hex("#000000")),
       ui: [
         {
           type: "text",
