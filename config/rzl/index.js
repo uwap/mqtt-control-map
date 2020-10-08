@@ -4,7 +4,7 @@ import * as types from "config/types";
 import { hex, rainbow } from "config/colors";
 import { svg, withState } from "config/icon";
 import { esper, tasmota } from "./utils";
-import * as icons from "@mdi/js"
+import * as icons from "@mdi/js";
 
 import * as onkyo from "./onkyo";
 import * as olymp from "./olymp";
@@ -277,7 +277,7 @@ const config: Config = {
       name: "LED Stahlträger",
       position: [340, 590],
       icon: svg(icons.mdiWhiteBalanceIridescent).color(({ledStahltraeger}) =>
-        ledStahltraeger === "on" ? rainbow : hex("#000000")),
+        (ledStahltraeger === "on" ? rainbow : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -353,8 +353,8 @@ const config: Config = {
       name: "Twinkle",
       position: [530, 560],
       icon: withState(({twinkle}) =>
-        twinkle === "on" ? svg(icons.mdiLedOn).flipV().color(rainbow)
-          : svg(icons.mdiLedOff).flipV()
+        (twinkle === "on" ? svg(icons.mdiLedOn).flipV().color(rainbow)
+          : svg(icons.mdiLedOff).flipV())
       ),
       ui: [
         {
@@ -369,7 +369,7 @@ const config: Config = {
       name: "Ventilator",
       position: [530, 440],
       icon: svg(icons.mdiFan).color(({fan}) =>
-        fan === "on" ? hex("#00FF00") : hex("#000000")),
+        (fan === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -396,7 +396,7 @@ const config: Config = {
       name: "Fliegenbratgerät",
       position: [450, 570],
       icon: svg(icons.mdiFire).color(({flyfry}) =>
-        flyfry === "on" ? hex("#6666FF") : hex("#000000")),
+        (flyfry === "on" ? hex("#6666FF") : hex("#000000"))),
       ui: esper.statistics("flyfry", [
         {
           type: "toggle",
@@ -431,7 +431,7 @@ const config: Config = {
       name: "Lötarbeitsplatz",
       position: [205, 455],
       icon: svg(icons.mdiEyedropperVariant).color(({loetarbeitsplatz4}) =>
-        loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000")),
+        (loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000"))),
       ui: [
         {
           type: "text",
@@ -445,7 +445,7 @@ const config: Config = {
       name: "Lötarbeitsplatz",
       position: [205, 405],
       icon: svg(icons.mdiEyedropperVariant).color(({loetarbeitsplatz4}) =>
-        loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000")),
+        (loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000"))),
       ui: [
         {
           type: "text",
@@ -459,7 +459,7 @@ const config: Config = {
       name: "Tür",
       position: [455, 350],
       icon: svg(icons.mdiSwapVertical).color(({doorStatus}) =>
-        doorStatus === "on" ? hex("#00FF00") : hex("#FF0000")),
+        (doorStatus === "on" ? hex("#00FF00") : hex("#FF0000"))),
       ui: [
         {
           type: "link",
@@ -526,8 +526,8 @@ const config: Config = {
       name: "Pilze",
       position: [48, 499],
       icon: withState(({pilze}) =>
-        pilze === "on" ? svg(icons.mdiLedOn) : svg(icons.mdiLedOff)).color(
-          tasmota.iconColor("pilze", rainbow)),
+        (pilze === "on" ? svg(icons.mdiLedOn) : svg(icons.mdiLedOff))).color(
+        tasmota.iconColor("pilze", rainbow)),
       ui: [
         {
           type: "toggle",
@@ -611,8 +611,8 @@ const config: Config = {
       name: "Strom Fablab",
       position: [613, 537],
       icon: withState(({nebenraumPowerStatus}) =>
-        nebenraumPowerStatus === "on" ? svg(icons.mdiFlash).color(hex("#00FF00"))
-          : svg(icons.mdiFlashOff)),
+        (nebenraumPowerStatus === "on" ?
+          svg(icons.mdiFlash).color(hex("#00FF00")) : svg(icons.mdiFlashOff))),
       ui: [
         {
           type: "text",
@@ -627,7 +627,8 @@ const config: Config = {
       position: [1413, 500],
       icon: svg(icons.mdiPool).color(
         ({whirlpoolBubbles}) =>
-          parseInt(whirlpoolBubbles, 10) > 0 ? hex("#00ff00") : hex("#000000")),
+          (parseInt(whirlpoolBubbles, 10) > 0 ? hex("#00ff00")
+            : hex("#000000"))),
       ui: [
         {
           type: "text",

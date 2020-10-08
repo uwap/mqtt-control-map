@@ -1,6 +1,5 @@
 // @flow
 import type { Config } from "config/flowtypes";
-import { hex } from "config/colors";
 import * as types from "config/types";
 import * as icons from "@mdi/js";
 import { svg } from "config/icon";

@@ -40,12 +40,12 @@ export type AppState = {
 };
 
 /*
-const App = (props: AppProps) => {
-  const topics = Array.isArray(props.config.topics) ?
-      Object.assign({}, ...props.config.topics) : props.config.topics;
-  const [mqttConnected, setMqttConnected] = useState(false);
-};
-*/
+ *const App = (props: AppProps) => {
+ *  const topics = Array.isArray(props.config.topics) ?
+ *      Object.assign({}, ...props.config.topics) : props.config.topics;
+ *  const [mqttConnected, setMqttConnected] = useState(false);
+ *};
+ */
 
 class App extends React.PureComponent<AppProps & Classes, AppState> {
   controlMap: React.Node

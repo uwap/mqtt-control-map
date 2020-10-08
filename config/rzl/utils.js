@@ -3,7 +3,7 @@ import type { ControlUI, Topics } from "config/flowtypes";
 import { svg } from "config/icon";
 import { hex, type Color } from "config/colors";
 import * as types from "config/types";
-import * as icons from "@mdi/js"
+import * as icons from "@mdi/js";
 
 export const tasmota = {
   topics: (id: string, name: string): Topics => ({

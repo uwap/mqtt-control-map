@@ -4,7 +4,7 @@ import { svg } from "config/icon";
 import { hex, rainbow } from "config/colors";
 import * as types from "config/types";
 import { tasmota, esper } from "./utils";
-import * as icons from "@mdi/js"
+import * as icons from "@mdi/js";
 
 export const topics: Topics = {
   ...tasmota.topics("8", "ledOlymp"),
@@ -63,7 +63,7 @@ export const controls: Controls = {
     name: "Videospiele",
     position: [100, 100],
     icon: svg(icons.mdiGamepadVariant).color(({videogames}) =>
-      videogames === "on" ? hex("#00FF00") : hex("#000000")),
+      (videogames === "on" ? hex("#00FF00") : hex("#000000"))),
     ui: [
       {
         type: "toggle",
@@ -77,7 +77,7 @@ export const controls: Controls = {
     name: "Rechner",
     position: [297, 90],
     icon: svg(icons.mdiDesktopClassic).color(({olympPC}) =>
-      olympPC === "on" ? hex("#00FF00") : hex("#000000")),
+      (olympPC === "on" ? hex("#00FF00") : hex("#000000"))),
     ui: [
       {
         type: "toggle",
@@ -91,7 +91,7 @@ export const controls: Controls = {
     name: "Rundumleuchte",
     position: [310, 275],
     icon: svg(icons.mdiAlarmLight).color(({rundumleuchte}) =>
-      rundumleuchte === "on" ? hex("#F0DF10") : hex("#000000")),
+      (rundumleuchte === "on" ? hex("#F0DF10") : hex("#000000"))),
     ui: [
       {
         type: "toggle",

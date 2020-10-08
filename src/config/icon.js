@@ -1,9 +1,8 @@
 // @flow
 import React from "react";
 import ReactIcon from "@mdi/react";
-import ReactContext from "mqtt/context";
-import { hex, type Color } from "./colors"
-import * as mdiIcons from "@mdi/js"
+import { type Color } from "./colors";
+import * as mdiIcons from "@mdi/js";
 
 export type Icon = {
   render: (s: State) => React.Node,
@@ -36,7 +35,7 @@ export const svg = (data: string, props?: IconPropHelper): Icon => {
         horizontal={props?.horizontal ?? false}
         vertical={props?.vertical ?? false}
         color={propColor(state)}
-        />
+      />
     ),
     size: (n: number) => svg(data, {...props, size: n}),
     rotate: (n: number) => svg(data, {...props, rotate: n}),
@@ -44,7 +43,7 @@ export const svg = (data: string, props?: IconPropHelper): Icon => {
     flipV: () => svg(data, {...props, vertical: !props?.vertical ?? true}),
     color: (c: Color | (State) => Color) => svg(data, {...props, color: c})
   };
-}
+};
 
 export const withState = (f: (s: State) => Icon): Icon => {
   return {
@@ -55,7 +54,7 @@ export const withState = (f: (s: State) => Icon): Icon => {
     flipV: () => withState(f),
     color: () => withState(f)
   };
-}
+};
 
 export const mdiBattery = (topic: string): Icon => withState((state) => {
   const rawval = state[topic];

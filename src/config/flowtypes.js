@@ -1,5 +1,4 @@
 // @flow
-import type { Color } from "config/colors";
 import type { Icon } from "config/icon";
 
 export type TopicType = (msg: Buffer) => string;

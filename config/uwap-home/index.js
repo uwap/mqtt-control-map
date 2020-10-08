@@ -3,7 +3,7 @@ import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { svg, withState } from "config/icon";
 import { hex } from "config/colors";
-import * as icons from "@mdi/js"
+import * as icons from "@mdi/js";
 
 const topicBulbHomeRust = (bulb: string, argument: string) => ({
   [`${bulb}${argument}`]: {
@@ -207,7 +207,7 @@ const config: Config = {
       name: "Schlafzimmer",
       position: [180, 130],
       icon: svg(icons.mdiCeilingLight).color(({bedroomState}) =>
-        bedroomState === "on" ? hex("#00FF00") : hex("#000000")),
+        (bedroomState === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -243,7 +243,7 @@ const config: Config = {
       name: "Lüftung Schlafzimmer",
       position: [140, 25],
       icon: svg(icons.mdiFan).color(({fanBedroomState}) =>
-        fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")),
+        (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -278,9 +278,9 @@ const config: Config = {
       name: "Lautsprecher",
       position: [245, 658],
       icon: withState(({speakerOfficeState}) =>
-        speakerOfficeState !== "on" ? svg(icons.mdiVolumeOff)
-          : svg(icons.mdiVolumeHigh).color(hex("#00FF00"))
-        ),
+        (speakerOfficeState !== "on" ? svg(icons.mdiVolumeOff)
+          : svg(icons.mdiVolumeHigh).color(hex("#00FF00")))
+      ),
       ui: [
         {
           type: "toggle",
@@ -375,7 +375,7 @@ const config: Config = {
       name: "Büro",
       position: [210, 570],
       icon: svg(icons.mdiCeilingLight).color(({officeState}) =>
-        officeState === "on" ? hex("#00FF00") : hex("#000000")),
+        (officeState === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -397,7 +397,7 @@ const config: Config = {
       name: "Flur",
       position: [520, 370],
       icon: svg(icons.mdiCeilingLight).color(({hallwayState}) =>
-        hallwayState === "on" ? hex("#00FF00") : hex("#000000")),
+        (hallwayState === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -419,7 +419,7 @@ const config: Config = {
       name: "Flur",
       position: [250, 370],
       icon: svg(icons.mdiCeilingLight).color(({hallway2State}) =>
-        hallway2State === "on" ? hex("#00FF00") : hex("#000000")),
+        (hallway2State === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -460,7 +460,7 @@ const config: Config = {
       name: "NAS",
       position: [550, 100],
       icon: svg(icons.mdiNas).color(({nasPower}) =>
-        nasPower === "on" ? hex("#00FF00") : hex("#000000")),
+        (nasPower === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
@@ -474,7 +474,7 @@ const config: Config = {
       name: "Wohnzimmer",
       position: [450, 200],
       icon: svg(icons.mdiCeilingLight).color(({livingroomState}) =>
-        livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+        (livingroomState === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: ([
         {
           type: "toggle",

@@ -4,7 +4,7 @@ import { svg, mdiBattery } from "config/icon";
 import { hex } from "config/colors";
 import * as types from "config/types";
 import { floalt, tradfri, tasmota } from "./utils";
-import * as icons from "@mdi/js"
+import * as icons from "@mdi/js";
 
 export const topics: Topics = {
   //Kuechen-Floalts
