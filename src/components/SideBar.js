@@ -8,6 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
+import ReactIcon from "@mdi/react";
+import { mdiClose } from "@mdi/js";
 
 import type { Control } from "config/flowtypes";
 
@@ -47,7 +49,7 @@ const SideBar = (props: SideBarProps) => {
             {props.control == null ? "" : props.control.name}
           </Typography>
           <IconButton onClick={props.onCloseRequest}>
-            <i className="mdi mdi-close"></i>
+            <ReactIcon path={mdiClose} size={1.5} />
           </IconButton>
         </Toolbar>
       </AppBar>
