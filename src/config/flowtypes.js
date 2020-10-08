@@ -100,7 +100,6 @@ export type Control = {
   name: string,
   position: [number, number],
   icon: Icon,
-  iconColor?: (state: State) => Color,
   ui: Array<ControlUI>
 };
 export type Controls = Map<string, Control>;

@@ -1,9 +1,10 @@
 // @flow
 import type { Topics, Controls } from "config/flowtypes";
-import { mdi, mdiBattery } from "config/icon";
+import { svg, mdiBattery } from "config/icon";
 import { hex } from "config/colors";
 import * as types from "config/types";
 import { floalt, tradfri, tasmota } from "./utils";
+import * as icons from "@mdi/js"
 
 export const topics: Topics = {
   //Kuechen-Floalts
@@ -65,7 +66,7 @@ export const controls: Controls = {
   kitchenLight: {
     name: "Deckenlicht Küche",
     position: [325, 407],
-    icon: mdi("ceiling-light"),
+    icon: svg(icons.mdiCeilingLight),
     ui: [
       {
         type: "toggle",
@@ -74,14 +75,14 @@ export const controls: Controls = {
         toggled: (n) => parseInt(n, 10) > 0,
         topic: "kitchenLightBrightness",
         text: "Ein/Ausschalten",
-        icon: mdi("power")
+        icon: svg(icons.mdiPower)
       },
       {
         type: "slider",
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: "kitchenLightBrightness"
       },
       {
@@ -89,7 +90,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Farbtemperatur",
-        icon: mdi("weather-sunset-down"),
+        icon: svg(icons.mdiWeatherSunsetDown),
         topic: "kitchenLightColor"
       },
       {
@@ -101,7 +102,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: floalt.brightness("65537")
       },
       {
@@ -109,7 +110,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Farbtemperatur",
-        icon: mdi("weather-sunset-down"),
+        icon: svg(icons.mdiWeatherSunsetDown),
         topic: floalt.color("65537")
       },
       {
@@ -121,7 +122,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: floalt.brightness("65538")
       },
       {
@@ -129,7 +130,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Farbtemperatur",
-        icon: mdi("weather-sunset-down"),
+        icon: svg(icons.mdiWeatherSunsetDown),
         topic: floalt.color("65538")
       },
       {
@@ -141,7 +142,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: floalt.brightness("65539")
       },
       {
@@ -149,7 +150,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Farbtemperatur",
-        icon: mdi("weather-sunset-down"),
+        icon: svg(icons.mdiWeatherSunsetDown),
         topic: floalt.color("65539")
       },
       {
@@ -161,7 +162,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: floalt.brightness("65540")
       },
       {
@@ -169,7 +170,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Farbtemperatur",
-        icon: mdi("weather-sunset-down"),
+        icon: svg(icons.mdiWeatherSunsetDown),
         topic: floalt.color("65540")
       }
     ]
@@ -177,7 +178,7 @@ export const controls: Controls = {
   kitchenSinkLight: {
     name: "Licht Spüle",
     position: [300, 345],
-    icon: mdi("wall-sconce-flat"),
+    icon: svg(icons.mdiWallSconceFlat),
     ui: [
       {
         type: "toggle",
@@ -186,14 +187,14 @@ export const controls: Controls = {
         toggled: (n) => parseInt(n, 10) > 0,
         topic: "kitchenSinkLightBrightness",
         text: "Ein/Ausschalten",
-        icon: mdi("power")
+        icon: svg(icons.mdiPower)
       },
       {
         type: "slider",
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: "kitchenSinkLightBrightness"
       }
     ]
@@ -201,7 +202,7 @@ export const controls: Controls = {
   kitchenCounterLight: {
     name: "Deckenlicht Theke",
     position: [400, 440],
-    icon: mdi("ceiling-light"),
+    icon: svg(icons.mdiCeilingLight),
     ui: [
       {
         type: "section",
@@ -212,7 +213,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: floalt.brightness("65544")
       },
       {
@@ -220,7 +221,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Farbtemperatur",
-        icon: mdi("weather-sunset-down"),
+        icon: svg(icons.mdiWeatherSunsetDown),
         topic: floalt.color("65544")
       },
       {
@@ -232,7 +233,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Helligkeit",
-        icon: mdi("brightness-7"),
+        icon: svg(icons.mdiBrightness7),
         topic: floalt.brightness("65543")
       },
       {
@@ -240,7 +241,7 @@ export const controls: Controls = {
         min: 0,
         max: 100,
         text: "Farbtemperatur",
-        icon: mdi("weather-sunset-down"),
+        icon: svg(icons.mdiWeatherSunsetDown),
         topic: floalt.color("65543")
       }
     ]
@@ -248,21 +249,21 @@ export const controls: Controls = {
   lichtDunstabzug: {
     name: "Licht Dunstabzugshaube",
     position: [252, 405],
-    icon: mdi("ceiling-light"),
+    icon: svg(icons.mdiCeilingLight),
     iconColor: tasmota.iconColor("lichtDunstabzug"),
     ui: [
       {
         type: "toggle",
         text: "Licht Dunstabzugshaube",
         topic: "lichtDunstabzug",
-        icon: mdi("power")
+        icon: svg(icons.mdiPower)
       }
     ]
   },
   remotes: {
     name: "Fernbedinungen",
     position: [400, 344],
-    icon: mdi("light-switch"),
+    icon: svg(icons.mdiLightSwitch),
     iconColor: (state) => //if any remote is low make icon red
       (["65536", "65542", "65546", "65547"]
         .some((x) => state[tradfri.remote.low(x)] === "true")

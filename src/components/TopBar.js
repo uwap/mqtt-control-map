@@ -9,6 +9,8 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
+import ReactIcon from "@mdi/react";
+import { mdiMap } from "@mdi/js";
 
 export type TopBarProps = {
   connected: boolean,
@@ -21,7 +23,7 @@ export type SearchBarProps = {
 
 const renderConnectionIndicator = (connected: boolean) => {
   if (connected) {
-    return (<i style={{fontSize: 32}} className="mdi mdi-map"></i>);
+    return (<ReactIcon path={mdiMap} size={2} />);
   }
   return (
     <CircularProgress size={32} style={{color: "rgba(0, 0, 0, 0.54)"}} />

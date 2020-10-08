@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 
 import App from "components/App";
 
-import "../node_modules/@mdi/font/css/materialdesignicons.min.css";
 import "../css/styles.css";
 
 import type { Config } from "config/flowtypes";

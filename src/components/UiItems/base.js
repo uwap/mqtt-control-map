@@ -7,7 +7,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import throttle from "lodash/throttle";
-import { renderRawIcon } from "config/icon";
 import type { Icon } from "config/icon";
 
 export type Helpers = {
@@ -41,15 +40,15 @@ type SuperT = $ReadOnly<{ text: string }>;
 
 const IconHelper = ({item, state}: { item: { +icon?: Icon }, state: State }) =>
   ( <ListItemIcon>
-    {item.icon == null || renderRawIcon(item.icon(state), "mdi-24px")}
+    {item.icon == null || item.icon.size(1).render(state)}
   </ListItemIcon>
   );
 
 const createHelpers = <T: SuperT> (item: T) =>
   ({
     Icon: IconHelper,
-    Label: (props) => (
-      <ListItemText primary={item.text} {...props} />
+    Label: () => (
+      <ListItemText primary={item.text} />
     ),
     Action: (props) => (
       <ListItemSecondaryAction {...props} />

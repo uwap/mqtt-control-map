@@ -7,6 +7,7 @@ import filter from "lodash/filter";
 import reduce from "lodash/reduce";
 import MqttContext from "mqtt/context";
 import type { Controls, Control, UIControl, ControlUI } from "config/flowtypes";
+import { renderToString } from 'react-dom/server'
 
 export type Point = [number, number];
 
@@ -28,21 +29,11 @@ const center = (props: ControlMapProps): Point =>
     props.height / 2
   ]);
 
-const iconColor = (control: Control, state: State): string => {
-  if (control.iconColor != null) {
-    return control.iconColor(state);
-  }
-  return "#000";
-};
-
 const createLeafletIcon = (control: Control, state: State) => {
-  const icon = control.icon(state);
-  const iconClass = `${icon} mdi-36px`;
   return divIcon({
     iconSize: point(36, 36),
     iconAnchor: point(18, 18),
-    html: `<i class="${iconClass}"
-        style="line-height: 1; color: ${iconColor(control, state)}"></i>`
+    html: renderToString(control.icon.render(state))
   });
 };
 

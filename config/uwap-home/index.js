@@ -1,8 +1,9 @@
 // @flow
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
-import { mdi, rawMdi } from "config/icon";
+import { svg, withState } from "config/icon";
 import { hex } from "config/colors";
+import * as icons from "@mdi/js"
 
 const topicBulbHomeRust = (bulb: string, argument: string) => ({
   [`${bulb}${argument}`]: {
@@ -100,7 +101,7 @@ const sliderRGB = (bulb: string, argument: string) => (
     min: 0,
     max: 255,
     text: argument,
-    icon: mdi("brightness-7"),
+    icon: svg(icons.mdiBrightness7),
     topic: `${bulb}${argument}`
   }]
 );
@@ -110,7 +111,7 @@ const sliderH = (bulb: string, argument: string) => (
     min: 0,
     max: 360,
     text: argument,
-    icon: mdi("brightness-7"),
+    icon: svg(icons.mdiBrightness7),
     topic: `${bulb}${argument}`
   }]
 );
@@ -121,7 +122,7 @@ const sliderSVXY = (bulb: string, argument: string) => (
     max: 1,
     step: 0.01,
     text: argument,
-    icon: mdi("brightness-7"),
+    icon: svg(icons.mdiBrightness7),
     topic: `${bulb}${argument}`
   }]
 );
@@ -205,36 +206,35 @@ const config: Config = {
     bedroomLight: {
       name: "Schlafzimmer",
       position: [180, 130],
-      icon: mdi("ceiling-light"),
-      iconColor: ({bedroomState}) =>
-        (bedroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiCeilingLight).color(({bedroomState}) =>
+        bedroomState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
           topic: "bedroomState",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "slider",
           min: 0,
           max: 255,
           text: "Helligkeit",
-          icon: mdi("brightness-7"),
+          icon: svg(icons.mdiBrightness7),
           topic: "bedroombrightness"
         },
         {
           type: "toggle",
           topic: "bedroomWakeup",
           text: "Lichtwecker",
-          icon: mdi("weather-sunset-up")
+          icon: svg(icons.mdiWeatherSunsetUp)
         },
         {
           type: "slider",
           min: 250,
           max: 454,
           text: "Farbtemperatur",
-          icon: mdi("weather-sunset-down"),
+          icon: svg(icons.mdiWeatherSunsetDown),
           topic: "bedroomcolor_temp"
         }
       ]
@@ -242,26 +242,25 @@ const config: Config = {
     bedroomFan: {
       name: "Lüftung Schlafzimmer",
       position: [140, 25],
-      icon: mdi("fan"),
-      iconColor: ({fanBedroomState}) =>
-        (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiFan).color(({fanBedroomState}) =>
+        fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
           topic: "fanBedroomState",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "toggle",
           topic: "fanBedroomAuto",
           text: "Automatik",
-          icon: mdi("air-conditioner")
+          icon: svg(icons.mdiAirConditioner)
         },
         {
           type: "text",
           text: "Zieltemperatur",
-          icon: mdi("temperature-celsius"),
+          icon: svg(icons.mdiTemperatureCelsius),
           topic: "fanBedroomTarget"
         },
         {
@@ -270,7 +269,7 @@ const config: Config = {
           max: 25,
           step: 0.1,
           text: "Zieltemperatur",
-          icon: mdi("oil-temperature"),
+          icon: svg(icons.mdiOilTemperature),
           topic: "fanBedroomTarget"
         }
       ]
@@ -278,24 +277,23 @@ const config: Config = {
     officeSpeaker: {
       name: "Lautsprecher",
       position: [245, 658],
-      icon: ({speakerOfficeState}) =>
-        (speakerOfficeState === "on" ? rawMdi("volume-high")
-          : rawMdi("volume-off")),
-      iconColor: ({speakerOfficeState}) =>
-        (speakerOfficeState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: withState(({speakerOfficeState}) =>
+        speakerOfficeState !== "on" ? svg(icons.mdiVolumeOff)
+          : svg(icons.mdiVolumeHigh).color(hex("#00FF00"))
+        ),
       ui: [
         {
           type: "toggle",
           topic: "speakerOfficeState",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     },
     officeFan: {
       name: "Lüftung Büro",
       position: [140, 658],
-      icon: mdi("fan"),
+      icon: svg(icons.mdiFan),
       iconColor: ({fanOfficeState}) =>
         (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
@@ -303,18 +301,18 @@ const config: Config = {
           type: "toggle",
           topic: "fanOfficeState",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "toggle",
           topic: "fanOfficeAuto",
           text: "Automatik",
-          icon: mdi("air-conditioner")
+          icon: svg(icons.mdiAirConditioner)
         },
         {
           type: "text",
           text: "Zieltemperatur",
-          icon: mdi("temperature-celsius"),
+          icon: svg(icons.mdiTemperatureCelsius),
           topic: "fanOfficeTarget"
         },
         {
@@ -323,7 +321,7 @@ const config: Config = {
           max: 25,
           step: 0.1,
           text: "Zieltemperatur",
-          icon: mdi("oil-temperature"),
+          icon: svg(icons.mdiOilTemperature),
           topic: "fanOfficeTarget"
         }
       ]
@@ -331,25 +329,24 @@ const config: Config = {
     tucana: {
       name: "tucana",
       position: [110, 658],
-      icon: mdi("desktop-tower"),
-      iconColor: ({tucanaPower}) =>
+      icon: svg(icons.mdiDesktopTower).color(({tucanaPower}) =>
         ({
           "Link Down": hex("#888888"),
           "1000M": hex("#00ff00"),
           "10M": hex("#000000")
-        })[tucanaPower] || hex("#ff0000"),
+        })[tucanaPower] || hex("#ff0000")),
       ui: [
         {
           type: "toggle",
           topic: "tucanaPower",
           text: "Einschalten",
-          icon: mdi("power"),
+          icon: svg(icons.mdiPower),
           on: "1000M"
         },
         {
           type: "text",
           text: "Link Speed",
-          icon: mdi("ethernet"),
+          icon: svg(icons.mdiEthernet),
           topic: "tucanaPower"
         }
       ]
@@ -357,19 +354,19 @@ const config: Config = {
     officeSwitch: {
       name: "Switch Büro",
       position: [200, 540],
-      icon: mdi("lan"),
+      icon: svg(icons.mdiLan),
       ui: [
         {
           type: "toggle",
           topic: "officeSwitchPollingActive",
           text: "Poll switch status",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "link",
           link: "http://192.168.0.189/",
           text: "Open Webinterface",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         }
 
       ]
@@ -377,22 +374,21 @@ const config: Config = {
     officeLight: {
       name: "Büro",
       position: [210, 570],
-      icon: mdi("ceiling-light"),
-      iconColor: ({officeState}) =>
-        (officeState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiCeilingLight).color(({officeState}) =>
+        officeState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
           topic: "officeState",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "slider",
           min: 0,
           max: 255,
           text: "Helligkeit",
-          icon: mdi("brightness-7"),
+          icon: svg(icons.mdiBrightness7),
           topic: "officebrightness"
         }
       ]
@@ -400,22 +396,21 @@ const config: Config = {
     hallwayLight: {
       name: "Flur",
       position: [520, 370],
-      icon: mdi("ceiling-light"),
-      iconColor: ({hallwayState}) =>
-        (hallwayState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiCeilingLight).color(({hallwayState}) =>
+        hallwayState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
           topic: "hallwayState",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "slider",
           min: 0,
           max: 255,
           text: "Helligkeit",
-          icon: mdi("brightness-7"),
+          icon: svg(icons.mdiBrightness7),
           topic: "hallwaybrightness"
         }
       ]
@@ -423,22 +418,21 @@ const config: Config = {
     hallway2Light: {
       name: "Flur",
       position: [250, 370],
-      icon: mdi("ceiling-light"),
-      iconColor: ({hallway2State}) =>
-        (hallway2State === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiCeilingLight).color(({hallway2State}) =>
+        hallway2State === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
           topic: "hallway2State",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "slider",
           min: 0,
           max: 255,
           text: "Helligkeit",
-          icon: mdi("brightness-7"),
+          icon: svg(icons.mdiBrightness7),
           topic: "hallway2brightness"
         }
       ]
@@ -446,62 +440,60 @@ const config: Config = {
     pi: {
       name: "Pi",
       position: [550, 75],
-      icon: mdi("raspberrypi"),
+      icon: svg(icons.mdiRaspberryPi),
       ui: [
         {
           type: "toggle",
           topic: "lueftenHint",
           text: "Lüften Erinnerung",
-          icon: mdi("fan")
+          icon: svg(icons.mdiFan)
         },
         {
           type: "link",
           link: "http://192.168.0.12:3000/",
           text: "Grafana",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         }
       ]
     },
     nas: {
       name: "NAS",
       position: [550, 100],
-      icon: mdi("nas"),
-      iconColor: ({nasPower}) =>
-        (nasPower === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiNas).color(({nasPower}) =>
+        nasPower === "on" ? hex("#00FF00") : hex("#000000")),
       ui: [
         {
           type: "toggle",
           topic: "nasPower",
           text: "Einschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     },
     livingroomLight: {
       name: "Wohnzimmer",
       position: [450, 200],
-      icon: mdi("ceiling-light"),
-      iconColor: ({livingroomState}) =>
-        (livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiCeilingLight).color(({livingroomState}) =>
+        livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: ([
         {
           type: "toggle",
           topic: "livingroomState",
           text: "Ein/Ausschalten",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "toggle",
           topic: "livingroomKodiControlled",
           text: "Kodi Einbindung",
-          icon: mdi("brightness-auto")
+          icon: svg(icons.mdiBrightnessAuto)
         },
         {
           type: "slider",
           min: 0,
           max: 255,
           text: "Helligkeit",
-          icon: mdi("brightness-7"),
+          icon: svg(icons.mdiBrightness7),
           topic: "livingroombrightness"
         },
         {
@@ -510,7 +502,7 @@ const config: Config = {
           min: 300,
           step: -1,
           text: "Speed",
-          icon: mdi("speedometer"),
+          icon: svg(icons.mdiSpeedometer),
           topic: "livingroomanimation-speed"
         },
         {
@@ -525,7 +517,7 @@ const config: Config = {
             "3": "RGB Fade",
             "4": "Work"
           },
-          icon: mdi("settings")
+          icon: svg(icons.mdiCog)
         },
         {
           type: "section",
