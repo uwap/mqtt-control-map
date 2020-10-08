@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import ReactIcon from "@mdi/react";
-import { mdiMap } from "@mdi/js";
+import { mdiMap, mdiGithub } from "@mdi/js";
 
 export type TopBarProps = {
   connected: boolean,
@@ -91,22 +91,15 @@ const Search = (props: SearchBarProps) => {
 const openOnGithub = () => window.open(
   "https://github.com/uwap/mqtt-control-map", "_blank");
 
-const sendFeedback = () => window.open("mailto:mail+feedback@uwap.name");
-
 const TopBar = (props: TopBarProps) => (
   <AppBar position="static">
     <Toolbar>
       {renderConnectionIndicator(props.connected)}
       <Search onSearch={props.onSearch} />
       <span style={{flex: 1}}></span>
-      <Tooltip title="Github">
-        <IconButton onClick={openOnGithub} style={{ fontSize: "28px" }}>
-          <i className="mdi mdi-github-circle"></i>
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Send me feedback">
-        <IconButton onClick={sendFeedback} style={{ fontSize: "28px" }}>
-          <i className="mdi mdi-email-plus"></i>
+      <Tooltip title="View on Github">
+        <IconButton onClick={openOnGithub}>
+          <ReactIcon path={mdiGithub} size={1.5} />
         </IconButton>
       </Tooltip>
     </Toolbar>

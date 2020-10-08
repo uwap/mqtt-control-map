@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const WebpackShellPlugin = require('webpack-shell-plugin');
+const WebpackShellPlugin = require('webpack-shell-plugin-next');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const preBuildScripts = process.env.NO_FLOW == undefined ?
@@ -16,14 +16,15 @@ const configPath = env => {
 
 module.exports = env => ({
   entry: {
-    main: ["core-js/stable", "regenerator-runtime/runtime", configPath(env),
+    main: [configPath(env),
           path.resolve(__dirname, 'src/index.jsx')]
   },
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
     extensions: ['.js', '.jsx'],
     alias: {
-      'lodash': 'lodash-es'
+      'lodash': 'lodash-es',
+      "leaflet": "leaflet/dist/leaflet-src.esm.js"
     }
   },
   output: {
@@ -34,8 +35,8 @@ module.exports = env => ({
     rules: [
       // TODO: CSS follow imports and minify + sourcemap on production
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
-      { test: /\.(woff2?|eot|ttf|svg)$/, use: [ { loader: "file-loader", options: { esModule: false } } ] },
-      { test: /\.js(x)?$/, loader: "babel-loader?cacheDirectory=true" }
+      { test: /\.(woff2?|eot|ttf|svg|png)$/, use: [ { loader: "file-loader", options: { esModule: false } } ] },
+      { test: /\.js(x)?$/, use: ["babel-loader?cacheDirectory=true"] }
     ]
   },
   plugins: [
@@ -44,6 +45,6 @@ module.exports = env => ({
     new HtmlWebpackPlugin({
       title: 'Space Map',
       template: 'index.ejs'
-    }),
+    })
   ]
 });

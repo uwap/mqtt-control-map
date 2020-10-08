@@ -2,7 +2,9 @@
   "presets": [
     ["@babel/preset-env", {
       modules: false,
-      corejs: 3
+      corejs: "3.6",
+      useBuiltIns: "entry",
+      targets: "last 3 years"
     }],
     "@babel/preset-react",
     "@babel/preset-flow"
