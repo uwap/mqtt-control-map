@@ -206,6 +206,8 @@ const config: Config = {
       ...topicBulbState("hallway"),
       ...topicBulbNumber("hallway2", "brightness"),
       ...topicBulbState("hallway2"),
+      ...topicBulbNumber("diningroom", "brightness"),
+      ...topicBulbState("diningroom"),
       ...topicBulbState("office"),
       ...topicBulbNumber("office", "brightness"),
       ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
@@ -444,6 +446,28 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "hallway2brightness"
+        }
+      ]
+    },
+    diningroomLight: {
+      name: "Esszimmer",
+      position: [410, 570],
+      icon: svg(icons.mdiCeilingLight).color(({diningroomState}) =>
+        (diningroomState === "on" ? hex("#00FF00") : hex("#000000"))),
+      ui: [
+        {
+          type: "toggle",
+          topic: "diningroomState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "diningroombrightness"
         }
       ]
     },
