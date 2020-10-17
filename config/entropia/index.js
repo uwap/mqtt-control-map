@@ -1,8 +1,8 @@
 // @flow
 import type { Config } from "config/flowtypes";
-import { hex } from "config/colors";
 import * as types from "config/types";
-import { mdi } from "config/icon";
+import * as icons from "@mdi/js";
+import { svg } from "config/icon";
 
 const config: Config = {
   space: {
@@ -32,20 +32,19 @@ const config: Config = {
     hauptraumTableLight: {
       name: "Hauptraum Tisch",
       position: [450, 450],
-      icon: mdi("white-balance-iridescent"),
-      iconColor: () => hex("#000000"),
+      icon: svg(icons.mdiWhiteBalanceIridescent),
       ui: [
         {
           type: "toggle",
           text: "Licht",
           topic: "hauptraumTableLight",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "toggle",
           text: "Licht",
           topic: "hauptraumTableLightOnHack",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     }

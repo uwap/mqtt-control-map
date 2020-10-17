@@ -1,55 +1,88 @@
 // @flow
-import * as React from "react";
-import ReactContext from "mqtt/context";
+import React from "react";
+import ReactIcon from "@mdi/react";
+import { type Color } from "./colors";
+import * as mdiIcons from "@mdi/js";
 
-export opaque type RawIcon: string = string;
-
-export type Icon = (State) => RawIcon;
-
-export const rawMdi = (name: string): RawIcon => {
-  return `mdi ${name.split(" ").map((icon) => "mdi-".concat(icon)).join(" ")}`;
+type IconPropHelper = {
+  size?: number,
+  rotate?: number,
+  horizontal?: boolean,
+  vertical?: boolean,
+  color?: Color
 };
 
-export const mdi = (icon: string) => () => rawMdi(icon);
+export type Icon = {
+  render: (s: State) => React.Node,
+  size: (n: number) => Icon,
+  rotate: (n: number) => Icon,
+  flip: () => Icon,
+  flipV: () => Icon,
+  color: (c: Color | (State) => Color) => Icon,
+  applyProps: (props: IconPropHelper) => Icon
+};
 
-export const mdiBattery = (topic: string) => (state: State) => {
+const iconChainUtils = <T> (cb: (x: T, p?: IconPropHelper) => Icon,
+  p1: T, p?: IconPropHelper) => ({
+    size: (n: number) => cb(p1, {...p, size: n}),
+    rotate: (n: number) => cb(p1, {...p, rotate: n}),
+    flip: () => cb(p1, {...p, horizontal: !p?.horizontal ?? true}),
+    flipV: () => cb(p1, {...p, vertical: !p?.vertical ?? true}),
+    color: (c: Color | (State) => Color) => cb(p1, {...p, color: c}),
+    applyProps: (props: IconPropHelper) => cb(p1, {...p, ...props})
+  }
+  );
+
+export const svg = (data: string, props?: IconPropHelper): Icon => {
+  const propColor = ((c: Color | (State) => Color) => (state: State) => {
+    if (typeof c === "function") {
+      return c(state);
+    }
+    return c;
+  })(props?.color ?? "black");
+  return {
+    render: (state) => (
+      <ReactIcon path={data} size={props?.size ?? 1.5}
+        rotate={props?.rotate ?? 0}
+        horizontal={props?.horizontal ?? false}
+        vertical={props?.vertical ?? false}
+        color={propColor(state)}
+      />
+    ),
+    ...iconChainUtils(svg, data, props)
+  };
+};
+
+export const withState = (f: (s: State) => Icon,
+  props?: IconPropHelper): Icon => ({
+  render: (state) => f(state).applyProps(props).render(state),
+  ...iconChainUtils(withState, f, props)
+}
+);
+
+export const mdiBattery = (topic: string): Icon => withState((state) => {
   const rawval = state[topic];
   const val = parseInt(rawval, 10);
   if (isNaN(val)) {
-    return rawMdi("battery-unknown");
+    return svg(mdiIcons.mdiBatteryUnknown);
   } else if (val > 95) {
-    return rawMdi("battery");
+    return svg(mdiIcons.mdiBattery);
   } else if (val > 85) {
-    return rawMdi("battery-90");
+    return svg(mdiIcons.mdiBattery90);
   } else if (val > 75) {
-    return rawMdi("battery-80");
+    return svg(mdiIcons.mdiBattery80);
   } else if (val > 65) {
-    return rawMdi("battery-70");
+    return svg(mdiIcons.mdiBattery70);
   } else if (val > 55) {
-    return rawMdi("battery-60");
+    return svg(mdiIcons.mdiBattery60);
   } else if (val > 45) {
-    return rawMdi("battery-50");
+    return svg(mdiIcons.mdiBattery50);
   } else if (val > 35) {
-    return rawMdi("battery-40");
+    return svg(mdiIcons.mdiBattery40);
   } else if (val > 25) {
-    return rawMdi("battery-30");
+    return svg(mdiIcons.mdiBattery30);
   } else if (val > 15) {
-    return rawMdi("battery-20");
-  } else {
-    return rawMdi("battery-10");
+    return svg(mdiIcons.mdiBattery20);
   }
-};
-
-export const renderRawIcon =
-  (icon: RawIcon, extraClass?: string): React.Node => {
-    return <i className={`${extraClass || ""} ${icon}`}></i>;
-  };
-
-export const renderIcon =
-  (icon: Icon, extraClass?: string): React.Node => {
-    return (
-      <ReactContext.Consumer>
-        {({state}) => renderRawIcon(icon(state), extraClass)}
-      </ReactContext.Consumer>
-    );
-  };
+  return svg(mdiIcons.mdiBattery10);
+});

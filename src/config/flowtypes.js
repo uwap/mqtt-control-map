@@ -1,5 +1,4 @@
 // @flow
-import type { Color } from "config/colors";
 import type { Icon } from "config/icon";
 
 export type TopicType = (msg: Buffer) => string;
@@ -100,7 +99,6 @@ export type Control = {
   name: string,
   position: [number, number],
   icon: Icon,
-  iconColor?: (state: State) => Color,
   ui: Array<ControlUI>
 };
 export type Controls = Map<string, Control>;

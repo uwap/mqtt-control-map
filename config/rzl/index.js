@@ -2,8 +2,9 @@
 import type { Config } from "config/flowtypes";
 import * as types from "config/types";
 import { hex, rainbow } from "config/colors";
-import { mdi, rawMdi } from "config/icon";
+import { svg, withState } from "config/icon";
 import { esper, tasmota } from "./utils";
+import * as icons from "@mdi/js";
 
 import * as onkyo from "./onkyo";
 import * as olymp from "./olymp";
@@ -275,29 +276,28 @@ const config: Config = {
     ledStahltrager: {
       name: "LED Stahlträger",
       position: [340, 590],
-      icon: mdi("white-balance-iridescent"),
-      iconColor: ({ledStahltraeger}) =>
-        (ledStahltraeger === "on" ? rainbow : hex("#000000")),
+      icon: svg(icons.mdiWhiteBalanceIridescent).color(({ledStahltraeger}) =>
+        (ledStahltraeger === "on" ? rainbow : hex("#000000"))),
       ui: [
         {
           type: "toggle",
           text: "Stahlträger LED",
           topic: "ledStahltraeger",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     },
     snackbar: {
       name: "Snackbar",
       position: [510, 500],
-      icon: mdi("fridge"),
-      iconColor: tasmota.iconColor("snackbar", hex("#E20074")),
+      icon: svg(icons.mdiFridge).color(
+        tasmota.iconColor("snackbar", hex("#E20074"))),
       ui: [
         {
           type: "toggle",
           text: "Snackbar",
           topic: "snackbar",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "section",
@@ -307,7 +307,7 @@ const config: Config = {
           type: "text",
           text: "LED-Streifen",
           topic: "snackbarLedOnline",
-          icon: mdi("white-balance-iridescent")
+          icon: svg(icons.mdiWhiteBalanceIridescent)
         },
         {
           type: "dropDown",
@@ -326,7 +326,7 @@ const config: Config = {
             "11": "Rainbow Pattern",
             "12": "Fire Pattern"
           },
-          icon: mdi("settings"),
+          icon: svg(icons.mdiCog),
           enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline === "on"
         },
         {
@@ -335,7 +335,7 @@ const config: Config = {
           topic: "snackbarDimmmer",
           min: 0,
           max: 100,
-          icon: mdi("brightness-7"),
+          icon: svg(icons.mdiBrightness7),
           enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline === "on"
         },
         {
@@ -344,7 +344,7 @@ const config: Config = {
           topic: "snackbarSpeed",
           min: 0,
           max: 20,
-          icon: mdi("speedometer"),
+          icon: svg(icons.mdiSpeedometer),
           enableCondition: ({ snackbarLedOnline }) => snackbarLedOnline === "on"
         }
       ]
@@ -352,155 +352,151 @@ const config: Config = {
     twinkle: {
       name: "Twinkle",
       position: [530, 560],
-      icon: ({twinkle}) =>
-        (twinkle === "on" ? rawMdi("led-on flip-v") : rawMdi("led-off flip-v")),
-      iconColor: ({twinkle}) => (twinkle === "on" ? rainbow : hex("#000000")),
+      icon: withState(({twinkle}) =>
+        (twinkle === "on" ? svg(icons.mdiLedOn).flipV().color(rainbow)
+          : svg(icons.mdiLedOff).flipV())
+      ),
       ui: [
         {
           type: "toggle",
           text: "Twinkle",
           topic: "twinkle",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     },
     fan: {
       name: "Ventilator",
       position: [530, 440],
-      icon: mdi("fan"),
-      iconColor: ({fan}) => (fan === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiFan).color(({fan}) =>
+        (fan === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
           text: "Ventilator",
           topic: "fan",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     },
     cashdesk: {
       name: "Cashdesk",
       position: [510, 467],
-      icon: mdi("coin"),
+      icon: svg(icons.mdiCurrencyUsdCircle),
       ui: [
         {
           type: "link",
           link: "http://cashdesk.rzl:8000/",
           text: "Open Cashdesk",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         }
       ]
     },
     flyfry: {
       name: "Fliegenbratgerät",
       position: [450, 570],
-      icon: mdi("fire"),
-      iconColor: ({flyfry}) =>
-        (flyfry === "on" ? hex("#6666FF") : hex("#000000")),
+      icon: svg(icons.mdiFire).color(({flyfry}) =>
+        (flyfry === "on" ? hex("#6666FF") : hex("#000000"))),
       ui: esper.statistics("flyfry", [
         {
           type: "toggle",
           text: "Fliegenbratgerät",
           topic: "flyfry",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ])
     },
     projector: {
       name: "Beamer",
       position: [380, 590],
-      icon: mdi("projector flip-v"),
-      iconColor: ({projector}) =>
+      icon: svg(icons.mdiProjector).flipV().color(({projector}) =>
         ({
           transientOn: hex("#b3b300"),
           transientOff: hex("#b3b300"),
           on: hex("#00ff00"),
           off: hex("#000000"),
           unknown: hex("#888888")
-        })[projector],
+        })[projector]),
       ui: [
         {
           type: "toggle",
           text: "Beamer",
           topic: "projector",
           toggled: (val) => val === "transientOn" || val === "on",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     },
     loetarbeitsplatz4: {
       name: "Lötarbeitsplatz",
       position: [205, 455],
-      icon: mdi("eyedropper-variant"),
-      iconColor: ({loetarbeitsplatz4}) =>
-        (loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000")),
+      icon: svg(icons.mdiEyedropperVariant).color(({loetarbeitsplatz4}) =>
+        (loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000"))),
       ui: [
         {
           type: "text",
           text: "Status",
           topic: "loetarbeitsplatz4",
-          icon: mdi("eyedropper-variant")
+          icon: svg(icons.mdiEyedropperVariant)
         }
       ]
     },
     loetarbeitsplatz5: {
       name: "Lötarbeitsplatz",
       position: [205, 405],
-      icon: mdi("eyedropper-variant"),
-      iconColor: ({loetarbeitsplatz5}) =>
-        (loetarbeitsplatz5 === "on" ? hex("#FF0000") : hex("#000000")),
+      icon: svg(icons.mdiEyedropperVariant).color(({loetarbeitsplatz4}) =>
+        (loetarbeitsplatz4 === "on" ? hex("#FF0000") : hex("#000000"))),
       ui: [
         {
           type: "text",
           text: "Status",
           topic: "loetarbeitsplatz5",
-          icon: mdi("eyedropper-variant")
+          icon: svg(icons.mdiEyedropperVariant)
         }
       ]
     },
     door: {
       name: "Tür",
       position: [455, 350],
-      icon: mdi("swap-vertical"),
-      iconColor: ({doorStatus}) =>
-        (doorStatus === "on" ? hex("#00FF00") : hex("#FF0000")),
+      icon: svg(icons.mdiSwapVertical).color(({doorStatus}) =>
+        (doorStatus === "on" ? hex("#00FF00") : hex("#FF0000"))),
       ui: [
         {
           type: "link",
           link: "http://s.rzl.so",
           text: "Open Status Page",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         },
         {
           type: "link",
           // eslint-disable-next-line max-len
           link: "http://kunterbunt.vm.rzl/dashboard/db/allgemeines-copy-ranlvor?orgId=1",
           text: "RZL-Dashboard",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         },
         {
           type: "text",
           text: "Anwesend",
           topic: "presenceStatus",
-          icon: mdi("account")
+          icon: svg(icons.mdiAccount)
         },
         {
           type: "text",
           text: "Devices",
           topic: "devicesStatus",
-          icon: mdi("wifi")
+          icon: svg(icons.mdiWifi)
         },
         {
           type: "toggle",
           text: "Deko",
           topic: "deko",
-          icon: mdi("invert-colors")
+          icon: svg(icons.mdiInvertColors)
         },
         {
           type: "text",
           text: "Power Hauptraum",
           topic: "powerConsumption",
-          icon: mdi("speedometer")
+          icon: svg(icons.mdiSpeedometer)
         }
 
       ]
@@ -508,56 +504,56 @@ const config: Config = {
     infoscreen: {
       name: "Infoscreen",
       position: [255, 495],
-      icon: mdi("television-guide flip-v"),
-      iconColor: tasmota.iconColor("infoscreen", hex("#4444FF")),
+      icon: svg(icons.mdiTelevisionGuide).flipV().color(
+        tasmota.iconColor("infoscreen", hex("#4444FF"))
+      ),
       ui: [
         {
           type: "toggle",
           text: "Infoscreen",
           topic: "infoscreen",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "link",
           link: "http://cashdesk.rzl:3030/rzl",
           text: "Open Infoscreen",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         }
       ]
     },
     pilze: {
       name: "Pilze",
       position: [48, 499],
-      icon: ({pilze}) =>
-        (pilze === "on" ? rawMdi("led-on") : rawMdi("led-off")),
-      iconColor: tasmota.iconColor("pilze", rainbow),
+      icon: withState(({pilze}) =>
+        (pilze === "on" ? svg(icons.mdiLedOn) : svg(icons.mdiLedOff))).color(
+        tasmota.iconColor("pilze", rainbow)),
       ui: [
         {
           type: "toggle",
           text: "Pilze",
           topic: "pilze",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         }
       ]
     },
     printer3D: {
       name: "Ultimaker 3",
       position: [754, 560],
-      icon: mdi("printer-3d"),
-      iconColor: ({printer3DStatus}) =>
+      icon: svg(icons.mdiPrinter3d).color(({printer3DStatus}) =>
         ({
           awaitingInteraction: hex("#b3b300"),
           printing: hex("#00ff00"),
           idle: hex("#000000"),
           unavailable: hex("#888888"),
           error: hex("#ff0000")
-        })[printer3DStatus],
+        })[printer3DStatus]),
       ui: [
         {
           type: "link",
           link: "http://ultimaker.rzl/",
           text: "Open Webinterface",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         },
         {
           type: "section",
@@ -565,7 +561,7 @@ const config: Config = {
         },
         {
           type: "progress",
-          icon: mdi("rotate-right"),
+          icon: svg(icons.mdiRotateRight),
           min: 0,
           max: 1,
           text: "Printing Progress",
@@ -574,7 +570,7 @@ const config: Config = {
         {
           type: "text",
           text: "Time Left",
-          icon: mdi("clock"),
+          icon: svg(icons.mdiClock),
           topic: "printer3Dremaining"
         }
       ]
@@ -582,47 +578,45 @@ const config: Config = {
     partkeepr: {
       name: "Partkeepr",
       position: [48, 450],
-      icon: mdi("chip"),
+      icon: svg(icons.mdiChip),
       ui: [
         {
           type: "link",
           link: "http://partkeepr.rzl/",
           text: "Open Partkeepr",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         }
       ]
     },
     printerAnnette: {
       name: "Drucker",
       position: [800, 350],
-      icon: mdi("printer"),
-      iconColor: tasmota.iconColor("printerAnnette"),
+      icon: svg(icons.mdiPrinter).color(tasmota.iconColor("printerAnnette")),
       ui: [
         {
           type: "toggle",
           text: "Drucker",
           topic: "printerAnnette",
-          icon: mdi("power")
+          icon: svg(icons.mdiPower)
         },
         {
           type: "link",
           link: "http://annette.rzl/",
           text: "Open Annette",
-          icon: mdi("open-in-new")
+          icon: svg(icons.mdiOpenInNew)
         }
       ]
     },
     nebenraumPowerStatus: {
       name: "Strom Fablab",
       position: [613, 537],
-      icon: ({nebenraumPowerStatus}) =>
-        (nebenraumPowerStatus === "on" ? rawMdi("flash") : rawMdi("flash-off")),
-      iconColor: ({nebenraumPowerStatus}) =>
-        (nebenraumPowerStatus === "on" ? hex("#00ff00") : hex("#000000")),
+      icon: withState(({nebenraumPowerStatus}) =>
+        (nebenraumPowerStatus === "on" ?
+          svg(icons.mdiFlash).color(hex("#00FF00")) : svg(icons.mdiFlashOff))),
       ui: [
         {
           type: "text",
-          icon: mdi("power"),
+          icon: svg(icons.mdiPower),
           text: "Strom Fablab",
           topic: "nebenraumPowerStatus"
         }
@@ -631,19 +625,20 @@ const config: Config = {
     whirlpool: {
       name: "Vorstandswhirlpool",
       position: [1413, 500],
-      icon: mdi("pool"),
-      iconColor: ({whirlpoolBubbles}) =>
-        (parseInt(whirlpoolBubbles) > 0 ? hex("#00ff00") : hex("#000000")),
+      icon: svg(icons.mdiPool).color(
+        ({whirlpoolBubbles}) =>
+          (parseInt(whirlpoolBubbles, 10) > 0 ? hex("#00ff00")
+            : hex("#000000"))),
       ui: [
         {
           type: "text",
-          icon: mdi("oil-temperature"),
+          icon: svg(icons.mdiOilTemperature),
           text: "Temperatur",
           topic: "whirlpoolTemperature"
         },
         {
           type: "text",
-          icon: mdi("oil-temperature"),
+          icon: svg(icons.mdiOilTemperature),
           text: "Temperatur Sollwert",
           topic: "whirlpoolTemperatureSetpoint"
         },
@@ -652,7 +647,7 @@ const config: Config = {
           min: 4,
           max: 100,
           text: "Temperatur Sollwert",
-          icon: mdi("oil-temperature"),
+          icon: svg(icons.mdiOilTemperature),
           topic: "whirlpoolTemperatureSetpoint"
         },
         {
@@ -660,7 +655,7 @@ const config: Config = {
           min: 0,
           max: 9,
           text: "Bubbles",
-          icon: mdi("chart-bubble"),
+          icon: svg(icons.mdiChartBubble),
           topic: "whirlpoolBubbles"
         }
       ]

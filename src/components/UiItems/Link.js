@@ -2,7 +2,6 @@
 import React from "react";
 import createComponent from "./base";
 import { isEnabled, isDisabled } from "./utils";
-import { renderRawIcon } from "config/icon";
 
 import type { UILink } from "config/flowtypes";
 
@@ -19,7 +18,7 @@ const Icon = ({item, state}) => {
   if (item.icon == null) {
     return false;
   }
-  return renderRawIcon(item.icon(state), "mdi-24px");
+  return item.icon.render(state);
 };
 
 const BaseComponent = (_h, item: UILink, state, _changeState) => (

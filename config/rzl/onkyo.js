@@ -1,8 +1,9 @@
 // @flow
 import type { Topics, Controls } from "config/flowtypes";
-import { mdi } from "config/icon";
+import { svg } from "config/icon";
 import { hex } from "config/colors";
 import * as types from "config/types";
+import * as icons from "@mdi/js";
 
 export const topics: Topics = {
   onkyoConnection: {
@@ -132,12 +133,12 @@ export const controls: Controls = {
     iconColor: ({onkyoConnection, onkyoPower}) =>
       (onkyoConnection !== "connected" ? hex("#888888") :
         (onkyoPower === "on" ? hex("#00FF00") : hex("#000000"))),
-    icon: mdi("audio-video"),
+    icon: svg(icons.mdiAudioVideo),
     ui: [
       {
         type: "toggle",
         text: "Power",
-        icon: mdi("power"),
+        icon: svg(icons.mdiPower),
         topic: "onkyoPower",
         enableCondition: (state) => state.onkyoConnection === "connected"
       },
@@ -151,14 +152,14 @@ export const controls: Controls = {
         topic: "onkyoVolume",
         min: 0,
         max: 50,
-        icon: mdi("volume-high"),
+        icon: svg(icons.mdiVolumeHigh),
         enableCondition: (state) => state.onkyoConnection === "connected"
       },
       {
         type: "toggle",
         text: "Mute",
         topic: "onkyoMute",
-        icon: mdi("volume-off"),
+        icon: svg(icons.mdiVolumeOff),
         enableCondition: (state) => state.onkyoConnection === "connected"
       },
       {
@@ -176,7 +177,7 @@ export const controls: Controls = {
           pult: "Pult",
           front: "Front HDMI"
         },
-        icon: mdi("usb"),
+        icon: svg(icons.mdiUsb),
         enableCondition: (state) => state.onkyoConnection === "connected"
       },
       {
@@ -200,7 +201,7 @@ export const controls: Controls = {
           somafmChrismasLounge: "Christmas Lounge (SomaFM)",
           unknown: "Unknown"
         },
-        icon: mdi("radio"),
+        icon: svg(icons.mdiRadio),
         enableCondition: (state) => state.onkyoConnection === "connected"
           && state.onkyoInputs === "netzwerk"
       },
@@ -212,7 +213,7 @@ export const controls: Controls = {
         type: "link",
         link: "http://mpd.rzl/mpd/player/index.php",
         text: "Open MPD Interface",
-        icon: mdi("open-in-new")
+        icon: svg(icons.mdiOpenInNew)
       }
     ]
   }

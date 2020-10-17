@@ -17,7 +17,7 @@ export const option = (values: TypeOptionParam): TopicType => {
       return values.otherwise;
     } else {
       throw new Error(
-        `Value ${x.toString()} cannot by mapped by the option parameters given`
+        `Value ${x.toString()} cannot be mapped by the option parameters given`
       );
     }
   };

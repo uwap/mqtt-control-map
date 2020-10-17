@@ -8,16 +8,16 @@ import IconButton from "@material-ui/core/IconButton";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import { renderRawIcon } from "config/icon";
+import ReactIcon from "@mdi/react";
+import { mdiClose } from "@mdi/js";
 
-import type { RawIcon } from "config/icon";
 import type { Control } from "config/flowtypes";
 
 export type SideBarProps = {
   control: ?Control,
   open: boolean,
   onCloseRequest: () => void,
-  icon?: ?RawIcon,
+  icon?: ?React.Node,
   children?: React.Node
 };
 
@@ -43,13 +43,13 @@ const SideBar = (props: SideBarProps) => {
       <AppBar position="static">
         <Toolbar>
           <span>
-            {props.icon == null || renderRawIcon(props.icon, "mdi-36px")}
+            {props.icon == null || props.icon}
           </span>
           <Typography variant="subtitle1" className={classes.title}>
             {props.control == null ? "" : props.control.name}
           </Typography>
           <IconButton onClick={props.onCloseRequest}>
-            <i className="mdi mdi-close"></i>
+            <ReactIcon path={mdiClose} size={1.5} />
           </IconButton>
         </Toolbar>
       </AppBar>

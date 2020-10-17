@@ -1,8 +1,9 @@
 // @flow
 import type { ControlUI, Topics } from "config/flowtypes";
-import { mdi } from "config/icon";
+import { svg } from "config/icon";
 import { hex, type Color } from "config/colors";
 import * as types from "config/types";
+import * as icons from "@mdi/js";
 
 export const tasmota = {
   topics: (id: string, name: string): Topics => ({
@@ -106,31 +107,31 @@ const esperStatistics = (name: string,
     {
       type: "text",
       text: "Device Variant",
-      icon: mdi("chart-donut"),
+      icon: svg(icons.mdiChartDonut),
       topic: `esper_${name}_device`
     },
     {
       type: "text",
       text: "Version",
-      icon: mdi("source-branch"),
+      icon: svg(icons.mdiSourceBranch),
       topic: `esper_${name}_version`
     },
     {
       type: "text",
       text: "IP",
-      icon: mdi("access-point-network"),
+      icon: svg(icons.mdiAccessPointNetwork),
       topic: `esper_${name}_ip`
     },
     {
       type: "text",
       text: "RSSI",
-      icon: mdi("wifi"),
+      icon: svg(icons.mdiWifi),
       topic: `esper_${name}_rssi`
     },
     {
       type: "text",
       text: "Running since…",
-      icon: mdi("av-timer"),
+      icon: svg(icons.mdiAvTimer),
       topic: `esper_${name}_uptime`
     }
   ])

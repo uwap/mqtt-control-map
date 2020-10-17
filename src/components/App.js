@@ -39,6 +39,14 @@ export type AppState = {
   error: ?string
 };
 
+/*
+ *const App = (props: AppProps) => {
+ *  const topics = Array.isArray(props.config.topics) ?
+ *      Object.assign({}, ...props.config.topics) : props.config.topics;
+ *  const [mqttConnected, setMqttConnected] = useState(false);
+ *};
+ */
+
 class App extends React.PureComponent<AppProps & Classes, AppState> {
   controlMap: React.Node
 
@@ -171,7 +179,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
           control={this.state.selectedControl}
           onCloseRequest={this.closeDrawer}
           icon={this.state.selectedControl == null ? null :
-            this.state.selectedControl.icon(this.state.mqttState)}
+            this.state.selectedControl.icon.render(this.state.mqttState)}
         >
           {this.state.selectedControl == null
             || <UiItemList controls={this.state.selectedControl.ui} />}

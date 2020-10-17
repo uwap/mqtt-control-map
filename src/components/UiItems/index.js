@@ -6,10 +6,11 @@ import Link from "./Link";
 import Slider from "./Slider";
 import Text from "./Text";
 import Progress from "./Progress";
+import * as React from "react";
 
 import type { ControlUI } from "config/flowtypes";
 
-const Control = ({item}: {item: ControlUI}) => {
+const Control = ({item}: {item: ControlUI}): React.Node => {
   switch (item.type) {
   case "toggle": {
     return Toggle.component(item);

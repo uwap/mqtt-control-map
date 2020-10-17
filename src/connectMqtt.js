@@ -49,7 +49,7 @@ export default function connectMqtt(
     }
   });
   return (topic: string, message: Buffer) => {
-    client.publish(topic, message, null, (error) => {
+    client.publish(topic, message, {}, (error) => {
       if (error == null && settings.onMessageSent != null) {
         settings.onMessageSent(topic, message);
       }
