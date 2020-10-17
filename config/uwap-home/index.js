@@ -583,12 +583,14 @@ const config: Config = {
       name: "Ledstreifen Wohnzimmer",
       position: [450, 73],
       icon: svg(icons.mdiWhiteBalanceIridescent),
-      iconColor: ({ledstripLivingroomState}) =>
-        (ledstripLivingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      /* eslint-disable camelcase */
+      iconColor: ({ledstrip_livingroomState}) =>
+        (ledstrip_livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      /* eslint-enable camelcase */
       ui: ([
         {
           type: "toggle",
-          topic: "ledstripLivingroomState",
+          topic: "ledstrip_livingroomState",
           text: "Ein/Ausschalten",
           icon: svg(icons.mdiPower)
         },
