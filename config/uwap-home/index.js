@@ -50,7 +50,8 @@ const topicBulbNumber = (bulb: string, parameter: string) => ({
   }
 });
 
-const topicHomeBoolean = (name: string, topic: string) => ({
+const topicHomeBoolean = (name: string, topic: string,
+  defaultValue: boolean = false) => ({
   [`${name}`]: {
     state: {
       name: `home-rust/${topic}`,
@@ -60,11 +61,12 @@ const topicHomeBoolean = (name: string, topic: string) => ({
       name: `home-rust/${topic}/set`,
       type: types.option({ on: "true", off: "false" })
     },
-    defaultValue: "OFF"
+    defaultValue: defaultValue ? "on" : "off"
   }
 });
 
-const topicHomeNumber = (name: string, topic: string) => ({
+const topicHomeNumber = (name: string, topic: string,
+  defaultValue: number = 0) => ({
   [`${name}`]: {
     state: {
       name: `home-rust/${topic}`,
@@ -74,7 +76,7 @@ const topicHomeNumber = (name: string, topic: string) => ({
       name: `home-rust/${topic}/set`,
       type: types.string
     },
-    defaultValue: 0
+    defaultValue: defaultValue
   }
 });
 
@@ -196,12 +198,12 @@ const config: Config = {
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
       ...topicHomeNumber("fanBedroomTarget",
-        "temperature-control/bedroom/target"),
+        "temperature-control/bedroom/target", 21.5),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
       ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
       ...topicHomeBoolean("lueftenHint", "lueften"),
       ...topicHomeNumber("fanOfficeTarget",
-        "temperature-control/office/target"),
+        "temperature-control/office/target", 21.5),
       ...topicBulbNumber("hallway", "brightness"),
       ...topicBulbState("hallway"),
       ...topicBulbNumber("hallway2", "brightness"),
@@ -211,7 +213,8 @@ const config: Config = {
       ...topicBulbState("office"),
       ...topicBulbNumber("office", "brightness"),
       ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
-      ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling")
+      ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling",
+         true)
     }
   ],
   controls: {
