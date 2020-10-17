@@ -214,7 +214,7 @@ const config: Config = {
       ...topicBulbNumber("office", "brightness"),
       ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
       ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling",
-         true)
+        true)
     }
   ],
   controls: {
@@ -583,12 +583,12 @@ const config: Config = {
       name: "Ledstreifen Wohnzimmer",
       position: [450, 73],
       icon: svg(icons.mdiWhiteBalanceIridescent),
-      iconColor: ({ledstrip_livingroomState}) =>
-        (ledstrip_livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      iconColor: ({ledstripLivingroomState}) =>
+        (ledstripLivingroomState === "on" ? hex("#00FF00") : hex("#000000")),
       ui: ([
         {
           type: "toggle",
-          topic: "ledstrip_livingroomState",
+          topic: "ledstripLivingroomState",
           text: "Ein/Ausschalten",
           icon: svg(icons.mdiPower)
         },
