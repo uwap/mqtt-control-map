@@ -58,9 +58,10 @@ export type UISlider = $ReadOnly<{|
   topic: string,
   icon?: Icon,
   enableCondition?: (s: State) => boolean,
+  marks?: boolean | Array<{ value: number, label: string}>,
   min?: number,
   max?: number,
-  step?: number
+  step?: ?number
 |}>;
 
 export type UISection = $ReadOnly<{|

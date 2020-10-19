@@ -493,6 +493,11 @@ const config: Config = {
           min: 0,
           max: 255,
           text: "Helligkeit",
+          marks: [
+            { value: 1, label: "Dunkel" },
+            { value: 120, label: "Medium" },
+            { value: 254, label: "Hell" }
+          ],
           icon: svg(icons.mdiBrightness7),
           topic: "livingroombrightness"
         },

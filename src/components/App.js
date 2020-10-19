@@ -125,7 +125,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         const topic = topics[i];
         const stateTopic = this.topics[topic].state;
         const typeConversion = stateTopic?.type?.from ?? stateTopic?.type;
-        const val = (typeConversion ?? ((x) => x.toString()))(message);
+        const val = (typeConversion ?? ((x: Buffer) => x.toString()))(message);
         this.setMqttStateDebounced(
           {mqttState: Object.assign({},
             merge(this.state.mqttState, { [topic]: val}))});
@@ -152,7 +152,7 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         return;
       }
       const rawTopic = commandTopic.name;
-      const typeConversion = commandTopic.type?.to ?? commandTopic.type;
+      const typeConversion = commandTopic?.type?.to ?? commandTopic.type;
       const value = (typeConversion ?? Buffer.from)(val);
       this.state.mqttSend(rawTopic, value);
     } catch (err) {

@@ -15,7 +15,7 @@ export const json = (path: string, innerType?: TopicType): TopicType => {
     from: (msg) => parseAgain(Buffer.from(
       at(JSON.parse(msg.toString()), path)[0].toString())),
     to: (msg) => Buffer.from(
-      JSON.serialize(set({}, path, parseFirst(msg).toString())))
+      JSON.stringify(set({}, path, parseFirst(msg).toString())))
   };
 };
 
