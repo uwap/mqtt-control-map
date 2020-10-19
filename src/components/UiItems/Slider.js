@@ -16,10 +16,12 @@ const BaseComponent = ({Icon, Label}, item, state, changeState) => (
     <Label />
     <SliderComponent
       value={parseFloat(getValue(item, state))}
-      min={item.min || 0} max={item.max || 100}
-      step={item.step || 1}
+      min={item.min ?? 0} max={item.max ?? 100}
+      step={item.step}
+      marks={item.marks ?? false}
       onChange={changeSliderValue(item, changeState)}
       disabled={isDisabled(item, state)}
+      valueLabelDisplay="auto"
       style={{marginLeft: 40}} />
   </React.Fragment>
 );

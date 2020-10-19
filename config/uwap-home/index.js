@@ -132,7 +132,7 @@ const sliderSVXY = (bulb: string, argument: string) => (
 const config: Config = {
   space: {
     name: "Home",
-    color: "orange",
+    color: "teal",
     mqtt: "ws://192.168.0.12:1884"
   },
   topics: [
@@ -530,6 +530,11 @@ const config: Config = {
           min: 0,
           max: 255,
           text: "Helligkeit",
+          marks: [
+            { value: 1, label: "Dunkel" },
+            { value: 120, label: "Medium" },
+            { value: 254, label: "Hell" }
+          ],
           icon: svg(icons.mdiBrightness7),
           topic: "livingroombrightness"
         },
@@ -644,7 +649,7 @@ const config: Config = {
     {
       image: require("./assets/layers/rooms.svg"),
       baseLayer: true,
-      name: "Uwap Home",
+      name: "Rooms",
       defaultVisibility: "visible",
       opacity: 0.7,
       bounds: {

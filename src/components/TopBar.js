@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import ReactIcon from "@mdi/react";
-import { mdiMap, mdiGithub } from "@mdi/js";
+import { mdiMap, mdiGithub, mdiMagnify } from "@mdi/js";
 
 export type TopBarProps = {
   connected: boolean,
@@ -77,7 +77,9 @@ const Search = (props: SearchBarProps) => {
   const classes = useSearchStyles();
   return (
     <div className={classes.search}>
-      <i className={`mdi mdi-magnify ${classes.searchIcon}`}></i>
+      <span className={classes.searchIcon}>
+        <ReactIcon path={mdiMagnify} size={1} />
+      </span>
       <InputBase placeholder="Search…" type="search"
         onChange={(e) => props.onSearch(e.target.value)}
         classes={{

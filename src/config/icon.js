@@ -34,12 +34,12 @@ const iconChainUtils = <T> (cb: (x: T, p?: IconPropHelper) => Icon,
   );
 
 export const svg = (data: string, props?: IconPropHelper): Icon => {
-  const propColor = ((c: Color | (State) => Color) => (state: State) => {
+  const propColor = ((c: ?Color | (State) => Color) => (state: State) => {
     if (typeof c === "function") {
       return c(state);
     }
     return c;
-  })(props?.color ?? "black");
+  })(props?.color);
   return {
     render: (state) => (
       <ReactIcon path={data} size={props?.size ?? 1.5}

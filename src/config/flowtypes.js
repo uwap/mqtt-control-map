@@ -1,16 +1,22 @@
 // @flow
 import type { Icon } from "config/icon";
 
-export type TopicType = (msg: Buffer) => string;
+export type TopicType = {
+  from: (msg: Buffer) => string,
+  to: (newstate: string) => Buffer
+};
 
-export type StateCommand = {
+export type StateTopicType = TopicType | ((msg: Buffer) => string);
+export type CommandTopicType = TopicType | ((newstate: string) => Buffer);
+
+export type StateCommand<T> = {
   name: string,
-  type: TopicType
+  type: T
 }
 
 export type Topic = {
-  state?: StateCommand,
-  command?: StateCommand,
+  state?: StateCommand<StateTopicType>,
+  command?: StateCommand<CommandTopicType>,
   defaultValue: string
 };
 export type Topics = Map<string, Topic>;
@@ -52,9 +58,10 @@ export type UISlider = $ReadOnly<{|
   topic: string,
   icon?: Icon,
   enableCondition?: (s: State) => boolean,
+  marks?: boolean | Array<{ value: number, label: string}>,
   min?: number,
   max?: number,
-  step?: number
+  step?: ?number
 |}>;
 
 export type UISection = $ReadOnly<{|
@@ -114,6 +121,17 @@ export type Space = {
   mqtt: string
 };
 
+export type Layer = {
+  image: string,
+  name: string,
+  baseLayer?: boolean,
+  defaultVisibility: "visible" | "hidden",
+  opacity?: number,
+  bounds: {
+    topLeft: Point,
+    bottomRight: Point
+  }
+};
 export type Config = {
   space: Space,
   topics: Topics | Array<Topics>,
