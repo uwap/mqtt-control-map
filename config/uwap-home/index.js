@@ -273,19 +273,18 @@ const config: Config = {
           icon: svg(icons.mdiAirConditioner)
         },
         {
-          type: "text",
-          text: "Zieltemperatur",
-          icon: svg(icons.mdiTemperatureCelsius),
-          topic: "fanBedroomTarget"
-        },
-        {
           type: "slider",
           min: 15,
           max: 25,
           step: 0.1,
           text: "Zieltemperatur",
           icon: svg(icons.mdiOilTemperature),
-          topic: "fanBedroomTarget"
+          topic: "fanBedroomTarget",
+          marks: [
+            { value: 15, label: "15°C" },
+            { value: 20, label: "20°C" },
+            { value: 25, label: "25°C" }
+          ]
         }
       ]
     },
@@ -325,19 +324,18 @@ const config: Config = {
           icon: svg(icons.mdiAirConditioner)
         },
         {
-          type: "text",
-          text: "Zieltemperatur",
-          icon: svg(icons.mdiTemperatureCelsius),
-          topic: "fanOfficeTarget"
-        },
-        {
           type: "slider",
           min: 15,
           max: 25,
           step: 0.1,
           text: "Zieltemperatur",
           icon: svg(icons.mdiOilTemperature),
-          topic: "fanOfficeTarget"
+          topic: "fanOfficeTarget",
+          marks: [
+            { value: 15, label: "15°C" },
+            { value: 20, label: "20°C" },
+            { value: 25, label: "25°C" }
+          ]
         }
       ]
     },
