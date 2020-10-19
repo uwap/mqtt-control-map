@@ -7,7 +7,8 @@ module.exports = {
   "extends": [
     "eslint:recommended",
     "plugin:flowtype/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -161,6 +162,6 @@ module.exports = {
     "fp/no-throw": "warn",
     "fp/no-unused-expression": "warn",
     "fp/no-valueof-field": "warn",
-    "no-var": "warn" 
+    "no-var": "warn"
   }
 };
