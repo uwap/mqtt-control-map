@@ -124,8 +124,8 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
       for (let i in topics) {
         const topic = topics[i];
         const stateTopic = this.topics[topic].state;
-        const parseVal = stateTopic ? stateTopic.type : null;
-        const val = parseVal == null ? message.toString() : parseVal(message);
+        const typeConversion = stateTopic?.type?.from ?? stateTopic?.type;
+        const val = (typeConversion ?? ((x) => x.toString()))(message);
         this.setMqttStateDebounced(
           {mqttState: Object.assign({},
             merge(this.state.mqttState, { [topic]: val}))});
@@ -145,16 +145,16 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
     this.setState({drawerOpened: false});
   }
 
-  changeState = (topic: string, value: string) => {
+  changeState = (topic: string, val: string) => {
     try {
-      if (this.topics[topic].command == null) {
+      const commandTopic = this.topics[topic].command;
+      if (commandTopic == null) {
         return;
       }
-      const rawTopic = this.topics[topic].command.name;
-      const transformValue = this.topics[topic].command.type;
-      const val =
-        transformValue == null ? value : transformValue(Buffer.from(value));
-      this.state.mqttSend(rawTopic, Buffer.from(val));
+      const rawTopic = commandTopic.name;
+      const typeConversion = commandTopic.type?.to ?? commandTopic.type;
+      const value = (typeConversion ?? Buffer.from)(val);
+      this.state.mqttSend(rawTopic, value);
     } catch (err) {
       this.setState({ error: err.toString() });
     }

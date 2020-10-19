@@ -41,7 +41,13 @@ module.exports = env => ({
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new WebpackShellPlugin({onBuildStart:preBuildScripts}),
+    new WebpackShellPlugin({
+      onBuildStart: {
+        scripts: preBuildScripts,
+        blocking: true,
+        parallel: false
+      }
+    }),
     new HtmlWebpackPlugin({
       title: 'Space Map',
       template: 'index.ejs'

@@ -1,7 +1,7 @@
 // @flow
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import "../node_modules/leaflet/dist/leaflet.css"
+import "../node_modules/leaflet/dist/leaflet.css";
 
 import React from "react";
 import ReactDOM from "react-dom";

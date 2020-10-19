@@ -6,7 +6,9 @@ import map from "lodash/map";
 import filter from "lodash/filter";
 import reduce from "lodash/reduce";
 import MqttContext from "mqtt/context";
-import type { Controls, Control, UIControl, ControlUI } from "config/flowtypes";
+import type {
+  Controls, Control, UIControl, ControlUI, Layer
+} from "config/flowtypes";
 import { renderToString } from "react-dom/server";
 
 export type Point = [number, number];
