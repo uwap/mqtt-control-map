@@ -201,9 +201,13 @@ const config: Config = {
         "temperature-control/bedroom/target", 21.5),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
       ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
+      ...topicHomeBoolean("heaterOfficeAuto",
+        "temperature-control/office_heating"),
       ...topicHomeBoolean("lueftenHint", "lueften"),
       ...topicHomeNumber("fanOfficeTarget",
         "temperature-control/office/target", 21.5),
+      ...topicHomeNumber("heaterOfficeTarget",
+        "temperature-control/office_heating/target", 21.5),
       ...topicBulbNumber("hallway", "brightness"),
       ...topicBulbState("hallway"),
       ...topicBulbNumber("hallway2", "brightness"),
@@ -318,9 +322,13 @@ const config: Config = {
           icon: svg(icons.mdiPower)
         },
         {
+          type: "section",
+          text: "Lüftungs-Automatik"
+        },
+        {
           type: "toggle",
           topic: "fanOfficeAuto",
-          text: "Automatik",
+          text: "On/Off",
           icon: svg(icons.mdiAirConditioner)
         },
         {
@@ -331,6 +339,30 @@ const config: Config = {
           text: "Zieltemperatur",
           icon: svg(icons.mdiOilTemperature),
           topic: "fanOfficeTarget",
+          marks: [
+            { value: 15, label: "15°C" },
+            { value: 20, label: "20°C" },
+            { value: 25, label: "25°C" }
+          ]
+        },
+        {
+          type: "section",
+          text: "Heizungs-Automatik"
+        },
+        {
+          type: "toggle",
+          topic: "heaterOfficeAuto",
+          text: "On/Off",
+          icon: svg(icons.mdiRadiator)
+        },
+        {
+          type: "slider",
+          min: 15,
+          max: 25,
+          step: 0.1,
+          text: "Zieltemperatur",
+          icon: svg(icons.mdiOilTemperature),
+          topic: "heaterOfficeTarget",
           marks: [
             { value: 15, label: "15°C" },
             { value: 20, label: "20°C" },
