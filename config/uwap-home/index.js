@@ -173,7 +173,7 @@ const config: Config = {
       heaterOfficeTsoll: {
         state: {
           name: "tele/home-rust/fritzbox/device/office/tsoll",
-          type: (msg) => (msg.toString().split(' ')[1])
+          type: (msg) => (msg.toString().split(" ")[1])
         },
         command: {
           name: "home-rust/fritzbox/device/office/tsoll/set",
@@ -333,12 +333,15 @@ const config: Config = {
     officeFan: {
       name: "Lüftung/Heizung Büro",
       position: [140, 658],
-      icon: withState(({heaterOfficeAuto}) =>
-        (heaterOfficeAuto === "on" ?
+      icon: withState(({heaterOfficeAuto}) => (
 
-          svg(icons.mdiRadiator).color(({heaterOfficeTsoll}) => (heaterOfficeTsoll === "254" ? hex("#FF0000") : hex("#000000")))
-        : svg(icons.mdiFan).color(({fanOfficeState}) => (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")))
+        heaterOfficeAuto === "on" ?
 
+          svg(icons.mdiRadiator).color(({heaterOfficeTsoll}) =>
+            (heaterOfficeTsoll === "254" ? hex("#FF0000") : hex("#000000")))
+
+          : svg(icons.mdiFan).color(({fanOfficeState}) =>
+            (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")))
       )),
       ui: [
         {
