@@ -170,6 +170,28 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
+      heaterOfficeTsoll: {
+        state: {
+          name: "tele/home-rust/fritzbox/device/office/tsoll",
+          type: (msg) => (msg.toString().split(' ')[1])
+        },
+        command: {
+          name: "home-rust/fritzbox/device/office/tsoll/set",
+          type: types.string
+        },
+        defaultValue: "253"
+      },
+      heaterOfficeNachtabsenkung: {
+        state: {
+          name: "home-rust/temperature-control/office_heating/heat_request/4",
+          type: types.option({ true: "off", false: "on" })
+        },
+        command: {
+          name: "home-rust/temperature-control/office_heating/heat_request/4",
+          type: types.option({ off: "true", on: "false" })
+        },
+        defaultValue: "on"
+      },
       tucanaPower: {
         state: {
           name: "home-rust/switch/office/8",
@@ -309,12 +331,20 @@ const config: Config = {
       ]
     },
     officeFan: {
-      name: "Lüftung Büro",
+      name: "Lüftung/Heizung Büro",
       position: [140, 658],
-      icon: svg(icons.mdiFan),
-      iconColor: ({fanOfficeState}) =>
-        (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: withState(({heaterOfficeAuto}) =>
+        (heaterOfficeAuto === "on" ?
+
+          svg(icons.mdiRadiator).color(({heaterOfficeTsoll}) => (heaterOfficeTsoll === "254" ? hex("#FF0000") : hex("#000000")))
+        : svg(icons.mdiFan).color(({fanOfficeState}) => (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")))
+
+      )),
       ui: [
+        {
+          type: "section",
+          text: "Lüftung"
+        },
         {
           type: "toggle",
           topic: "fanOfficeState",
@@ -322,13 +352,9 @@ const config: Config = {
           icon: svg(icons.mdiPower)
         },
         {
-          type: "section",
-          text: "Lüftungs-Automatik"
-        },
-        {
           type: "toggle",
           topic: "fanOfficeAuto",
-          text: "On/Off",
+          text: "Automatik",
           icon: svg(icons.mdiAirConditioner)
         },
         {
@@ -347,13 +373,19 @@ const config: Config = {
         },
         {
           type: "section",
-          text: "Heizungs-Automatik"
+          text: "Heizung"
         },
         {
           type: "toggle",
           topic: "heaterOfficeAuto",
-          text: "On/Off",
+          text: "Automatik",
           icon: svg(icons.mdiRadiator)
+        },
+        {
+          type: "toggle",
+          topic: "heaterOfficeNachtabsenkung",
+          text: "Nachtabsekung",
+          icon: svg(icons.mdiWeatherNight)
         },
         {
           type: "slider",
