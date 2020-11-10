@@ -181,6 +181,17 @@ const config: Config = {
         },
         defaultValue: "253"
       },
+      heaterDiningroomTsoll: {
+        state: {
+          name: "tele/home-rust/fritzbox/device/diningroom/tsoll",
+          type: (msg) => (msg.toString().split(" ")[1]/2)
+        },
+        command: {
+          name: "home-rust/fritzbox/device/diningroom/tsoll/set",
+          type: (msg) => ((msg * 2).toString())
+        },
+        defaultValue: 126.5
+      },
       heaterOfficeNachtabsenkung: {
         state: {
           name: "home-rust/temperature-control/office_heating/heat_request/4",
@@ -536,6 +547,46 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "diningroombrightness"
+        }
+      ]
+    },
+    diningroomHeater: {
+      name: "Heizung Esszimmer",
+      position: [410, 658],
+      icon: withState(({heaterDiningroomTsoll}) => (
+        heaterDiningroomTsoll === 126.5 ?
+          svg(icons.mdiRadiatorDisabled) : svg(icons.mdiRadiator)
+      )),
+      ui: [
+        {
+          type: "toggle",
+          topic: "heaterDiningroomTsoll",
+          text: "Volle Power",
+          icon: svg(icons.mdiRadiator),
+          on: 127,
+          off: 25
+        },
+        {
+          type: "toggle",
+          topic: "heaterDiningroomTsoll",
+          text: "Ausschalten",
+          icon: svg(icons.mdiRadiatorDisabled),
+          on: 126.5,
+          off: 25
+        },
+        {
+          type: "slider",
+          min: 8,
+          max: 28,
+          step: 0.5,
+          text: "Zieltemperatur",
+          icon: svg(icons.mdiOilTemperature),
+          topic: "heaterDiningroomTsoll",
+          marks: [
+            { value: 8, label: "8°C" },
+            { value: 18, label: "18°C" },
+            { value: 28, label: "28°C" }
+          ]
         }
       ]
     },
