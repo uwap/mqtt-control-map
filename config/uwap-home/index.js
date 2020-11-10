@@ -184,7 +184,8 @@ const config: Config = {
       heaterDiningroomTsoll: {
         state: {
           name: "tele/home-rust/fritzbox/device/diningroom/tsoll",
-          type: (msg) => ((parseFloat(msg.toString().split(" ")[1])/2).toString())
+          type: (msg) => ((parseFloat(msg.toString().split(" ")[1])
+          /2).toString())
         },
         command: {
           name: "home-rust/fritzbox/device/diningroom/tsoll/set",
