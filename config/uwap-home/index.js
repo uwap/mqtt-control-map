@@ -184,13 +184,13 @@ const config: Config = {
       heaterDiningroomTsoll: {
         state: {
           name: "tele/home-rust/fritzbox/device/diningroom/tsoll",
-          type: (msg) => (msg.toString().split(" ")[1]/2)
+          type: (msg) => ((parseFloat(msg.toString().split(" ")[1])/2).toString())
         },
         command: {
           name: "home-rust/fritzbox/device/diningroom/tsoll/set",
-          type: (msg) => ((msg * 2).toString())
+          type: (msg) => (Buffer.from((parseFloat(msg) * 2).toString()))
         },
-        defaultValue: 126.5
+        defaultValue: "126.5"
       },
       heaterOfficeNachtabsenkung: {
         state: {
@@ -554,7 +554,7 @@ const config: Config = {
       name: "Heizung Esszimmer",
       position: [410, 658],
       icon: withState(({heaterDiningroomTsoll}) => (
-        heaterDiningroomTsoll === 126.5 ?
+        heaterDiningroomTsoll === "126.5" ?
           svg(icons.mdiRadiatorDisabled) : svg(icons.mdiRadiator)
       )),
       ui: [
@@ -563,16 +563,16 @@ const config: Config = {
           topic: "heaterDiningroomTsoll",
           text: "Volle Power",
           icon: svg(icons.mdiRadiator),
-          on: 127,
-          off: 25
+          on: "127",
+          off: "25"
         },
         {
           type: "toggle",
           topic: "heaterDiningroomTsoll",
           text: "Ausschalten",
           icon: svg(icons.mdiRadiatorDisabled),
-          on: 126.5,
-          off: 25
+          on: "126.5",
+          off: "25"
         },
         {
           type: "slider",
