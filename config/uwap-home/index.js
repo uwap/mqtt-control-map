@@ -321,13 +321,12 @@ const config: Config = {
           svg(icons.mdiFan).color(({fanBedroomState}) =>
             (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")))
 
-          :  s["heaterBedroomTsoll"] === "126.5" ?
-
-          //Solltemperatur == aus
-          svg(icons.mdiRadiatorDisabled)
-
-          //Normalbetrieb
-          : svg(icons.mdiRadiator)
+          //Wintermodus => Heizungsstatus anzeigen
+          : s["heaterBedroomTsoll"] === "126.5" ?
+            //Solltemperatur == aus
+            svg(icons.mdiRadiatorDisabled)
+            //Normalbetrieb
+            : svg(icons.mdiRadiator)
       )),
       ui: [
         {
