@@ -193,6 +193,25 @@ const config: Config = {
         },
         defaultValue: "126.5"
       },
+      heaterBedroomTsoll: {
+        state: {
+          name: "tele/home-rust/fritzbox/device/bedroom/tsoll",
+          type: (msg) => ((parseFloat(msg.toString().split(" ")[1])
+          /2).toString())
+        },
+        command: {
+          name: "home-rust/fritzbox/device/bedroom/tsoll/set",
+          type: (msg) => (Buffer.from((parseFloat(msg) * 2).toString()))
+        },
+        defaultValue: "126.5"
+      },
+      heaterBedroomSummermode: {
+        state: {
+          name: "tele/home-rust/fritzbox/device/bedroom/summeractive",
+          type: (msg) => (msg.toString().split(" ")[1])
+        },
+        defaultValue: "1"
+      },
       heaterOfficeNachtabsenkung: {
         state: {
           name: "home-rust/temperature-control/office_heating/heat_request/4",
@@ -293,11 +312,28 @@ const config: Config = {
       ]
     },
     bedroomFan: {
-      name: "Lüftung Schlafzimmer",
+      name: "Lüftung/Heizung Schlafzimmer",
       position: [140, 25],
-      icon: svg(icons.mdiFan).color(({fanBedroomState}) =>
-        (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000"))),
+      icon: withState((s) => (
+        s["heaterBedroomSummermode"] === "1" ?
+
+          //Sommermodus => Lüftungsstatus anzeigen
+          svg(icons.mdiFan).color(({fanBedroomState}) =>
+            (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")))
+
+          :  s["heaterBedroomTsoll"] === "126.5" ?
+
+          //Solltemperatur == aus
+          svg(icons.mdiRadiatorDisabled)
+
+          //Normalbetrieb
+          : svg(icons.mdiRadiator)
+      )),
       ui: [
+        {
+          type: "section",
+          text: "Lüftung"
+        },
         {
           type: "toggle",
           topic: "fanBedroomState",
@@ -322,6 +358,40 @@ const config: Config = {
             { value: 15, label: "15°C" },
             { value: 20, label: "20°C" },
             { value: 25, label: "25°C" }
+          ]
+        },
+        {
+          type: "section",
+          text: "Heizung"
+        },
+        {
+          type: "toggle",
+          topic: "heaterBedroomTsoll",
+          text: "Volle Power",
+          icon: svg(icons.mdiRadiator),
+          on: "127",
+          off: "25"
+        },
+        {
+          type: "toggle",
+          topic: "heaterBedroomTsoll",
+          text: "Ausschalten",
+          icon: svg(icons.mdiRadiatorDisabled),
+          on: "126.5",
+          off: "25"
+        },
+        {
+          type: "slider",
+          min: 8,
+          max: 28,
+          step: 0.5,
+          text: "Zieltemperatur",
+          icon: svg(icons.mdiOilTemperature),
+          topic: "heaterBedroomTsoll",
+          marks: [
+            { value: 8, label: "8°C" },
+            { value: 18, label: "18°C" },
+            { value: 28, label: "28°C" }
           ]
         }
       ]
