@@ -208,8 +208,8 @@ const config: Config = {
       },
       heaterBedroomSummermode: {
         state: {
-          name: "tele/home-rust/fritzbox/device/bedroom/summeractive",
-          type: (msg) => (msg.toString().split(" ")[1])
+          name: "tele/home-rust/fritzbox/device/bedroom",
+          type: types.json("summeractive")
         },
         defaultValue: "1"
       },
