@@ -4,7 +4,7 @@ import * as types from "config/types";
 import { svg, withState } from "config/icon";
 import { hex } from "config/colors";
 import * as icons from "@mdi/js";
-import { Buffer } from "bl";
+//import { Buffer } from "bl";
 
 const topicBulbHomeRust = (bulb: string, argument: string) => ({
   [`${bulb}${argument}`]: {
@@ -150,6 +150,7 @@ const config: Config = {
       ...topicBulbHomeRust("livingroom", "mode"),
       ...topicBulbNumber("livingroom", "brightness"),
       ...topicBulbState("livingroom"),
+
       ...topicBulbHomeRust("ledstrip_livingroom", "r"),
       ...topicBulbHomeRust("ledstrip_livingroom", "g"),
       ...topicBulbHomeRust("ledstrip_livingroom", "b"),
@@ -160,6 +161,50 @@ const config: Config = {
       ...topicBulbHomeRust("ledstrip_livingroom", "y"),
       ...topicBulbNumber("ledstrip_livingroom", "brightness"),
       ...topicBulbState("ledstrip_livingroom"),
+
+
+      ...topicBulbNumber("bedroom", "brightness"),
+      ...topicBulbNumber("bedroom", "color_temp"),
+      ...topicBulbState("bedroom"),
+
+      ...topicBulbNumber("office_window", "brightness"),
+      ...topicBulbNumber("office_window", "color_temp"),
+      ...topicBulbState("office_window"),
+
+      ...topicBulbNumber("office", "brightness"),
+      ...topicBulbState("office"),
+
+      ...topicBulbNumber("hallway", "brightness"),
+      ...topicBulbState("hallway"),
+
+      ...topicBulbNumber("hallway2", "brightness"),
+      ...topicBulbState("hallway2"),
+
+      ...topicBulbNumber("diningroom", "brightness"),
+      ...topicBulbState("diningroom"),
+
+      ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
+      ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling",
+        true),
+
+      ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
+      ...topicTasmota("fanOffice", "sonoff-office-fan"),
+      ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
+      ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
+      ...topicHomeNumber("fanBedroomTarget",
+        "temperature-control/bedroom/target", 21.5),
+      ...topicHomeNumber("fanOfficeTarget",
+        "temperature-control/office/target", 21.5),
+
+      ...topicHomeNumber("heaterOfficeTarget",
+        "temperature-control/office_heating/target", 21.5),
+      ...topicHomeBoolean("heaterOfficeAuto",
+        "temperature-control/office_heating"),
+
+      ...topicHomeBoolean("livingroomKodiControlled",
+        "bulb/livingroom/kodi-controlled"),
+      ...topicHomeBoolean("bedroomWakeup", "wakeup"),
+      ...topicHomeBoolean("lueftenHint", "lueften"),
       nasPower: {
         state: {
           name: "nas/online",
@@ -241,43 +286,7 @@ const config: Config = {
           type: types.string
         },
         defaultValue: "0"
-      },
-      ...topicHomeBoolean("livingroomKodiControlled",
-        "bulb/livingroom/kodi-controlled"),
-      ...topicHomeBoolean("bedroomWakeup", "wakeup"),
-      ...topicBulbNumber("bedroom", "brightness"),
-      ...topicBulbNumber("bedroom", "color_temp"),
-      ...topicBulbNumber("hallway", "brightness"),
-      ...topicBulbState("bedroom"),
-
-      ...topicBulbNumber("office_window", "brightness"),
-      ...topicBulbNumber("office_window", "color_temp"),
-      ...topicBulbState("office_window"),
-
-      ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
-      ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
-      ...topicHomeNumber("fanBedroomTarget",
-        "temperature-control/bedroom/target", 21.5),
-      ...topicTasmota("fanOffice", "sonoff-office-fan"),
-      ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
-      ...topicHomeBoolean("heaterOfficeAuto",
-        "temperature-control/office_heating"),
-      ...topicHomeBoolean("lueftenHint", "lueften"),
-      ...topicHomeNumber("fanOfficeTarget",
-        "temperature-control/office/target", 21.5),
-      ...topicHomeNumber("heaterOfficeTarget",
-        "temperature-control/office_heating/target", 21.5),
-      ...topicBulbNumber("hallway", "brightness"),
-      ...topicBulbState("hallway"),
-      ...topicBulbNumber("hallway2", "brightness"),
-      ...topicBulbState("hallway2"),
-      ...topicBulbNumber("diningroom", "brightness"),
-      ...topicBulbState("diningroom"),
-      ...topicBulbState("office"),
-      ...topicBulbNumber("office", "brightness"),
-      ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
-      ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling",
-        true)
+      }
     }
   ],
   controls: {
