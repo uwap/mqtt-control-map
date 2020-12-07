@@ -781,7 +781,8 @@ const config: Config = {
             "1": "Kodi",
             "2": "Sleep",
             "3": "RGB Fade",
-            "4": "Work"
+            "4": "Work",
+            "5": "Winter"
           },
           icon: svg(icons.mdiCog)
         },
@@ -841,7 +842,8 @@ const config: Config = {
             "1": "Kodi",
             "2": "Sleep",
             "3": "RGB Fade",
-            "4": "Work"
+            "4": "Work",
+            "5": "Winter"
           },
           icon: svg(icons.mdiCog)
         },
