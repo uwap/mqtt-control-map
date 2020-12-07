@@ -205,6 +205,15 @@ const config: Config = {
         "bulb/livingroom/kodi-controlled"),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
       ...topicHomeBoolean("lueftenHint", "lueften"),
+      ...topicHomeNumber("temperatureWarningKitchen",
+        "temperature-warning/kitchen/setpoint", 15.0),
+      temperatureKitchen: {
+        state: {
+          name: "zigbee2mqtt/sensor_kitchen/temperature",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
       nasPower: {
         state: {
           name: "nas/online",
@@ -642,6 +651,34 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "hallway2brightness"
+        }
+      ]
+    },
+    temperatureWarningKitchen: {
+      name: "Untertemperatur-Warnung",
+      position: [625, 660],
+      icon: withState((s) => (
+
+        ( parseFloat(s["temperatureKitchen"])
+          < parseFloat(s["temperatureWarningKitchen"])
+        )
+          ? svg(icons.mdiThermometerAlert).color(hex("#FF0000"))
+          : svg(icons.mdiThermometer)
+      )),
+      ui: [
+        {
+          type: "slider",
+          min: 0,
+          max: 20,
+          step: 1,
+          text: "Schwellwert",
+          icon: svg(icons.mdiThermometerChevronDown),
+          topic: "temperatureWarningKitchen",
+          marks: [
+            { value: 0, label: "0°C" },
+            { value: 15, label: "15°C" },
+            { value: 20, label: "20°C" }
+          ]
         }
       ]
     },
