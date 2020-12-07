@@ -667,6 +667,12 @@ const config: Config = {
       )),
       ui: [
         {
+          type: "text",
+          text: "Istwert:",
+          icon: svg(icons.mdiThermometer),
+          topic: "temperatureKitchen"
+        },
+        {
           type: "slider",
           min: 0,
           max: 20,
