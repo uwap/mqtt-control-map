@@ -249,6 +249,11 @@ const config: Config = {
       ...topicBulbNumber("bedroom", "color_temp"),
       ...topicBulbNumber("hallway", "brightness"),
       ...topicBulbState("bedroom"),
+
+      ...topicBulbNumber("office_window", "brightness"),
+      ...topicBulbNumber("office_window", "color_temp"),
+      ...topicBulbState("office_window"),
+
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
       ...topicHomeNumber("fanBedroomTarget",
@@ -552,6 +557,38 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "officebrightness"
+        }
+      ]
+    },
+    officeWindowLight: {
+      name: "Büro Fenster",
+      position: [173, 658],
+      /* eslint-disable camelcase */
+      icon: svg(icons.mdiDeskLamp).color(({office_windowState}) =>
+        (office_windowState === "on" ? hex("#00FF00") : hex("#000000"))),
+      /* eslint-enable camelcase */
+      ui: [
+        {
+          type: "toggle",
+          topic: "office_windowState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "office_windowbrightness"
+        },
+        {
+          type: "slider",
+          min: 250,
+          max: 454,
+          text: "Farbtemperatur",
+          icon: svg(icons.mdiWeatherSunsetDown),
+          topic: "office_windowcolor_temp"
         }
       ]
     },
