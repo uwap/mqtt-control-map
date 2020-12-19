@@ -248,6 +248,34 @@ const config: Config = {
         },
         defaultValue: "126.5"
       },
+      heaterdiningroomWindowEnd: {
+        state: {
+          name: "tele/home-rust/fritzbox/device/diningroom",
+          type: (msg) => {
+            const json = JSON.parse(msg.toString());
+            if (!json || !json["windowopenactiveendtime"]) {
+              return "inactive";
+            } else {
+              return new Date(json["windowopenactiveendtime"] * 1000).toLocaleTimeString();
+            }
+          }
+        },
+        defaultValue: "unavailable"
+      },
+      heaterdiningroomBoostEnd: {
+        state: {
+          name: "tele/home-rust/fritzbox/device/diningroom",
+          type: (msg) => {
+            const json = JSON.parse(msg.toString());
+            if (!json || !json["boostactiveendtime"]) {
+              return "inactive";
+            } else {
+              return new Date(json["windowopenactiveendtime"] * 1000).toLocaleTimeString();
+            }
+          }
+        },
+        defaultValue: "unavailable"
+      },
       heaterBedroomTsoll: {
         state: {
           name: "tele/home-rust/fritzbox/device/bedroom/tsoll",
@@ -747,6 +775,18 @@ const config: Config = {
             { value: 18, label: "18°C" },
             { value: 28, label: "28°C" }
           ]
+        },
+        {
+          type: "text",
+          text: "Window open mode till",
+          icon: svg(icons.mdiSortClockAscending),
+          topic: "heaterdiningroomWindowEnd"
+        },
+        {
+          type: "text",
+          text: "Boost mode till",
+          icon: svg(icons.mdiSortClockDescending),
+          topic: "heaterdiningroomBoostEnd"
         }
       ]
     },
