@@ -98,6 +98,50 @@ const topicTasmota = (name: string, topic: string) => ({
   }
 });
 
+const topicHeating = (name: string) => ({
+  [`heater${name}Tsoll`]: {
+    state: {
+      name: `tele/home-rust/fritzbox/device/${name}/tsoll`,
+      type: (msg) => ((parseFloat(msg.toString().split(" ")[1])
+      /2).toString())
+    },
+    command: {
+      name: `home-rust/fritzbox/device/${name}/tsoll/set`,
+      type: (msg) => (Buffer.from((parseFloat(msg) * 2).toString()))
+    },
+    defaultValue: "126.5"
+  },
+  [`heater${name}WindowEnd`]: {
+    state: {
+      name: `tele/home-rust/fritzbox/device/${name}`,
+      type: (msg) => {
+        const json = JSON.parse(msg.toString());
+        if (!json || !json["windowopenactiveendtime"]) {
+          return "inactive";
+        } else {
+          return new Date(json["windowopenactiveendtime"] * 1000).toLocaleTimeString();
+        }
+      }
+    },
+    defaultValue: "unavailable"
+  },
+  [`heater${name}BoostEnd`]: {
+    state: {
+      name: `tele/home-rust/fritzbox/device/${name}`,
+      type: (msg) => {
+        const json = JSON.parse(msg.toString());
+        if (!json || !json["boostactiveendtime"]) {
+          return "inactive";
+        } else {
+          return new Date(json["windowopenactiveendtime"] * 1000).toLocaleTimeString();
+        }
+      }
+    },
+    defaultValue: "unavailable"
+  }
+});
+
+
 const sliderRGB = (bulb: string, argument: string) => (
   [{
     type: "slider",
@@ -129,6 +173,50 @@ const sliderSVXY = (bulb: string, argument: string) => (
     topic: `${bulb}${argument}`
   }]
 );
+const radiatorUI = (name: string) => ([
+  {
+    type: "toggle",
+    topic: `heater${name}Tsoll`,
+    text: "Volle Power",
+    icon: svg(icons.mdiRadiator),
+    on: "127",
+    off: "25"
+  },
+  {
+    type: "toggle",
+    topic: `heater${name}Tsoll`,
+    text: "Ausschalten",
+    icon: svg(icons.mdiRadiatorDisabled),
+    on: "126.5",
+    off: "25"
+  },
+  {
+    type: "slider",
+    min: 8,
+    max: 28,
+    step: 0.5,
+    text: "Zieltemperatur",
+    icon: svg(icons.mdiOilTemperature),
+    topic: `heater${name}Tsoll`,
+    marks: [
+      { value: 8, label: "8°C" },
+      { value: 18, label: "18°C" },
+      { value: 28, label: "28°C" }
+    ]
+  },
+  {
+    type: "text",
+    text: "Window open mode till",
+    icon: svg(icons.mdiSortClockAscending),
+    topic: `heater${name}WindowEnd`,
+  },
+  {
+    type: "text",
+    text: "Boost mode till",
+    icon: svg(icons.mdiSortClockDescending),
+    topic: `heater${name}BoostEnd`,
+  }
+]);
 
 const config: Config = {
   space: {
@@ -236,58 +324,10 @@ const config: Config = {
         },
         defaultValue: "253"
       },
-      heaterDiningroomTsoll: {
-        state: {
-          name: "tele/home-rust/fritzbox/device/diningroom/tsoll",
-          type: (msg) => ((parseFloat(msg.toString().split(" ")[1])
-          /2).toString())
-        },
-        command: {
-          name: "home-rust/fritzbox/device/diningroom/tsoll/set",
-          type: (msg) => (Buffer.from((parseFloat(msg) * 2).toString()))
-        },
-        defaultValue: "126.5"
-      },
-      heaterdiningroomWindowEnd: {
-        state: {
-          name: "tele/home-rust/fritzbox/device/diningroom",
-          type: (msg) => {
-            const json = JSON.parse(msg.toString());
-            if (!json || !json["windowopenactiveendtime"]) {
-              return "inactive";
-            } else {
-              return new Date(json["windowopenactiveendtime"] * 1000).toLocaleTimeString();
-            }
-          }
-        },
-        defaultValue: "unavailable"
-      },
-      heaterdiningroomBoostEnd: {
-        state: {
-          name: "tele/home-rust/fritzbox/device/diningroom",
-          type: (msg) => {
-            const json = JSON.parse(msg.toString());
-            if (!json || !json["boostactiveendtime"]) {
-              return "inactive";
-            } else {
-              return new Date(json["windowopenactiveendtime"] * 1000).toLocaleTimeString();
-            }
-          }
-        },
-        defaultValue: "unavailable"
-      },
-      heaterBedroomTsoll: {
-        state: {
-          name: "tele/home-rust/fritzbox/device/bedroom/tsoll",
-          type: (msg) => ((parseFloat(msg.toString().split(" ")[1])
-          /2).toString())
-        },
-        command: {
-          name: "home-rust/fritzbox/device/bedroom/tsoll/set",
-          type: (msg) => (Buffer.from((parseFloat(msg) * 2).toString()))
-        },
-        defaultValue: "126.5"
-      },
+
+      ...topicHeating("diningroom"),
+      ...topicHeating("bedroom"),
+
       heaterBedroomSummermode: {
         state: {
           name: "tele/home-rust/fritzbox/device/bedroom",
@@ -374,7 +414,7 @@ const config: Config = {
             (fanBedroomState === "on" ? hex("#00FF00") : hex("#000000")))
 
           //Wintermodus => Heizungsstatus anzeigen
-          : s["heaterBedroomTsoll"] === "126.5" ?
+          : s["heaterbedroomTsoll"] === "126.5" ?
             //Solltemperatur == aus
             svg(icons.mdiRadiatorDisabled)
             //Normalbetrieb
@@ -414,38 +454,7 @@ const config: Config = {
         {
           type: "section",
           text: "Heizung"
-        },
-        {
-          type: "toggle",
-          topic: "heaterBedroomTsoll",
-          text: "Volle Power",
-          icon: svg(icons.mdiRadiator),
-          on: "127",
-          off: "25"
-        },
-        {
-          type: "toggle",
-          topic: "heaterBedroomTsoll",
-          text: "Ausschalten",
-          icon: svg(icons.mdiRadiatorDisabled),
-          on: "126.5",
-          off: "25"
-        },
-        {
-          type: "slider",
-          min: 8,
-          max: 28,
-          step: 0.5,
-          text: "Zieltemperatur",
-          icon: svg(icons.mdiOilTemperature),
-          topic: "heaterBedroomTsoll",
-          marks: [
-            { value: 8, label: "8°C" },
-            { value: 18, label: "18°C" },
-            { value: 28, label: "28°C" }
-          ]
-        }
-      ]
+        }].concat(radiatorUI("bedroom"))
     },
     officeSpeaker: {
       name: "Lautsprecher",
@@ -741,54 +750,11 @@ const config: Config = {
     diningroomHeater: {
       name: "Heizung Esszimmer",
       position: [410, 658],
-      icon: withState(({heaterDiningroomTsoll}) => (
-        heaterDiningroomTsoll === "126.5" ?
+      icon: withState(({heaterdiningroomTsoll}) => (
+        heaterdiningroomTsoll === "126.5" ?
           svg(icons.mdiRadiatorDisabled) : svg(icons.mdiRadiator)
       )),
-      ui: [
-        {
-          type: "toggle",
-          topic: "heaterDiningroomTsoll",
-          text: "Volle Power",
-          icon: svg(icons.mdiRadiator),
-          on: "127",
-          off: "25"
-        },
-        {
-          type: "toggle",
-          topic: "heaterDiningroomTsoll",
-          text: "Ausschalten",
-          icon: svg(icons.mdiRadiatorDisabled),
-          on: "126.5",
-          off: "25"
-        },
-        {
-          type: "slider",
-          min: 8,
-          max: 28,
-          step: 0.5,
-          text: "Zieltemperatur",
-          icon: svg(icons.mdiOilTemperature),
-          topic: "heaterDiningroomTsoll",
-          marks: [
-            { value: 8, label: "8°C" },
-            { value: 18, label: "18°C" },
-            { value: 28, label: "28°C" }
-          ]
-        },
-        {
-          type: "text",
-          text: "Window open mode till",
-          icon: svg(icons.mdiSortClockAscending),
-          topic: "heaterdiningroomWindowEnd"
-        },
-        {
-          type: "text",
-          text: "Boost mode till",
-          icon: svg(icons.mdiSortClockDescending),
-          topic: "heaterdiningroomBoostEnd"
-        }
-      ]
+      ui: radiatorUI("diningroom")
     },
     pi: {
       name: "Pi",
