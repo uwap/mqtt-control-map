@@ -133,7 +133,7 @@ const topicHeating = (name: string) => ({
         if (!json || !json["boostactiveendtime"]) {
           return "inactive";
         } else {
-          return new Date(json["windowopenactiveendtime"] * 1000).toLocaleTimeString();
+          return new Date(json["boostactiveendtime"] * 1000).toLocaleTimeString();
         }
       }
     },
