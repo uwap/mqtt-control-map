@@ -101,12 +101,24 @@ const topicTasmota = (name: string, topic: string) => ({
 const topicHeating = (name: string) => ({
   [`heater${name}Tsoll`]: {
     state: {
-      name: `tele/home-rust/fritzbox/device/${name}/tsoll`,
-      type: (msg) => ((parseFloat(msg.toString().split(" ")[1])
-      /2).toString())
+      name: `tele/home-rust/fritzbox/device/${name}`,
+      type: (msg) => {
+        const json = JSON.parse(msg.toString());
+        if (!json || !json["tsoll"]) {
+          return "126.5";
+        } else {
+          const tsoll = json["tsoll"] / 2;
+          if (!json["offset"] || tsoll > 50) {
+            return tsoll.toString();
+          } else {
+            return (tsoll - json["offset"]/10).toString();
+          }
+        }
+      }
     },
     command: {
       name: `home-rust/fritzbox/device/${name}/tsoll/set`,
+      //TODO: add offset before writing out new value
       type: (msg) => (Buffer.from((parseFloat(msg) * 2).toString()))
     },
     defaultValue: "126.5"
@@ -180,7 +192,7 @@ const radiatorUI = (name: string) => ([
     text: "Volle Power",
     icon: svg(icons.mdiRadiator),
     on: "127",
-    off: "25"
+    off: "22"
   },
   {
     type: "toggle",
@@ -188,20 +200,20 @@ const radiatorUI = (name: string) => ([
     text: "Ausschalten",
     icon: svg(icons.mdiRadiatorDisabled),
     on: "126.5",
-    off: "25"
+    off: "22"
   },
   {
     type: "slider",
     min: 8,
-    max: 28,
+    max: 33,
     step: 0.5,
     text: "Zieltemperatur",
     icon: svg(icons.mdiOilTemperature),
     topic: `heater${name}Tsoll`,
     marks: [
-      { value: 8, label: "8°C" },
-      { value: 18, label: "18°C" },
-      { value: 28, label: "28°C" }
+      { value: 3, label: "3°C" },
+      { value: 22, label: "22°C" },
+      { value: 33, label: "33°C" }
     ]
   },
   {
