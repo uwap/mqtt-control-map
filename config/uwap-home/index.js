@@ -313,20 +313,10 @@ const config: Config = {
         },
         defaultValue: "OFF"
       },
-      heaterOfficeTsoll: {
-        state: {
-          name: "tele/home-rust/fritzbox/device/office/tsoll",
-          type: (msg) => (msg.toString().split(" ")[1])
-        },
-        command: {
-          name: "home-rust/fritzbox/device/office/tsoll/set",
-          type: types.string
-        },
-        defaultValue: "253"
-      },
 
       ...topicHeating("diningroom"),
       ...topicHeating("bedroom"),
+      ...topicHeating("office"),
 
       heaterBedroomSummermode: {
         state: {
@@ -479,8 +469,8 @@ const config: Config = {
 
         heaterOfficeAuto === "on" ?
 
-          svg(icons.mdiRadiator).color(({heaterOfficeTsoll}) =>
-            (heaterOfficeTsoll === "254" ? hex("#FF0000") : hex("#000000")))
+          svg(icons.mdiRadiator).color(({heaterofficeTsoll}) =>
+            (heaterofficeTsoll === "127" ? hex("#FF0000") : hex("#000000")))
 
           : svg(icons.mdiFan).color(({fanOfficeState}) =>
             (fanOfficeState === "on" ? hex("#00FF00") : hex("#000000")))
@@ -518,7 +508,7 @@ const config: Config = {
         },
         {
           type: "section",
-          text: "Heizung"
+          text: "Heizung (Automatik)"
         },
         {
           type: "toggle",
@@ -545,8 +535,11 @@ const config: Config = {
             { value: 20, label: "20°C" },
             { value: 25, label: "25°C" }
           ]
-        }
-      ]
+        },
+        {
+          type: "section",
+          text: "Heizung (Manuell)"
+        }].concat(radiatorUI("office"))
     },
     tucana: {
       name: "tucana",
