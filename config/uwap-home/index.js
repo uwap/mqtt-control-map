@@ -300,6 +300,8 @@ const config: Config = {
         "temperature-control/office_heating/target", 21.5),
       ...topicHomeBoolean("heaterOfficeAuto",
         "temperature-control/office_heating"),
+      ...topicHomeBoolean("heaterOfficeSelfControl",
+        "temperature-control/office_heating/self_control"),
 
       ...topicHomeBoolean("livingroomKodiControlled",
         "bulb/livingroom/kodi-controlled"),
@@ -533,6 +535,12 @@ const config: Config = {
           topic: "heaterOfficeNachtabsenkung",
           text: "Nachtabsekung",
           icon: svg(icons.mdiWeatherNight)
+        },
+        {
+          type: "toggle",
+          topic: "heaterOfficeSelfControl",
+          text: "Run control on valve",
+          icon: svg(icons.mdiRadiator)
         },
         {
           type: "slider",
