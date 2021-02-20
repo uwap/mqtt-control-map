@@ -318,14 +318,21 @@ const config: Config = {
       },
       nasPower: {
         state: {
-          name: "nas/online",
-          type: types.string
+          name: "home-rust/switch/office/3",
+          type: types.option({
+            "0": "Link Down",
+            "6": "1000M",
+            "5": "100M",
+            "4": "100M (Half Duplex)",
+            "3": "10M",
+            "2": "10M (Half Duplex)"
+          })
         },
         command: {
           name: "home-rust/wake/nas",
           type: types.string
         },
-        defaultValue: "OFF"
+        defaultValue: "0"
       },
 
       ...topicHeating("diningroom"),
@@ -552,7 +559,7 @@ const config: Config = {
           topic: "heaterOfficeTarget",
           marks: [
             { value: 15, label: "15°C" },
-            { value: 20, label: "20°C" },
+            { value: 21.5, label: "21.5°C" },
             { value: 25, label: "25°C" }
           ]
         },
@@ -790,15 +797,26 @@ const config: Config = {
     },
     nas: {
       name: "NAS",
-      position: [550, 100],
+      position: [310, 500],
       icon: svg(icons.mdiNas).color(({nasPower}) =>
-        (nasPower === "on" ? hex("#00FF00") : hex("#000000"))),
+        ({
+          "Link Down": hex("#888888"),
+          "1000M": hex("#00ff00"),
+          "10M": hex("#000000")
+        })[nasPower] || hex("#ff0000")),
       ui: [
         {
           type: "toggle",
           topic: "nasPower",
           text: "Einschalten",
-          icon: svg(icons.mdiPower)
+          icon: svg(icons.mdiPower),
+          on: "1000M"
+        },
+        {
+          type: "text",
+          text: "Link Speed",
+          icon: svg(icons.mdiEthernet),
+          topic: "nasPower"
         }
       ]
     },
