@@ -303,6 +303,11 @@ const config: Config = {
       ...topicHomeBoolean("heaterOfficeSelfControl",
         "temperature-control/office_heating/self_control"),
 
+      ...topicHomeNumber("heaterLivingroomTarget",
+        "temperature-control/livingroom_heating/target", 21.5),
+      ...topicHomeBoolean("heaterLivingroomAuto",
+        "temperature-control/livingroom_heating"),
+
       ...topicHomeBoolean("livingroomKodiControlled",
         "bulb/livingroom/kodi-controlled"),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
@@ -774,7 +779,36 @@ const config: Config = {
         heaterdiningroomTsoll === "126.5" ?
           svg(icons.mdiRadiatorDisabled) : svg(icons.mdiRadiator)
       )),
-      ui: radiatorUI("diningroom")
+      ui: [
+        {
+          type: "section",
+          text: "Heizung (Automatik)"
+        },
+        {
+          type: "toggle",
+          topic: "heaterLivingroomAuto",
+          text: "Automatik",
+          icon: svg(icons.mdiRadiator)
+        },
+        {
+          type: "slider",
+          min: 15,
+          max: 25,
+          step: 0.1,
+          text: "Zieltemperatur",
+          icon: svg(icons.mdiOilTemperature),
+          topic: "heaterLivingroomTarget",
+          marks: [
+            { value: 15, label: "15°C" },
+            { value: 21.5, label: "21.5°C" },
+            { value: 25, label: "25°C" }
+          ]
+        },
+        {
+          type: "section",
+          text: "Heizung (Manuell)"
+        },
+      ] . concat(radiatorUI("diningroom"))
     },
     pi: {
       name: "Pi",
