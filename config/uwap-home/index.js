@@ -595,7 +595,7 @@ const config: Config = {
     },
     officeSwitch: {
       name: "Switch Büro",
-      position: [200, 540],
+      position: [280, 658],
       icon: svg(icons.mdiLan),
       ui: [
         {
