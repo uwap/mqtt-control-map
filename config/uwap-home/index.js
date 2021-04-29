@@ -323,21 +323,14 @@ const config: Config = {
       },
       nasPower: {
         state: {
-          name: "home-rust/switch/office/3",
-          type: types.option({
-            "0": "Link Down",
-            "6": "1000M",
-            "5": "100M",
-            "4": "100M (Half Duplex)",
-            "3": "10M",
-            "2": "10M (Half Duplex)"
-          })
+          name: "nas/online",
+          type: types.string
         },
         command: {
           name: "home-rust/wake/nas",
           type: types.string
         },
-        defaultValue: "0"
+        defaultValue: "OFF"
       },
 
       ...topicHeating("diningroom"),
@@ -845,24 +838,13 @@ const config: Config = {
       name: "NAS",
       position: [310, 500],
       icon: svg(icons.mdiNas).color(({nasPower}) =>
-        ({
-          "Link Down": hex("#888888"),
-          "1000M": hex("#00ff00"),
-          "10M": hex("#000000")
-        })[nasPower] || hex("#ff0000")),
+        (nasPower === "on" ? hex("#00FF00") : hex("#000000"))),
       ui: [
         {
           type: "toggle",
           topic: "nasPower",
           text: "Einschalten",
           icon: svg(icons.mdiPower),
-          on: "1000M"
-        },
-        {
-          type: "text",
-          text: "Link Speed",
-          icon: svg(icons.mdiEthernet),
-          topic: "nasPower"
         }
       ]
     },
