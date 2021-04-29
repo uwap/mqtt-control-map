@@ -826,6 +826,18 @@ const config: Config = {
           link: "http://192.168.0.12:3000/",
           text: "Grafana",
           icon: svg(icons.mdiOpenInNew)
+        },
+        {
+          type: "link",
+          link: "http://192.168.0.12:1780/",
+          text: "Snapcast",
+          icon: svg(icons.mdiOpenInNew)
+        },
+        {
+          type: "link",
+          link: "http://carina.fritz.box:9981/",
+          text: "tvheadend",
+          icon: svg(icons.mdiOpenInNew)
         }
       ]
     },
