@@ -289,6 +289,7 @@ const config: Config = {
 
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
+      ...topicTasmota("tasmotaProjector", "tasmota-projector"),
       ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
       ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
       ...topicHomeNumber("fanBedroomTarget",
@@ -845,6 +846,20 @@ const config: Config = {
           topic: "nasPower",
           text: "Einschalten",
           icon: svg(icons.mdiPower),
+        }
+      ]
+    },
+    projector: {
+      name: "Beamer",
+      position: [410, 230],
+      icon: svg(icons.mdiProjector).color(({tasmotaProjectorState}) =>
+        (tasmotaProjectorState === "on" ? hex("#00FF00") : hex("#000000"))),
+      ui: [
+        {
+          type: "toggle",
+          topic: "tasmotaProjectorState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
         }
       ]
     },
