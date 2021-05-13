@@ -373,7 +373,21 @@ const config: Config = {
           type: types.string
         },
         defaultValue: "0"
-      }
+      },
+      tasmotaProjectorAutoOff: {
+        state: {
+          name: "tele/tasmota-projector/auto-off",
+          type: types.option({ OFF: "off", ON: "on" })
+        },
+        command: {
+          name: "cmnd/tasmota-projector/backlog",
+          type: types.option({
+            off: "Rule2 off; RuleTimer1 0; Publish2 tele/tasmota-projector/auto-off OFF;",
+            on: "Rule2 on; Publish2 tele/tasmota-projector/auto-off ON;"
+          })
+        },
+        defaultValue: "on"
+      },
     }
   ],
   controls: {
@@ -860,6 +874,12 @@ const config: Config = {
           topic: "tasmotaProjectorState",
           text: "Ein/Ausschalten",
           icon: svg(icons.mdiPower)
+        },
+        {
+          type: "toggle",
+          topic: "tasmotaProjectorAutoOff",
+          text: "Automatik",
+          icon: svg(icons.mdiAutoDownload)
         }
       ]
     },
