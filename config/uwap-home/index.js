@@ -313,6 +313,8 @@ const config: Config = {
         "bulb/livingroom/kodi-controlled"),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
       ...topicHomeBoolean("lueftenHint", "lueften"),
+      ...topicHomeBoolean("printerLight",
+        "bulb/bulb_office_window/auto"),
       ...topicHomeNumber("temperatureWarningKitchen",
         "temperature-warning/kitchen/setpoint", 15.0),
       temperatureKitchen: {
@@ -387,6 +389,27 @@ const config: Config = {
           })
         },
         defaultValue: "on"
+      },
+      printer3DProgresss: {
+        state: {
+          name: "tele/octoPrint/progress/printing",
+          type: (msg) => JSON.parse(msg.toString()).printer_data.progress.completion || "0"
+        },
+        defaultValue: "0"
+      },
+      printer3Dremaining: {
+        state: {
+          name: "tele/octoPrint/progress/printing",
+          type: (msg) => {
+            const json = JSON.parse(msg.toString());
+            if (!json) {
+              return "unavailable";
+            }
+            const secondsLeft = json.printer_data.progress.printTimeLeft;
+            return new Date(secondsLeft * 1000).toISOString().substr(11, 8);
+          }
+        },
+        defaultValue: "unavailable"
       },
     }
   ],
@@ -648,38 +671,6 @@ const config: Config = {
         }
       ]
     },
-    officeWindowLight: {
-      name: "Büro Fenster",
-      position: [173, 658],
-      /* eslint-disable camelcase */
-      icon: svg(icons.mdiDeskLamp).color(({office_windowState}) =>
-        (office_windowState === "on" ? hex("#00FF00") : hex("#000000"))),
-      /* eslint-enable camelcase */
-      ui: [
-        {
-          type: "toggle",
-          topic: "office_windowState",
-          text: "Ein/Ausschalten",
-          icon: svg(icons.mdiPower)
-        },
-        {
-          type: "slider",
-          min: 0,
-          max: 255,
-          text: "Helligkeit",
-          icon: svg(icons.mdiBrightness7),
-          topic: "office_windowbrightness"
-        },
-        {
-          type: "slider",
-          min: 250,
-          max: 454,
-          text: "Farbtemperatur",
-          icon: svg(icons.mdiWeatherSunsetDown),
-          topic: "office_windowcolor_temp"
-        }
-      ]
-    },
     hallwayLight: {
       name: "Flur",
       position: [520, 370],
@@ -860,6 +851,75 @@ const config: Config = {
           topic: "nasPower",
           text: "Einschalten",
           icon: svg(icons.mdiPower),
+        }
+      ]
+    },
+    officeWindowLight: {
+      name: "Büro Fenster",
+      position: [310, 465],
+      /* eslint-disable camelcase */
+      icon: svg(icons.mdiDeskLamp).color(({office_windowState}) =>
+        (office_windowState === "on" ? hex("#00FF00") : hex("#000000"))),
+      /* eslint-enable camelcase */
+      ui: [
+        {
+          type: "toggle",
+          topic: "office_windowState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "toggle",
+          topic: "printerLight",
+          text: "Sync to 3D printer",
+          icon: svg(icons.mdiBrightnessAuto)
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "office_windowbrightness"
+        },
+        {
+          type: "slider",
+          min: 250,
+          max: 454,
+          text: "Farbtemperatur",
+          icon: svg(icons.mdiWeatherSunsetDown),
+          topic: "office_windowcolor_temp"
+        },
+      ]
+    },
+    printer3D: {
+      name: "3D-Drucker",
+      position: [310, 430],
+      icon: svg(icons.mdiPrinter3d),
+      ui: [
+        {
+          type: "link",
+          link: "http://octopi.fritz.box/",
+          text: "Open Webinterface",
+          icon: svg(icons.mdiOpenInNew)
+        },
+        {
+          type: "section",
+          text: "Current Job"
+        },
+        {
+          type: "progress",
+          icon: svg(icons.mdiRotateRight),
+          min: 0,
+          max: 100,
+          text: "Printing Progress",
+          topic: "printer3DProgresss"
+        },
+        {
+          type: "text",
+          text: "Time Left",
+          icon: svg(icons.mdiClock),
+          topic: "printer3Dremaining"
         }
       ]
     },
