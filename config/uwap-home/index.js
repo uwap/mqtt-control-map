@@ -271,6 +271,9 @@ const config: Config = {
       ...topicBulbNumber("office_window", "color_temp"),
       ...topicBulbState("office_window"),
 
+      ...topicBulbNumber("3d_printer", "brightness"),
+      ...topicBulbState("3d_printer"),
+
       ...topicBulbNumber("office", "brightness"),
       ...topicBulbState("office"),
 
@@ -279,6 +282,9 @@ const config: Config = {
 
       ...topicBulbNumber("hallway2", "brightness"),
       ...topicBulbState("hallway2"),
+
+      ...topicBulbNumber("ledstrip_storeroom", "brightness"),
+      ...topicBulbState("ledstrip_storeroom"),
 
       ...topicBulbNumber("diningroom", "brightness"),
       ...topicBulbState("diningroom"),
@@ -314,13 +320,14 @@ const config: Config = {
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
       ...topicHomeBoolean("lueftenHint", "lueften"),
       ...topicHomeBoolean("printerLight",
-        "bulb/bulb_office_window/auto"),
+        "bulb/bulb_3d_printer/auto"),
       ...topicHomeNumber("temperatureWarningKitchen",
         "temperature-warning/kitchen/setpoint", 15.0),
       temperatureKitchen: {
         state: {
-          name: "zigbee2mqtt/sensor_kitchen/temperature",
-          type: types.string
+          name: "tele/sonoff-kittchen/SENSOR",
+          type: types.json("DS18B20-5674FF.Temperature")
+          //type: types.json("$..[?(@.Address==\"28FF7456B5013CBB\")].Temperature")
         },
         defaultValue: "0"
       },
@@ -411,6 +418,24 @@ const config: Config = {
         },
         defaultValue: "unavailable"
       },
+      kodi: {
+        state: {
+          name: "kodi/connected",
+          type: types.string
+        },
+        command: {
+          name: "kodi/command/shutdown",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
+      twitch_status_uwap: {
+        state: {
+          name: "tele/twitch/uwap",
+          type: (msg) => { return msg.toString().endsWith("off") ? "off" : "on"; }
+        },
+        defaultValue: "off"
+      }
     }
   ],
   controls: {
@@ -696,8 +721,13 @@ const config: Config = {
     hallway2Light: {
       name: "Flur",
       position: [250, 370],
-      icon: svg(icons.mdiCeilingLight).color(({hallway2State}) =>
-        (hallway2State === "on" ? hex("#00FF00") : hex("#000000"))),
+      icon: withState((s) => (
+        svg(icons.mdiCeilingLight).color(
+            s["hallway2State"] === "on" ? 
+              (s["twitch_status_uwap"] === "on" ? hex("#FF00FF") : hex("#00FF00"))
+            : 
+              (s["twitch_status_uwap"] === "on" ? hex("#990099") : hex("#000000"))
+        ))),
       ui: [
         {
           type: "toggle",
@@ -712,6 +742,12 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "hallway2brightness"
+        },
+        {
+          type: "text",
+          text: "Twitch Uwap",
+          icon: svg(icons.mdiTwitch),
+          topic: "twitch_status_uwap"
         }
       ]
     },
@@ -856,23 +892,21 @@ const config: Config = {
     },
     officeWindowLight: {
       name: "Büro Fenster",
-      position: [310, 465],
+      position: [310, 658],
       /* eslint-disable camelcase */
       icon: svg(icons.mdiDeskLamp).color(({office_windowState}) =>
         (office_windowState === "on" ? hex("#00FF00") : hex("#000000"))),
       /* eslint-enable camelcase */
       ui: [
         {
+          type: "section",
+          text: "Beleuchtung"
+        },
+        {
           type: "toggle",
           topic: "office_windowState",
           text: "Ein/Ausschalten",
           icon: svg(icons.mdiPower)
-        },
-        {
-          type: "toggle",
-          topic: "printerLight",
-          text: "Sync to 3D printer",
-          icon: svg(icons.mdiBrightnessAuto)
         },
         {
           type: "slider",
@@ -891,7 +925,7 @@ const config: Config = {
           topic: "office_windowcolor_temp"
         },
       ]
-    },
+    }, 
     printer3D: {
       name: "3D-Drucker",
       position: [310, 430],
@@ -920,6 +954,53 @@ const config: Config = {
           text: "Time Left",
           icon: svg(icons.mdiClock),
           topic: "printer3Dremaining"
+        },
+        {
+          type: "section",
+          text: "Beleuchtung"
+        },
+        {
+          type: "toggle",
+          topic: "3d_printerState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "toggle",
+          topic: "printerLight",
+          text: "Sync to 3D printer",
+          icon: svg(icons.mdiBrightnessAuto)
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "3d_printerbrightness"
+        },
+      ]
+    },
+    storeRoomStrip: {
+      name: "LED-Leisten Lager",
+      position: [310, 465],
+      icon: svg(icons.mdiWhiteBalanceIridescent),
+      icon: svg(icons.mdiWhiteBalanceIridescent).color(({ledstrip_storeroomState}) =>
+        (ledstrip_storeroomState === "on" ? hex("#00FF00") : hex("#000000"))),
+      ui: [
+        {
+          type: "toggle",
+          topic: "ledstrip_storeroomState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "ledstrip_storeroombrightness"
         }
       ]
     },
@@ -940,6 +1021,18 @@ const config: Config = {
           topic: "tasmotaProjectorAutoOff",
           text: "Automatik",
           icon: svg(icons.mdiAutoDownload)
+        },
+        {
+          type: "section",
+          text: "Kodi"
+        },
+        {
+          type: "toggle",
+          topic: "kodi",
+          text: "Kodi herunterfahren",
+          icon: svg(icons.mdiPower),
+          on: "2",
+          off: "0",
         }
       ]
     },
