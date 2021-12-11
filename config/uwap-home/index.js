@@ -323,6 +323,10 @@ const config: Config = {
         "bulb/bulb_3d_printer/auto"),
       ...topicHomeNumber("temperatureWarningKitchen",
         "temperature-warning/kitchen/setpoint", 15.0),
+      ...topicHomeNumber("temperatureWarningOffice",
+        "temperature-warning/office/setpoint", 15.0),
+      ...topicHomeNumber("temperatureWarningBedroom",
+        "temperature-warning/bedroom/setpoint", 15.0),
       temperatureKitchen: {
         state: {
           name: "tele/sonoff-kittchen/SENSOR",
@@ -873,7 +877,53 @@ const config: Config = {
           link: "http://carina.fritz.box:9981/",
           text: "tvheadend",
           icon: svg(icons.mdiOpenInNew)
-        }
+        },
+        {
+          type: "section",
+          text: "Kälte-Warnung"
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 20,
+          step: 1,
+          text: "Küche",
+          icon: svg(icons.mdiThermometerChevronDown),
+          topic: "temperatureWarningKitchen",
+          marks: [
+            { value: 0, label: "0°C" },
+            { value: 15, label: "15°C" },
+            { value: 20, label: "20°C" }
+          ]
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 20,
+          step: 1,
+          text: "Büro",
+          icon: svg(icons.mdiThermometerChevronDown),
+          topic: "temperatureWarningOffice",
+          marks: [
+            { value: 0, label: "0°C" },
+            { value: 15, label: "15°C" },
+            { value: 20, label: "20°C" }
+          ]
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 20,
+          step: 1,
+          text: "Schlafzimmer",
+          icon: svg(icons.mdiThermometerChevronDown),
+          topic: "temperatureWarningBedroom",
+          marks: [
+            { value: 0, label: "0°C" },
+            { value: 15, label: "15°C" },
+            { value: 20, label: "20°C" }
+          ]
+        },
       ]
     },
     nas: {
