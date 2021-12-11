@@ -439,7 +439,28 @@ const config: Config = {
           type: (msg) => { return msg.toString().endsWith("off") ? "off" : "on"; }
         },
         defaultValue: "off"
-      }
+      },
+      tadpole_freshness: {
+        state: {
+          name: "stat/tadpole/freshness",
+          type: types.string
+        },
+        defaultValue: "unkown"
+      },
+      tadpole_mic: {
+        state: {
+          name: "stat/tadpole/mic",
+          type: types.string
+        },
+        defaultValue: "unkown"
+      },
+      tadpole_webcam: {
+        state: {
+          name: "stat/tadpole/webcam",
+          type: types.string
+        },
+        defaultValue: "unkown"
+      },
     }
   ],
   controls: {
@@ -728,9 +749,9 @@ const config: Config = {
       icon: withState((s) => (
         svg(icons.mdiCeilingLight).color(
             s["hallway2State"] === "on" ? 
-              (s["twitch_status_uwap"] === "on" ? hex("#FF00FF") : hex("#00FF00"))
+              (s["tadpole_webcam"] == "on" ? hex("#FF0000") : s["twitch_status_uwap"] === "on" ? hex("#FF00FF") : hex("#00FF00"))
             : 
-              (s["twitch_status_uwap"] === "on" ? hex("#990099") : hex("#000000"))
+              (s["tadpole_webcam"] == "on" ? hex("#990000") : s["twitch_status_uwap"] === "on" ? hex("#990099") : hex("#000000"))
         ))),
       ui: [
         {
@@ -752,6 +773,28 @@ const config: Config = {
           text: "Twitch Uwap",
           icon: svg(icons.mdiTwitch),
           topic: "twitch_status_uwap"
+        },
+        {
+          type: "section",
+          text: "Laptop tadpole"
+        },
+        {
+          type: "text",
+          text: "Datenstand",
+          icon: svg(icons.mdiRefresh),
+          topic: "tadpole_freshness"
+        },
+        {
+          type: "text",
+          text: "Mikrofon",
+          icon: svg(icons.mdiMicrophone),
+          topic: "tadpole_mic"
+        },
+        {
+          type: "text",
+          text: "Webcam",
+          icon: svg(icons.mdiVideo),
+          topic: "tadpole_webcam"
         }
       ]
     },
