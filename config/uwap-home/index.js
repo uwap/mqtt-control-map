@@ -749,9 +749,9 @@ const config: Config = {
       icon: withState((s) => (
         svg(icons.mdiCeilingLight).color(
             s["hallway2State"] === "on" ? 
-              (s["tadpole_webcam"] == "on" ? hex("#FF0000") : s["twitch_status_uwap"] === "on" ? hex("#FF00FF") : hex("#00FF00"))
+              (s["tadpole_webcam"] == "on" ? hex("#FF0000") : s["tadpole_mic"] == "on" ? hex("#0000FF") : s["twitch_status_uwap"] === "on" ? hex("#FF00FF") : hex("#00FF00"))
             : 
-              (s["tadpole_webcam"] == "on" ? hex("#990000") : s["twitch_status_uwap"] === "on" ? hex("#990099") : hex("#000000"))
+              (s["tadpole_webcam"] == "on" ? hex("#990000") : s["tadpole_mic"] == "on" ? hex("#000099") : s["twitch_status_uwap"] === "on" ? hex("#990099") : hex("#000000"))
         ))),
       ui: [
         {
