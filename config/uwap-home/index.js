@@ -433,6 +433,17 @@ const config: Config = {
         },
         defaultValue: "0"
       },
+      wled_livingroom_brightness: {
+        state: {
+          name: "wled/livingroom/g",
+          type: types.string
+        },
+        command: {
+          name: "wled/livingroom",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
       twitch_status_uwap: {
         state: {
           name: "tele/twitch/uwap",
@@ -1267,6 +1278,34 @@ const config: Config = {
           }
         ]).concat(sliderSVXY("ledstrip_livingroom", "x"))
         .concat(sliderSVXY("ledstrip_livingroom", "y"))
+    },
+    livingroomLedStripWled: {
+      name: "Ledstreifen Wohnzimmer",
+      position: [550, 200],
+      icon: svg(icons.mdiWhiteBalanceIridescent),
+      /* eslint-disable camelcase */
+      iconColor: ({ledstrip_livingroomState}) =>
+        (ledstrip_livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      /* eslint-enable camelcase */
+      ui: ([
+        {
+          type: "toggle",
+          topic: "wled_livingroom_brightness",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower),
+          on: "107",
+          off: "0",
+          toggled: (n) => parseInt(n, 10) > 0
+        },
+        {
+          type: "slider",
+          min: 1,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "wled_livingroom_brightness"
+        }
+      ])
     }
   },
   layers: [
