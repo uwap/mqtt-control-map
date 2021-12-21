@@ -262,6 +262,17 @@ const config: Config = {
       ...topicBulbNumber("ledstrip_livingroom", "brightness"),
       ...topicBulbState("ledstrip_livingroom"),
 
+      ...topicBulbHomeRust("office", "r"),
+      ...topicBulbHomeRust("office", "g"),
+      ...topicBulbHomeRust("office", "b"),
+      ...topicBulbHomeRust("office", "h"),
+      ...topicBulbHomeRust("office", "s"),
+      ...topicBulbHomeRust("office", "v"),
+      ...topicBulbHomeRust("office", "x"),
+      ...topicBulbHomeRust("office", "y"),
+      ...topicBulbNumber("office", "brightness"),
+      ...topicBulbState("office"),
+
 
       ...topicBulbNumber("bedroom", "brightness"),
       ...topicBulbNumber("bedroom", "color_temp"),
@@ -273,9 +284,6 @@ const config: Config = {
 
       ...topicBulbNumber("3d_printer", "brightness"),
       ...topicBulbState("3d_printer"),
-
-      ...topicBulbNumber("office", "brightness"),
-      ...topicBulbState("office"),
 
       ...topicBulbNumber("hallway", "brightness"),
       ...topicBulbState("hallway"),
@@ -715,7 +723,7 @@ const config: Config = {
       position: [210, 570],
       icon: svg(icons.mdiCeilingLight).color(({officeState}) =>
         (officeState === "on" ? hex("#00FF00") : hex("#000000"))),
-      ui: [
+      ui: ([
         {
           type: "toggle",
           topic: "officeState",
@@ -729,8 +737,29 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "officebrightness"
+        },
+        {
+          type: "section",
+          text: "RGB"
         }
-      ]
+      ]).concat(sliderRGB("office", "r"))
+        .concat(sliderRGB("office", "g"))
+        .concat(sliderRGB("office", "b"))
+        .concat([
+          {
+            type: "section",
+            text: "HSV"
+          }
+        ]).concat(sliderH("office", "h"))
+        .concat(sliderSVXY("office", "s"))
+        .concat(sliderSVXY("office", "v"))
+        .concat([
+          {
+            type: "section",
+            text: "XY"
+          }
+        ]).concat(sliderSVXY("office", "x"))
+        .concat(sliderSVXY("office", "y"))
     },
     hallwayLight: {
       name: "Flur",
@@ -1221,10 +1250,10 @@ const config: Config = {
     livingroomLedStrip: {
       name: "Ledstreifen Wohnzimmer",
       position: [450, 73],
-      icon: svg(icons.mdiWhiteBalanceIridescent),
       /* eslint-disable camelcase */
-      iconColor: ({ledstrip_livingroomState}) =>
-        (ledstrip_livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiWhiteBalanceIridescent).color(
+        ({ledstrip_livingroomState}) =>
+        (ledstrip_livingroomState === "on" ? hex("#00FF00") : hex("#000000"))),
       /* eslint-enable camelcase */
       ui: ([
         {
@@ -1282,10 +1311,10 @@ const config: Config = {
     livingroomLedStripWled: {
       name: "Ledstreifen Wohnzimmer",
       position: [550, 200],
-      icon: svg(icons.mdiWhiteBalanceIridescent),
       /* eslint-disable camelcase */
-      iconColor: ({ledstrip_livingroomState}) =>
-        (ledstrip_livingroomState === "on" ? hex("#00FF00") : hex("#000000")),
+      icon: svg(icons.mdiWhiteBalanceIridescent).color(
+        ({wled_livingroom_brightness}) =>
+        (wled_livingroom_brightness !== "0" ? hex("#00FF00") : hex("#000000"))),
       /* eslint-enable camelcase */
       ui: ([
         {
@@ -1304,6 +1333,12 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "wled_livingroom_brightness"
+        },
+        {
+          type: "link",
+          link: "http://192.168.0.61/",
+          text: "Open Webinterface",
+          icon: svg(icons.mdiOpenInNew)
         }
       ])
     }
