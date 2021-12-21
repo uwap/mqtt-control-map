@@ -760,6 +760,14 @@ const config: Config = {
           }
         ]).concat(sliderSVXY("office", "x"))
         .concat(sliderSVXY("office", "y"))
+        .concat([
+        {
+          type: "link",
+          link: "http://192.168.0.12:8080/#/device/0x0c4314fffe9bc8c1/exposes",
+          text: "Open Webinterface",
+          icon: svg(icons.mdiOpenInNew)
+        }
+        ])
     },
     hallwayLight: {
       name: "Flur",
