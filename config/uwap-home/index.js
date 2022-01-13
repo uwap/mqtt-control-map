@@ -452,6 +452,17 @@ const config: Config = {
         },
         defaultValue: "0"
       },
+      wled_office_brightness: {
+        state: {
+          name: "wled/office/g",
+          type: types.string
+        },
+        command: {
+          name: "wled/office",
+          type: types.string
+        },
+        defaultValue: "0"
+      },
       twitch_status_uwap: {
         state: {
           name: "tele/twitch/uwap",
@@ -768,6 +779,40 @@ const config: Config = {
           icon: svg(icons.mdiOpenInNew)
         }
         ])
+    },
+    officeLedStripWled: {
+      name: "Ledstreifen Büro",
+      position: [316, 570],
+      /* eslint-disable camelcase */
+      icon: svg(icons.mdiWhiteBalanceIridescent).color(
+        ({wled_office_brightness}) =>
+        (wled_office_brightness !== "0" ? hex("#00FF00") : hex("#000000"))),
+      /* eslint-enable camelcase */
+      ui: ([
+        {
+          type: "toggle",
+          topic: "wled_office_brightness",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower),
+          on: "107",
+          off: "0",
+          toggled: (n) => parseInt(n, 10) > 0
+        },
+        {
+          type: "slider",
+          min: 1,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "wled_office_brightness"
+        },
+        {
+          type: "link",
+          link: "http://192.168.0.66/",
+          text: "Open Webinterface",
+          icon: svg(icons.mdiOpenInNew)
+        }
+      ])
     },
     hallwayLight: {
       name: "Flur",
