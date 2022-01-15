@@ -463,6 +463,13 @@ const config: Config = {
         },
         defaultValue: "0"
       },
+      wled_office_lwt: {
+        state: {
+          name: "home-rust/led-strip-office/lwt",
+          type: types.string
+        },
+        defaultValue: "unknown"
+      },
       twitch_status_uwap: {
         state: {
           name: "tele/twitch/uwap",
@@ -805,6 +812,12 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "wled_office_brightness"
+        },
+        {
+          type: "text",
+          text: "Status",
+          icon: svg(icons.mdiRefresh),
+          topic: "wled_office_lwt"
         },
         {
           type: "link",
