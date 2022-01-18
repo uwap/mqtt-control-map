@@ -20,36 +20,40 @@ const topicBulbHomeRust = (bulb: string, argument: string) => ({
   }
 });
 
-const topicBulbState = (bulb: string) => ({
-  [`${bulb}State`]: {
+const topicZigbeeState = (topic: string, bulb: string) => ({
+  [`${topic}State`]: {
     state: {
-      name: `zigbee2mqtt/bulb_${bulb}/state`,
+      name: `zigbee2mqtt/${bulb}/state`,
       type: types.option({
         OFF: "off",
         ON: "on"
       })
     },
     command: {
-      name: `zigbee2mqtt/bulb_${bulb}/set/state`,
+      name: `zigbee2mqtt/${bulb}/set/state`,
       type: types.string
     },
     defaultValue: "OFF"
   }
 });
+const topicBulbState = (bulb: string) => topicZigbeeState(bulb, `bulb_${bulb}`);
+const topicGroupState = (bulb: string) => topicZigbeeState(bulb, `group_${bulb}`);
 
-const topicBulbNumber = (bulb: string, parameter: string) => ({
-  [`${bulb}${parameter}`]: {
+const topicZigbeeNumber = (topic: string, bulb: string, parameter: string) => ({
+  [`${topic}${parameter}`]: {
     state: {
-      name: `zigbee2mqtt/bulb_${bulb}/${parameter}`,
+      name: `zigbee2mqtt/${bulb}/${parameter}`,
       type: types.string
     },
     command: {
-      name: `zigbee2mqtt/bulb_${bulb}/set/${parameter}`,
+      name: `zigbee2mqtt/${bulb}/set/${parameter}`,
       type: types.string
     },
     defaultValue: "0"
   }
 });
+const topicBulbNumber = (bulb: string, parameter: string) => topicZigbeeNumber(bulb, `bulb_${bulb}`, parameter);
+const topicGroupNumber = (bulb: string, parameter: string) => topicZigbeeNumber(bulb, `group_${bulb}`, parameter);
 
 const topicHomeBoolean = (name: string, topic: string,
   defaultValue: boolean = false) => ({
@@ -277,6 +281,10 @@ const config: Config = {
       ...topicBulbNumber("bedroom", "brightness"),
       ...topicBulbNumber("bedroom", "color_temp"),
       ...topicBulbState("bedroom"),
+
+      ...topicGroupNumber("kitchen", "brightness"),
+      ...topicGroupNumber("kitchen", "color_temp"),
+      ...topicGroupState("kitchen"),
 
       ...topicBulbNumber("office_window", "brightness"),
       ...topicBulbNumber("office_window", "color_temp"),
@@ -957,6 +965,36 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "diningroombrightness"
+        }
+      ]
+    },
+    kitchenLight: {
+      name: "Küche",
+      position: [550, 570],
+      icon: svg(icons.mdiCeilingLight).color(({kitchenState}) =>
+        (kitchenState === "on" ? hex("#00FF00") : hex("#000000"))),
+      ui: [
+        {
+          type: "toggle",
+          topic: "kitchenState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 255,
+          text: "Helligkeit",
+          icon: svg(icons.mdiBrightness7),
+          topic: "kitchenbrightness"
+        },
+        {
+          type: "slider",
+          min: 250,
+          max: 454,
+          text: "Farbtemperatur",
+          icon: svg(icons.mdiWeatherSunsetDown),
+          topic: "kitchencolor_temp"
         }
       ]
     },
