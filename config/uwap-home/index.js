@@ -275,6 +275,7 @@ const config: Config = {
       ...topicBulbHomeRust("office", "x"),
       ...topicBulbHomeRust("office", "y"),
       ...topicBulbNumber("office", "brightness"),
+      ...topicBulbNumber("office", "color_temp"),
       ...topicBulbState("office"),
 
 
@@ -763,6 +764,14 @@ const config: Config = {
           text: "Helligkeit",
           icon: svg(icons.mdiBrightness7),
           topic: "officebrightness"
+        },
+        {
+          type: "slider",
+          min: 250,
+          max: 454,
+          text: "Farbtemperatur",
+          icon: svg(icons.mdiWeatherSunsetDown),
+          topic: "officecolor_temp"
         },
         {
           type: "section",
