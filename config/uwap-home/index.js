@@ -1279,6 +1279,12 @@ const config: Config = {
           icon: svg(icons.mdiPower),
           on: "2",
           off: "0",
+        },
+        {
+          type: "link",
+          link: "http://192.168.0.10:8080/",
+          text: "Open Webinterface",
+          icon: svg(icons.mdiOpenInNew)
         }
       ]
     },
