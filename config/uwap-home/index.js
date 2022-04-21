@@ -507,6 +507,35 @@ const config: Config = {
         },
         defaultValue: "unkown"
       },
+      livingroomSoundbarPower: {
+        state: {
+          name: "media/cec/5",
+          type: types.option({ off: "off", on: "on" })
+        },
+        command: {
+          name: "media/cec/5/cmd",
+          type: types.option({ off: "off", on: "on" })
+        },
+        defaultValue: "off"
+      },
+      livingroomSoundbarHDMI: {
+        command: {
+          name: "media/cec/tx",
+          type: types.option({ off: "1f:82:11:00", on: "1f:82:11:00" })
+        },
+        defaultValue: "off"
+      },
+      livingroomSoundbarVolume: {
+        state: {
+          name: "media/cec/volume",
+          type: types.string
+        },
+        command: {
+          name: "media/cec/volume/set",
+          type: types.string
+        },
+        defaultValue: "0"
+      }
     }
   ],
   controls: {
@@ -1427,9 +1456,38 @@ const config: Config = {
         ]).concat(sliderSVXY("ledstrip_livingroom", "x"))
         .concat(sliderSVXY("ledstrip_livingroom", "y"))
     },
+    livingroomSoundbar: {
+      name: "Soundbar Wohnzimmer",
+      position: [550, 200],
+      icon: svg(icons.mdiSpeaker).color(
+        ({livingroomSoundbarPower}) =>
+        (livingroomSoundbarPower === "on" ? hex("#00FF00") : hex("#000000"))),
+      ui: ([
+        {
+          type: "toggle",
+          topic: "livingroomSoundbarPower",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "toggle",
+          topic: "livingroomSoundbarHDMI",
+          text: "Input: HDMI",
+          icon: svg(icons.mdiVideoInputHdmi)
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          text: "Lautstärke",
+          icon: svg(icons.mdiVolumeHigh),
+          topic: "livingroomSoundbarVolume"
+        },
+      ])
+    },
     livingroomLedStripWled: {
       name: "Ledstreifen Wohnzimmer",
-      position: [550, 200],
+      position: [550, 160],
       /* eslint-disable camelcase */
       icon: svg(icons.mdiWhiteBalanceIridescent).color(
         ({wled_livingroom_brightness}) =>
