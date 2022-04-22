@@ -334,8 +334,11 @@ const config: Config = {
 
       ...topicHomeBoolean("livingroomKodiControlled",
         "bulb/livingroom/kodi-controlled"),
+      ...topicHomeBoolean("projectorControlsSoundbar",
+        "projector-controls-soundbar", true),
       ...topicHomeBoolean("bedroomWakeup", "wakeup"),
       ...topicHomeBoolean("lueftenHint", "lueften"),
+      ...topicHomeBoolean("windowOpenWarning", "window_open_warning", true),
       ...topicHomeBoolean("printerLight",
         "bulb/bulb_3d_printer/auto"),
       ...topicHomeNumber("temperatureWarningKitchen",
@@ -981,7 +984,13 @@ const config: Config = {
             { value: 15, label: "15°C" },
             { value: 20, label: "20°C" }
           ]
-        }
+        },
+        {
+          type: "toggle",
+          topic: "windowOpenWarning",
+          text: "Fenster Offen Warnung",
+          icon: svg(icons.mdiWindowOpenVariant)
+        },
       ]
     },
     diningroomLight: {
@@ -1482,6 +1491,12 @@ const config: Config = {
           text: "Lautstärke",
           icon: svg(icons.mdiVolumeHigh),
           topic: "livingroomSoundbarVolume"
+        },
+        {
+          type: "toggle",
+          topic: "projectorControlsSoundbar",
+          text: "Projector Controlled",
+          icon: svg(icons.mdiProjector)
         },
       ])
     },
