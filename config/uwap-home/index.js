@@ -347,6 +347,9 @@ const config: Config = {
         "temperature-warning/office/setpoint", 15.0),
       ...topicHomeNumber("temperatureWarningBedroom",
         "temperature-warning/bedroom/setpoint", 15.0),
+
+      ...topicZigbeeState("powerFountain", "power_fountain"),
+
       temperatureKitchen: {
         state: {
           name: "tele/sonoff-kittchen/SENSOR",
@@ -1464,6 +1467,21 @@ const config: Config = {
           }
         ]).concat(sliderSVXY("ledstrip_livingroom", "x"))
         .concat(sliderSVXY("ledstrip_livingroom", "y"))
+    },
+    livingroomFountain: {
+      name: "Brunnen Wohnzimmer",
+      position: [550, 240],
+      icon: svg(icons.mdiFountain).color(
+        ({powerFountainState}) =>
+        (powerFountainState === "on" ? hex("#00FF00") : hex("#000000"))),
+      ui: ([
+        {
+          type: "toggle",
+          topic: "powerFountainState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+      ]),
     },
     livingroomSoundbar: {
       name: "Soundbar Wohnzimmer",
