@@ -98,7 +98,17 @@ const topicTasmota = (name: string, topic: string) => ({
       name: `cmnd/${topic}/POWER`,
       type: types.string
     },
-    defaultValue: "OFF"
+    defaultValue: "off"
+  }
+});
+
+const topicTasmotaPower = (name: string, topic: string) => ({
+  [`${name}Power`]: {
+    state: {
+      name: `tele/${topic}/SENSOR`,
+      type: types.json("ENERGY.Power")
+    },
+    defaultValue: "no Data"
   }
 });
 
@@ -306,6 +316,9 @@ const config: Config = {
       ...topicBulbNumber("diningroom", "brightness"),
       ...topicBulbState("diningroom"),
 
+      ...topicZigbeeNumber("officeBlindLeft", "blinds_office_left", "position"),
+      ...topicZigbeeNumber("officeBlindRight", "blinds_office_right", "position"),
+
       ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
       ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling",
         true),
@@ -313,6 +326,8 @@ const config: Config = {
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
       ...topicTasmota("tasmotaProjector", "tasmota-projector"),
+      ...topicTasmota("tasmotaDishwasher", "tasmota-dishwasher"),
+      ...topicTasmotaPower("tasmotaDishwasher", "tasmota-dishwasher"),
       ...topicHomeBoolean("fanBedroomAuto", "temperature-control/bedroom"),
       ...topicHomeBoolean("fanOfficeAuto", "temperature-control/office"),
       ...topicHomeNumber("fanBedroomTarget",
@@ -650,6 +665,41 @@ const config: Config = {
         }
       ]
     },
+    officeBlinds: {
+      name: "Jalousien Büro",
+      position: [170,658],
+      icon: svg(icons.mdiBlinds),
+      ui: [
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          step: 1,
+          text: "Links",
+          icon: svg(icons.mdiArrowUpDown),
+          topic: "officeBlindLeftposition",
+          marks: [
+            { value: 100, label: "Unten" },
+            { value: 0, label: "Oben" },
+            { value: 61, label: "Meow" }
+          ]
+        },
+        {
+          type: "slider",
+          min: 0,
+          max: 100,
+          step: 1,
+          text: "Rechts",
+          icon: svg(icons.mdiArrowUpDown),
+          topic: "officeBlindRightposition",
+          marks: [
+            { value: 100, label: "Unten" },
+            { value: 0, label: "Oben" },
+            { value: 69, label: "Meow" }
+          ]
+        },
+      ],
+    },
     officeFan: {
       name: "Lüftung/Heizung Büro",
       position: [140, 658],
@@ -954,6 +1004,35 @@ const config: Config = {
           icon: svg(icons.mdiVideo),
           topic: "tadpole_webcam"
         }
+      ]
+    },
+    dishwasher: {
+      name: "Spülmaschine",
+      position: [575, 449],
+      icon: withState((s) => (
+        console.log(s["tasmotaDishwasherState"]),
+        ( s["tasmotaDishwasherState"] === "off" )
+          ? svg(icons.mdiDishwasherOff)
+          :
+        ( parseFloat(s["tasmotaDishwasherPower"])
+          < 2
+        )
+          ? svg(icons.mdiDishwasherAlert).color(hex("#FF8700"))
+          : svg(icons.mdiDishwasher).color(hex("#00FF00"))
+      )),
+      ui: [
+        {
+          type: "toggle",
+          topic: "tasmotaDishwasherState",
+          text: "Ein/Ausschalten",
+          icon: svg(icons.mdiPower)
+        },
+        {
+          type: "text",
+          text: "Stromverbrauch (W)",
+          icon: svg(icons.mdiPowerSocketDe),
+          topic: "tasmotaDishwasherPower"
+        },
       ]
     },
     temperatureWarningKitchen: {
