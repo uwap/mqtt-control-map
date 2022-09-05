@@ -669,8 +669,8 @@ const config: Config = {
       name: "Jalousien Büro",
       position: [170,658],
       icon: withState((s) => (
-        (s["officeBlindLeftposition"] < 7 && 
-        s["officeBlindRightposition"] < 7) ? 
+        (s["officeBlindLeftposition"] <= 9 && 
+        s["officeBlindRightposition"] <= 9) ? 
         svg(icons.mdiBlindsOpen) :
         svg(icons.mdiBlinds)
       )),
