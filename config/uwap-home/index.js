@@ -668,7 +668,12 @@ const config: Config = {
     officeBlinds: {
       name: "Jalousien Büro",
       position: [170,658],
-      icon: svg(icons.mdiBlinds),
+      icon: withState((s) => (
+        (s["officeBlindLeftposition"] < 7 && 
+        s["officeBlindRightposition"] < 7) ? 
+        svg(icons.mdiBlindsOpen) :
+        svg(icons.mdiBlinds)
+      )),
       ui: [
         {
           type: "slider",
