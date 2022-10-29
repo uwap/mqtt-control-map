@@ -318,6 +318,8 @@ const config: Config = {
 
       ...topicZigbeeNumber("officeBlindLeft", "blinds_office_left", "position"),
       ...topicZigbeeNumber("officeBlindRight", "blinds_office_right", "position"),
+      ...topicHomeBoolean("officeBlindsVirtualZero", "office-blinds-virtual-zero-position",
+        true),
 
       ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
       ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling",
@@ -703,6 +705,12 @@ const config: Config = {
             { value: 69, label: "Meow" }
           ]
         },
+        {
+          type: "toggle",
+          topic: "officeBlindsVirtualZero",
+          text: "Hide Holes Mode",
+          icon: svg(icons.mdiBlindsOpen)
+        }
       ],
     },
     officeFan: {
