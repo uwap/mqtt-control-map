@@ -1023,7 +1023,6 @@ const config: Config = {
       name: "Spülmaschine",
       position: [575, 449],
       icon: withState((s) => (
-        console.log(s["tasmotaDishwasherState"]),
         ( s["tasmotaDishwasherState"] === "off" )
           ? svg(icons.mdiDishwasherOff)
           :
