@@ -56,14 +56,17 @@ const topicBulbNumber = (bulb: string, parameter: string) => topicZigbeeNumber(b
 const topicGroupNumber = (bulb: string, parameter: string) => topicZigbeeNumber(bulb, `group_${bulb}`, parameter);
 
 const topicHomeBoolean = (name: string, topic: string,
+  defaultValue: boolean = false) => topicBoolean(name, `home-rust/${topic}`, defaultValue);
+
+const topicBoolean = (name: string, topic: string,
   defaultValue: boolean = false) => ({
   [`${name}`]: {
     state: {
-      name: `home-rust/${topic}`,
+      name: `${topic}`,
       type: types.option({ true: "on", false: "off" })
     },
     command: {
-      name: `home-rust/${topic}/set`,
+      name: `${topic}/set`,
       type: types.option({ on: "true", off: "false" })
     },
     defaultValue: defaultValue ? "on" : "off"
@@ -324,6 +327,8 @@ const config: Config = {
       ...topicTasmota("speakerOffice", "sonoff-office-speaker"),
       ...topicHomeBoolean("officeSwitchPollingActive", "switch/office/polling",
         true),
+
+      ...topicBoolean("wledOfficeAuto", "wled/office/automatic"),
 
       ...topicTasmota("fanBedroom", "sonoff-bedroom-fan"),
       ...topicTasmota("fanOffice", "sonoff-office-fan"),
@@ -671,8 +676,8 @@ const config: Config = {
       name: "Jalousien Büro",
       position: [170,658],
       icon: withState((s) => (
-        (s["officeBlindLeftposition"] <= 9 && 
-        s["officeBlindRightposition"] <= 9) ? 
+        (parseInt(s["officeBlindLeftposition"]) <= 9 && 
+        parseInt(s["officeBlindRightposition"]) <= 9) ? 
         svg(icons.mdiBlindsOpen) :
         svg(icons.mdiBlinds)
       )),
@@ -919,6 +924,12 @@ const config: Config = {
           on: "107",
           off: "0",
           toggled: (n) => parseInt(n, 10) > 0
+        },
+        {
+          type: "toggle",
+          topic: "wledOfficeAuto",
+          text: "Automatik",
+          icon: svg(icons.mdiAutoDownload)
         },
         {
           type: "slider",
