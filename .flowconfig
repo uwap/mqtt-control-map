@@ -10,7 +10,6 @@ types/types.js
 types/mqtt.js
 
 [options]
-esproposal.export_star_as=enable
 module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=src
 
