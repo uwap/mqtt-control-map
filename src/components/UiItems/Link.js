@@ -5,7 +5,7 @@ import { isEnabled, isDisabled } from "./utils";
 
 import type { UILink } from "config/flowtypes";
 
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 
 const followLink = (item, state) => () => {
   if (isEnabled(item, state)) {

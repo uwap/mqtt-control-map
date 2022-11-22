@@ -5,7 +5,7 @@ import { getValue } from "./utils";
 
 import type { UIProgress } from "config/flowtypes";
 
-import LinearProgress from "@material-ui/core/LinearProgress";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const progressVal = (item, state) => {
   const min = item.min || 0;

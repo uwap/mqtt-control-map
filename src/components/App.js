@@ -10,12 +10,13 @@ import throttle from "lodash/throttle";
 import type { Config, Control, Topics } from "config/flowtypes";
 
 import {
-  MuiThemeProvider, createMuiTheme, withStyles
-} from "@material-ui/core/styles";
-import * as Colors from "@material-ui/core/colors";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+  ThemeProvider, withStyles
+} from "@mui/styles";
+import { createTheme } from "@mui/material/styles";
+import * as Colors from "@mui/material/colors";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 
 import SideBar from "components/SideBar";
 import ControlMap from "components/ControlMap";
@@ -101,14 +102,6 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
         })
       }
     };
-  }
-
-  static theme(config: Config) {
-    return createMuiTheme({
-      palette: {
-        primary: Colors[config.space.color]
-      }
-    });
   }
 
   receiveMessage(rawTopic: string, message: Buffer) {
@@ -213,11 +206,18 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
   }
 }
 
+const generateTheme = (config: Config) =>
+  createTheme({
+    palette: {
+      primary: Colors[config.space.color]
+    }
+  });
+
 export default (props: AppProps) => {
   const StyledApp = withStyles(App.styles)(App);
   return (
-    <MuiThemeProvider theme={App.theme(props.config)}>
+    <ThemeProvider theme={generateTheme(props.config)}>
       <StyledApp {...props} />
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 };

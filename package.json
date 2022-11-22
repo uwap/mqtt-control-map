@@ -12,8 +12,11 @@
     "precommit": "yarn lint"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@mdi/react": "^1.4.0",
+    "@mui/material": "^5.10.15",
+    "@mui/styles": "^5.10.15",
     "leaflet": "^1.5.1",
     "mqtt": "^4.2.1",
     "react": "^16.8.6",

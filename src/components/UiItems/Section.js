@@ -4,7 +4,7 @@ import createComponent from "./base";
 
 import type { UISection } from "config/flowtypes";
 
-import ListSubheader from "@material-ui/core/ListSubheader";
+import ListSubheader from "@mui/material/ListSubheader";
 
 const BaseComponent = (_b, item: UISection, _state, _changeState) => (
   <ListSubheader>{item.text}</ListSubheader>

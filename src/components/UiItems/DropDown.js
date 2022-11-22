@@ -6,11 +6,11 @@ import { isDisabled, getValue } from "./utils";
 
 import type { UIDropDown } from "config/flowtypes";
 
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Input from "@material-ui/core/Input";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Input from "@mui/material/Input";
 
 const componentId = (item: UIDropDown) => `dropdown-${item.topic}`;
 

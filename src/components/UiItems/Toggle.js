@@ -5,7 +5,7 @@ import { isDisabled, isEnabled, getValue } from "./utils";
 
 import type { UIToggle } from "config/flowtypes";
 
-import Switch from "@material-ui/core/Switch";
+import Switch from "@mui/material/Switch";
 
 const isToggled = (item: UIToggle, state: State) => {
   const isChecked = item.toggled ||

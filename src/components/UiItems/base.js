@@ -2,9 +2,9 @@
 import * as React from "react";
 import MqttContext from "mqtt/context";
 
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
 import throttle from "lodash/throttle";
 import type { Icon } from "config/icon";

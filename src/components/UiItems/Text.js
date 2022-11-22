@@ -5,7 +5,7 @@ import { getValue } from "./utils";
 
 import type { UIText } from "config/flowtypes";
 
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItemText from "@mui/material/ListItemText";
 
 const BaseComponent = ({Icon}, item: UIText, state, _changeState) => (
   <React.Fragment>

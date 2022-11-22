@@ -1,13 +1,13 @@
 // @flow
 import * as React from "react";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
+import { makeStyles } from "@mui/styles";
+import Drawer from "@mui/material/Drawer";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
 import ReactIcon from "@mdi/react";
 import { mdiClose } from "@mdi/js";
 
