@@ -8,10 +8,11 @@ const preBuildScripts = process.env.NO_FLOW == undefined ?
   : [];
 
 const configPath = env => {
-  if (env.length < 3) {
+  const filtered = Object.keys(env).filter((e) => !e.startsWith("WEBPACK"));
+  if (filtered.length < 1) {
     throw "No config file was provided.";
   }
-  return path.resolve(__dirname, `config/${Object.keys(env)[2]}`);
+  return path.resolve(__dirname, `config/${filtered[0]}`);
 };
 
 module.exports = env => ({
