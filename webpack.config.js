@@ -8,10 +8,10 @@ const preBuildScripts = process.env.NO_FLOW == undefined ?
   : [];
 
 const configPath = env => {
-  if (env === true) {
+  if (env.length < 3) {
     throw "No config file was provided.";
   }
-  return path.resolve(__dirname, `config/${env}`);
+  return path.resolve(__dirname, `config/${Object.keys(env)[2]}`);
 };
 
 module.exports = env => ({
@@ -25,7 +25,7 @@ module.exports = env => ({
     alias: {
       'lodash': 'lodash-es',
       "leaflet": "leaflet/dist/leaflet-src.esm.js"
-    }
+    },
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -51,6 +51,10 @@ module.exports = env => ({
     new HtmlWebpackPlugin({
       title: 'Space Map',
       template: 'index.ejs'
-    })
+    }),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+      process: 'process/browser',
+    }),
   ]
 });

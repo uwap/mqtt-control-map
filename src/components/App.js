@@ -9,11 +9,7 @@ import throttle from "lodash/throttle";
 
 import type { Config, Control, Topics } from "config/flowtypes";
 
-import {
-  ThemeProvider, withStyles
-} from "@mui/styles";
-import { createTheme } from "@mui/material/styles";
-import * as Colors from "@mui/material/colors";
+import { withStyles } from "@mui/styles";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -206,18 +202,6 @@ class App extends React.PureComponent<AppProps & Classes, AppState> {
   }
 }
 
-const generateTheme = (config: Config) =>
-  createTheme({
-    palette: {
-      primary: Colors[config.space.color]
-    }
-  });
 
-export default (props: AppProps) => {
-  const StyledApp = withStyles(App.styles)(App);
-  return (
-    <ThemeProvider theme={generateTheme(props.config)}>
-      <StyledApp {...props} />
-    </ThemeProvider>
-  );
-};
+
+export default withStyles(App.styles)(App);
